@@ -41,17 +41,17 @@ Build a **Windows 11-inspired operating system** that serves as an interactive d
 
 ---
 
-## Phase 2 — Backend APIs 🔲
+## Phase 2 — Backend APIs ✅
 
 > **Goal**: Build complete REST APIs for all portfolio data resources.
 
-- [ ] Projects API (`/api/projects`, `/api/projects/:id`)
-- [ ] Skills API (`/api/skills`)
-- [ ] Timeline API (`/api/timeline`)
-- [ ] Achievements API (`/api/achievements`)
-- [ ] Contact form API (`/api/contact`) with email integration
-- [ ] API rate limiting
-- [ ] Response caching
+- [x] Projects API (`/api/projects`, `/api/projects/:id`)
+- [x] Skills API (`/api/skills`)
+- [x] Timeline API (`/api/timeline`)
+- [x] Achievements API (`/api/achievements`)
+- [x] Contact form API (`/api/contact`) with email integration
+- [x] API rate limiting
+- [x] Response caching
 
 ---
 
