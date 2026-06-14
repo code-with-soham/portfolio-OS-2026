@@ -1,0 +1,98 @@
+[
+  {
+    "id": "tl-001",
+    "type": "education",
+    "title": "Bachelor of Technology — Computer Science",
+    "organization": "University of Engineering & Management, Kolkata",
+    "description": "Pursuing B.Tech in Computer Science with a focus on software engineering, data structures, and full-stack web development.",
+    "startDate": "2024-08-01",
+    "endDate": null,
+    "current": true,
+    "highlights": [
+      "GPA: 8.5/10",
+      "Member of Coding Club",
+      "Published research paper on AI in healthcare"
+    ],
+    "icon": "🎓"
+  },
+  {
+    "id": "tl-002",
+    "type": "project",
+    "title": "Started Portfolio OS 2026",
+    "organization": "Personal Project",
+    "description": "Began building the Windows 11-inspired portfolio — a groundbreaking approach to developer portfolios using the MERN stack.",
+    "startDate": "2026-06-01",
+    "endDate": null,
+    "current": true,
+    "highlights": [
+      "Full-stack architecture with MVC pattern",
+      "Custom window management system",
+      "JSON flat-file data storage"
+    ],
+    "icon": "🖥️"
+  },
+  {
+    "id": "tl-003",
+    "type": "project",
+    "title": "Completed HealthSathi AI",
+    "organization": "Personal Project",
+    "description": "Successfully launched an AI-powered health companion application with symptom analysis and personalized recommendations.",
+    "startDate": "2026-01-15",
+    "endDate": "2026-05-20",
+    "current": false,
+    "highlights": [
+      "92% accuracy in symptom analysis",
+      "500+ beta users",
+      "Featured on college tech showcase"
+    ],
+    "icon": "🏥"
+  },
+  {
+    "id": "tl-004",
+    "type": "experience",
+    "title": "Freelance Full-Stack Developer",
+    "organization": "Self-employed",
+    "description": "Building web applications for small businesses and startups. Specializing in React frontends and Node.js backends with modern UI/UX design.",
+    "startDate": "2025-06-01",
+    "endDate": null,
+    "current": true,
+    "highlights": [
+      "5+ client projects delivered",
+      "E-commerce, SaaS, and portfolio sites",
+      "Consistent 5-star client reviews"
+    ],
+    "icon": "💼"
+  },
+  {
+    "id": "tl-005",
+    "type": "project",
+    "title": "Built DevCollab Platform",
+    "organization": "Personal Project",
+    "description": "Created a real-time collaborative coding platform with WebSocket-based code sync, video chat, and code review features.",
+    "startDate": "2025-09-01",
+    "endDate": "2025-12-15",
+    "current": false,
+    "highlights": [
+      "Real-time collaboration with Socket.io",
+      "WebRTC video integration",
+      "Dockerized deployment"
+    ],
+    "icon": "👨‍💻"
+  },
+  {
+    "id": "tl-006",
+    "type": "education",
+    "title": "Higher Secondary — Science (PCM + CS)",
+    "organization": "St. Xavier's Institution, Kolkata",
+    "description": "Completed 12th grade with Computer Science as elective. Built first web projects during this period.",
+    "startDate": "2022-04-01",
+    "endDate": "2024-03-31",
+    "current": false,
+    "highlights": [
+      "Scored 92% in Computer Science",
+      "Won inter-school coding competition",
+      "Built first portfolio website"
+    ],
+    "icon": "📚"
+  }
+]

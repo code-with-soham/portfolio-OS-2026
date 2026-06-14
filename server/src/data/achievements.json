@@ -1,0 +1,56 @@
+[
+  {
+    "id": "ach-001",
+    "title": "500+ GitHub Contributions",
+    "description": "Maintained a consistent coding streak with over 500 contributions across open-source and personal projects in the past year.",
+    "date": "2026-01-01",
+    "category": "coding",
+    "icon": "🟢",
+    "link": "https://github.com/sohamkundu"
+  },
+  {
+    "id": "ach-002",
+    "title": "College Tech Showcase — Best Project",
+    "description": "HealthSathi AI was awarded Best Project at the university's annual technology showcase for innovation in AI-powered healthcare.",
+    "date": "2026-05-15",
+    "category": "award",
+    "icon": "🏆",
+    "link": null
+  },
+  {
+    "id": "ach-003",
+    "title": "Inter-School Coding Competition — 1st Place",
+    "description": "Won first place in a competitive programming contest with 200+ participants from across the state.",
+    "date": "2023-11-20",
+    "category": "competition",
+    "icon": "🥇",
+    "link": null
+  },
+  {
+    "id": "ach-004",
+    "title": "Research Paper Published",
+    "description": "Co-authored a research paper on 'AI-Driven Symptom Analysis in Web Applications' published in a university journal.",
+    "date": "2026-04-10",
+    "category": "publication",
+    "icon": "📄",
+    "link": null
+  },
+  {
+    "id": "ach-005",
+    "title": "5-Star Freelance Rating",
+    "description": "Achieved a consistent 5-star rating across all freelance client projects, with 100% on-time delivery.",
+    "date": "2026-03-01",
+    "category": "professional",
+    "icon": "⭐",
+    "link": null
+  },
+  {
+    "id": "ach-006",
+    "title": "Open Source Contributor",
+    "description": "Contributed bug fixes and feature enhancements to popular open-source projects including React-based UI libraries.",
+    "date": "2025-08-15",
+    "category": "open-source",
+    "icon": "🌐",
+    "link": "https://github.com/sohamkundu"
+  }
+]

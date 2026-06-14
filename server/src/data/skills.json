@@ -1,0 +1,161 @@
+{
+  "categories": [
+    {
+      "name": "Frontend",
+      "icon": "🎨",
+      "skills": [
+        {
+          "name": "React",
+          "level": "Advanced",
+          "proficiency": 90,
+          "icon": "react",
+          "yearsUsed": 2
+        },
+        {
+          "name": "JavaScript",
+          "level": "Advanced",
+          "proficiency": 92,
+          "icon": "javascript",
+          "yearsUsed": 3
+        },
+        {
+          "name": "TypeScript",
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "typescript",
+          "yearsUsed": 1
+        },
+        {
+          "name": "Tailwind CSS",
+          "level": "Advanced",
+          "proficiency": 88,
+          "icon": "tailwindcss",
+          "yearsUsed": 2
+        },
+        {
+          "name": "HTML/CSS",
+          "level": "Advanced",
+          "proficiency": 95,
+          "icon": "html5",
+          "yearsUsed": 3
+        },
+        {
+          "name": "Framer Motion",
+          "level": "Intermediate",
+          "proficiency": 72,
+          "icon": "framer",
+          "yearsUsed": 1
+        }
+      ]
+    },
+    {
+      "name": "Backend",
+      "icon": "⚙️",
+      "skills": [
+        {
+          "name": "Node.js",
+          "level": "Advanced",
+          "proficiency": 85,
+          "icon": "nodejs",
+          "yearsUsed": 2
+        },
+        {
+          "name": "Express.js",
+          "level": "Advanced",
+          "proficiency": 88,
+          "icon": "express",
+          "yearsUsed": 2
+        },
+        {
+          "name": "MongoDB",
+          "level": "Intermediate",
+          "proficiency": 78,
+          "icon": "mongodb",
+          "yearsUsed": 1.5
+        },
+        {
+          "name": "REST APIs",
+          "level": "Advanced",
+          "proficiency": 90,
+          "icon": "api",
+          "yearsUsed": 2
+        },
+        {
+          "name": "PostgreSQL",
+          "level": "Beginner",
+          "proficiency": 55,
+          "icon": "postgresql",
+          "yearsUsed": 0.5
+        }
+      ]
+    },
+    {
+      "name": "Tools & DevOps",
+      "icon": "🔧",
+      "skills": [
+        {
+          "name": "Git & GitHub",
+          "level": "Advanced",
+          "proficiency": 90,
+          "icon": "git",
+          "yearsUsed": 3
+        },
+        {
+          "name": "VS Code",
+          "level": "Advanced",
+          "proficiency": 95,
+          "icon": "vscode",
+          "yearsUsed": 3
+        },
+        {
+          "name": "Docker",
+          "level": "Beginner",
+          "proficiency": 50,
+          "icon": "docker",
+          "yearsUsed": 0.5
+        },
+        {
+          "name": "Vite",
+          "level": "Advanced",
+          "proficiency": 85,
+          "icon": "vite",
+          "yearsUsed": 1.5
+        },
+        {
+          "name": "Postman",
+          "level": "Advanced",
+          "proficiency": 88,
+          "icon": "postman",
+          "yearsUsed": 2
+        }
+      ]
+    },
+    {
+      "name": "AI/ML",
+      "icon": "🤖",
+      "skills": [
+        {
+          "name": "TensorFlow.js",
+          "level": "Beginner",
+          "proficiency": 45,
+          "icon": "tensorflow",
+          "yearsUsed": 0.5
+        },
+        {
+          "name": "Python",
+          "level": "Intermediate",
+          "proficiency": 70,
+          "icon": "python",
+          "yearsUsed": 1
+        },
+        {
+          "name": "OpenAI API",
+          "level": "Intermediate",
+          "proficiency": 68,
+          "icon": "openai",
+          "yearsUsed": 0.5
+        }
+      ]
+    }
+  ]
+}

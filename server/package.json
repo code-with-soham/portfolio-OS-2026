@@ -1,0 +1,29 @@
+{
+  "name": "portfolio-os-server",
+  "version": "1.0.0",
+  "description": "Portfolio OS 2026 — Backend API Server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "portfolio",
+    "express",
+    "api"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "morgan": "^1.11.0",
+    "nodemailer": "^8.0.11"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
