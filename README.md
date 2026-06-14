@@ -80,4 +80,5 @@ App runs on `http://localhost:5173`
 
 ## 📄 License
 
-This project is built for portfolio & educational purposes.
+This Project is Under: 
+# Apache 2.0 license
