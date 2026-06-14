@@ -55,17 +55,19 @@ Build a **Windows 11-inspired operating system** that serves as an interactive d
 
 ---
 
-## Phase 3 — Windows Desktop 🔲
+## Phase 3 — Windows Desktop ✅
 
 > **Goal**: Build the core desktop environment that looks and feels like Windows 11.
 
-- [ ] Desktop component with wallpaper and icon grid
-- [ ] Taskbar with clock, system tray, and app shortcuts
-- [ ] Start Menu with app launcher and search
-- [ ] Right-click context menus
-- [ ] Desktop icon arrangement (drag & drop)
-- [ ] Dark/Light theme toggle with smooth transitions
-- [ ] Boot animation sequence
+- [x] Boot animation sequence (animated logo + orbiting spinner + auto-transition)
+- [x] Lock screen (live clock, date, wallpaper, click-to-unlock slide-up)
+- [x] Desktop component with wallpaper and icon grid
+- [x] Taskbar with clock, system tray, and app shortcuts
+- [x] Start Menu with app launcher and search
+- [x] Notification Center with quick settings + mini calendar
+- [x] Dark/Light theme toggle with smooth transitions
+- [ ] Right-click context menus *(deferred to Phase 5)*
+- [ ] Desktop icon arrangement — drag & drop *(deferred to Phase 5)*
 
 ---
 

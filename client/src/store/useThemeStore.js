@@ -15,10 +15,10 @@ import { persist } from 'zustand/middleware';
 import { THEMES } from '../constants';
 
 /**
- * Theme store — manages dark/light mode
+ * Theme store — manages dark/light mode and wallpaper
  *
  * Usage:
- *   const { theme, toggleTheme } = useThemeStore();
+ *   const { theme, toggleTheme, wallpaper } = useThemeStore();
  */
 export const useThemeStore = create(
   persist(
@@ -42,6 +42,18 @@ export const useThemeStore = create(
         if (Object.values(THEMES).includes(theme)) {
           set({ theme });
         }
+      },
+
+      // Current wallpaper — CSS class name referencing a gradient defined in index.css
+      // 'default' maps to the Windows 11 Bloom-inspired gradient
+      wallpaper: 'default',
+
+      /**
+       * Set a custom wallpaper
+       * @param {string} wallpaperId - The wallpaper identifier
+       */
+      setWallpaper: (wallpaperId) => {
+        set({ wallpaper: wallpaperId });
       },
     }),
     {
