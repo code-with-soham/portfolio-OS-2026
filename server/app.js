@@ -22,11 +22,30 @@ const app = express();
 
 // CORS — Cross-Origin Resource Sharing
 // Allows the frontend (running on a different port) to communicate with the backend
-app.use(cors({
-  origin: config.corsOrigin,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://portfolio-os-2026.vercel.app'
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.vercel.app')
+      ) {
+        return callback(null, true);
+      }
+
+      callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 
 // JSON Body Parser — Parses incoming JSON request bodies
 app.use(express.json({ limit: '10mb' }));
