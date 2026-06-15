@@ -15,6 +15,7 @@ const config = {
   // CORS origin — which frontend URL is allowed to call this API
   corsOrigin: [
     'http://localhost:5173',
+    'https://portfolio-os-2026-chn9ztp2s-soham-kundus-projects.vercel.app',
     'https://portfolio-os-2026.vercel.app'
   ],
 
