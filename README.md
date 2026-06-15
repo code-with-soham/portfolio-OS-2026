@@ -6,6 +6,32 @@ Built with the **MERN stack** (minus MongoDB — uses JSON flat-file storage).
 
 ---
 
+## Live Demo
+
+https://portfolio-os-2026-chn9ztp2s-soham-kundus-projects.vercel.app/
+
+## Status
+
+Current Version: v0.5 Beta
+
+Implemented:
+- Windows Desktop Shell
+- Window Manager
+- About App
+- Projects App
+- Skills App
+- Resume App
+- Terminal App
+- File Explorer
+- Settings App
+
+In Progress:
+- Achievement System
+- UI/UX Redesign
+- AI Assistant
+- Window Snap
+- Alt + Tab
+
 ## 🛠️ Tech Stack
 
 | Layer     | Technology                                    |
