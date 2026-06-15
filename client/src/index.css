@@ -186,25 +186,13 @@ html, body, #root {
 */
 
 .wallpaper-default {
-  background:
-    radial-gradient(ellipse at 25% 80%, #0a3d6b 0%, transparent 50%),
-    radial-gradient(ellipse at 75% 20%, #1a0533 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, #0f1b3d 0%, transparent 70%),
-    radial-gradient(ellipse at 30% 30%, #1e3a5f 0%, transparent 40%),
-    radial-gradient(ellipse at 70% 70%, #0d1f3c 0%, transparent 40%),
-    linear-gradient(180deg, #020818 0%, #0a1628 30%, #0d1f3c 50%, #0a1628 70%, #020818 100%);
+  background: url('./assets/wallpapers/dark/img19.jpg') center/cover no-repeat;
   background-color: #020818;
 }
 
 /* Light theme wallpaper variant */
 [data-theme="light"] .wallpaper-default {
-  background:
-    radial-gradient(ellipse at 25% 80%, #b4d8f0 0%, transparent 50%),
-    radial-gradient(ellipse at 75% 20%, #e8d5f5 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, #d0e4f5 0%, transparent 70%),
-    radial-gradient(ellipse at 30% 30%, #c5dff0 0%, transparent 40%),
-    radial-gradient(ellipse at 70% 70%, #dce8f5 0%, transparent 40%),
-    linear-gradient(180deg, #e8f0fe 0%, #d8e8f8 30%, #c8ddf5 50%, #d8e8f8 70%, #e8f0fe 100%);
+  background: url('./assets/wallpapers/default/img0.jpg') center/cover no-repeat;
   background-color: #e8f0fe;
 }
 

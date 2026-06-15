@@ -22,6 +22,13 @@ export function useKeyboardShortcuts() {
     const handleKeyDown = (e) => {
       const isCapturing = useUIStore.getState().isCapturingInput();
 
+      // Windows key (Meta) — toggle start menu
+      if (e.key === 'Meta') {
+        const { toggleStartMenu } = useDesktopStore.getState();
+        toggleStartMenu();
+        return;
+      }
+
       // Esc — close active window
       if (e.key === 'Escape') {
         // If start menu is open, close it first

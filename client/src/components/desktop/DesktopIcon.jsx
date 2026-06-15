@@ -96,15 +96,29 @@ export default function DesktopIcon({ id, label, icon, onClick }) {
       }}
     >
       {/* Icon */}
-      <span
-        style={{
-          fontSize: '2.5rem',
-          lineHeight: 1,
-          filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
-        }}
-      >
-        {icon}
-      </span>
+      {typeof icon === 'string' && (icon.endsWith('.ico') || icon.endsWith('.png') || icon.includes('assets/')) ? (
+        <img
+          src={icon}
+          alt={label}
+          draggable={false}
+          style={{
+            width: '40px',
+            height: '40px',
+            objectFit: 'contain',
+            filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+          }}
+        />
+      ) : (
+        <span
+          style={{
+            fontSize: '2.5rem',
+            lineHeight: 1,
+            filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+          }}
+        >
+          {icon}
+        </span>
+      )}
 
       {/* Label */}
       <span

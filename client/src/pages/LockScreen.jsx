@@ -59,7 +59,7 @@ export default function LockScreen() {
 
   return (
     <motion.div
-      className="no-select wallpaper-default"
+      className="no-select"
       initial={{ opacity: 0 }}
       animate={
         isUnlocking
@@ -83,8 +83,30 @@ export default function LockScreen() {
         position: 'relative',
         cursor: 'pointer',
         overflow: 'hidden',
+        backgroundColor: '#000',
       }}
     >
+      {/* Blurred Background Layer */}
+      <div 
+        className="wallpaper-default"
+        style={{
+          position: 'absolute',
+          inset: '-20px', // Slightly larger to prevent white/clear edges from blur
+          filter: 'blur(16px)',
+          zIndex: 0,
+        }}
+      />
+      
+      {/* Subtle darkening overlay to make text pop */}
+      <div 
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.25)',
+          zIndex: 1,
+        }}
+      />
+
       {/* Time — large centered clock */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -96,6 +118,7 @@ export default function LockScreen() {
           alignItems: 'center',
           gap: '8px',
           marginTop: '-60px',
+          zIndex: 2,
         }}
       >
         <h1
@@ -134,10 +157,11 @@ export default function LockScreen() {
           bottom: '60px',
           fontSize: '0.875rem',
           fontWeight: 400,
-          color: 'rgba(255, 255, 255, 0.6)',
+          color: 'rgba(255, 255, 255, 0.8)',
           fontFamily: 'var(--font-family)',
           animation: 'hint-pulse 3s ease-in-out infinite',
           letterSpacing: '0.02em',
+          zIndex: 2,
         }}
       >
         Click anywhere to unlock
@@ -153,6 +177,7 @@ export default function LockScreen() {
           bottom: '90px',
           fontSize: '1.25rem',
           color: '#ffffff',
+          zIndex: 2,
         }}
       >
         ⌃

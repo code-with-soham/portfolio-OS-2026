@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useDesktopStore } from '../store/useDesktopStore';
 import { OS_STATES, ANIMATION, APP_NAME } from '../constants';
+import startIcon from '../assets/icons/logos/StartIcon.ico';
 
 /**
  * Windows 11-style boot loading screen
@@ -22,18 +23,11 @@ export default function BootScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setOsState(OS_STATES.LOCKED);
-    }, ANIMATION.BOOT_DURATION * 1000);
+    }, ANIMATION.BOOT_DURATION * 1500);
 
     return () => clearTimeout(timer);
   }, [setOsState]);
 
-  // Stagger animation for the 4 Windows logo squares
-  const logoSquares = [
-    { color: '#f25022', delay: 0 },    // Red (top-left)
-    { color: '#7fba00', delay: 0.1 },   // Green (top-right)
-    { color: '#00a4ef', delay: 0.2 },   // Blue (bottom-left)
-    { color: '#ffb900', delay: 0.3 },   // Yellow (bottom-right)
-  ];
 
   // Spinner dots — 5 dots orbiting in a circle
   const spinnerDots = Array.from({ length: 5 }, (_, i) => i);
@@ -56,53 +50,56 @@ export default function BootScreen() {
         overflow: 'hidden',
       }}
     >
-      {/* Windows-style 4-color logo */}
-      <div
+      {/* Windows 11 Logo */}
+      <motion.img
+        src={startIcon}
+        alt="Windows 11 Logo"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '4px',
-          width: '68px',
-          height: '68px',
+          width: '80px',
+          height: '80px',
+          objectFit: 'contain'
         }}
-      >
-        {logoSquares.map((square, index) => (
-          <motion.div
-            key={index}
-            initial={{ scale: 0, opacity: 0, borderRadius: '8px' }}
-            animate={{
-              scale: 1,
-              opacity: 0.95,
-              borderRadius: '2px',
-            }}
-            transition={{
-              delay: 0.3 + square.delay,
-              duration: 0.5,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            style={{
-              background: square.color,
-              borderRadius: '2px',
-            }}
-          />
-        ))}
-      </div>
+      />
 
       {/* OS Name — fades in after logo */}
-      <motion.h1
+      <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.9, duration: 0.6, ease: 'easeOut' }}
         style={{
-          fontSize: '1.6rem',
-          fontWeight: 300,
-          letterSpacing: '0.06em',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px',
           color: '#ffffff',
           fontFamily: 'var(--font-family)',
         }}
       >
-        {APP_NAME}
-      </motion.h1>
+        <h1
+          style={{
+            fontSize: '1.6rem',
+            fontWeight: 300,
+            letterSpacing: '0.06em',
+            margin: 0,
+          }}
+        >
+          Welcome to My Operating System
+        </h1>
+        <h2
+          style={{
+            fontSize: '1.2rem',
+            fontWeight: 200,
+            letterSpacing: '0.04em',
+            margin: 0,
+            opacity: 0.8,
+          }}
+        >
+          Soham Kundu
+        </h2>
+      </motion.div>
 
       {/* Windows 11-style orbiting dots spinner */}
       <motion.div

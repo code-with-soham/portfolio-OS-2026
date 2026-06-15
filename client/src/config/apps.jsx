@@ -31,11 +31,20 @@ function withErrorBoundary(Component, appName) {
   };
 }
 
+import userIco from '../assets/icons/system/User.ico';
+import projectsIco from '../assets/icons/system/Briefcase.ico';
+import skillsIco from '../assets/icons/system/Hardware.ico';
+import terminalIco from '../assets/icons/system/Programs.ico';
+import resumeIco from '../assets/icons/system/Notes.ico';
+import fileExplorerIco from '../assets/icons/system/Explorer.ico';
+import settingsIco from '../assets/icons/system/Settings.ico';
+import infoIco from '../assets/icons/system/Info.ico';
+
 export const APPS = {
   about: {
     id: 'about',
     title: 'About Me',
-    icon: '👤',
+    icon: userIco,
     component: withErrorBoundary(AboutApp, 'About Me'),
     defaultWidth: 600,
     defaultHeight: 550,
@@ -46,7 +55,7 @@ export const APPS = {
   projects: {
     id: 'projects',
     title: 'Projects',
-    icon: '💼',
+    icon: projectsIco,
     component: withErrorBoundary(ProjectsApp, 'Projects'),
     defaultWidth: 800,
     defaultHeight: 600,
@@ -57,7 +66,7 @@ export const APPS = {
   skills: {
     id: 'skills',
     title: 'Skills',
-    icon: '⚡',
+    icon: skillsIco,
     component: withErrorBoundary(SkillsApp, 'Skills'),
     defaultWidth: 650,
     defaultHeight: 500,
@@ -68,7 +77,7 @@ export const APPS = {
   terminal: {
     id: 'terminal',
     title: 'Terminal',
-    icon: '⬛',
+    icon: terminalIco,
     component: withErrorBoundary(TerminalApp, 'Terminal'),
     defaultWidth: 700,
     defaultHeight: 450,
@@ -79,7 +88,7 @@ export const APPS = {
   resume: {
     id: 'resume',
     title: 'Resume',
-    icon: '📄',
+    icon: resumeIco,
     component: withErrorBoundary(ResumeApp, 'Resume'),
     defaultWidth: 800,
     defaultHeight: 900,
@@ -90,7 +99,7 @@ export const APPS = {
   fileexplorer: {
     id: 'fileexplorer',
     title: 'File Explorer',
-    icon: '📁',
+    icon: fileExplorerIco,
     component: withErrorBoundary(FileExplorerApp, 'File Explorer'),
     defaultWidth: 750,
     defaultHeight: 500,
@@ -101,7 +110,7 @@ export const APPS = {
   settings: {
     id: 'settings',
     title: 'Settings',
-    icon: '⚙️',
+    icon: settingsIco,
     component: withErrorBoundary(SettingsApp, 'Settings'),
     defaultWidth: 700,
     defaultHeight: 500,
@@ -112,7 +121,7 @@ export const APPS = {
   aboutos: {
     id: 'aboutos',
     title: 'About Portfolio OS',
-    icon: 'ℹ️',
+    icon: infoIco,
     component: withErrorBoundary(AboutOSApp, 'About Portfolio OS'),
     defaultWidth: 400,
     defaultHeight: 450,

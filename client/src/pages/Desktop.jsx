@@ -87,6 +87,8 @@ export default function Desktop() {
         ))}
       </div>
 
+
+
       {/* Render open windows */}
       {windows.map((win) => (
         <Window key={win.id} window={win} />

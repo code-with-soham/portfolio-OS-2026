@@ -49,7 +49,16 @@ function PinnedApp({ app, onClick }) {
         minWidth: '80px',
       }}
     >
-      <span style={{ fontSize: '1.75rem', lineHeight: 1 }}>{app.icon}</span>
+      {typeof app.icon === 'string' && (app.icon.endsWith('.ico') || app.icon.endsWith('.png') || app.icon.includes('assets/')) ? (
+        <img
+          src={app.icon}
+          alt={app.label}
+          draggable={false}
+          style={{ width: '32px', height: '32px', objectFit: 'contain' }}
+        />
+      ) : (
+        <span style={{ fontSize: '1.75rem', lineHeight: 1 }}>{app.icon}</span>
+      )}
       <span
         style={{
           fontSize: '0.75rem',
@@ -90,7 +99,16 @@ function RecommendedItem({ item }) {
         textAlign: 'left',
       }}
     >
-      <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>{item.icon}</span>
+      {typeof item.icon === 'string' && (item.icon.endsWith('.ico') || item.icon.endsWith('.png') || item.icon.includes('assets/')) ? (
+        <img
+          src={item.icon}
+          alt={item.label}
+          draggable={false}
+          style={{ width: '20px', height: '20px', objectFit: 'contain' }}
+        />
+      ) : (
+        <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>{item.icon}</span>
+      )}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
         <span
           style={{
@@ -174,9 +192,9 @@ export default function StartMenu() {
           <motion.div
             id="start-menu"
             className="no-select glass-heavy"
-            initial={{ opacity: 0, y: 20, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.98 }}
+            initial={{ opacity: 0, y: 20, x: '-50%', scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, x: '-50%', scale: 1 }}
+            exit={{ opacity: 0, y: 10, x: '-50%', scale: 0.98 }}
             transition={{
               duration: 0.25,
               ease: [0.16, 1, 0.3, 1],
@@ -185,7 +203,6 @@ export default function StartMenu() {
               position: 'fixed',
               bottom: 'calc(var(--taskbar-height) + 12px)',
               left: '50%',
-              transform: 'translateX(-50%)',
               width: 'min(580px, calc(100vw - 32px))',
               borderRadius: 'var(--radius-xl)',
               border: '1px solid var(--color-border)',

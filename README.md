@@ -97,8 +97,8 @@ App runs on `http://localhost:5173`
 | Phase | Focus             | Status      |
 | ----- | ----------------- | ----------- |
 | 1     | Project Foundation | ✅ Complete |
-| 2     | Backend APIs       | 🔲 Pending |
-| 3     | Windows Desktop    | 🔲 Pending |
+| 2     | Backend APIs       | ✅ Complete |
+| 3     | Windows Desktop    | ✅ Complete |
 | 4     | Window Manager     | 🔲 Pending |
 | 5     | Applications       | 🔲 Pending |
 

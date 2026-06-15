@@ -84,6 +84,23 @@ export const OS_STATES = {
   DESKTOP: 'desktop',
 };
 
+import userIco from '../assets/icons/system/User.ico';
+import projectsIco from '../assets/icons/system/Briefcase.ico';
+import skillsIco from '../assets/icons/system/Hardware.ico';
+import terminalIco from '../assets/icons/system/Programs.ico';
+import resumeIco from '../assets/icons/system/Notes.ico';
+import fileExplorerIco from '../assets/icons/system/Explorer.ico';
+import settingsIco from '../assets/icons/system/Settings.ico';
+import infoIco from '../assets/icons/system/Info.ico';
+
+import pcIco from '../assets/icons/system/Computer.ico';
+import controlPanelIco from '../assets/icons/system/Control Panel.ico';
+import downloadsIco from '../assets/icons/system/Folder Downloads.ico';
+import musicIco from '../assets/icons/system/Folder Music.ico';
+import videosIco from '../assets/icons/system/Folder Videos.ico';
+import oneDriveIco from '../assets/icons/system/One Drive.ico';
+import trashIco from '../assets/icons/system/Trash Empty.ico';
+
 /**
  * Desktop Applications — the apps shown on desktop and start menu
  * Each app has an id, display label, emoji icon, and description.
@@ -91,51 +108,99 @@ export const OS_STATES = {
  */
 export const DESKTOP_APPS = [
   {
+    id: 'mypc',
+    label: 'My PC',
+    icon: pcIco,
+    description: 'Computer',
+  },
+  {
+    id: 'user',
+    label: 'User',
+    icon: userIco,
+    description: 'User Folder',
+  },
+  {
+    id: 'downloads',
+    label: 'Downloads',
+    icon: downloadsIco,
+    description: 'Downloads Folder',
+  },
+  {
+    id: 'music',
+    label: 'Music',
+    icon: musicIco,
+    description: 'Music Folder',
+  },
+  {
+    id: 'videos',
+    label: 'Videos',
+    icon: videosIco,
+    description: 'Videos Folder',
+  },
+  {
+    id: 'onedrive',
+    label: 'OneDrive',
+    icon: oneDriveIco,
+    description: 'Cloud Storage',
+  },
+  {
+    id: 'controlpanel',
+    label: 'Control Panel',
+    icon: controlPanelIco,
+    description: 'System Settings',
+  },
+  {
+    id: 'trash',
+    label: 'Recycle Bin',
+    icon: trashIco,
+    description: 'Trash',
+  },
+  {
     id: 'about',
     label: 'About Me',
-    icon: '👤',
+    icon: userIco,
     description: 'Profile & Bio',
   },
   {
     id: 'projects',
     label: 'Projects',
-    icon: '💼',
+    icon: projectsIco,
     description: 'My work',
   },
   {
     id: 'skills',
     label: 'Skills',
-    icon: '⚡',
+    icon: skillsIco,
     description: 'Tech stack',
   },
   {
     id: 'terminal',
     label: 'Terminal',
-    icon: '⬛',
+    icon: terminalIco,
     description: 'Command line',
   },
   {
     id: 'resume',
     label: 'Resume',
-    icon: '📄',
+    icon: resumeIco,
     description: 'Download CV',
   },
   {
     id: 'fileexplorer',
     label: 'File Explorer',
-    icon: '📁',
+    icon: fileExplorerIco,
     description: 'Browse files',
   },
   {
     id: 'settings',
     label: 'Settings',
-    icon: '⚙️',
+    icon: settingsIco,
     description: 'Preferences',
   },
   {
     id: 'aboutos',
     label: 'About OS',
-    icon: 'ℹ️',
+    icon: infoIco,
     description: 'System info',
   },
 ];

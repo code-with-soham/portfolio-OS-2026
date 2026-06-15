@@ -13,12 +13,13 @@ import { useState } from 'react';
 import { useDesktopStore } from '../../store/useDesktopStore';
 import { useThemeStore } from '../../store/useThemeStore';
 import { useWindowStore } from '../../store/useWindowStore';
+import { DESKTOP_APPS } from '../../constants';
 import Clock from './Clock';
 
 /**
  * Taskbar icon button — reusable for all tray icons
  */
-function TaskbarButton({ id, children, onClick, isActive = false, title }) {
+function TaskbarButton({ id, children, onClick, isActive = false, isOpen = false, title }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -50,16 +51,17 @@ function TaskbarButton({ id, children, onClick, isActive = false, title }) {
       }}
     >
       {children}
-      {/* Active indicator dot */}
-      {isActive && (
+      {/* Active / Open indicator dot */}
+      {(isActive || isOpen) && (
         <div
           style={{
             position: 'absolute',
             bottom: '2px',
-            width: '16px',
+            width: isActive ? '16px' : '6px',
             height: '3px',
             borderRadius: '2px',
-            background: 'var(--color-accent)',
+            background: isActive ? 'var(--color-accent)' : 'var(--color-text-tertiary)',
+            transition: 'all 0.2s ease',
           }}
         />
       )}
@@ -70,16 +72,17 @@ function TaskbarButton({ id, children, onClick, isActive = false, title }) {
 /**
  * Windows logo SVG — 4 colored squares
  */
-function WindowsLogo({ size = 16 }) {
-  const gap = size * 0.06;
+function WindowsLogo({ size = 18 }) {
+  const gap = size * 0.08;
   const sq = (size - gap) / 2;
+  const color = "#0078D4"; // Windows 11 blue
 
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-      <rect x="0" y="0" width={sq} height={sq} fill="#f25022" rx="0.5" />
-      <rect x={sq + gap} y="0" width={sq} height={sq} fill="#7fba00" rx="0.5" />
-      <rect x="0" y={sq + gap} width={sq} height={sq} fill="#00a4ef" rx="0.5" />
-      <rect x={sq + gap} y={sq + gap} width={sq} height={sq} fill="#ffb900" rx="0.5" />
+      <rect x="0" y="0" width={sq} height={sq} fill={color} rx="1" />
+      <rect x={sq + gap} y="0" width={sq} height={sq} fill={color} rx="1" />
+      <rect x="0" y={sq + gap} width={sq} height={sq} fill={color} rx="1" />
+      <rect x={sq + gap} y={sq + gap} width={sq} height={sq} fill={color} rx="1" />
     </svg>
   );
 }
@@ -96,6 +99,9 @@ export default function Taskbar() {
   const focusWindow = useWindowStore((s) => s.focusWindow);
   const minimizeWindow = useWindowStore((s) => s.minimizeWindow);
   const restoreWindow = useWindowStore((s) => s.restoreWindow);
+  const openWindow = useWindowStore((s) => s.openWindow);
+
+  const pinnedAppIds = ['mypc', 'about', 'projects', 'skills', 'terminal', 'resume', 'fileexplorer', 'settings'];
 
   const handleWindowClick = (win) => {
     if (win.isMinimized) {
@@ -126,8 +132,20 @@ export default function Taskbar() {
         zIndex: 1000,
       }}
     >
-      {/* Left section — Start + Search */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+      {/* Left section (Empty for widgets in future) */}
+      <div style={{ flex: 1 }}></div>
+
+      {/* Center section — Start, Search, Pinned, Open Windows */}
+      <div 
+        style={{ 
+          position: 'absolute',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '2px' 
+        }}
+      >
         {/* Start Button */}
         <TaskbarButton
           id="taskbar-start-btn"
@@ -139,7 +157,12 @@ export default function Taskbar() {
         </TaskbarButton>
 
         {/* Search Button */}
-        <TaskbarButton id="taskbar-search-btn" title="Search">
+        <TaskbarButton
+          id="taskbar-search-btn"
+          onClick={toggleStartMenu}
+          isActive={isStartMenuOpen}
+          title="Search"
+        >
           <svg
             width="16"
             height="16"
@@ -154,21 +177,55 @@ export default function Taskbar() {
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
         </TaskbarButton>
-      </div>
+        {/* Pinned Apps */}
+        {pinnedAppIds.map((id) => {
+          const app = DESKTOP_APPS.find(a => a.id === id);
+          if (!app) return null;
+          const openWin = windows.find(w => w.id === id);
+          const isActive = openWin && activeWindowId === id && !openWin.isMinimized;
+          const isOpen = !!openWin;
 
-      {/* Center section — Open Windows */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '2px', flex: 1, justifyContent: 'center' }}>
-        {windows.map((win) => {
+          return (
+            <TaskbarButton
+              key={`pinned-${id}`}
+              id={`taskbar-pin-${id}`}
+              onClick={() => {
+                if (openWin) {
+                  handleWindowClick(openWin);
+                } else {
+                  openWindow(id);
+                }
+              }}
+              isActive={isActive}
+              isOpen={isOpen}
+              title={app.label}
+            >
+              {typeof app.icon === 'string' && (app.icon.endsWith('.ico') || app.icon.endsWith('.png') || app.icon.includes('assets/')) ? (
+                <img src={app.icon} alt="" draggable={false} style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
+              ) : (
+                <span style={{ fontSize: '18px' }}>{app.icon}</span>
+              )}
+            </TaskbarButton>
+          );
+        })}
+
+        {/* Unpinned Open Windows */}
+        {windows.filter(win => !pinnedAppIds.includes(win.id)).map((win) => {
           const isActive = activeWindowId === win.id && !win.isMinimized;
           return (
             <TaskbarButton
-              key={win.id}
+              key={`win-${win.id}`}
               id={`taskbar-win-${win.id}`}
               onClick={() => handleWindowClick(win)}
               isActive={isActive}
+              isOpen={true}
               title={win.title}
             >
-              <span style={{ fontSize: '16px' }}>{win.icon}</span>
+              {typeof win.icon === 'string' && (win.icon.endsWith('.ico') || win.icon.endsWith('.png') || win.icon.includes('assets/')) ? (
+                <img src={win.icon} alt="" draggable={false} style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
+              ) : (
+                <span style={{ fontSize: '18px' }}>{win.icon}</span>
+              )}
             </TaskbarButton>
           );
         })}
