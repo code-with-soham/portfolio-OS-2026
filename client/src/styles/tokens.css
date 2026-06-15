@@ -1,0 +1,68 @@
+/* ========================
+   CSS Design Tokens — Dark Theme (Default)
+   ======================== */
+
+:root {
+  /* Windows 11 Accent Colors */
+  --color-accent: #0078d4;
+  --color-accent-hover: #006cbf;
+  --color-accent-light: #cce4f7;
+
+  /* Background Layers */
+  --color-bg-desktop: #000000;
+  --color-bg-taskbar: rgba(32, 32, 32, 0.85);
+  --color-bg-window: rgba(32, 32, 32, 0.92);
+  --color-bg-window-titlebar: rgba(45, 45, 45, 0.95);
+  --color-bg-start-menu: rgba(28, 28, 28, 0.96);
+  --color-bg-surface: rgba(255, 255, 255, 0.05);
+  --color-bg-surface-hover: rgba(255, 255, 255, 0.08);
+  --color-bg-surface-active: rgba(255, 255, 255, 0.04);
+
+  /* Text Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-tertiary: rgba(255, 255, 255, 0.45);
+  --color-text-accent: #60cdff;
+
+  /* Border Colors */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-active: rgba(255, 255, 255, 0.15);
+
+  /* Glassmorphism */
+  --glass-blur: 20px;
+  --glass-bg: rgba(32, 32, 32, 0.75);
+  --glass-bg-heavy: rgba(24, 24, 24, 0.92);
+
+  /* Shadows */
+  --shadow-window: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-taskbar: 0 -2px 12px rgba(0, 0, 0, 0.3);
+  --shadow-context-menu: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-panel: 0 8px 40px rgba(0, 0, 0, 0.5), 0 0 1px rgba(255, 255, 255, 0.1);
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --taskbar-height: 48px;
+
+  /* Typography */
+  --font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+
+  /* Transitions */
+  --transition-fast: 120ms ease;
+  --transition-normal: 200ms ease;
+  --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Border Radius — Windows 11 uses rounded corners */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}

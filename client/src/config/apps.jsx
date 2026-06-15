@@ -39,6 +39,7 @@ import resumeIco from '../assets/icons/system/Notes.ico';
 import fileExplorerIco from '../assets/icons/system/Explorer.ico';
 import settingsIco from '../assets/icons/system/Settings.ico';
 import infoIco from '../assets/icons/system/Info.ico';
+import pcIco from '../assets/icons/system/Computer.ico';
 
 export const APPS = {
   about: {
@@ -106,6 +107,17 @@ export const APPS = {
     category: 'System',
     version: '1.0.0',
     description: 'Browse virtual file system',
+  },
+  mypc: {
+    id: 'mypc',
+    title: 'This PC',
+    icon: pcIco,
+    component: withErrorBoundary(FileExplorerApp, 'This PC'),
+    defaultWidth: 750,
+    defaultHeight: 500,
+    category: 'System',
+    version: '1.0.0',
+    description: 'View drives and devices',
   },
   settings: {
     id: 'settings',

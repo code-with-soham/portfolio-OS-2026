@@ -249,7 +249,7 @@ export default function Window({ window: winData }) {
       
       {/* Window Content Area */}
       <div style={{ flex: 1, overflow: 'auto', position: 'relative' }}>
-        <ContentComponent windowId={id} />
+        <ContentComponent windowId={id} appId={appId} />
       </div>
 
       {/* Resize Handles (only visible when not maximized) */}

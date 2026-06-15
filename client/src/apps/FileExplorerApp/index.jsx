@@ -9,10 +9,14 @@ import { FILE_SYSTEM, resolveNode } from '../../data/fileSystem';
 import { useWindowStore } from '../../store/useWindowStore';
 import './FileExplorerApp.css';
 
+import driverCIco from '../../assets/icons/system/driver-c.ico';
+import driverDIco from '../../assets/icons/system/driver-d.ico';
+
 /**
  * Sidebar quick access items
  */
 const QUICK_ACCESS = [
+  { name: 'This PC', path: ['This PC'], icon: '💻' },
   { name: 'Desktop', path: ['Desktop'], icon: '🖥️' },
   { name: 'Projects', path: ['Desktop', 'Projects'], icon: '📁' },
   { name: 'Resume', path: ['Desktop', 'Resume'], icon: '📄' },
@@ -20,14 +24,22 @@ const QUICK_ACCESS = [
   { name: 'Downloads', path: ['Desktop', 'Downloads'], icon: '📥' },
 ];
 
-export default function FileExplorerApp() {
-  const [currentPath, setCurrentPath] = useState(['Desktop']);
+const DRIVES = [
+  { id: 'C', name: 'Local Disk (C:)', icon: driverCIco, total: 356.0, used: 319.5, unit: 'GB' },
+  { id: 'D', name: 'Local Disk (D:)', icon: driverDIco, total: 1024.0, used: 512.0, unit: 'GB' },
+];
+
+export default function FileExplorerApp({ appId }) {
+  // Start with 'This PC' if launched from My PC, else 'Desktop'
+  const [currentPath, setCurrentPath] = useState(appId === 'mypc' ? ['This PC'] : ['Desktop']);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const openWindow = useWindowStore((s) => s.openWindow);
 
-  // Get the current directory node
-  const currentNode = resolveNode(currentPath);
+  const isThisPC = currentPath.length === 1 && currentPath[0] === 'This PC';
+
+  // Get the current directory node (unless it's This PC)
+  const currentNode = isThisPC ? null : resolveNode(currentPath);
   const items = currentNode?.children || [];
 
   // Navigate to a folder
@@ -46,7 +58,7 @@ export default function FileExplorerApp() {
 
   // Handle item click (single = select)
   const handleItemClick = (item) => {
-    setSelectedItem(item.name);
+    setSelectedItem(item.name || item.id);
   };
 
   // Handle item double-click
@@ -80,7 +92,7 @@ export default function FileExplorerApp() {
         </button>
         <button
           className="explorer-nav-btn"
-          onClick={() => navigateTo(['Desktop'])}
+          onClick={() => navigateTo(['This PC'])}
           title="Home"
         >
           🏠
@@ -125,7 +137,44 @@ export default function FileExplorerApp() {
 
         {/* Content Grid */}
         <div className="explorer-content">
-          {items.length > 0 ? (
+          {isThisPC ? (
+            <div className="explorer-this-pc">
+              <h4 className="this-pc-group-title">Devices and drives ({DRIVES.length})</h4>
+              <div className="this-pc-drives">
+                {DRIVES.map(drive => {
+                  const percentUsed = (drive.used / drive.total) * 100;
+                  const isLowSpace = percentUsed > 90;
+                  return (
+                    <div
+                      key={drive.id}
+                      className={`this-pc-drive ${selectedItem === drive.id ? 'selected' : ''}`}
+                      onClick={() => handleItemClick(drive)}
+                      onDoubleClick={() => navigateTo(['Desktop'])} // Route to desktop for now as simulated C: drive
+                    >
+                      <div className="drive-icon">
+                        <img src={drive.icon} alt={drive.name} style={{ width: '40px', height: '40px' }} />
+                      </div>
+                      <div className="drive-info">
+                        <div className="drive-name">{drive.name}</div>
+                        <div className="drive-progress-bg">
+                          <div
+                            className="drive-progress-fill"
+                            style={{ 
+                              width: `${percentUsed}%`,
+                              backgroundColor: isLowSpace ? '#e81123' : 'var(--color-accent)'
+                            }}
+                          ></div>
+                        </div>
+                        <div className="drive-details">
+                          {drive.total - drive.used} {drive.unit} free of {drive.total} {drive.unit}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : items.length > 0 ? (
             <div className="explorer-grid">
               {items.map((item) => (
                 <div
@@ -155,9 +204,12 @@ export default function FileExplorerApp() {
       {/* Status Bar */}
       <div className="explorer-status">
         <span className="explorer-status-text">
-          {items.length} item{items.length !== 1 ? 's' : ''}
+          {isThisPC 
+            ? `${DRIVES.length} item${DRIVES.length !== 1 ? 's' : ''}` 
+            : `${items.length} item${items.length !== 1 ? 's' : ''}`
+          }
         </span>
-        {selectedItem && (
+        {selectedItem && !isThisPC && (
           <span className="explorer-status-text">
             {items.find((i) => i.name === selectedItem)?.size || ''}
           </span>
