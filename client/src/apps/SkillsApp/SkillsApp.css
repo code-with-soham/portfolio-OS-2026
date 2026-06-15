@@ -1,0 +1,181 @@
+/* ============================================
+   Portfolio OS 2026 — Skills App Styles
+   ============================================ */
+
+.skills-app {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Category Tabs */
+.skills-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0;
+  overflow-x: auto;
+}
+
+.skills-tab {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  font-family: var(--font-family);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.skills-tab:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-surface);
+}
+
+.skills-tab.active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* Category Section */
+.skills-category {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skills-category-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.skills-category-icon {
+  font-size: 1.125rem;
+}
+
+/* Skills Grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 16px;
+}
+
+/* Skill Card */
+.skill-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 8px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-fast);
+  cursor: default;
+  position: relative;
+}
+
+.skill-card:hover {
+  background: var(--color-bg-surface-hover);
+  border-color: var(--color-border-active);
+  transform: translateY(-1px);
+}
+
+/* Circular Progress Ring */
+.skill-ring-container {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.skill-ring {
+  transform: rotate(-90deg);
+  width: 64px;
+  height: 64px;
+}
+
+.skill-ring-bg {
+  fill: none;
+  stroke: var(--color-bg-surface-hover);
+  stroke-width: 4;
+}
+
+.skill-ring-progress {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-ring-progress.advanced {
+  stroke: #10b981;
+}
+
+.skill-ring-progress.intermediate {
+  stroke: #f59e0b;
+}
+
+.skill-ring-progress.beginner {
+  stroke: #f97316;
+}
+
+.skill-percentage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+}
+
+/* Skill Name */
+.skill-name {
+  font-size: 0.75rem;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.skill-level {
+  font-size: 0.625rem;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Tooltip */
+.skill-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--glass-bg-heavy);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-context-menu);
+  font-size: 0.6875rem;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.skill-card:hover .skill-tooltip {
+  opacity: 1;
+}

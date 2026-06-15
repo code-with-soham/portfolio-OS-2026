@@ -1,0 +1,154 @@
+/* ============================================
+   Portfolio OS 2026 — Resume App Styles
+   ============================================ */
+
+.resume-app {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+/* Summary Cards */
+.resume-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.resume-summary-card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.resume-summary-icon {
+  font-size: 1.25rem;
+}
+
+.resume-summary-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.resume-summary-text {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Action Bar */
+.resume-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.resume-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: var(--font-family);
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.resume-action-btn.primary {
+  background: var(--color-accent);
+  color: #ffffff;
+  flex: 1;
+}
+
+.resume-action-btn.primary:hover {
+  background: var(--color-accent-hover);
+}
+
+.resume-action-btn.secondary {
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+
+.resume-action-btn.secondary:hover {
+  background: var(--color-bg-surface-hover);
+}
+
+/* PDF Preview */
+.resume-pdf-container {
+  flex: 1;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  min-height: 400px;
+  background: var(--color-bg-surface);
+  position: relative;
+}
+
+.resume-pdf-container iframe,
+.resume-pdf-container embed {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.resume-pdf-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+  text-align: center;
+  padding: 40px;
+}
+
+.resume-pdf-fallback-icon {
+  font-size: 3rem;
+}
+
+.resume-pdf-fallback-text {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Copy notification */
+.resume-copy-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 20px;
+  border-radius: var(--radius-md);
+  background: var(--glass-bg-heavy);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  font-size: 0.8125rem;
+  box-shadow: var(--shadow-context-menu);
+  z-index: 9999;
+  animation: toast-fade 2s ease forwards;
+}
+
+@keyframes toast-fade {
+  0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}

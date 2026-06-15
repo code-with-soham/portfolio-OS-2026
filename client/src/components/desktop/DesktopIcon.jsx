@@ -8,6 +8,9 @@
 // Phase 5: Double-click will open the app in a window.
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useDesktopStore } from '../../store/useDesktopStore';
+import { useWindowStore } from '../../store/useWindowStore';
 
 /**
  * Desktop icon tile component
@@ -21,12 +24,48 @@ import { useState } from 'react';
 export default function DesktopIcon({ id, label, icon, onClick }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  
+  const iconPositions = useDesktopStore((s) => s.iconPositions);
+  const updateIconPosition = useDesktopStore((s) => s.updateIconPosition);
+  const selectedIconId = useDesktopStore((s) => s.selectedIconId);
+  const setSelectedIconId = useDesktopStore((s) => s.setSelectedIconId);
+  const openWindow = useWindowStore((s) => s.openWindow);
+  
+  const isSelected = selectedIconId === id;
+
+  // Get saved position or default to 0,0
+  const savedPosition = iconPositions[id] || { x: 0, y: 0 };
 
   return (
-    <button
+    <motion.button
       id={`desktop-icon-${id}`}
       className="no-select"
-      onClick={onClick}
+      drag
+      dragMomentum={false}
+      onDragEnd={(e, info) => {
+        // Prevent accidental clicks when dragging
+        if (Math.abs(info.offset.x) > 5 || Math.abs(info.offset.y) > 5) {
+          setIsActive(false);
+        }
+        // Save the new absolute translation
+        const newX = savedPosition.x + info.offset.x;
+        const newY = savedPosition.y + info.offset.y;
+        updateIconPosition(id, newX, newY);
+      }}
+      initial={savedPosition}
+      animate={savedPosition}
+      transition={{ type: 'spring', stiffness: 500, damping: 50 }}
+      onClick={(e) => {
+        e.stopPropagation(); // prevent desktop background click from deselecting immediately
+        // Prevent click if we just dragged
+        if (e.detail === 0) return;
+        setSelectedIconId(id);
+        if (onClick) onClick(e);
+      }}
+      onDoubleClick={(e) => {
+        e.stopPropagation();
+        openWindow(id);
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
         setIsHovered(false);
@@ -42,16 +81,18 @@ export default function DesktopIcon({ id, label, icon, onClick }) {
         gap: '6px',
         width: '76px',
         padding: '8px 4px',
-        border: 'none',
         outline: 'none',
         cursor: 'pointer',
         borderRadius: 'var(--radius-md)',
         background: isActive
           ? 'var(--color-bg-surface-active)'
+          : isSelected
+          ? 'rgba(255, 255, 255, 0.15)' // slightly more visible for selected state
           : isHovered
           ? 'var(--color-bg-surface-hover)'
           : 'transparent',
-        transition: 'background var(--transition-fast)',
+        border: isSelected ? '1px solid rgba(255,255,255,0.2)' : '1px solid transparent',
+        transition: 'background var(--transition-fast), border var(--transition-fast)',
       }}
     >
       {/* Icon */}
@@ -81,6 +122,6 @@ export default function DesktopIcon({ id, label, icon, onClick }) {
       >
         {label}
       </span>
-    </button>
+    </motion.button>
   );
 }

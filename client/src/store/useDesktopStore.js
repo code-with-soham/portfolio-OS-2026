@@ -77,13 +77,71 @@ export const useDesktopStore = create((set, get) => ({
   closeNotificationCenter: () => set({ isNotificationCenterOpen: false }),
 
   // ========================
+  // Context Menu
+  // ========================
+
+  /** Context Menu state */
+  contextMenu: {
+    isOpen: false,
+    x: 0,
+    y: 0,
+    items: [],
+  },
+
+  /** Open context menu at coordinates with items */
+  openContextMenu: (x, y, items) => {
+    set({
+      contextMenu: { isOpen: true, x, y, items },
+      isStartMenuOpen: false,
+      isNotificationCenterOpen: false,
+    });
+  },
+
+  /** Close context menu */
+  closeContextMenu: () => {
+    set((state) => ({
+      contextMenu: { ...state.contextMenu, isOpen: false },
+    }));
+  },
+
+  // ========================
+  // Desktop Icons
+  // ========================
+
+  /** Icon positions keyed by app ID: { [id]: { x, y } } */
+  iconPositions: {},
+
+  /** Update icon position */
+  updateIconPosition: (id, x, y) => {
+    set((state) => ({
+      iconPositions: {
+        ...state.iconPositions,
+        [id]: { x, y },
+      },
+    }));
+  },
+
+  /** Selected desktop icon ID */
+  selectedIconId: null,
+
+  /** Set selected desktop icon */
+  setSelectedIconId: (id) => set({ selectedIconId: id }),
+
+  // ========================
   // Utility
   // ========================
 
   /** Close all open panels (start menu + notification center) */
   closeAllPanels: () =>
-    set({
+    set((state) => ({
       isStartMenuOpen: false,
       isNotificationCenterOpen: false,
-    }),
+      contextMenu: { ...state.contextMenu, isOpen: false },
+      selectedIconId: null, // Deselect icons when clicking background
+    })),
+    
+  // ========================
+  // System Telemetry
+  // ========================
+  bootTime: Date.now(),
 }));

@@ -121,10 +121,22 @@ export const DESKTOP_APPS = [
     description: 'Download CV',
   },
   {
+    id: 'fileexplorer',
+    label: 'File Explorer',
+    icon: '📁',
+    description: 'Browse files',
+  },
+  {
     id: 'settings',
     label: 'Settings',
     icon: '⚙️',
     description: 'Preferences',
+  },
+  {
+    id: 'aboutos',
+    label: 'About OS',
+    icon: 'ℹ️',
+    description: 'System info',
   },
 ];
 

@@ -1,0 +1,109 @@
+/* ============================================
+   Portfolio OS 2026 — About OS Styles
+   ============================================ */
+
+.about-os-app {
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg-base);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.about-os-banner {
+  height: 80px;
+  background: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.about-os-logo {
+  font-family: 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.about-os-icon {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.about-os-content {
+  flex: 1;
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.about-os-header h2 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.about-os-header p {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
+.about-os-divider {
+  height: 1px;
+  background: var(--color-border);
+  width: 100%;
+}
+
+.about-os-details {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 8px 16px;
+  font-size: 0.8125rem;
+}
+
+.about-os-details dt {
+  color: var(--color-text-tertiary);
+  font-weight: 600;
+}
+
+.about-os-details dd {
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.about-os-legal {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+.about-os-footer {
+  padding: 16px 32px;
+  background: var(--color-bg-surface);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.about-os-button {
+  padding: 6px 32px;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.about-os-button:hover {
+  filter: brightness(1.1);
+}

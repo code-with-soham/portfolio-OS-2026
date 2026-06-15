@@ -66,8 +66,8 @@ Build a **Windows 11-inspired operating system** that serves as an interactive d
 - [x] Start Menu with app launcher and search
 - [x] Notification Center with quick settings + mini calendar
 - [x] Dark/Light theme toggle with smooth transitions
-- [ ] Right-click context menus *(deferred to Phase 5)*
-- [ ] Desktop icon arrangement — drag & drop *(deferred to Phase 5)*
+- [x] Right-click context menus *(completed in Phase 3)*
+- [x] Desktop icon arrangement — drag & drop *(completed in Phase 3)*
 
 ---
 

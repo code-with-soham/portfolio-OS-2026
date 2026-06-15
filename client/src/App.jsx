@@ -6,11 +6,13 @@
 //
 // Uses Framer Motion AnimatePresence for smooth page transitions.
 // Applies the theme via data-theme attribute on the root element.
+// Registers global keyboard shortcuts (Esc to close windows).
 
 import { AnimatePresence } from 'framer-motion';
 import { useDesktopStore } from './store/useDesktopStore';
 import { useThemeStore } from './store/useThemeStore';
 import { OS_STATES } from './constants';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 
 import BootScreen from './pages/BootScreen';
 import LockScreen from './pages/LockScreen';
@@ -25,6 +27,9 @@ import Desktop from './pages/Desktop';
 function App() {
   const osState = useDesktopStore((s) => s.osState);
   const theme = useThemeStore((s) => s.theme);
+
+  // Register global keyboard shortcuts (Esc, etc.)
+  useKeyboardShortcuts();
 
   return (
     <div

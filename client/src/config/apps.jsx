@@ -1,0 +1,120 @@
+// ============================================
+// Portfolio OS 2026 — App Registry
+// ============================================
+// Central configuration for all desktop applications.
+// Each app entry maps to a lazy-loaded component, default window
+// dimensions, and metadata for search/explorer integration.
+
+import { ErrorBoundary } from '../components/common/ErrorBoundary';
+
+// App components (direct imports — Vite handles tree-shaking)
+import AboutApp from '../apps/AboutApp/index';
+import ProjectsApp from '../apps/ProjectsApp/index';
+import SkillsApp from '../apps/SkillsApp/index';
+import ResumeApp from '../apps/ResumeApp/index';
+import TerminalApp from '../apps/TerminalApp/index';
+import FileExplorerApp from '../apps/FileExplorerApp/index';
+import SettingsApp from '../apps/SettingsApp/index';
+import AboutOSApp from '../apps/AboutOSApp/index';
+
+/**
+ * Wrap a component in an ErrorBoundary so individual app crashes
+ * don't bring down the entire OS shell.
+ */
+function withErrorBoundary(Component, appName) {
+  return function WrappedApp(props) {
+    return (
+      <ErrorBoundary appName={appName}>
+        <Component {...props} />
+      </ErrorBoundary>
+    );
+  };
+}
+
+export const APPS = {
+  about: {
+    id: 'about',
+    title: 'About Me',
+    icon: '👤',
+    component: withErrorBoundary(AboutApp, 'About Me'),
+    defaultWidth: 600,
+    defaultHeight: 550,
+    category: 'Portfolio',
+    version: '1.0.0',
+    description: 'Profile, bio, social links, and timeline',
+  },
+  projects: {
+    id: 'projects',
+    title: 'Projects',
+    icon: '💼',
+    component: withErrorBoundary(ProjectsApp, 'Projects'),
+    defaultWidth: 800,
+    defaultHeight: 600,
+    category: 'Portfolio',
+    version: '1.0.0',
+    description: 'Browse all projects with search and filters',
+  },
+  skills: {
+    id: 'skills',
+    title: 'Skills',
+    icon: '⚡',
+    component: withErrorBoundary(SkillsApp, 'Skills'),
+    defaultWidth: 650,
+    defaultHeight: 500,
+    category: 'Portfolio',
+    version: '1.0.0',
+    description: 'Tech stack with proficiency levels',
+  },
+  terminal: {
+    id: 'terminal',
+    title: 'Terminal',
+    icon: '⬛',
+    component: withErrorBoundary(TerminalApp, 'Terminal'),
+    defaultWidth: 700,
+    defaultHeight: 450,
+    category: 'System',
+    version: '1.0.0',
+    description: 'Command-line interface with real commands',
+  },
+  resume: {
+    id: 'resume',
+    title: 'Resume',
+    icon: '📄',
+    component: withErrorBoundary(ResumeApp, 'Resume'),
+    defaultWidth: 800,
+    defaultHeight: 900,
+    category: 'Portfolio',
+    version: '1.0.0',
+    description: 'View and download resume PDF',
+  },
+  fileexplorer: {
+    id: 'fileexplorer',
+    title: 'File Explorer',
+    icon: '📁',
+    component: withErrorBoundary(FileExplorerApp, 'File Explorer'),
+    defaultWidth: 750,
+    defaultHeight: 500,
+    category: 'System',
+    version: '1.0.0',
+    description: 'Browse virtual file system',
+  },
+  settings: {
+    id: 'settings',
+    title: 'Settings',
+    icon: '⚙️',
+    component: withErrorBoundary(SettingsApp, 'Settings'),
+    defaultWidth: 700,
+    defaultHeight: 500,
+    category: 'System',
+    version: '1.0.0',
+    description: 'Theme, accent color, and system preferences',
+  },
+  aboutos: {
+    id: 'aboutos',
+    title: 'About Portfolio OS',
+    icon: 'ℹ️',
+    component: withErrorBoundary(AboutOSApp, 'About Portfolio OS'),
+    defaultWidth: 400,
+    defaultHeight: 450,
+  },
+};

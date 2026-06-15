@@ -32,6 +32,11 @@ export const useThemeStore = create(
       toggleTheme: () => {
         const newTheme = get().theme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK;
         set({ theme: newTheme });
+        
+        // Unlock customizer achievement
+        import('./useAchievementStore').then(({ useAchievementStore }) => {
+          useAchievementStore.getState().trackEvent('changed-theme');
+        });
       },
 
       /**
@@ -41,6 +46,11 @@ export const useThemeStore = create(
       setTheme: (theme) => {
         if (Object.values(THEMES).includes(theme)) {
           set({ theme });
+          
+          // Unlock customizer achievement
+          import('./useAchievementStore').then(({ useAchievementStore }) => {
+            useAchievementStore.getState().trackEvent('changed-theme');
+          });
         }
       },
 

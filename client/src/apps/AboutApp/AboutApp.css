@@ -1,0 +1,276 @@
+/* ============================================
+   Portfolio OS 2026 — About App Styles
+   ============================================ */
+
+.about-app {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Hero Section */
+.about-hero {
+  background: linear-gradient(135deg, rgba(0, 120, 212, 0.15), rgba(96, 205, 255, 0.08));
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  border: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0, 120, 212, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.about-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent), #60cdff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 120, 212, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.about-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.about-title {
+  font-size: 0.9375rem;
+  color: var(--color-text-accent);
+  font-weight: 500;
+  margin: 0;
+}
+
+.about-tagline {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin: 0;
+}
+
+.about-hire-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.about-hire-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* Bio Card */
+.about-bio {
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  border: 1px solid var(--color-border);
+}
+
+.about-bio p {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Info Grid */
+.about-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.about-info-card {
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background var(--transition-fast);
+}
+
+.about-info-card:hover {
+  background: var(--color-bg-surface-hover);
+}
+
+.about-info-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.about-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.about-info-label {
+  font-size: 0.6875rem;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.about-info-value {
+  font-size: 0.8125rem;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Social Links */
+.about-social-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.about-social-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-size: 0.8125rem;
+  font-family: var(--font-family);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  flex: 1;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.about-social-btn:hover {
+  background: var(--color-accent);
+  color: #ffffff;
+  border-color: var(--color-accent);
+}
+
+/* Timeline */
+.about-section-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.about-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 24px;
+}
+
+.about-timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.about-timeline-item {
+  position: relative;
+  padding: 0 0 20px 16px;
+}
+
+.about-timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.about-timeline-dot {
+  position: absolute;
+  left: -21px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 2px solid var(--color-bg-window);
+  z-index: 1;
+}
+
+.about-timeline-item.current .about-timeline-dot {
+  box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.2);
+}
+
+.about-timeline-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 4px 0;
+}
+
+.about-timeline-org {
+  font-size: 0.75rem;
+  color: var(--color-text-accent);
+  margin: 0 0 4px 0;
+}
+
+.about-timeline-date {
+  font-size: 0.6875rem;
+  color: var(--color-text-tertiary);
+  margin: 0 0 8px 0;
+}
+
+.about-timeline-desc {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}

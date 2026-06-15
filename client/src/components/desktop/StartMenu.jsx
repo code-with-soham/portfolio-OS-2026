@@ -4,28 +4,33 @@
 // Windows 11-style centered start menu floating above the taskbar.
 //
 // Layout:
-//   [Search bar]
-//   [Pinned apps grid — 6 apps]
+//   [Search bar — functional]
+//   [Pinned apps grid — filtered by search]
+//   [Recent apps — last 5 opened]
 //   [Recommended section — 3 recent items]
 //   [User profile bar + power]
 //
 // Animated with Framer Motion (scale + fade + translateY).
-// Phase 3: App clicks do nothing (no window manager yet).
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDesktopStore } from '../../store/useDesktopStore';
+import { useWindowStore } from '../../store/useWindowStore';
+import { useUIStore } from '../../store/useUIStore';
 import { DESKTOP_APPS, RECOMMENDED_ITEMS, APP_AUTHOR } from '../../constants';
-import { useState } from 'react';
+import { APPS } from '../../config/apps';
+import { useDebounce } from '../../hooks/useDebounce';
+import { useState, useRef, useEffect } from 'react';
 
 /**
  * Pinned app icon in the start menu grid
  */
-function PinnedApp({ app }) {
+function PinnedApp({ app, onClick }) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <button
       id={`start-app-${app.id}`}
+      onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -116,6 +121,37 @@ function RecommendedItem({ item }) {
  */
 export default function StartMenu() {
   const { isStartMenuOpen, closeStartMenu } = useDesktopStore();
+  const openWindow = useWindowStore((s) => s.openWindow);
+  const recentApps = useWindowStore((s) => s.recentApps);
+  const { setStartMenuSearchFocused } = useUIStore();
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const debouncedSearch = useDebounce(searchQuery, 200);
+  const searchInputRef = useRef(null);
+
+  // Focus search input when menu opens
+  useEffect(() => {
+    if (isStartMenuOpen && searchInputRef.current) {
+      setTimeout(() => searchInputRef.current?.focus(), 100);
+    } else {
+      setSearchQuery('');
+    }
+  }, [isStartMenuOpen]);
+
+  // Filter apps by search query
+  const filteredApps = debouncedSearch
+    ? DESKTOP_APPS.filter(
+        (app) =>
+          app.label.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+          app.description?.toLowerCase().includes(debouncedSearch.toLowerCase())
+      )
+    : DESKTOP_APPS;
+
+  // Get recent apps metadata
+  const recentAppItems = recentApps
+    .map((id) => APPS[id])
+    .filter(Boolean)
+    .slice(0, 3);
 
   return (
     <AnimatePresence>
@@ -160,7 +196,7 @@ export default function StartMenu() {
               flexDirection: 'column',
             }}
           >
-            {/* Search bar */}
+            {/* Search bar — now functional */}
             <div style={{ padding: '24px 24px 16px' }}>
               <div
                 style={{
@@ -186,15 +222,25 @@ export default function StartMenu() {
                   <circle cx="11" cy="11" r="8" />
                   <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <span
+                <input
+                  ref={searchInputRef}
+                  id="start-menu-search"
+                  type="text"
+                  placeholder="Type to search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setStartMenuSearchFocused(true)}
+                  onBlur={() => setStartMenuSearchFocused(false)}
                   style={{
+                    flex: 1,
+                    border: 'none',
+                    background: 'transparent',
+                    outline: 'none',
                     fontSize: '0.8125rem',
-                    color: 'var(--color-text-tertiary)',
+                    color: 'var(--color-text-primary)',
                     fontFamily: 'var(--font-family)',
                   }}
-                >
-                  Type to search
-                </span>
+                />
               </div>
             </div>
 
@@ -216,34 +262,56 @@ export default function StartMenu() {
                     fontFamily: 'var(--font-family)',
                   }}
                 >
-                  Pinned
+                  {debouncedSearch ? 'Search Results' : 'Pinned'}
                 </span>
-                <button
+                {!debouncedSearch && (
+                  <button
+                    style={{
+                      fontSize: '0.6875rem',
+                      color: 'var(--color-text-secondary)',
+                      background: 'var(--color-bg-surface)',
+                      border: 'none',
+                      padding: '4px 10px',
+                      borderRadius: 'var(--radius-sm)',
+                      cursor: 'pointer',
+                      fontFamily: 'var(--font-family)',
+                    }}
+                  >
+                    All apps →
+                  </button>
+                )}
+              </div>
+              {filteredApps.length > 0 ? (
+                <div
                   style={{
-                    fontSize: '0.6875rem',
-                    color: 'var(--color-text-secondary)',
-                    background: 'var(--color-bg-surface)',
-                    border: 'none',
-                    padding: '4px 10px',
-                    borderRadius: 'var(--radius-sm)',
-                    cursor: 'pointer',
-                    fontFamily: 'var(--font-family)',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
+                    gap: '4px',
                   }}
                 >
-                  All apps →
-                </button>
-              </div>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
-                  gap: '4px',
-                }}
-              >
-                {DESKTOP_APPS.map((app) => (
-                  <PinnedApp key={app.id} app={app} />
-                ))}
-              </div>
+                  {filteredApps.map((app) => (
+                    <PinnedApp
+                      key={app.id}
+                      app={app}
+                      onClick={() => {
+                        openWindow(app.id);
+                        closeStartMenu();
+                      }}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div
+                  style={{
+                    padding: '24px',
+                    textAlign: 'center',
+                    color: 'var(--color-text-tertiary)',
+                    fontSize: '0.8125rem',
+                  }}
+                >
+                  No apps found for "{debouncedSearch}"
+                </div>
+              )}
             </div>
 
             {/* Divider */}
@@ -255,7 +323,7 @@ export default function StartMenu() {
               }}
             />
 
-            {/* Recommended section */}
+            {/* Recent / Recommended section */}
             <div style={{ padding: '16px 24px' }}>
               <div
                 style={{
@@ -273,7 +341,7 @@ export default function StartMenu() {
                     fontFamily: 'var(--font-family)',
                   }}
                 >
-                  Recommended
+                  {recentAppItems.length > 0 ? 'Recent' : 'Recommended'}
                 </span>
                 <button
                   style={{
@@ -291,9 +359,21 @@ export default function StartMenu() {
                 </button>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                {RECOMMENDED_ITEMS.map((item) => (
-                  <RecommendedItem key={item.id} item={item} />
-                ))}
+                {recentAppItems.length > 0
+                  ? recentAppItems.map((app) => (
+                      <RecommendedItem
+                        key={app.id}
+                        item={{
+                          id: app.id,
+                          label: app.title,
+                          detail: 'Recently opened',
+                          icon: app.icon,
+                        }}
+                      />
+                    ))
+                  : RECOMMENDED_ITEMS.map((item) => (
+                      <RecommendedItem key={item.id} item={item} />
+                    ))}
               </div>
             </div>
 

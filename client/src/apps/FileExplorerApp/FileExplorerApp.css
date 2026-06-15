@@ -1,0 +1,232 @@
+/* ============================================
+   Portfolio OS 2026 — File Explorer App Styles
+   ============================================ */
+
+.explorer-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Navigation Bar */
+.explorer-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  flex-shrink: 0;
+}
+
+.explorer-nav-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+}
+
+.explorer-nav-btn:hover:not(:disabled) {
+  background: var(--color-bg-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.explorer-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Breadcrumbs */
+.explorer-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  overflow-x: auto;
+}
+
+.explorer-breadcrumb {
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-family: var(--font-family);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.explorer-breadcrumb:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-surface-hover);
+}
+
+.explorer-breadcrumb.active {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.explorer-breadcrumb-sep {
+  color: var(--color-text-tertiary);
+  font-size: 0.625rem;
+}
+
+/* Main Body */
+.explorer-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.explorer-sidebar {
+  width: 180px;
+  border-right: 1px solid var(--color-border);
+  padding: 8px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.explorer-sidebar-title {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 8px 8px 4px;
+  margin: 0;
+}
+
+.explorer-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  font-family: var(--font-family);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  width: 100%;
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.explorer-sidebar-item:hover {
+  background: var(--color-bg-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.explorer-sidebar-item.active {
+  background: var(--color-bg-surface-hover);
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.explorer-sidebar-icon {
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+/* Content Area */
+.explorer-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.explorer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+}
+
+/* File/Folder Item */
+.explorer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+  background: transparent;
+}
+
+.explorer-item:hover {
+  background: var(--color-bg-surface-hover);
+}
+
+.explorer-item.selected {
+  background: rgba(0, 120, 212, 0.08);
+  border-color: rgba(0, 120, 212, 0.3);
+}
+
+.explorer-item-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.explorer-item-name {
+  font-size: 0.6875rem;
+  color: var(--color-text-primary);
+  word-break: break-word;
+  line-height: 1.3;
+  max-width: 100%;
+}
+
+/* Status Bar */
+.explorer-status {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 4px 16px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  flex-shrink: 0;
+}
+
+.explorer-status-text {
+  font-size: 0.6875rem;
+  color: var(--color-text-tertiary);
+}
+
+/* Empty Folder */
+.explorer-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 8px;
+  color: var(--color-text-tertiary);
+  padding: 40px;
+}
+
+.explorer-empty-icon {
+  font-size: 2rem;
+}
+
+.explorer-empty p {
+  font-size: 0.8125rem;
+  margin: 0;
+}

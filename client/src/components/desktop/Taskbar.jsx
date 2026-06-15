@@ -12,6 +12,7 @@
 import { useState } from 'react';
 import { useDesktopStore } from '../../store/useDesktopStore';
 import { useThemeStore } from '../../store/useThemeStore';
+import { useWindowStore } from '../../store/useWindowStore';
 import Clock from './Clock';
 
 /**
@@ -90,6 +91,21 @@ export default function Taskbar() {
   const { isStartMenuOpen, toggleStartMenu, toggleNotificationCenter } =
     useDesktopStore();
   const { theme, toggleTheme } = useThemeStore();
+  const windows = useWindowStore((s) => s.windows);
+  const activeWindowId = useWindowStore((s) => s.activeWindowId);
+  const focusWindow = useWindowStore((s) => s.focusWindow);
+  const minimizeWindow = useWindowStore((s) => s.minimizeWindow);
+  const restoreWindow = useWindowStore((s) => s.restoreWindow);
+
+  const handleWindowClick = (win) => {
+    if (win.isMinimized) {
+      restoreWindow(win.id);
+    } else if (activeWindowId === win.id) {
+      minimizeWindow(win.id);
+    } else {
+      focusWindow(win.id);
+    }
+  };
 
   return (
     <div
@@ -138,6 +154,24 @@ export default function Taskbar() {
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
         </TaskbarButton>
+      </div>
+
+      {/* Center section — Open Windows */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '2px', flex: 1, justifyContent: 'center' }}>
+        {windows.map((win) => {
+          const isActive = activeWindowId === win.id && !win.isMinimized;
+          return (
+            <TaskbarButton
+              key={win.id}
+              id={`taskbar-win-${win.id}`}
+              onClick={() => handleWindowClick(win)}
+              isActive={isActive}
+              title={win.title}
+            >
+              <span style={{ fontSize: '16px' }}>{win.icon}</span>
+            </TaskbarButton>
+          );
+        })}
       </div>
 
       {/* Right section — System tray */}

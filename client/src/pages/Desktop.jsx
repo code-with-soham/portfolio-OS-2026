@@ -10,14 +10,39 @@
 
 import { motion } from 'framer-motion';
 import { useDesktopStore } from '../store/useDesktopStore';
+import { useWindowStore } from '../store/useWindowStore';
 import { DESKTOP_APPS } from '../constants';
 import Taskbar from '../components/desktop/Taskbar';
 import StartMenu from '../components/desktop/StartMenu';
 import NotificationCenter from '../components/desktop/NotificationCenter';
 import DesktopIcon from '../components/desktop/DesktopIcon';
+import ContextMenu from '../components/desktop/ContextMenu';
+import ToastContainer from '../components/desktop/ToastContainer';
+import Window from '../components/desktop/Window';
 
 export default function Desktop() {
   const closeAllPanels = useDesktopStore((s) => s.closeAllPanels);
+  const openContextMenu = useDesktopStore((s) => s.openContextMenu);
+  const windows = useWindowStore((s) => s.windows);
+  const setActiveWindow = useWindowStore((s) => s.setActiveWindow);
+
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    
+    // Standard Windows 11 desktop context menu items
+    const items = [
+      { label: 'View', icon: '👁️', disabled: false },
+      { label: 'Sort by', icon: '↕️', disabled: false },
+      { label: 'Refresh', icon: '🔄', onClick: () => window.location.reload() },
+      { divider: true },
+      { label: 'New', icon: '➕', disabled: true },
+      { divider: true },
+      { label: 'Display settings', icon: '🖥️', disabled: true },
+      { label: 'Personalize', icon: '🎨', disabled: true },
+    ];
+    
+    openContextMenu(e.clientX, e.clientY, items);
+  };
 
   return (
     <motion.div
@@ -35,7 +60,11 @@ export default function Desktop() {
       {/* Desktop icon area — click background to close panels */}
       <div
         id="desktop-area"
-        onClick={closeAllPanels}
+        onClick={() => {
+          closeAllPanels();
+          setActiveWindow(null); // Deselect window focus when clicking desktop
+        }}
+        onContextMenu={handleContextMenu}
         style={{
           position: 'absolute',
           inset: 0,
@@ -58,8 +87,17 @@ export default function Desktop() {
         ))}
       </div>
 
+      {/* Render open windows */}
+      {windows.map((win) => (
+        <Window key={win.id} window={win} />
+      ))}
+
       {/* Start Menu overlay */}
+      <ToastContainer />
       <StartMenu />
+
+      {/* Context Menu overlay */}
+      <ContextMenu />
 
       {/* Notification Center overlay */}
       <NotificationCenter />

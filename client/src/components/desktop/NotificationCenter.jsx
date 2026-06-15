@@ -4,14 +4,13 @@
 // Windows 11-style right-side notification panel with:
 // - Quick settings toggles (decorative)
 // - Brightness/volume sliders (decorative)
-// - Notification area ("No new notifications")
+// - Notification area displaying useNotificationStore history
 // - Mini calendar showing current month
-//
-// Phase 3: All toggles are decorative — no real functionality.
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDesktopStore } from '../../store/useDesktopStore';
+import { useNotificationStore } from '../../store/useNotificationStore';
 import { QUICK_SETTINGS } from '../../constants';
 
 /**
@@ -202,10 +201,25 @@ function MiniCalendar() {
 }
 
 /**
+ * Helper to format timestamp like "[10:21 PM]"
+ */
+function formatTime(timestamp) {
+  const d = new Date(timestamp);
+  let hours = d.getHours();
+  const minutes = d.getMinutes().toString().padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  return `[${hours}:${minutes} ${ampm}]`;
+}
+
+/**
  * Notification Center main component
  */
 export default function NotificationCenter() {
   const { isNotificationCenterOpen, closeNotificationCenter } = useDesktopStore();
+  const history = useNotificationStore((s) => s.history);
+  const clearHistory = useNotificationStore((s) => s.clearHistory);
 
   return (
     <AnimatePresence>
@@ -281,7 +295,7 @@ export default function NotificationCenter() {
             />
 
             {/* Notifications area */}
-            <div style={{ padding: '16px 20px' }}>
+            <div style={{ padding: '16px 20px', flex: 1, overflowY: 'auto' }}>
               <div
                 style={{
                   display: 'flex',
@@ -300,34 +314,70 @@ export default function NotificationCenter() {
                 >
                   Notifications
                 </span>
-                <button
+                {history.length > 0 && (
+                  <button
+                    onClick={clearHistory}
+                    style={{
+                      fontSize: '0.6875rem',
+                      color: 'var(--color-text-secondary)',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontFamily: 'var(--font-family)',
+                    }}
+                  >
+                    Clear all
+                  </button>
+                )}
+              </div>
+
+              {history.length > 0 ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  {history.map((notif) => (
+                    <div
+                      key={notif.id}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '12px',
+                        padding: '12px',
+                        background: 'var(--color-bg-surface)',
+                        borderRadius: 'var(--radius-md)',
+                        border: '1px solid var(--color-border)',
+                      }}
+                    >
+                      <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>{notif.icon}</span>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--color-text-primary)' }}>
+                          <span style={{ color: 'var(--color-text-tertiary)', fontWeight: 400, marginRight: '6px' }}>
+                            {formatTime(notif.timestamp)}
+                          </span>
+                          {notif.title}
+                        </span>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
+                          {notif.message}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div
                   style={{
-                    fontSize: '0.6875rem',
-                    color: 'var(--color-text-secondary)',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '24px 0',
+                    color: 'var(--color-text-tertiary)',
+                    fontSize: '0.8125rem',
                     fontFamily: 'var(--font-family)',
                   }}
                 >
-                  Clear all
-                </button>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '24px 0',
-                  color: 'var(--color-text-tertiary)',
-                  fontSize: '0.8125rem',
-                  fontFamily: 'var(--font-family)',
-                }}
-              >
-                <span style={{ fontSize: '1.5rem', marginBottom: '8px' }}>🔔</span>
-                No new notifications
-              </div>
+                  <span style={{ fontSize: '1.5rem', marginBottom: '8px' }}>🔔</span>
+                  No new notifications
+                </div>
+              )}
             </div>
 
             {/* Divider */}

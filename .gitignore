@@ -33,3 +33,6 @@ coverage/
 # Temporary files
 *.tmp
 *.temp
+
+# Windows-11-UI
+docs/Windows-11-UI-Architecture.pdf 
