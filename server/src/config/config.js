@@ -13,10 +13,13 @@ const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
 
   // CORS origin — which frontend URL is allowed to call this API
-  corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  corsOrigin: [
+    'http://localhost:5173',
+    'https://portfolio-os-2026-chn9ztp2s-soham-kundus-projects.vercel.app'
+  ],
 
   // Contact email — where contact form messages are delivered
-  contactEmail: process.env.CONTACT_EMAIL || 'soham.kundu@example.com',
+  contactEmail: process.env.CONTACT_EMAIL || 'sohamkundu84@gmail.com',
 
   // SMTP configuration for Nodemailer (optional)
   // If not configured, contact messages are logged to the console
