@@ -3,9 +3,11 @@
 // ============================================
 // Extensible command map for the Terminal app.
 // Each command has a description and handler function.
-// Handlers receive { args, addOutput, clearOutput, openWindow, setTheme }
+// Handlers receive { args, addOutput, clearOutput, openWindow, setTheme, cwd, setCwd }
 
+import { fetchHelpCommands } from '../services/terminalService';
 import { APP_NAME, APP_VERSION, APP_AUTHOR } from '../constants';
+import { FILE_SYSTEM, resolveNode } from '../data/fileSystem';
 
 /**
  * Command registry — map of command name → { description, handler }
@@ -21,21 +23,20 @@ import { APP_NAME, APP_VERSION, APP_AUTHOR } from '../constants';
 export const TERMINAL_COMMANDS = {
   help: {
     description: 'Show available commands',
-    handler: ({ addOutput }) => {
-      const lines = [
-        '┌─────────────────────────────────────────────┐',
-        '│          Available Commands                  │',
-        '├──────────────┬──────────────────────────────┤',
-      ];
-
-      Object.entries(TERMINAL_COMMANDS).forEach(([name, cmd]) => {
-        const paddedName = name.padEnd(14);
-        const paddedDesc = cmd.description.padEnd(28);
-        lines.push(`│ ${paddedName}│ ${paddedDesc} │`);
-      });
-
-      lines.push('└──────────────┴──────────────────────────────┘');
-      addOutput(lines);
+    handler: async ({ addOutput }) => {
+      try {
+        const lines = await fetchHelpCommands();
+        if (lines && lines.length > 0) {
+          addOutput(lines);
+        } else {
+          addOutput([
+            '  Failed to fetch help commands from the backend.',
+            '  Please ensure the server is running.'
+          ]);
+        }
+      } catch (error) {
+        addOutput(['  An error occurred while fetching commands.']);
+      }
     },
   },
 
@@ -183,32 +184,268 @@ export const TERMINAL_COMMANDS = {
   whoami: {
     description: 'Who am I?',
     handler: ({ addOutput }) => {
-      addOutput([`soham@portfolio-os`]);
+      addOutput([`  soham@portfolio-os`]);
     },
+  },
+
+  specs: {
+    description: 'Display system specs',
+    handler: ({ addOutput }) => TERMINAL_COMMANDS.sysinfo.handler({ addOutput })
+  },
+  
+  education: {
+    description: 'Show educational background',
+    handler: ({ addOutput }) => {
+      addOutput([
+        '',
+        '  🎓 Education',
+        '  ─────────────────────────────────',
+        '  B.Tech in Computer Science & Engineering',
+        '  UEM Kolkata (2022 - 2026)',
+        '  CGPA: 9.0/10.0',
+        ''
+      ]);
+    }
+  },
+
+  experience: {
+    description: 'Display professional experience',
+    handler: ({ addOutput }) => {
+      addOutput([
+        '',
+        '  💼 Experience',
+        '  ─────────────────────────────────',
+        '  Full Stack Developer Intern @ TechCorp (2025)',
+        '  - Built scalable REST APIs',
+        '  - Optimized React frontends',
+        ''
+      ]);
+    }
+  },
+
+  research: {
+    description: 'List research papers',
+    handler: ({ addOutput }) => {
+      addOutput(['  No published research papers currently. Check back later!']);
+    }
+  },
+
+  profile: {
+    description: 'Full profile overview',
+    handler: ({ addOutput }) => TERMINAL_COMMANDS.about.handler({ addOutput })
+  },
+
+  stats: {
+    description: 'Portfolio statistics dashboard',
+    handler: ({ addOutput }) => {
+      addOutput([
+        '',
+        '  📊 Portfolio Statistics',
+        '  ─────────────────────────────────',
+        '  Github Commits: 1,204',
+        '  Coffee Consumed: 342 cups',
+        '  Bugs Squashed: 99+',
+        ''
+      ]);
+    }
+  },
+
+  tech: {
+    description: 'Browse technology stack',
+    handler: ({ addOutput }) => TERMINAL_COMMANDS.skills.handler({ addOutput })
+  },
+
+  inspect: {
+    description: 'Fetch metadata of a tech node',
+    handler: ({ args, addOutput }) => {
+      if (!args[0]) return addOutput(['  Usage: inspect <node_id>']);
+      addOutput([`  🔍 Inspecting ${args[0]}...`, `  Status: Operational`, `  Version: Latest`]);
+    }
+  },
+
+  cat_manifest: {
+    description: 'Dump complete skills layout as JSON',
+    handler: ({ addOutput }) => {
+      addOutput(['  { "status": "access_denied", "reason": "Manifest is classified." }']);
+    }
+  },
+
+  diagnose: {
+    description: 'Run comprehensive system check',
+    handler: ({ addOutput }) => {
+      addOutput([
+        '  [OK] CPU checks passed.',
+        '  [OK] Memory integrity verified.',
+        '  [OK] Network latency: 12ms',
+        '  [OK] All systems go.'
+      ]);
+    }
+  },
+
+  trace: {
+    description: 'Trace dependency connections',
+    handler: ({ addOutput }) => {
+      addOutput([
+        '  Tracing route to target...',
+        '  1  192.168.1.1  2ms',
+        '  2  10.0.0.1     15ms',
+        '  3  portfolio.os 24ms',
+        '  Trace complete.'
+      ]);
+    }
+  },
+
+  sqlite3: {
+    description: 'Run SQL queries',
+    handler: ({ args, addOutput }) => {
+      addOutput(['  Connected to portfolio.db', '  Result: 0 rows returned.']);
+    }
+  },
+
+  python: {
+    description: 'Execute python script',
+    handler: ({ args, addOutput }) => {
+      addOutput(['  Python environment active.', `  Executing ${args[0] || 'script'}...`, '  Done.']);
+    }
   },
 
   ls: {
     description: 'List directory contents',
-    handler: ({ args, addOutput }) => {
-      addOutput([
-        '',
-        '  📁 Desktop/',
-        '  ├── 📁 Projects/',
-        '  ├── 📁 Certificates/',
-        '  ├── 📁 Resume/',
-        '  ├── 📁 Photos/',
-        '  ├── 📁 Notes/',
-        '  └── 📁 Downloads/',
-        '',
-      ]);
+    handler: ({ args, addOutput, cwd }) => {
+      const node = resolveNode(cwd);
+      if (!node || node.type !== 'folder') {
+        return addOutput([`  ls: cannot access '${cwd.join('/')}': No such directory`]);
+      }
+      
+      if (!node.children || node.children.length === 0) {
+        return; // Empty directory
+      }
+
+      const lines = ['', '  ' + node.children.map(c => c.type === 'folder' ? `📁 ${c.name}/` : `📄 ${c.name}`).join('    '), ''];
+      addOutput(lines);
     },
+  },
+
+  dir: {
+    description: 'List directory contents',
+    handler: (ctx) => TERMINAL_COMMANDS.ls.handler(ctx)
+  },
+
+  cd: {
+    description: 'Change directory',
+    handler: ({ args, addOutput, cwd, setCwd }) => {
+      if (!args[0] || args[0] === '~') {
+        setCwd([]);
+        return;
+      }
+
+      const pathArg = args[0];
+      if (pathArg === '.') return;
+      if (pathArg === '..') {
+        if (cwd.length > 0) {
+          setCwd(cwd.slice(0, -1));
+        }
+        return;
+      }
+
+      // Very basic relative path resolution (only 1 level deep for simplicity)
+      const currentNode = resolveNode(cwd);
+      if (!currentNode || !currentNode.children) {
+        return addOutput([`  cd: ${pathArg}: No such file or directory`]);
+      }
+
+      const target = currentNode.children.find(c => c.name.toLowerCase() === pathArg.toLowerCase() || c.name.toLowerCase() === pathArg.toLowerCase().replace('/', ''));
+      
+      if (!target) {
+        return addOutput([`  cd: ${pathArg}: No such file or directory`]);
+      }
+
+      if (target.type !== 'folder') {
+        return addOutput([`  cd: ${pathArg}: Not a directory`]);
+      }
+
+      setCwd([...cwd, target.name]);
+    }
+  },
+
+  cat: {
+    description: 'Display file contents',
+    handler: ({ args, addOutput, cwd }) => {
+      if (!args[0]) return addOutput(['  Usage: cat <file>']);
+      
+      const fileName = args[0];
+      const currentNode = resolveNode(cwd);
+      
+      if (!currentNode || !currentNode.children) {
+        return addOutput([`  cat: ${fileName}: No such file or directory`]);
+      }
+
+      const target = currentNode.children.find(c => c.name.toLowerCase() === fileName.toLowerCase());
+      
+      if (!target) {
+        return addOutput([`  cat: ${fileName}: No such file or directory`]);
+      }
+
+      if (target.type === 'folder') {
+        return addOutput([`  cat: ${fileName}: Is a directory`]);
+      }
+
+      if (target.content) {
+        addOutput(['', ...target.content.split('\n').map(line => `  ${line}`), '']);
+      } else {
+        addOutput([`  [Binary file or no text content: ${fileName}]`]);
+      }
+    }
   },
 
   pwd: {
     description: 'Print working directory',
-    handler: ({ addOutput }) => {
-      addOutput(['/home/soham/Desktop']);
+    handler: ({ addOutput, cwd }) => {
+      const path = cwd.length > 0 ? `/home/soham/${cwd.join('/')}` : '/home/soham';
+      addOutput([`  ${path}`]);
     },
+  },
+
+  'git': {
+    description: 'Show virtual git status',
+    handler: ({ args, addOutput }) => {
+      if (args[0] === 'status') {
+        addOutput([
+          '  On branch main',
+          '  Your branch is up to date with "origin/main".',
+          '',
+          '  nothing to commit, working tree clean'
+        ]);
+      } else {
+        addOutput(['  Usage: git status']);
+      }
+    }
+  },
+
+  curl: {
+    description: 'Simulate API calls',
+    handler: ({ args, addOutput }) => {
+      if (!args[0]) return addOutput(['  curl: try \'curl --help\' or \'curl --manual\' for more information']);
+      addOutput([`  Fetching ${args[0]}...`, '  200 OK', '  { "message": "Success" }']);
+    }
+  },
+
+  secrets: {
+    description: 'Display classified metrics',
+    handler: ({ addOutput }) => {
+      addOutput([
+        '  ACCESS GRANTED',
+        '  [CLASSIFIED] Over-engineering score: 99%',
+        '  [CLASSIFIED] Sleep deprivation level: Critical'
+      ]);
+    }
+  },
+
+  run: {
+    description: 'Execute simulation',
+    handler: ({ args, addOutput }) => {
+      addOutput([`  Initiating simulation: ${args[0] || 'default'}...`, '  Simulation complete. Reality remains intact.']);
+    }
   },
 
   date: {

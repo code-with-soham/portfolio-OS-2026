@@ -16,6 +16,7 @@ import TerminalApp from '../apps/TerminalApp/index';
 import FileExplorerApp from '../apps/FileExplorerApp/index';
 import SettingsApp from '../apps/SettingsApp/index';
 import AboutOSApp from '../apps/AboutOSApp/index';
+import VSCodeApp from '../apps/VSCodeApp/index';
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -40,6 +41,7 @@ import fileExplorerIco from '../assets/icons/system/Explorer.ico';
 import settingsIco from '../assets/icons/system/Settings.ico';
 import infoIco from '../assets/icons/system/Info.ico';
 import pcIco from '../assets/icons/system/Computer.ico';
+import vscodeIco from '../assets/icons/apps/VSCode.ico';
 
 export const APPS = {
   about: {
@@ -137,5 +139,16 @@ export const APPS = {
     component: withErrorBoundary(AboutOSApp, 'About Portfolio OS'),
     defaultWidth: 400,
     defaultHeight: 450,
+  },
+  vscode: {
+    id: 'vscode',
+    title: 'VS Code',
+    icon: vscodeIco,
+    component: withErrorBoundary(VSCodeApp, 'VS Code'),
+    defaultWidth: 800,
+    defaultHeight: 600,
+    category: 'Development',
+    version: '1.0.0',
+    description: 'Code Editor',
   },
 };

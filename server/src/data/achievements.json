@@ -1,56 +1,50 @@
 [
   {
     "id": "ach-001",
-    "title": "500+ GitHub Contributions",
-    "description": "Maintained a consistent coding streak with over 500 contributions across open-source and personal projects in the past year.",
-    "date": "2026-01-01",
-    "category": "coding",
-    "icon": "🟢",
-    "link": "https://github.com/sohamkundu"
+    "title": "Frontend Developer Internship",
+    "description": "Completed a Frontend Developer Internship at Expantra Tech Pvt Ltd, gaining hands-on experience with React, Tailwind CSS, Git, and GitHub while working on real-world projects.",
+    "category": "professional",
+    "icon": "💼",
+    "link": "https://drive.google.com/file/d/1Vxvp_8EXNUx-AnlyJamUE08rcwBCHctk/view?usp=sharing"
   },
   {
     "id": "ach-002",
-    "title": "College Tech Showcase — Best Project",
-    "description": "HealthSathi AI was awarded Best Project at the university's annual technology showcase for innovation in AI-powered healthcare.",
-    "date": "2026-05-15",
-    "category": "award",
-    "icon": "🏆",
-    "link": null
+    "title": "Built AI Mock Interview Platform",
+    "description": "Developed an AI-powered mock interview platform featuring role-based interview generation, WebRTC video communication, Socket.io integration, and AI-assisted feedback.",
+    "category": "project",
+    "icon": "🤖",
+    "link": "https://smart-mock-interview-prep.vercel.app/"
   },
   {
     "id": "ach-003",
-    "title": "Inter-School Coding Competition — 1st Place",
-    "description": "Won first place in a competitive programming contest with 200+ participants from across the state.",
-    "date": "2023-11-20",
-    "category": "competition",
-    "icon": "🥇",
-    "link": null
+    "title": "Developed campusHub",
+    "description": "Built a full-stack event booking and management platform with authentication, event registration, organizer dashboard, and payment integration.",
+    "category": "project",
+    "icon": "🎟️",
+    "link": ""
   },
   {
     "id": "ach-004",
-    "title": "Research Paper Published",
-    "description": "Co-authored a research paper on 'AI-Driven Symptom Analysis in Web Applications' published in a university journal.",
-    "date": "2026-04-10",
-    "category": "publication",
-    "icon": "📄",
-    "link": null
+    "title": "92% Accuracy in Placement Prediction",
+    "description": "Created a machine learning model for student placement prediction using Random Forest and data analysis techniques, achieving 92% prediction accuracy.",
+    "category": "machine-learning",
+    "icon": "📊",
+    "link": "https://code-with-soham.github.io/Student-Placement-Predictor/"
   },
   {
     "id": "ach-005",
-    "title": "5-Star Freelance Rating",
-    "description": "Achieved a consistent 5-star rating across all freelance client projects, with 100% on-time delivery.",
-    "date": "2026-03-01",
-    "category": "professional",
-    "icon": "⭐",
-    "link": null
+    "title": "Samsung Innovation Campus",
+    "description": "Successfully completed Coding & Programming training under Samsung Innovation Campus.",
+    "category": "certification",
+    "icon": "🏅",
+    "link": "https://drive.google.com/file/d/1q1jdSgmleiSvsFVVlPDJzEtKPGYK5bzp/view"
   },
   {
     "id": "ach-006",
-    "title": "Open Source Contributor",
-    "description": "Contributed bug fixes and feature enhancements to popular open-source projects including React-based UI libraries.",
-    "date": "2025-08-15",
-    "category": "open-source",
-    "icon": "🌐",
-    "link": "https://github.com/sohamkundu"
+    "title": "MERN Stack Development with AI Integration",
+    "description": "Completed certification in MERN Stack Development with AI Integration from TechnoExponent.",
+    "category": "certification",
+    "icon": "📜",
+    "link": "https://drive.google.com/file/d/1G26o5X6U1UvCQ-OXifOfVSKwsuEeJAIB/view"
   }
 ]

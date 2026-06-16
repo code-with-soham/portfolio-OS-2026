@@ -1,0 +1,283 @@
+/* ============================================
+   Portfolio OS 2026 — VS Code App
+   ============================================ */
+
+.vscode-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #1e1e1e;
+  color: #cccccc;
+  font-family: 'Segoe WPC', 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+/* Main Content Area */
+.vscode-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Activity Bar */
+.vscode-activity-bar {
+  width: 48px;
+  background-color: #333333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.vscode-activity-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #858585;
+  font-size: 1.5rem;
+  transition: color 0.2s;
+}
+
+.vscode-activity-icon:hover {
+  color: #cccccc;
+}
+
+.vscode-activity-icon.active {
+  color: #ffffff;
+  border-left: 2px solid #ffffff;
+}
+
+/* Sidebar */
+.vscode-sidebar {
+  width: 250px;
+  background-color: #252526;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #333;
+}
+
+.vscode-sidebar-header {
+  padding: 10px 20px;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  color: #cccccc;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.vscode-explorer {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 10px;
+}
+
+.vscode-file-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 0.8125rem;
+  user-select: none;
+}
+
+.vscode-file-item:hover {
+  background-color: #2a2d2e;
+}
+
+.vscode-file-item.active {
+  background-color: #37373d;
+  color: #ffffff;
+}
+
+.vscode-file-icon {
+  margin-right: 6px;
+  font-size: 1rem;
+}
+
+.vscode-folder-icon {
+  margin-right: 6px;
+  font-size: 1rem;
+}
+
+.vscode-folder-children {
+  padding-left: 12px;
+}
+
+/* Editor Area */
+.vscode-editor-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e1e;
+  overflow: hidden;
+}
+
+/* Editor Tabs */
+.vscode-tabs {
+  display: flex;
+  background-color: #252526;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.vscode-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.vscode-tab {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: #2d2d2d;
+  color: #969696;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  border-right: 1px solid #252526;
+  min-width: 120px;
+  border-top: 1px solid transparent;
+}
+
+.vscode-tab.active {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border-top: 1px solid #007acc;
+}
+
+.vscode-tab-close {
+  margin-left: auto;
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.vscode-tab:hover .vscode-tab-close {
+  opacity: 1;
+}
+
+.vscode-tab-close:hover {
+  background-color: #444;
+}
+
+/* Editor Content */
+.vscode-editor-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #d4d4d4;
+}
+
+/* Markdown styling inside editor */
+.vscode-markdown {
+  max-width: 800px;
+  font-family: 'Segoe WPC', 'Segoe UI', sans-serif;
+}
+
+.vscode-markdown h1,
+.vscode-markdown h2,
+.vscode-markdown h3 {
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.3em;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.vscode-markdown p {
+  margin-bottom: 16px;
+}
+
+.vscode-markdown a {
+  color: #3794ff;
+  text-decoration: none;
+}
+
+.vscode-markdown code {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Consolas', 'Courier New', monospace;
+}
+
+.vscode-markdown pre {
+  background-color: #1e1e1e;
+  padding: 16px;
+  overflow: auto;
+  border-radius: 6px;
+  border: 1px solid #333;
+}
+
+.vscode-markdown pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Terminal Panel */
+.vscode-panel {
+  height: 30%;
+  min-height: 150px;
+  border-top: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e1e;
+}
+
+.vscode-panel-header {
+  display: flex;
+  padding: 0 20px;
+  border-bottom: 1px solid #333;
+}
+
+.vscode-panel-tab {
+  padding: 8px 16px;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  color: #858585;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+}
+
+.vscode-panel-tab.active {
+  color: #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.vscode-panel-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Status Bar */
+.vscode-status-bar {
+  height: 22px;
+  background-color: #007acc;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 0.75rem;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.vscode-status-item {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.vscode-status-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.vscode-status-right {
+  margin-left: auto;
+  display: flex;
+}

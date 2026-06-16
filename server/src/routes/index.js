@@ -21,6 +21,7 @@ const skillsRoutes = require('./skillsRoutes');
 const timelineRoutes = require('./timelineRoutes');
 const achievementsRoutes = require('./achievementsRoutes');
 const contactRoutes = require('./contactRoutes');
+const terminalRoutes = require('./terminalRoutes');
 
 // Import middleware
 const { responseCache } = require('../middleware/responseCache');
@@ -48,5 +49,8 @@ router.use('/achievements', responseCache(), achievementsRoutes);
 
 // POST /api/contact → Contact form submission (strict rate limit, no caching)
 router.use('/contact', contactLimiter, contactRoutes);
+
+// GET /api/terminal → Terminal specific routes
+router.use('/terminal', responseCache(), terminalRoutes);
 
 module.exports = router;

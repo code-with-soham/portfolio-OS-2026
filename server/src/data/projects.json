@@ -1,86 +1,147 @@
 [
   {
     "id": "proj-001",
-    "title": "Portfolio OS 2026",
-    "description": "A Windows 11-inspired operating system portfolio where visitors interact with a fully functional desktop environment. Features draggable windows, a taskbar, start menu, and multiple built-in applications.",
-    "longDescription": "A groundbreaking portfolio project that reimagines the traditional developer portfolio as an interactive operating system. Built with React and Express.js, featuring a complete window management system, virtual file explorer, terminal emulator, and multiple apps — all running in the browser.",
-    "techStack": ["React", "Vite", "Tailwind CSS", "Framer Motion", "Node.js", "Express.js", "Zustand"],
-    "category": "Full Stack",
+    "title": "portfolio-OS-2026",
+    "description": "A Windows 11-inspired interactive developer portfolio that provides a complete desktop-like experience inside the browser.",
+    "longDescription": "Portfolio OS reimagines a traditional portfolio as a fully interactive operating system. Users can explore projects, skills, experience, and applications through draggable windows, a taskbar, start menu, and desktop environment.",
+    "techStack": [
+      "React",
+      "JavaScript",
+      "Vite",
+      "Tailwind CSS"
+    ],
+    "category": "Frontend",
     "status": "In Progress",
     "featured": true,
     "thumbnail": "/assets/images/projects/portfolio-os.png",
-    "liveUrl": "https://portfolio-os.sohamkundu.dev",
-    "githubUrl": "https://github.com/sohamkundu/portfolio-os-2026",
-    "startDate": "2026-06-01",
-    "endDate": null,
+    "liveUrl": "https://portfolio-os-2026.vercel.app/",
+    "githubUrl": "https://github.com/code-with-soham/portfolio-OS-2026",
     "highlights": [
-      "Custom window manager with drag, resize, minimize, maximize",
-      "Built-in terminal emulator with real commands",
-      "JSON-based data architecture — no database needed",
-      "MVC backend with REST APIs"
+      "Windows 11-inspired UI",
+      "Draggable and resizable windows",
+      "Desktop environment simulation",
+      "Interactive portfolio experience"
     ]
   },
   {
     "id": "proj-002",
-    "title": "HealthSathi AI",
-    "description": "An AI-powered health companion application that provides personalized health insights, symptom analysis, and wellness recommendations using machine learning models.",
-    "longDescription": "HealthSathi AI leverages cutting-edge machine learning to provide users with personalized health insights. Features include symptom analysis, diet recommendations, exercise plans, and health tracking — all presented through an intuitive, accessible interface.",
-    "techStack": ["React", "TypeScript", "Node.js", "Express.js", "MongoDB", "TensorFlow.js", "Tailwind CSS"],
-    "category": "AI/ML",
+    "title": "campusHub",
+    "description": "A full-stack event booking and management platform for browsing, registering, and managing events.",
+    "longDescription": "campusHub allows users to discover events, register online, manage bookings, and make secure payments. It also includes an administrative dashboard for organizers to manage events and attendees efficiently.",
+    "techStack": [
+      "React",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Tailwind CSS"
+    ],
+    "category": "Full Stack",
     "status": "Completed",
     "featured": true,
-    "thumbnail": "/assets/images/projects/healthsathi.png",
-    "liveUrl": "https://healthsathi.sohamkundu.dev",
-    "githubUrl": "https://github.com/sohamkundu/healthsathi-ai",
-    "startDate": "2026-01-15",
-    "endDate": "2026-05-20",
+    "thumbnail": "/assets/images/projects/campushub.png",
+    "liveUrl": "",
+    "githubUrl": "https://github.com/code-with-soham/campusHub",
     "highlights": [
-      "AI-powered symptom analysis with 92% accuracy",
-      "Personalized diet and exercise recommendations",
-      "Real-time health metrics dashboard",
-      "HIPAA-compliant data handling"
+      "Event registration system",
+      "Admin dashboard",
+      "Payment integration",
+      "MERN stack architecture"
     ]
   },
   {
     "id": "proj-003",
-    "title": "DevCollab Platform",
-    "description": "A real-time collaborative coding platform that enables developers to pair program, share code, and conduct live code reviews with integrated video chat.",
-    "longDescription": "DevCollab brings the power of pair programming to the browser. With real-time code synchronization, integrated video chat, and a built-in code review system, teams can collaborate seamlessly regardless of their physical location.",
-    "techStack": ["Next.js", "Socket.io", "WebRTC", "Monaco Editor", "PostgreSQL", "Redis", "Docker"],
+    "title": "Interview-Prep",
+    "description": "An AI-powered mock interview platform designed to help students and job seekers practice interviews.",
+    "longDescription": "Interview-Prep provides role-based interview practice with real-time communication features and AI-assisted feedback. The platform helps users improve confidence, communication, and technical interview performance.",
+    "techStack": [
+      "React",
+      "Node.js",
+      "WebRTC",
+      "Socket.io"
+    ],
     "category": "Full Stack",
     "status": "Completed",
-    "featured": false,
-    "thumbnail": "/assets/images/projects/devcollab.png",
-    "liveUrl": "https://devcollab.sohamkundu.dev",
-    "githubUrl": "https://github.com/sohamkundu/devcollab",
-    "startDate": "2025-09-01",
-    "endDate": "2025-12-15",
+    "featured": true,
+    "thumbnail": "/assets/images/projects/interview-prep.png",
+    "liveUrl": "https://smart-mock-interview-prep.vercel.app/",
+    "githubUrl": "https://github.com/code-with-soham/smart-mock-interview-prep",
     "highlights": [
-      "Real-time code collaboration using WebSockets",
-      "Integrated video chat with WebRTC",
-      "Monaco Editor with IntelliSense support",
-      "Dockerized deployment pipeline"
+      "AI-powered interview practice",
+      "Real-time video communication",
+      "Socket.io integration",
+      "Role-based interview sessions"
     ]
   },
   {
     "id": "proj-004",
-    "title": "FinTrack Dashboard",
-    "description": "A personal finance tracking dashboard with data visualization, budget management, and spending analytics powered by interactive charts.",
-    "longDescription": "FinTrack helps users take control of their finances with beautiful data visualizations, smart budgeting tools, and AI-powered spending insights. Features include expense categorization, recurring payment tracking, and customizable financial goals.",
-    "techStack": ["React", "Chart.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
+    "title": "Student-Placement-Predictor",
+    "description": "A machine learning project that predicts student placement outcomes using academic and skill-based data.",
+    "longDescription": "This project applies machine learning algorithms and data analysis techniques to identify factors affecting student placements and predict placement outcomes with high accuracy.",
+    "techStack": [
+      "Python",
+      "Pandas",
+      "Scikit-learn",
+      "Jupyter Notebook"
+    ],
+    "category": "Machine Learning",
+    "status": "Completed",
+    "featured": true,
+    "thumbnail": "/assets/images/projects/student-placement-predictor.png",
+    "liveUrl": "https://code-with-soham.github.io/Student-Placement-Predictor/",
+    "githubUrl": "https://github.com/code-with-soham/Student-Placement-Predictor",
+    "highlights": [
+      "92% prediction accuracy",
+      "Random Forest model",
+      "Feature engineering",
+      "Data visualization and analysis"
+    ]
+  },
+  {
+    "id": "proj-005",
+    "title": "soham-portfolio-2026",
+    "description": "A modern personal portfolio website showcasing projects, skills, experience, and achievements.",
+    "longDescription": "A responsive developer portfolio built to present technical skills, projects, education, certifications, and professional experience with a modern user interface.",
+    "techStack": [
+      "React",
+      "TypeScript",
+      "Three.js",
+      "GSAP",
+      "Tailwind CSS"
+    ],
     "category": "Frontend",
     "status": "Completed",
     "featured": false,
-    "thumbnail": "/assets/images/projects/fintrack.png",
-    "liveUrl": "https://fintrack.sohamkundu.dev",
-    "githubUrl": "https://github.com/sohamkundu/fintrack",
-    "startDate": "2025-06-01",
-    "endDate": "2025-08-30",
+    "thumbnail": "/assets/images/projects/soham-portfolio.png",
+    "liveUrl": "https://soham-kundu-portfolio.vercel.app/",
+    "githubUrl": "https://github.com/code-with-soham/soham-portfolio-2026",
     "highlights": [
-      "Interactive charts with Chart.js",
-      "Smart expense categorization",
-      "Budget tracking with goal progress",
-      "Export reports as PDF"
+      "Responsive design",
+      "Modern animations",
+      "Project showcase",
+      "Interactive user experience"
+    ]
+  },
+  {
+    "id": "proj-006",
+    "title": "sliding-puzzle",
+    "description": "A browser-based sliding puzzle game built using web technologies.",
+    "longDescription": "An interactive puzzle game featuring tile movement logic, responsive design, and a clean user interface focused on user engagement and problem-solving.",
+    "techStack": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "category": "Frontend",
+    "status": "Completed",
+    "featured": false,
+    "thumbnail": "/assets/images/projects/sliding-puzzle.png",
+    "liveUrl": "https://code-with-soham.github.io/sliding-puzzle/",
+    "githubUrl": "https://github.com/code-with-soham/sliding-puzzle",
+    "highlights": [
+      "Interactive gameplay",
+      "Puzzle-solving mechanics",
+      "Responsive layout",
+      "Pure JavaScript implementation"
     ]
   }
 ]

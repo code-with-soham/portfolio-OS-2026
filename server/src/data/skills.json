@@ -5,46 +5,40 @@
       "icon": "🎨",
       "skills": [
         {
-          "name": "React",
-          "level": "Advanced",
-          "proficiency": 90,
-          "icon": "react",
-          "yearsUsed": 2
+          "name": "HTML5",
+          "level": "Intermediate",
+          "proficiency": 80,
+          "icon": "html5"
+        },
+        {
+          "name": "CSS3",
+          "level": "Intermediate",
+          "proficiency": 78,
+          "icon": "css3"
         },
         {
           "name": "JavaScript",
-          "level": "Advanced",
-          "proficiency": 92,
-          "icon": "javascript",
-          "yearsUsed": 3
+          "level": "Intermediate",
+          "proficiency": 80,
+          "icon": "javascript"
+        },
+        {
+          "name": "React",
+          "level": "Intermediate",
+          "proficiency": 78,
+          "icon": "react"
         },
         {
           "name": "TypeScript",
-          "level": "Intermediate",
-          "proficiency": 75,
-          "icon": "typescript",
-          "yearsUsed": 1
+          "level": "Beginner",
+          "proficiency": 60,
+          "icon": "typescript"
         },
         {
           "name": "Tailwind CSS",
-          "level": "Advanced",
-          "proficiency": 88,
-          "icon": "tailwindcss",
-          "yearsUsed": 2
-        },
-        {
-          "name": "HTML/CSS",
-          "level": "Advanced",
-          "proficiency": 95,
-          "icon": "html5",
-          "yearsUsed": 3
-        },
-        {
-          "name": "Framer Motion",
           "level": "Intermediate",
-          "proficiency": 72,
-          "icon": "framer",
-          "yearsUsed": 1
+          "proficiency": 80,
+          "icon": "tailwindcss"
         }
       ]
     },
@@ -54,106 +48,111 @@
       "skills": [
         {
           "name": "Node.js",
-          "level": "Advanced",
-          "proficiency": 85,
-          "icon": "nodejs",
-          "yearsUsed": 2
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "nodejs"
         },
         {
           "name": "Express.js",
-          "level": "Advanced",
-          "proficiency": 88,
-          "icon": "express",
-          "yearsUsed": 2
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "express"
         },
         {
           "name": "MongoDB",
           "level": "Intermediate",
-          "proficiency": 78,
-          "icon": "mongodb",
-          "yearsUsed": 1.5
+          "proficiency": 72,
+          "icon": "mongodb"
         },
         {
           "name": "REST APIs",
-          "level": "Advanced",
-          "proficiency": 90,
-          "icon": "api",
-          "yearsUsed": 2
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "api"
         },
         {
-          "name": "PostgreSQL",
+          "name": "MySQL",
           "level": "Beginner",
-          "proficiency": 55,
-          "icon": "postgresql",
-          "yearsUsed": 0.5
+          "proficiency": 60,
+          "icon": "mysql"
         }
       ]
     },
     {
-      "name": "Tools & DevOps",
-      "icon": "🔧",
+      "name": "Programming",
+      "icon": "💻",
       "skills": [
         {
-          "name": "Git & GitHub",
-          "level": "Advanced",
-          "proficiency": 90,
-          "icon": "git",
-          "yearsUsed": 3
+          "name": "Python",
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "python"
+        },
+        {
+          "name": "C",
+          "level": "Intermediate",
+          "proficiency": 70,
+          "icon": "c"
+        },
+        {
+          "name": "C++",
+          "level": "Intermediate",
+          "proficiency": 70,
+          "icon": "cplusplus"
+        }
+      ]
+    },
+    {
+      "name": "Machine Learning",
+      "icon": "🤖",
+      "skills": [
+        {
+          "name": "Data Analysis",
+          "level": "Intermediate",
+          "proficiency": 72,
+          "icon": "analytics"
+        },
+        {
+          "name": "Machine Learning",
+          "level": "Intermediate",
+          "proficiency": 70,
+          "icon": "machinelearning"
+        },
+        {
+          "name": "Random Forest",
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "forest"
+        }
+      ]
+    },
+    {
+      "name": "Tools",
+      "icon": "🛠️",
+      "skills": [
+        {
+          "name": "Git",
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "git"
+        },
+        {
+          "name": "GitHub",
+          "level": "Intermediate",
+          "proficiency": 78,
+          "icon": "github"
+        },
+        {
+          "name": "Postman",
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "postman"
         },
         {
           "name": "VS Code",
           "level": "Advanced",
-          "proficiency": 95,
-          "icon": "vscode",
-          "yearsUsed": 3
-        },
-        {
-          "name": "Docker",
-          "level": "Beginner",
-          "proficiency": 50,
-          "icon": "docker",
-          "yearsUsed": 0.5
-        },
-        {
-          "name": "Vite",
-          "level": "Advanced",
-          "proficiency": 85,
-          "icon": "vite",
-          "yearsUsed": 1.5
-        },
-        {
-          "name": "Postman",
-          "level": "Advanced",
-          "proficiency": 88,
-          "icon": "postman",
-          "yearsUsed": 2
-        }
-      ]
-    },
-    {
-      "name": "AI/ML",
-      "icon": "🤖",
-      "skills": [
-        {
-          "name": "TensorFlow.js",
-          "level": "Beginner",
-          "proficiency": 45,
-          "icon": "tensorflow",
-          "yearsUsed": 0.5
-        },
-        {
-          "name": "Python",
-          "level": "Intermediate",
-          "proficiency": 70,
-          "icon": "python",
-          "yearsUsed": 1
-        },
-        {
-          "name": "OpenAI API",
-          "level": "Intermediate",
-          "proficiency": 68,
-          "icon": "openai",
-          "yearsUsed": 0.5
+          "proficiency": 90,
+          "icon": "vscode"
         }
       ]
     }

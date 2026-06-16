@@ -100,6 +100,7 @@ import musicIco from '../assets/icons/system/Folder Music.ico';
 import videosIco from '../assets/icons/system/Folder Videos.ico';
 import oneDriveIco from '../assets/icons/system/One Drive.ico';
 import trashIco from '../assets/icons/system/Trash Empty.ico';
+import vscodeIco from '../assets/icons/apps/VSCode.ico';
 
 /**
  * Desktop Applications — the apps shown on desktop and start menu
@@ -202,6 +203,12 @@ export const DESKTOP_APPS = [
     label: 'About OS',
     icon: infoIco,
     description: 'System info',
+  },
+  {
+    id: 'vscode',
+    label: 'VS Code',
+    icon: vscodeIco,
+    description: 'Code Editor',
   },
 ];
 
