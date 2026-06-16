@@ -26,6 +26,7 @@ function withErrorBoundary(Component, appName) {
   return function WrappedApp(props) {
     return (
       <ErrorBoundary appName={appName}>
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <Component {...props} />
       </ErrorBoundary>
     );

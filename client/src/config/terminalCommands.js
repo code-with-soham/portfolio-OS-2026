@@ -71,22 +71,10 @@ export const TERMINAL_COMMANDS = {
     handler: ({ addOutput }) => {
       addOutput([
         '',
-        '  📂 Projects',
-        '  ─────────────────────────────────',
-        '',
-        '  ⭐ Portfolio OS 2026    [In Progress]',
-        '     React, Node.js, Express, Zustand',
-        '',
-        '  ⭐ HealthSathi AI       [Completed]',
-        '     React, TypeScript, TensorFlow.js',
-        '',
-        '     DevCollab Platform   [Completed]',
-        '     Next.js, Socket.io, WebRTC',
-        '',
-        '     FinTrack Dashboard   [Completed]',
-        '     React, Chart.js, MongoDB',
-        '',
-        '  Use "open projects" to view full details.',
+        '  Portfolio OS 2026',
+        '  AI Resume Analyzer',
+        '  Job Tracker',
+        '  Developer Dashboard',
         '',
       ]);
     },
@@ -414,11 +402,54 @@ export const TERMINAL_COMMANDS = {
           '  On branch main',
           '  Your branch is up to date with "origin/main".',
           '',
-          '  nothing to commit, working tree clean'
+          '  Changes not staged for commit:',
+          '    (use "git add <file>..." to update what will be committed)',
+          '    (use "git restore <file>..." to discard changes in working directory)',
+          '          modified:   README.md',
+          '          modified:   skills.yml',
+          '',
+          '  Untracked files:',
+          '    (use "git add <file>..." to include in what will be committed)',
+          '          research.ipynb',
+          '',
+          '  no changes added to commit (use "git add" and/or "git commit -a")'
         ]);
       } else {
         addOutput(['  Usage: git status']);
       }
+    }
+  },
+
+  npm: {
+    description: 'Node Package Manager',
+    handler: ({ args, addOutput }) => {
+      if (args[0] === 'run' && args[1] === 'dev') {
+        addOutput([
+          '',
+          '  > portfolio-os@1.0.0 dev',
+          '  > vite',
+          '',
+          '  VITE v6.0.0  ready in 250 ms',
+          '',
+          '  ➜  Local:   http://localhost:5173/',
+          '  ➜  Network: use --host to expose',
+          ''
+        ]);
+      } else {
+        addOutput(['  Usage: npm run dev']);
+      }
+    }
+  },
+
+  portfolio: {
+    description: 'Portfolio overview',
+    handler: ({ addOutput }) => {
+      addOutput([
+        '',
+        '  Soham Kundu - Portfolio OS',
+        '  Type "resume", "skills", "projects", or "contact" to explore.',
+        ''
+      ]);
     }
   },
 

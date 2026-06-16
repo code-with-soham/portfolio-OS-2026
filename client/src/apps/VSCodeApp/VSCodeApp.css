@@ -136,7 +136,8 @@
 
 /* --- Sidebar --- */
 .vscode-sidebar {
-  width: 250px;
+  width: 240px;
+  min-width: 220px;
   background-color: #181818; /* Darker modern VS Code sidebar */
   display: flex;
   flex-direction: column;
@@ -542,11 +543,19 @@
 }
 
 .vscode-panel-header {
-  display: flex;
-  padding: 0 20px;
   height: 35px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid #2b2b2b;
+  justify-content: space-between;
 }
-
+.vscode-panel-tabs {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 100%;
+}
 .vscode-panel-tab {
   display: flex;
   align-items: center;
@@ -615,4 +624,386 @@
   margin-left: auto;
   display: flex;
   height: 100%;
+}
+
+/* --- Command Palette --- */
+.vscode-command-palette-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+}
+
+.vscode-command-palette {
+  width: 600px;
+  background-color: #252526;
+  border: 1px solid #454545;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.vscode-command-input {
+  background-color: #3c3c3c;
+  border: 1px solid #007fd4;
+  color: #cccccc;
+  padding: 8px;
+  margin: 6px;
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.vscode-command-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-bottom: 6px;
+}
+
+.vscode-command-item {
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+}
+
+.vscode-command-item:hover {
+  background-color: #04395e;
+  color: #ffffff;
+}
+
+.vscode-command-category {
+  color: #858585;
+  margin-right: 6px;
+  font-size: 12px;
+}
+
+.vscode-command-empty {
+  padding: 10px;
+  color: #858585;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* --- Panel Resizer --- */
+.vscode-panel-resizer {
+  height: 4px;
+  cursor: row-resize;
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+.vscode-panel-resizer:hover {
+  background-color: rgba(0, 122, 204, 0.5);
+}
+
+/* --- Search Stub --- */
+.vscode-search-panel {
+  padding: 10px;
+}
+
+.vscode-search-input {
+  width: 100%;
+  background-color: #3c3c3c;
+  border: 1px solid #3c3c3c;
+  color: #cccccc;
+  padding: 4px;
+  outline: none;
+  font-size: 13px;
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+.vscode-search-input:focus {
+  border-color: #007fd4;
+}
+
+.vscode-search-results {
+  margin-top: 10px;
+}
+
+/* --- Github Style Markdown --- */
+.github-style {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+.github-style h1, .github-style h2 {
+  border-bottom: 1px solid #2b2b2b;
+  padding-bottom: 0.3em;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.github-style a {
+  color: #58a6ff;
+  text-decoration: none;
+}
+.github-style a:hover {
+  text-decoration: underline;
+}
+.github-style ul {
+  padding-left: 2em;
+}
+.github-style li {
+  margin-top: 0.25em;
+}
+.github-style p {
+  margin-bottom: 16px;
+}
+
+/* --- Empty Editor Watermark --- */
+.vscode-empty-editor {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1e1e1e;
+}
+
+.vscode-watermark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.4;
+  user-select: none;
+}
+
+.vscode-watermark-logo {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 30px;
+  opacity: 0.3;
+  filter: grayscale(100%);
+}
+
+.vscode-shortcuts {
+  font-size: 13px;
+  color: #cccccc;
+}
+
+.vscode-shortcut-row {
+  display: flex;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.vscode-shortcut-row dt {
+  width: 150px;
+  text-align: right;
+  margin-right: 20px;
+}
+
+.vscode-shortcut-row dd {
+  margin: 0;
+  font-family: inherit;
+}
+
+/* --- Workspace Header Badges --- */
+.vscode-workspace-badges {
+  padding: 4px 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.vscode-workspace-badge {
+  font-size: 11px;
+  color: #cccccc;
+  display: flex;
+  align-items: center;
+}
+.vscode-workspace-badge span {
+  margin-right: 6px;
+}
+
+/* --- New Welcome Screen --- */
+.vscode-new-welcome {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+  background-color: #1e1e1e;
+  overflow-y: auto;
+}
+.vscode-new-welcome-content {
+  width: 100%;
+  max-width: 800px;
+  padding: 0 40px;
+}
+.vscode-new-welcome-header {
+  border: 1px solid #3c3c3c;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 40px;
+  border-radius: 6px;
+  background-color: #252526;
+}
+.vscode-new-welcome-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 400;
+  color: #ffffff;
+}
+.vscode-new-welcome-header p {
+  margin: 10px 0 0;
+  color: #cccccc;
+  font-size: 14px;
+}
+.vscode-new-welcome-section {
+  margin-bottom: 30px;
+}
+.vscode-new-welcome-section h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #cccccc;
+  border-bottom: 1px solid #3c3c3c;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+.vscode-new-welcome-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.vscode-new-welcome-item {
+  color: #3794ff;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+}
+.vscode-new-welcome-item:hover {
+  text-decoration: underline;
+}
+.vscode-new-welcome-item-icon {
+  margin-right: 8px;
+  color: #cccccc;
+}
+
+/* --- Git & Extensions Panels --- */
+.vscode-sidebar-list {
+  display: flex;
+  flex-direction: column;
+}
+.vscode-sidebar-list-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 10px 4px 20px;
+  font-size: 13px;
+  color: #cccccc;
+  cursor: pointer;
+}
+.vscode-sidebar-list-item:hover {
+  background-color: #2a2d2e;
+}
+.vscode-badge-m {
+  color: #e2c08d;
+  margin-left: auto;
+  font-size: 11px;
+}
+.vscode-badge-a {
+  color: #81b88b;
+  margin-left: auto;
+  font-size: 11px;
+}
+.vscode-git-input-container {
+  padding: 10px;
+}
+.vscode-git-input {
+  width: 100%;
+  background-color: #3c3c3c;
+  border: 1px solid #3c3c3c;
+  color: #cccccc;
+  padding: 6px;
+  outline: none;
+  font-size: 12px;
+  border-radius: 2px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+.vscode-git-input:focus {
+  border-color: #007fd4;
+}
+.vscode-git-button {
+  width: 100%;
+  background-color: #007acc;
+  color: #ffffff;
+  border: none;
+  padding: 4px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.vscode-git-button:hover {
+  background-color: #0062a3;
+}
+.vscode-extension-item {
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.vscode-extension-item:hover {
+  background-color: #2a2d2e;
+}
+.vscode-extension-icon {
+  width: 30px;
+  height: 30px;
+  background-color: #3c3c3c;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.vscode-extension-details {
+  display: flex;
+  flex-direction: column;
+}
+.vscode-extension-name {
+  font-size: 13px;
+  color: #cccccc;
+  font-weight: 600;
+}
+.vscode-extension-author {
+  font-size: 11px;
+  color: #858585;
+}
+.vscode-extension-badge {
+  margin-left: auto;
+  color: #cccccc;
+}
+
+/* --- Search Result Preview --- */
+.vscode-search-result-item {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.vscode-search-result-item:hover {
+  background-color: #2a2d2e;
+}
+.vscode-search-result-file {
+  font-size: 13px;
+  color: #cccccc;
+  display: flex;
+  align-items: center;
+}
+.vscode-search-result-preview {
+  font-size: 12px;
+  color: #858585;
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

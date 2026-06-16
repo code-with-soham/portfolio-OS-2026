@@ -47,6 +47,9 @@ export const fileTree = [
         isOpen: false,
         children: [{ name: 'skills.yml', type: 'file', path: 'skills/skills.yml' }],
       },
+      { name: '.gitignore', type: 'file', path: '.gitignore' },
+      { name: 'LICENSE.txt', type: 'file', path: 'LICENSE.txt' },
+      { name: 'CHANGELOG.md', type: 'file', path: 'CHANGELOG.md' },
     ],
   },
 ];

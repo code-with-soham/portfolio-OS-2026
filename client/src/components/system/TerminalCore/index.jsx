@@ -20,7 +20,7 @@ const BOOT_LINES = [
   { text: '', type: 'output' },
 ];
 
-export default function TerminalCore({ hideHeader = false, style = {} }) {
+export default function TerminalCore({ hideHeader = false, style = {}, customPrompt, skipBoot = false }) {
   const [output, setOutput] = useState([]);
   const [input, setInput] = useState('');
   const [commandHistory, setCommandHistory] = useState([]);
@@ -38,12 +38,17 @@ export default function TerminalCore({ hideHeader = false, style = {} }) {
 
   // Helper to format prompt
   const getPrompt = (currentCwd) => {
+    if (customPrompt) return customPrompt;
     const path = currentCwd.length > 0 ? `~/${currentCwd.join('/')}` : '~';
     return `soham@portfolio-os:${path}$`;
   };
 
   // Boot sequence
   useEffect(() => {
+    if (skipBoot) {
+      setBooted(true);
+      return;
+    }
     let i = 0;
     const interval = setInterval(() => {
       if (i < BOOT_LINES.length) {
@@ -56,7 +61,7 @@ export default function TerminalCore({ hideHeader = false, style = {} }) {
     }, 120);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [skipBoot]);
 
   // Auto-scroll to bottom
   useEffect(() => {
