@@ -34,7 +34,7 @@ function withErrorBoundary(Component, appName) {
 import userIco from '../assets/icons/system/User.ico';
 import projectsIco from '../assets/icons/system/Briefcase.ico';
 import skillsIco from '../assets/icons/system/Hardware.ico';
-import terminalIco from '../assets/icons/system/Programs.ico';
+import terminalIco from '../assets/icons/system/Windows_Terminal_logo.svg.ico';
 import resumeIco from '../assets/icons/system/Notes.ico';
 import fileExplorerIco from '../assets/icons/system/Explorer.ico';
 import settingsIco from '../assets/icons/system/Settings.ico';

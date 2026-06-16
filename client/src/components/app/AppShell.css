@@ -9,6 +9,8 @@
   overflow-x: hidden;
   padding: 20px;
   position: relative;
+  background: var(--color-bg-surface-content);
+  border-radius: 0 0 var(--radius-window) var(--radius-window);
 }
 
 .app-shell.no-padding {

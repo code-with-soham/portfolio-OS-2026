@@ -26,6 +26,7 @@ import './FileExplorerApp.css';
 
 import driverCIco from '../../assets/icons/system/driver-c.ico';
 import driverDIco from '../../assets/icons/system/driver-d.ico';
+import folderOpenIco from '../../assets/icons/system/Folder Open.ico';
 
 /**
  * Sidebar quick access items
@@ -40,7 +41,7 @@ const QUICK_ACCESS = [
 ];
 
 const getIconForType = (type, iconId) => {
-  if (type === 'folder') return <FolderRegular fontSize={32} color="#fcd116" />;
+  if (type === 'folder') return <img src={folderOpenIco} alt="folder" draggable="false" style={{ width: '32px', height: '32px' }} />;
   switch (iconId) {
     case 'document': return <DocumentRegular fontSize={32} />;
     case 'pdf': return <DocumentPdfRegular fontSize={32} color="#e81123" />;
