@@ -1,0 +1,168 @@
+/* ============================================
+   Portfolio OS 2026 — Fluent Design Tokens
+   ============================================
+   Official Windows 11 specifications for geometry, elevation, 
+   typography, and materials.
+*/
+
+:root {
+  /* ========================
+     1. Windows Geometry Tokens
+     ======================== */
+  --radius-window: 8px;
+  --radius-dialog: 8px;
+  --radius-flyout: 8px;
+  --radius-control: 4px;
+  --radius-button: 4px;
+
+  /* ========================
+     2. Elevation Tokens (Shadows)
+     ======================== */
+  /* Window/Dialog: 128 level */
+  --shadow-window: 0 32px 128px rgba(0, 0, 0, 0.4);
+  --shadow-dialog: 0 32px 128px rgba(0, 0, 0, 0.4);
+  
+  /* Flyout/Panel: 32 level */
+  --shadow-flyout: 0 8px 32px rgba(0, 0, 0, 0.3);
+  
+  /* Tooltip: 16 level */
+  --shadow-tooltip: 0 4px 16px rgba(0, 0, 0, 0.2);
+  
+  /* Card: 8 level */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.15);
+  
+  /* Control: 2 level */
+  --shadow-control: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+  /* Taskbar special shadow */
+  --shadow-taskbar: 0 -1px 8px rgba(0, 0, 0, 0.2);
+
+  /* ========================
+     3. Fluent Spacing Scale
+     ======================== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  --taskbar-height: 48px;
+
+  /* ========================
+     4. Typography Scale
+     ======================== */
+  --font-family: "Segoe UI Variable", "Segoe UI", sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+  
+  --text-caption: 0.75rem;
+  --text-body: 0.875rem;
+  --text-body-large: 1rem;
+  --text-subtitle: 1.25rem;
+  --text-title: 1.75rem;
+  --text-display: 2.5rem;
+
+  /* ========================
+     5. Transitions
+     ======================== */
+  --transition-fast: 120ms ease;
+  --transition-normal: 200ms ease;
+  --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ========================
+     6. Dark Theme (Default)
+     ======================== */
+  --color-accent: #0078d4;
+  --color-accent-hover: #006cbf;
+  --color-accent-light: #cce4f7;
+
+  /* Backgrounds */
+  --color-bg-desktop: #000000;
+  --color-bg-taskbar: rgba(32, 32, 32, 0.85);
+  --color-bg-start-menu: rgba(28, 28, 28, 0.96);
+  --color-bg-surface: rgba(255, 255, 255, 0.05);
+  --color-bg-surface-hover: rgba(255, 255, 255, 0.08);
+  --color-bg-surface-active: rgba(255, 255, 255, 0.04);
+  --color-bg-surface-content: #191919;
+
+  /* Text Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-tertiary: rgba(255, 255, 255, 0.45);
+  --color-text-accent: #60cdff;
+
+  /* Border Colors */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-active: rgba(255, 255, 255, 0.15);
+
+  /* Materials */
+  /* Mica */
+  --mica-base: rgba(32, 32, 32, 0.92);
+  --mica-titlebar: rgba(45, 45, 45, 0.95);
+  
+  /* Acrylic */
+  --acrylic-base: rgba(32, 32, 32, 0.75);
+  --acrylic-heavy: rgba(24, 24, 24, 0.92);
+  --acrylic-blur: 30px;
+}
+
+/* ========================
+   7. Light Theme
+   ======================== */
+[data-theme="light"] {
+  --color-bg-desktop: #f3f3f3;
+  --color-bg-taskbar: rgba(243, 243, 243, 0.85);
+  --color-bg-start-menu: rgba(252, 252, 252, 0.96);
+  --color-bg-surface: rgba(0, 0, 0, 0.04);
+  --color-bg-surface-hover: rgba(0, 0, 0, 0.06);
+  --color-bg-surface-active: rgba(0, 0, 0, 0.03);
+  --color-bg-surface-content: #ffffff;
+
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: rgba(0, 0, 0, 0.6);
+  --color-text-tertiary: rgba(0, 0, 0, 0.4);
+  --color-text-accent: #005a9e;
+
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-active: rgba(0, 0, 0, 0.12);
+
+  /* Elevation Overrides for Light Mode */
+  --shadow-window: 0 32px 128px rgba(0, 0, 0, 0.12);
+  --shadow-dialog: 0 32px 128px rgba(0, 0, 0, 0.12);
+  --shadow-flyout: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-taskbar: 0 -1px 8px rgba(0, 0, 0, 0.06);
+
+  /* Materials */
+  /* Mica */
+  --mica-base: rgba(249, 249, 249, 0.95);
+  --mica-titlebar: rgba(240, 240, 240, 0.98);
+  
+  /* Acrylic */
+  --acrylic-base: rgba(245, 245, 245, 0.8);
+  --acrylic-heavy: rgba(252, 252, 252, 0.95);
+}
+
+/* Scrollbar tweaks */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-control);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+}
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}

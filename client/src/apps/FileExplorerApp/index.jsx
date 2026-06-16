@@ -7,6 +7,21 @@
 import { useState, useCallback } from 'react';
 import { FILE_SYSTEM, resolveNode } from '../../data/fileSystem';
 import { useWindowStore } from '../../store/useWindowStore';
+import {
+  FolderRegular,
+  DocumentRegular,
+  DocumentPdfRegular,
+  ImageRegular,
+  CodeRegular,
+  DesktopRegular,
+  TrophyRegular,
+  RibbonRegular,
+  ArrowLeftRegular,
+  HomeRegular,
+  ChevronRightRegular,
+  BoxRegular,
+  FolderOpenRegular
+} from '@fluentui/react-icons';
 import './FileExplorerApp.css';
 
 import driverCIco from '../../assets/icons/system/driver-c.ico';
@@ -16,13 +31,28 @@ import driverDIco from '../../assets/icons/system/driver-d.ico';
  * Sidebar quick access items
  */
 const QUICK_ACCESS = [
-  { name: 'This PC', path: ['This PC'], icon: '💻' },
-  { name: 'Desktop', path: ['Desktop'], icon: '🖥️' },
-  { name: 'Projects', path: ['Desktop', 'Projects'], icon: '📁' },
-  { name: 'Resume', path: ['Desktop', 'Resume'], icon: '📄' },
-  { name: 'Notes', path: ['Desktop', 'Notes'], icon: '📝' },
-  { name: 'Downloads', path: ['Desktop', 'Downloads'], icon: '📥' },
+  { name: 'This PC', path: ['This PC'], icon: <DesktopRegular fontSize={16} /> },
+  { name: 'Desktop', path: ['Desktop'], icon: <DesktopRegular fontSize={16} /> },
+  { name: 'Projects', path: ['Desktop', 'Projects'], icon: <FolderRegular fontSize={16} /> },
+  { name: 'Resume', path: ['Desktop', 'Resume'], icon: <DocumentRegular fontSize={16} /> },
+  { name: 'Notes', path: ['Desktop', 'Notes'], icon: <DocumentRegular fontSize={16} /> },
+  { name: 'Downloads', path: ['Desktop', 'Downloads'], icon: <FolderRegular fontSize={16} /> },
 ];
+
+const getIconForType = (type, iconId) => {
+  if (type === 'folder') return <FolderRegular fontSize={32} color="#fcd116" />;
+  switch (iconId) {
+    case 'document': return <DocumentRegular fontSize={32} />;
+    case 'pdf': return <DocumentPdfRegular fontSize={32} color="#e81123" />;
+    case 'image': return <ImageRegular fontSize={32} color="#0078d4" />;
+    case 'code': return <CodeRegular fontSize={32} />;
+    case 'desktop': return <DesktopRegular fontSize={32} />;
+    case 'trophy': return <TrophyRegular fontSize={32} color="#ffb900" />;
+    case 'award': return <RibbonRegular fontSize={32} color="#ffb900" />;
+    case 'package': return <BoxRegular fontSize={32} />;
+    default: return <DocumentRegular fontSize={32} />;
+  }
+};
 
 const DRIVES = [
   { id: 'C', name: 'Local Disk (C:)', icon: driverCIco, total: 356.0, used: 319.5, unit: 'GB' },
@@ -88,31 +118,39 @@ export default function FileExplorerApp({ appId }) {
           disabled={currentPath.length <= 1}
           title="Back"
         >
-          ←
+          <ArrowLeftRegular fontSize={16} />
         </button>
         <button
           className="explorer-nav-btn"
           onClick={() => navigateTo(['This PC'])}
           title="Home"
         >
-          🏠
+          <HomeRegular fontSize={16} />
         </button>
 
-        {/* Breadcrumbs */}
-        <div className="explorer-breadcrumbs">
-          {currentPath.map((part, i) => (
-            <span key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              {i > 0 && <span className="explorer-breadcrumb-sep">›</span>}
-              <button
-                className={`explorer-breadcrumb ${
-                  i === currentPath.length - 1 ? 'active' : ''
-                }`}
-                onClick={() => handleBreadcrumbClick(i)}
-              >
-                {part}
-              </button>
-            </span>
-          ))}
+        {/* Center: Breadcrumbs & Search */}
+        <div className="explorer-nav-center">
+          <div className="explorer-breadcrumbs">
+            {currentPath.map((part, i) => (
+              <span key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                {i > 0 && <span className="explorer-breadcrumb-sep"><ChevronRightRegular fontSize={12} /></span>}
+                <button
+                  className={`explorer-breadcrumb ${
+                    i === currentPath.length - 1 ? 'active' : ''
+                  }`}
+                  onClick={() => handleBreadcrumbClick(i)}
+                >
+                  {part}
+                </button>
+              </span>
+            ))}
+          </div>
+          <input 
+            type="text" 
+            className="explorer-search" 
+            placeholder={`Search ${currentPath[currentPath.length - 1] || 'This PC'}`} 
+            onChange={(e) => {/* Phase 4: Implementation */}}
+          />
         </div>
       </div>
 
@@ -186,7 +224,7 @@ export default function FileExplorerApp({ appId }) {
                   onDoubleClick={() => handleItemDoubleClick(item)}
                 >
                   <span className="explorer-item-icon">
-                    {item.type === 'folder' ? '📁' : item.icon || '📄'}
+                    {getIconForType(item.type, item.icon)}
                   </span>
                   <span className="explorer-item-name">{item.name}</span>
                 </div>
@@ -194,7 +232,7 @@ export default function FileExplorerApp({ appId }) {
             </div>
           ) : (
             <div className="explorer-empty">
-              <span className="explorer-empty-icon">📂</span>
+              <span className="explorer-empty-icon"><FolderOpenRegular fontSize={48} /></span>
               <p>This folder is empty</p>
             </div>
           )}

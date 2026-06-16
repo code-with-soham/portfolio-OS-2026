@@ -210,7 +210,7 @@ export default function Window({ window: winData }) {
         height: isMaximized ? 'calc(100vh - var(--taskbar-height))' : localBounds.height,
       }}
       transition={{ type: 'spring', stiffness: 400, damping: 40 }}
-      className={`glass-heavy ${isActive ? 'active-window' : ''}`}
+      className={`mica ${isActive ? 'active-window' : ''}`}
       style={{
         position: 'absolute',
         top: 0,
