@@ -98,3 +98,17 @@
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-2px); }
 }
+
+@keyframes ambient-breathe {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.05; }
+}
+
+.desktop-ambient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, transparent 70%);
+  pointer-events: none;
+  animation: ambient-breathe 8s ease-in-out infinite;
+  z-index: 1;
+}

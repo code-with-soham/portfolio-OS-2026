@@ -20,6 +20,16 @@ import DesktopIcon from '../components/desktop/DesktopIcon';
 import ContextMenu from '../components/desktop/ContextMenu';
 import ToastContainer from '../components/desktop/ToastContainer';
 import Window from '../components/desktop/Window';
+import WidgetsPanel from '../components/widgets/WidgetsPanel';
+import { useWidgetStore } from '../store/useWidgetStore';
+import {
+  EyeRegular,
+  ArrowSortRegular,
+  ArrowClockwiseRegular,
+  BoardRegular,
+  PaintBrushRegular,
+  InfoRegular,
+} from '@fluentui/react-icons';
 
 export default function Desktop() {
   const closeAllPanels = useDesktopStore((s) => s.closeAllPanels);
@@ -27,19 +37,22 @@ export default function Desktop() {
   const windows = useWindowStore((s) => s.windows);
   const setActiveWindow = useWindowStore((s) => s.setActiveWindow);
 
+  const toggleWidgetPanel = useWidgetStore((s) => s.toggleWidgetPanel);
+  const isWidgetPanelOpen = useWidgetStore((s) => s.isWidgetPanelOpen);
+
   const handleContextMenu = (e) => {
     e.preventDefault();
     
     // Standard Windows 11 desktop context menu items
     const items = [
-      { label: 'View', icon: '👁️', disabled: false },
-      { label: 'Sort by', icon: '↕️', disabled: false },
-      { label: 'Refresh', icon: '🔄', onClick: () => window.location.reload() },
+      { label: 'View', icon: <EyeRegular />, disabled: false },
+      { label: 'Sort by', icon: <ArrowSortRegular />, disabled: false },
+      { label: 'Refresh', icon: <ArrowClockwiseRegular />, onClick: () => window.location.reload() },
       { divider: true },
-      { label: 'New', icon: '➕', disabled: true },
+      { label: isWidgetPanelOpen ? 'Hide Widgets' : 'Show Widgets', icon: <BoardRegular />, onClick: toggleWidgetPanel },
       { divider: true },
-      { label: 'Display settings', icon: '🖥️', disabled: true },
-      { label: 'Personalize', icon: '🎨', disabled: true },
+      { label: 'Personalize', icon: <PaintBrushRegular />, disabled: true },
+      { label: 'About OS', icon: <InfoRegular />, disabled: true },
     ];
     
     openContextMenu(e.clientX, e.clientY, items);
@@ -58,6 +71,9 @@ export default function Desktop() {
         overflow: 'hidden',
       }}
     >
+      {/* Subtle desktop ambience overlay */}
+      <div className="desktop-ambient" />
+
       {/* Desktop icon area — click background to close panels */}
       <div
         id="desktop-area"
@@ -101,6 +117,9 @@ export default function Desktop() {
 
       {/* Context Menu overlay */}
       <ContextMenu />
+
+      {/* Widgets Panel overlay */}
+      <WidgetsPanel />
 
       {/* Notification Center overlay */}
       <NotificationCenter />

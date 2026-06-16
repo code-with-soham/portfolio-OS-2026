@@ -10,6 +10,7 @@
 
 import { create } from 'zustand';
 import { OS_STATES } from '../constants';
+import { useWidgetStore } from './useWidgetStore';
 
 /**
  * Desktop store — manages OS lifecycle and shell UI state
@@ -156,14 +157,16 @@ export const useDesktopStore = create((set, get) => ({
   // ========================
 
   /** Close all open panels (start menu + notification center + quick settings) */
-  closeAllPanels: () =>
+  closeAllPanels: () => {
     set((state) => ({
       isStartMenuOpen: false,
       isNotificationCenterOpen: false,
       isQuickSettingsOpen: false,
       contextMenu: { ...state.contextMenu, isOpen: false },
       selectedIconId: null, // Deselect icons when clicking background
-    })),
+    }));
+    useWidgetStore.getState().closeWidgetPanel();
+  },
     
   // ========================
   // System Telemetry

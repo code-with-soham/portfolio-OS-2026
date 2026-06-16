@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 // ============================================
 // Portfolio OS 2026 — Achievement Store (Event Driven)
 // ============================================
@@ -77,12 +78,16 @@ export const useAchievementStore = create(
       // Tracks unique apps opened to trigger 'Full Tour'
       appsOpened: [],
 
+      // Tracks recent activity for the Activity Widget
+      activityLog: [],
+
       /**
        * Primary Engine: Tracks an event and evaluates achievement conditions
        */
       trackEvent: (eventName) => {
         const { events, unlockAchievement } = get();
         
+        // eslint-disable-next-line security/detect-object-injection
         const count = (events[eventName] || 0) + 1;
         
         // Update event counter
@@ -105,6 +110,28 @@ export const useAchievementStore = create(
         if (eventName === 'terminal-command' && count >= 25) {
           unlockAchievement('terminal_wizard');
         }
+
+        // Add to activity log (human readable mapping)
+        const activityLabels = {
+          'opened-terminal': 'Opened Terminal',
+          'opened-fileexplorer': 'Opened File Explorer',
+          'opened-resume': 'Viewed Resume',
+          'opened-projects': 'Viewed Projects',
+          'opened-aboutos': 'Viewed About OS',
+          'changed-theme': 'Changed Theme',
+          'sudo-hire-soham': 'Found Easter Egg',
+        };
+
+        // eslint-disable-next-line security/detect-object-injection
+        if (activityLabels[eventName]) {
+          set((state) => {
+            const newLog = [
+              { id: Date.now().toString(), label: activityLabels[eventName], timestamp: Date.now() },
+              ...state.activityLog,
+            ].slice(0, 10); // Keep only the latest 10 items
+            return { activityLog: newLog };
+          });
+        }
       },
 
       /**
@@ -114,6 +141,7 @@ export const useAchievementStore = create(
         const { unlocked } = get();
         
         // Already unlocked or invalid achievement
+        // eslint-disable-next-line security/detect-object-injection
         if (unlocked[id] || !ACHIEVEMENTS[id]) return;
 
         // Update state
@@ -128,6 +156,7 @@ export const useAchievementStore = create(
         }));
 
         // Fire notification
+        // eslint-disable-next-line security/detect-object-injection
         const ach = ACHIEVEMENTS[id];
         useNotificationStore.getState().addNotification(
           'Achievement Unlocked',
@@ -159,7 +188,7 @@ export const useAchievementStore = create(
        * Clear all achievements (for debugging/testing)
        */
       resetAchievements: () => {
-        set({ unlocked: {}, events: {}, appsOpened: [] });
+        set({ unlocked: {}, events: {}, appsOpened: [], activityLog: [] });
       }
     }),
     {

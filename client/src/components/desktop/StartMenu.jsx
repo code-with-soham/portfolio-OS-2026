@@ -49,7 +49,7 @@ function PinnedApp({ app, onClick }) {
         minWidth: '80px',
       }}
     >
-      {typeof app.icon === 'string' && (app.icon.endsWith('.ico') || app.icon.endsWith('.png') || app.icon.includes('assets/')) ? (
+      {typeof app.icon === 'string' && (app.icon.endsWith('.ico') || app.icon.endsWith('.png') || app.icon.includes('assets/') || app.icon.startsWith('data:image/')) ? (
         <img
           src={app.icon}
           alt={app.label}
@@ -99,7 +99,7 @@ function RecommendedItem({ item }) {
         textAlign: 'left',
       }}
     >
-      {typeof item.icon === 'string' && (item.icon.endsWith('.ico') || item.icon.endsWith('.png') || item.icon.includes('assets/')) ? (
+      {typeof item.icon === 'string' && (item.icon.endsWith('.ico') || item.icon.endsWith('.png') || item.icon.includes('assets/') || item.icon.startsWith('data:image/')) ? (
         <img
           src={item.icon}
           alt={item.label}
