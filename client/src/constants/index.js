@@ -100,7 +100,7 @@ import musicIco from '../assets/icons/system/Folder Music.ico';
 import videosIco from '../assets/icons/system/Folder Videos.ico';
 import oneDriveIco from '../assets/icons/system/One Drive.ico';
 import trashIco from '../assets/icons/system/Trash Empty.ico';
-import vscodeIco from '../assets/icons/apps/vsCode.ico';
+import vscodeIco from '../assets/icons/apps/vscode.svg';
 
 /**
  * Desktop Applications — the apps shown on desktop and start menu

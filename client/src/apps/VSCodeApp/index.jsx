@@ -27,6 +27,7 @@ import {
   AlertRegular
 } from '@fluentui/react-icons';
 import './VSCodeApp.css';
+import vscodeIco from '../../assets/icons/apps/vscode.svg';
 
 // Mock contents
 const fileContents = {
@@ -249,7 +250,7 @@ export default function VSCodeApp() {
           <div className="vscode-welcome-content">
             <div className="vscode-welcome-header">
               <div className="vscode-welcome-logo">
-                <img src="/icons/apps/VSCode.ico" alt="VS Code" width="80" height="80" onError={(e) => e.target.style.display = 'none'} />
+                <img src={vscodeIco} alt="VS Code" width="80" height="80" onError={(e) => e.target.style.display = 'none'} />
               </div>
               <div className="vscode-welcome-title">
                 <h1>Welcome</h1>
@@ -336,7 +337,7 @@ export default function VSCodeApp() {
       {/* Top Menu Bar */}
       <div className="vscode-titlebar">
         <div className="vscode-titlebar-icon">
-          <img src="/icons/apps/VSCode.ico" alt="VS Code" width="16" height="16" onError={(e) => e.target.style.display = 'none'} />
+          <img src={vscodeIco} alt="VS Code" width="16" height="16" onError={(e) => e.target.style.display = 'none'} />
         </div>
         <div className="vscode-titlebar-menus">
           <span>File</span>

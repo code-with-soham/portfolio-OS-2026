@@ -42,7 +42,7 @@ import fileExplorerIco from '../assets/icons/system/Explorer.ico';
 import settingsIco from '../assets/icons/system/Settings.ico';
 import infoIco from '../assets/icons/system/Info.ico';
 import pcIco from '../assets/icons/system/Computer.ico';
-import vscodeIco from '../assets/icons/apps/VSCode.ico';
+import vscodeIco from '../assets/icons/apps/vscode.svg';
 
 export const APPS = {
   about: {
