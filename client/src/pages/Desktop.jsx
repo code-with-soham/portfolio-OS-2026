@@ -14,7 +14,8 @@ import { useWindowStore } from '../store/useWindowStore';
 import { DESKTOP_APPS } from '../constants';
 import Taskbar from '../components/desktop/Taskbar';
 import StartMenu from '../components/desktop/StartMenu';
-import NotificationCenter from '../components/desktop/NotificationCenter';
+import NotificationCenter from '../components/system/notification/NotificationCenter';
+import QuickSettings from '../components/system/quicksettings/QuickSettings';
 import DesktopIcon from '../components/desktop/DesktopIcon';
 import ContextMenu from '../components/desktop/ContextMenu';
 import ToastContainer from '../components/desktop/ToastContainer';
@@ -103,6 +104,9 @@ export default function Desktop() {
 
       {/* Notification Center overlay */}
       <NotificationCenter />
+      
+      {/* Quick Settings overlay */}
+      <QuickSettings />
 
       {/* Taskbar — always at bottom */}
       <Taskbar />

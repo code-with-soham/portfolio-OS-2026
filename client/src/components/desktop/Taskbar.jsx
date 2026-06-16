@@ -19,7 +19,7 @@ import {
   SearchRegular,
   WeatherSunnyRegular,
   WeatherMoonRegular,
-  Wifi4Regular,
+  Wifi1Regular,
   Speaker2Regular,
   AlertRegular
 } from '@fluentui/react-icons';
@@ -27,7 +27,7 @@ import {
 /**
  * Taskbar icon button — reusable for all tray icons
  */
-function TaskbarButton({ id, children, onClick, isActive = false, isOpen = false, title }) {
+function TaskbarButton({ id, children, onClick, isActive = false, isOpen = false, title, style = {} }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -56,6 +56,7 @@ function TaskbarButton({ id, children, onClick, isActive = false, isOpen = false
         fontSize: '1rem',
         transition: 'background var(--transition-fast)',
         position: 'relative',
+        ...style,
       }}
     >
       {children}
@@ -99,9 +100,9 @@ function WindowsLogo({ size = 18 }) {
  * Main Taskbar component
  */
 export default function Taskbar() {
-  const { isStartMenuOpen, toggleStartMenu, toggleNotificationCenter } =
+  const { isStartMenuOpen, toggleStartMenu, toggleNotificationCenter, isQuickSettingsOpen, toggleQuickSettings } =
     useDesktopStore();
-  const { theme, toggleTheme } = useThemeStore();
+  const { theme } = useThemeStore();
   const windows = useWindowStore((s) => s.windows);
   const activeWindowId = useWindowStore((s) => s.activeWindowId);
   const focusWindow = useWindowStore((s) => s.focusWindow);
@@ -229,29 +230,19 @@ export default function Taskbar() {
 
       {/* Right section — System tray */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-        {/* Theme toggle */}
+        {/* System Status Area (Quick Settings) */}
         <TaskbarButton
-          id="taskbar-theme-btn"
-          onClick={toggleTheme}
-          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          id="taskbar-quick-settings-btn"
+          onClick={toggleQuickSettings}
+          isActive={isQuickSettingsOpen}
+          title="Quick Settings"
+          style={{ width: 'auto', padding: '0 8px' }}
         >
-          {theme === 'dark' ? (
-            // Sun icon for switching to light
-            <WeatherSunnyRegular fontSize={15} />
-          ) : (
-            // Moon icon for switching to dark
-            <WeatherMoonRegular fontSize={14} />
-          )}
-        </TaskbarButton>
-
-        {/* Wi-Fi (decorative) */}
-        <TaskbarButton id="taskbar-wifi" title="Wi-Fi">
-          <Wifi4Regular fontSize={18} />
-        </TaskbarButton>
-
-        {/* Volume (decorative) */}
-        <TaskbarButton id="taskbar-volume" title="Volume">
-          <Speaker2Regular fontSize={18} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Wifi1Regular fontSize={16} />
+            <Speaker2Regular fontSize={16} />
+            <span style={{ fontSize: '10px', fontWeight: 'bold' }}>100%</span> {/* Simulated Battery */}
+          </div>
         </TaskbarButton>
 
         {/* Notification bell */}

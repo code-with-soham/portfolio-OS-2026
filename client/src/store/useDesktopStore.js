@@ -48,8 +48,9 @@ export const useDesktopStore = create((set, get) => ({
     const isOpen = get().isStartMenuOpen;
     set({
       isStartMenuOpen: !isOpen,
-      // Close notification center when opening start menu
+      // Close other panels
       isNotificationCenterOpen: false,
+      isQuickSettingsOpen: false,
     });
   },
 
@@ -68,13 +69,35 @@ export const useDesktopStore = create((set, get) => ({
     const isOpen = get().isNotificationCenterOpen;
     set({
       isNotificationCenterOpen: !isOpen,
-      // Close start menu when opening notification center
+      // Close other panels
       isStartMenuOpen: false,
+      isQuickSettingsOpen: false,
     });
   },
 
   /** Close the Notification Center */
   closeNotificationCenter: () => set({ isNotificationCenterOpen: false }),
+
+  // ========================
+  // Quick Settings
+  // ========================
+
+  /** Whether the Quick Settings is currently open */
+  isQuickSettingsOpen: false,
+
+  /** Toggle the Quick Settings open/closed */
+  toggleQuickSettings: () => {
+    const isOpen = get().isQuickSettingsOpen;
+    set({
+      isQuickSettingsOpen: !isOpen,
+      // Close other panels
+      isStartMenuOpen: false,
+      isNotificationCenterOpen: false,
+    });
+  },
+
+  /** Close the Quick Settings */
+  closeQuickSettings: () => set({ isQuickSettingsOpen: false }),
 
   // ========================
   // Context Menu
@@ -94,6 +117,7 @@ export const useDesktopStore = create((set, get) => ({
       contextMenu: { isOpen: true, x, y, items },
       isStartMenuOpen: false,
       isNotificationCenterOpen: false,
+      isQuickSettingsOpen: false,
     });
   },
 
@@ -131,11 +155,12 @@ export const useDesktopStore = create((set, get) => ({
   // Utility
   // ========================
 
-  /** Close all open panels (start menu + notification center) */
+  /** Close all open panels (start menu + notification center + quick settings) */
   closeAllPanels: () =>
     set((state) => ({
       isStartMenuOpen: false,
       isNotificationCenterOpen: false,
+      isQuickSettingsOpen: false,
       contextMenu: { ...state.contextMenu, isOpen: false },
       selectedIconId: null, // Deselect icons when clicking background
     })),
