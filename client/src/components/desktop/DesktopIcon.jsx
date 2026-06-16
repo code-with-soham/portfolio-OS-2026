@@ -96,7 +96,7 @@ export default function DesktopIcon({ id, label, icon, onClick }) {
       }}
     >
       {/* Icon */}
-      {typeof icon === 'string' && (icon.endsWith('.ico') || icon.endsWith('.png') || icon.includes('assets/')) ? (
+      {typeof icon === 'string' && (icon.endsWith('.ico') || icon.endsWith('.png') || icon.includes('assets/') || icon.startsWith('data:image/')) ? (
         <img
           src={icon}
           alt={label}

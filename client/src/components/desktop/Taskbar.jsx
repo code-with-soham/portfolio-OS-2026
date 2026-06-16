@@ -196,7 +196,7 @@ export default function Taskbar() {
               isOpen={isOpen}
               title={app.label}
             >
-              {typeof app.icon === 'string' && (app.icon.endsWith('.ico') || app.icon.endsWith('.png') || app.icon.includes('assets/')) ? (
+              {typeof app.icon === 'string' && (app.icon.endsWith('.ico') || app.icon.endsWith('.png') || app.icon.includes('assets/') || app.icon.startsWith('data:image/')) ? (
                 <img src={app.icon} alt="" draggable={false} style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
               ) : (
                 <span style={{ fontSize: '18px' }}>{app.icon}</span>
@@ -217,7 +217,7 @@ export default function Taskbar() {
               isOpen={true}
               title={win.title}
             >
-              {typeof win.icon === 'string' && (win.icon.endsWith('.ico') || win.icon.endsWith('.png') || win.icon.includes('assets/')) ? (
+              {typeof win.icon === 'string' && (win.icon.endsWith('.ico') || win.icon.endsWith('.png') || win.icon.includes('assets/') || win.icon.startsWith('data:image/')) ? (
                 <img src={win.icon} alt="" draggable={false} style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
               ) : (
                 <span style={{ fontSize: '18px' }}>{win.icon}</span>

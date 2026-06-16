@@ -55,7 +55,7 @@ function TitleBar({ title, icon, onMinimize, onMaximize, onClose, dragControls, 
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingLeft: '12px' }}>
-        {typeof icon === 'string' && (icon.endsWith('.ico') || icon.endsWith('.png') || icon.includes('assets/')) ? (
+        {typeof icon === 'string' && (icon.endsWith('.ico') || icon.endsWith('.png') || icon.includes('assets/') || icon.startsWith('data:image/')) ? (
           <img src={icon} alt="" draggable={false} style={{ width: '16px', height: '16px', objectFit: 'contain' }} />
         ) : (
           <span style={{ fontSize: '14px' }}>{icon}</span>
