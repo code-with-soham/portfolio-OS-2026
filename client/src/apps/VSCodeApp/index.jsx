@@ -24,6 +24,7 @@ import {
   TextBulletListSquareRegular,
   DocumentDataRegular,
   WindowConsoleRegular,
+  AlertRegular
 } from '@fluentui/react-icons';
 import './VSCodeApp.css';
 
@@ -58,7 +59,14 @@ export default function VSCodeApp() {
   const [sidebarView, setSidebarView] = useState('explorer');
   const [openEditorsExpanded, setOpenEditorsExpanded] = useState(true);
   const [workspaceExpanded, setWorkspaceExpanded] = useState(true);
-  const [panelVisible, setPanelVisible] = useState(true);
+  const [panelVisible, setPanelVisible] = useState(() => {
+    const saved = localStorage.getItem('vscode.panel.visible');
+    return saved ? JSON.parse(saved) : false;
+  });
+  
+  useEffect(() => {
+    localStorage.setItem('vscode.panel.visible', JSON.stringify(panelVisible));
+  }, [panelVisible]);
   
   // Persist panel height
   const [panelHeight, setPanelHeight] = useState(() => {
@@ -103,6 +111,9 @@ export default function VSCodeApp() {
       setOpenFiles([...openFiles, path]);
     }
     setActiveFile(path);
+    if (path === 'about/README.md') {
+      setPanelVisible(false);
+    }
   };
 
   const closeFile = (e, path) => {
@@ -122,6 +133,10 @@ export default function VSCodeApp() {
   // Command Palette listener
   useEffect(() => {
     const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.key === '`') {
+        e.preventDefault();
+        setPanelVisible(prev => !prev);
+      }
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'p') {
         e.preventDefault();
         setIsCommandPaletteOpen(true);
@@ -146,9 +161,9 @@ export default function VSCodeApp() {
       if (!isDragging) return;
       // Calculate from bottom
       const newHeight = window.innerHeight - e.clientY - 22; // 22px status bar
-      if (newHeight > 100 && newHeight < 800) {
-        setPanelHeight(newHeight);
-      }
+      const maxAllowed = window.innerHeight * 0.5;
+      const clampedHeight = Math.min(maxAllowed, Math.max(180, newHeight));
+      setPanelHeight(clampedHeight);
     };
     const onMouseUp = () => {
       if (isDragging) {
@@ -209,7 +224,13 @@ export default function VSCodeApp() {
             <span className="vscode-tree-icon">
               {isFolder ? getFolderIcon(node.name, isOpen) : getFileIcon(node.name)}
             </span>
-            <span className="vscode-tree-name">{node.name}</span>
+            <span className="vscode-tree-name" style={{ 
+              color: node.name === 'README.md' || node.name === 'research.ipynb' ? '#cca700' : 
+                     node.name === 'skills.yml' ? '#89d185' : 'inherit'
+            }}>{node.name}</span>
+            {node.name === 'README.md' && <span style={{ marginLeft: 'auto', fontSize: 10, color: '#cca700', paddingRight: 4 }}>M</span>}
+            {node.name === 'skills.yml' && <span style={{ marginLeft: 'auto', fontSize: 10, color: '#89d185', paddingRight: 4 }}>A</span>}
+            {node.name === 'research.ipynb' && <span style={{ marginLeft: 'auto', fontSize: 10, color: '#cca700', paddingRight: 4 }}>U</span>}
           </div>
           {isFolder && isOpen && node.children && (
             <div className="vscode-tree-children">
@@ -341,9 +362,15 @@ export default function VSCodeApp() {
           <div className="vscode-activity-top">
             <div className={`vscode-activity-icon ${sidebarView === 'explorer' ? 'active' : ''}`} title="Explorer (Ctrl+Shift+E)" onClick={() => setSidebarView('explorer')}><DocumentMultipleRegular /></div>
             <div className={`vscode-activity-icon ${sidebarView === 'search' ? 'active' : ''}`} title="Search (Ctrl+Shift+F)" onClick={() => setSidebarView('search')}><SearchRegular /></div>
-            <div className="vscode-activity-icon" title="Source Control (Ctrl+Shift+G)"><BranchRegular /></div>
+            <div className="vscode-activity-icon" title="Source Control (Ctrl+Shift+G)" style={{ position: 'relative' }}>
+              <BranchRegular />
+              <div style={{ position: 'absolute', bottom: 8, right: 8, background: '#007fd4', color: 'white', fontSize: 9, borderRadius: 10, width: 14, height: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>3</div>
+            </div>
             <div className="vscode-activity-icon" title="Run and Debug (Ctrl+Shift+D)"><PlayRegular /></div>
-            <div className="vscode-activity-icon" title="Extensions (Ctrl+Shift+X)"><PuzzlePieceRegular /></div>
+            <div className="vscode-activity-icon" title="Extensions (Ctrl+Shift+X)" style={{ position: 'relative' }}>
+              <PuzzlePieceRegular />
+              <div style={{ position: 'absolute', bottom: 8, right: 8, background: '#007fd4', color: 'white', fontSize: 9, borderRadius: 10, width: 14, height: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>5</div>
+            </div>
           </div>
           <div className="vscode-activity-bottom">
             <div className="vscode-activity-icon" title="Accounts"><PersonRegular /></div>
@@ -670,6 +697,13 @@ export default function VSCodeApp() {
                     ))}
                   </div>
                   <div className="vscode-panel-actions">
+                    <span 
+                      style={{ fontSize: '11px', marginRight: '10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }} 
+                      onClick={() => setPanelVisible(false)}
+                      title="Hide Panel"
+                    >
+                      ▼ Hide Panel
+                    </span>
                     <DismissRegular fontSize={14} style={{ cursor: 'pointer' }} onClick={() => setPanelVisible(false)} />
                   </div>
                 </div>
@@ -708,11 +742,14 @@ export default function VSCodeApp() {
           <div className="vscode-status-item">JavaScript React</div>
           <div className="vscode-status-item">Node 20</div>
           <div className="vscode-status-item">Portfolio OS</div>
-          <div className="vscode-status-item" style={{ color: '#cccccc' }} title="Workspace Uptime">
-            <ArrowSyncRegular fontSize={12} style={{ marginRight: 4 }}/> {formatUptime(uptime)}
+          <div className="vscode-status-item" style={{ color: '#cccccc' }}>
+            Workspace uptime: {formatUptime(uptime)}
           </div>
           <div className="vscode-status-item" onClick={() => setPanelVisible(!panelVisible)}>
             <WindowConsoleRegular fontSize={14} />
+          </div>
+          <div className="vscode-status-item" title="Notifications">
+            <AlertRegular fontSize={14} />
           </div>
         </div>
       </div>
