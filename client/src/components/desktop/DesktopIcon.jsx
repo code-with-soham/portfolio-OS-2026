@@ -21,7 +21,7 @@ import { useWindowStore } from '../../store/useWindowStore';
  * @param {string} props.icon - Emoji icon
  * @param {Function} [props.onClick] - Optional click handler
  */
-export default function DesktopIcon({ id, label, icon, onClick }) {
+export default function DesktopIcon({ id, label, icon, onClick, onDoubleClick }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
   
@@ -73,7 +73,11 @@ export default function DesktopIcon({ id, label, icon, onClick }) {
       }}
       onDoubleClick={(e) => {
         e.stopPropagation();
-        openWindow(id);
+        if (onDoubleClick) {
+          onDoubleClick(e);
+        } else {
+          openWindow(id);
+        }
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {

@@ -24,9 +24,39 @@ export function useKeyboardShortcuts() {
       const isCapturing = useUIStore.getState().isCapturingInput();
 
       // Windows key (Meta) — toggle start menu
-      if (e.key === 'Meta') {
+      if (e.key === 'Meta' && !e.shiftKey && !e.ctrlKey && !e.altKey) {
+        // Only toggle if just Meta is pressed
         const { toggleStartMenu } = useDesktopStore.getState();
         toggleStartMenu();
+        setTimeout(() => document.getElementById('start-menu-search')?.focus(), 100);
+        return;
+      }
+
+      // Win + S to open Search
+      if ((e.metaKey || e.key === 'Meta') && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        const { isStartMenuOpen, openStartMenu } = useDesktopStore.getState();
+        if (!isStartMenuOpen) {
+          openStartMenu();
+        }
+        setTimeout(() => document.getElementById('start-menu-search')?.focus(), 100);
+        return;
+      }
+
+      // Win + Space to open AI Assistant
+      if ((e.metaKey || e.key === 'Meta') && e.code === 'Space') {
+        e.preventDefault();
+        const { toggleAIAssistant } = useDesktopStore.getState();
+        toggleAIAssistant();
+        return;
+      }
+
+      // Win + L to lock screen
+      if ((e.metaKey || e.key === 'Meta') && e.key.toLowerCase() === 'l') {
+        e.preventDefault();
+        import('../constants').then(({ OS_STATES }) => {
+          useDesktopStore.getState().setOsState(OS_STATES.LOCKED);
+        });
         return;
       }
 

@@ -82,6 +82,7 @@ export const OS_STATES = {
   BOOTING: 'booting',
   LOCKED: 'locked',
   DESKTOP: 'desktop',
+  SHUTDOWN: 'shutdown',
 };
 
 import userIco from '../assets/icons/system/User.ico';
@@ -106,6 +107,7 @@ import mailIco from '../assets/icons/system/Folder Contacts.ico';
 import photosIco from '../assets/icons/system/Photos.ico';
 import calculatorIco from '../assets/icons/system/Tasks.ico';
 import documentIco from '../assets/icons/system/Notes.ico';
+import recycleBinIco from '../assets/icons/system/Trash Empty.ico';
 
 /**
  * Desktop Applications — the apps shown on desktop and start menu
@@ -151,15 +153,9 @@ export const DESKTOP_APPS = [
   },
   {
     id: 'controlpanel',
-    label: 'Control Panel',
+    label: 'Task Manager',
     icon: controlPanelIco,
-    description: 'System Settings',
-  },
-  {
-    id: 'trash',
-    label: 'Recycle Bin',
-    icon: trashIco,
-    description: 'Trash',
+    description: 'System Monitoring',
   },
   {
     id: 'about',
@@ -244,6 +240,18 @@ export const DESKTOP_APPS = [
     label: 'Notepad',
     icon: documentIco,
     description: 'Text Editor',
+  },
+  {
+    id: 'recyclebin',
+    label: 'Recycle Bin',
+    icon: recycleBinIco,
+    description: 'Contains deleted files',
+  },
+  {
+    id: 'aiassistant',
+    label: 'AI Assistant',
+    icon: '✨',
+    description: 'Portfolio AI Assistant',
   },
 ];
 

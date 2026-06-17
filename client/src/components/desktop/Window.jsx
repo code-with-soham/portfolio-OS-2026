@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, memo } from 'react';
 import { motion, useDragControls } from 'framer-motion';
 import { useWindowStore } from '../../store/useWindowStore';
 import { APPS } from '../../config/apps';
@@ -65,7 +65,7 @@ function TitleBar({ title, icon, onMinimize, onMaximize, onClose, dragControls, 
 
       <div className="window-controls" style={{ display: 'flex', height: '100%' }}>
         <button
-          onClick={onMinimize}
+          onPointerDown={onMinimize}
           className="window-control-btn"
           style={{ width: '46px', background: 'transparent', border: 'none', color: 'var(--color-text-primary)', cursor: 'pointer' }}
           onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-bg-surface-hover)')}
@@ -74,7 +74,7 @@ function TitleBar({ title, icon, onMinimize, onMaximize, onClose, dragControls, 
           ─
         </button>
         <button
-          onClick={onMaximize}
+          onPointerDown={onMaximize}
           className="window-control-btn"
           style={{ width: '46px', background: 'transparent', border: 'none', color: 'var(--color-text-primary)', cursor: 'pointer' }}
           onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-bg-surface-hover)')}
@@ -83,7 +83,7 @@ function TitleBar({ title, icon, onMinimize, onMaximize, onClose, dragControls, 
           {isMaximized ? '❐' : '□'}
         </button>
         <button
-          onClick={onClose}
+          onPointerDown={onClose}
           className="window-control-btn"
           style={{ width: '46px', background: 'transparent', border: 'none', color: 'var(--color-text-primary)', cursor: 'pointer' }}
           onMouseEnter={(e) => {
@@ -105,7 +105,7 @@ function TitleBar({ title, icon, onMinimize, onMaximize, onClose, dragControls, 
 /**
  * Main Window Component
  */
-export default function Window({ window: winData }) {
+const Window = memo(function Window({ window: winData }) {
   const { id, appId, title, icon, isMinimized, isMaximized, bounds, zIndex, props } = winData;
   
   const { closeWindow, minimizeWindow, toggleMaximize, focusWindow, updateWindowBounds, activeWindowId } = useWindowStore();
@@ -274,4 +274,6 @@ export default function Window({ window: winData }) {
       )}
     </motion.div>
   );
-}
+});
+
+export default Window;

@@ -74,7 +74,7 @@ const fileContents = {
   'achievements/timeline.log': `2026-06-01  Portfolio OS Released\n2026-05-20  VS Code Workspace Added\n2026-04-15  AI Resume Analyzer Completed\n2026-03-10  Job Tracker Released`,
   'skills/skills.yml': `developer:\n  name: Soham Kundu\n\nfrontend:\n  - React\n  - Next.js\n  - Tailwind\n\nbackend:\n  - Node.js\n  - Express\n  - MongoDB\n\nai_ml:\n  - TensorFlow\n  - PyTorch\n  - LangChain`,
   'connect/links.yml': `github: https://github.com/code-with-soham\nlinkedin: https://linkedin.com/in/sohamkundu\nportfolio: https://sohamkundu.dev\nresume: https://sohamkundu.dev/resume`,
-  '.github/profile.yml': `loading: Fetching GitHub Data...`,
+  '.github/profile.json': `{\n  "loading": "Fetching GitHub Data..."\n}`,
   '.gitignore': `node_modules\n.DS_Store\ndist\nbuild\n.env`,
   'LICENSE.txt': `MIT License\n\nCopyright (c) 2026 Soham Kundu\n\nPermission is hereby granted, free of charge...`,
   'CHANGELOG.md': `# Changelog\n\n## [1.0.0] - 2026-06-01\n### Added\n- Initial release of Portfolio OS.\n- Fully interactive React desktop.\n- VS Code developer environment.`,
@@ -107,7 +107,7 @@ const COMMANDS = [
   { id: 'theme-vsdark', label: 'Theme: Dark+', category: 'Theme' },
 ];
 
-export default function VSCodeApp() {
+export default function VSCodeApp({ project }) {
   const [activeFile, setActiveFile] = useState(() => localStorage.getItem('vscode.activeFile') || 'about/README.md');
   const [openFiles, setOpenFiles] = useState(() => {
     const saved = localStorage.getItem('vscode.openFiles');
@@ -135,6 +135,16 @@ export default function VSCodeApp() {
     return () => window.removeEventListener('click', closeMenu);
   }, []);
 
+  // Handle incoming project props
+  useEffect(() => {
+    if (project) {
+      if (!openFiles.includes('projects/portfolio.db')) {
+        setOpenFiles(prev => [...prev, 'projects/portfolio.db']);
+      }
+      setActiveFile('projects/portfolio.db');
+    }
+  }, [project]);
+
   const handleContextMenu = (e, path) => {
     e.preventDefault();
     e.stopPropagation();
@@ -159,23 +169,32 @@ export default function VSCodeApp() {
   }, []);
 
   useEffect(() => {
-    if (activeFile === '.github/profile.yml' && !githubData) {
-      const cached = localStorage.getItem('vscode.github_stats_cache');
-      const cachedTime = localStorage.getItem('vscode.github_stats_timestamp');
+    if (activeFile === '.github/profile.json' && !githubData) {
+      const cached = localStorage.getItem('vscode.github_json_cache');
+      const cachedTime = localStorage.getItem('vscode.github_json_timestamp');
       if (cached && cachedTime && (Date.now() - parseInt(cachedTime)) < 24 * 60 * 60 * 1000) {
         setGithubData(cached);
         return;
       }
 
-      fetch('https://api.github.com/users/code-with-soham')
-        .then(res => res.json())
-        .then(data => {
-          let yml = `user: ${data.login}\nname: ${data.name}\nbio: ${data.bio}\npublic_repos: ${data.public_repos}\nfollowers: ${data.followers}`;
-          setGithubData(yml);
-          localStorage.setItem('vscode.github_stats_cache', yml);
-          localStorage.setItem('vscode.github_stats_timestamp', Date.now().toString());
+      Promise.all([
+        fetch('https://api.github.com/users/code-with-soham').then(res => res.json()),
+        fetch('https://api.github.com/users/code-with-soham/repos?per_page=100').then(res => res.json())
+      ])
+        .then(([user, repos]) => {
+          const stars = Array.isArray(repos) ? repos.reduce((acc, repo) => acc + repo.stargazers_count, 0) : 0;
+          const data = {
+            followers: user.followers || 0,
+            following: user.following || 0,
+            repos: user.public_repos || 0,
+            stars: stars
+          };
+          const jsonStr = JSON.stringify(data, null, 2);
+          setGithubData(jsonStr);
+          localStorage.setItem('vscode.github_json_cache', jsonStr);
+          localStorage.setItem('vscode.github_json_timestamp', Date.now().toString());
         })
-        .catch(() => setGithubData('error: Failed to fetch GitHub profile'));
+        .catch(() => setGithubData('{\n  "error": "Failed to fetch GitHub profile"\n}'));
     }
   }, [activeFile, githubData]);
 
@@ -636,7 +655,7 @@ export default function VSCodeApp() {
     const content = fileContents[fileToRender] || '// Content not found';
     let finalContent = content;
 
-    if (fileToRender === '.github/profile.yml' && githubData) {
+    if (fileToRender === '.github/profile.json' && githubData) {
       finalContent = githubData;
     }
     if (fileToRender === 'system/time.sys') {
@@ -698,7 +717,11 @@ export default function VSCodeApp() {
               <div style={{ display: 'flex', gap: '40px', marginBottom: '16px' }}>
                 <div>
                   <div style={{ fontSize: '12px', color: '#888', marginBottom: '4px' }}>Deployment</div>
-                  <div style={{ fontSize: '14px', color: '#fff' }}><a href="#" style={{ color: '#0070f3', textDecoration: 'none' }}>portfolio.sohamkundu.dev</a></div>
+                  <div style={{ fontSize: '14px', color: '#fff' }}>
+                    <a href="https://soham-kundu-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ color: '#0070f3', textDecoration: 'none' }}>
+                      soham-kundu-portfolio.vercel.app
+                    </a>
+                  </div>
                 </div>
                 <div>
                   <div style={{ fontSize: '12px', color: '#888', marginBottom: '4px' }}>Domains</div>
@@ -713,7 +736,7 @@ export default function VSCodeApp() {
                 </div>
                 <div>
                   <div style={{ fontSize: '12px', color: '#888', marginBottom: '4px' }}>Created</div>
-                  <div style={{ fontSize: '14px', color: '#fff' }}>1m ago by Soham Kundu</div>
+                  <div style={{ fontSize: '14px', color: '#fff' }}>1m ago by <a href="https://github.com/code-with-soham" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'underline' }}>Soham Kundu</a></div>
                 </div>
               </div>
             </div>
@@ -729,8 +752,10 @@ export default function VSCodeApp() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', backgroundColor: '#111', border: '1px solid #333', borderRadius: '6px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <span style={{ color: '#fff', fontSize: '14px' }}>portfolio.sohamkundu.dev</span>
-                <span style={{ color: '#888', fontSize: '12px' }}>Branch: main • Commit: 2abf114</span>
+                <span style={{ color: '#fff', fontSize: '14px' }}>
+                  <a href="https://soham-kundu-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none' }}>soham-kundu-portfolio.vercel.app</a>
+                </span>
+                <span style={{ color: '#888', fontSize: '12px' }}>Branch: <a href="https://github.com/code-with-soham" target="_blank" rel="noopener noreferrer" style={{ color: '#888', textDecoration: 'underline' }}>main</a> • Commit: 2abf114</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <span style={{ color: '#50e3c2', fontSize: '13px' }}>● Ready</span>

@@ -87,6 +87,23 @@ export default function FileExplorerApp({ appId }) {
     return () => window.removeEventListener('click', handleGlobalClick);
   }, []);
 
+  // Keyboard shortcuts (Shift+Delete)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Delete' && selectedItem) {
+        const itemPath = isRecent 
+          ? items.find(i => i.name === selectedItem)?.fullPath 
+          : [...currentPath, selectedItem];
+        if (itemPath && !isThisPC && !isRecent) {
+          deleteItem(itemPath, e.shiftKey); // shiftKey = permanent
+          setSelectedItem(null);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedItem, currentPath, isThisPC, isRecent, items, deleteItem]);
+
   const navigateTo = useCallback((path) => {
     setCurrentPath(path);
     setSelectedItem(null);

@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { projectService } from '../../services/projectService';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useUIStore } from '../../store/useUIStore';
+import { useWindowStore } from '../../store/useWindowStore';
 import AppShell from '../../components/app/AppShell';
 import './ProjectsApp.css';
 
@@ -20,6 +21,7 @@ export default function ProjectsApp() {
   const debouncedSearch = useDebounce(search, 300);
 
   const { setInputFocused } = useUIStore();
+  const openWindow = useWindowStore((s) => s.openWindow);
 
   const {
     data: projects,
@@ -136,6 +138,12 @@ export default function ProjectsApp() {
                 )}
 
                 <div className="project-card-actions">
+                  <button
+                    className="project-action-btn"
+                    onClick={() => openWindow('vscode', { project: project.title })}
+                  >
+                    👨‍💻 View Source
+                  </button>
                   {project.liveUrl && (
                     <a
                       className="project-action-btn"

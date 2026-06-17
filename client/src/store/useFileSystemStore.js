@@ -30,6 +30,7 @@ export const useFileSystemStore = create(
   persist(
     (set, get) => ({
       fileSystem: DEFAULT_FILE_SYSTEM,
+      deletedItems: [],
 
       // Read a node
       getNode: (pathParts) => {
@@ -72,7 +73,7 @@ export const useFileSystemStore = create(
       },
 
       // Delete item
-      deleteItem: (pathParts) => {
+      deleteItem: (pathParts, permanent = false) => {
         if (!pathParts || pathParts.length <= 1) return; // Cannot delete root
         set((state) => {
           const newFS = cloneTree(state.fileSystem);
@@ -80,11 +81,67 @@ export const useFileSystemStore = create(
           const targetName = pathParts[pathParts.length - 1];
           const parent = findNode(newFS, parentPath);
           
+          let updatedDeletedItems = [...state.deletedItems];
+
           if (parent && parent.children) {
-            parent.children = parent.children.filter(c => c.name !== targetName);
+            const targetIndex = parent.children.findIndex(c => c.name === targetName);
+            if (targetIndex > -1) {
+              const [deletedNode] = parent.children.splice(targetIndex, 1);
+              if (!permanent) {
+                updatedDeletedItems.push({
+                  ...deletedNode,
+                  originalPath: pathParts,
+                  deletedAt: new Date().toISOString()
+                });
+              }
+            }
           }
-          return { fileSystem: newFS };
+          return { fileSystem: newFS, deletedItems: updatedDeletedItems };
         });
+      },
+
+      // Restore item from Recycle Bin
+      restoreItem: (deletedItemId) => {
+        set((state) => {
+          const itemIndex = state.deletedItems.findIndex(i => i.name === deletedItemId); // Using name as ID for simplicity
+          if (itemIndex === -1) return state;
+
+          const itemToRestore = state.deletedItems[itemIndex];
+          const newFS = cloneTree(state.fileSystem);
+          const parentPath = itemToRestore.originalPath.slice(0, -1);
+          const parent = findNode(newFS, parentPath);
+
+          if (parent && parent.type === 'folder') {
+            // Re-insert
+            const { originalPath, deletedAt, ...restoredNode } = itemToRestore;
+            
+            // Handle name collision just in case
+            let newName = restoredNode.name;
+            let counter = 1;
+            while (parent.children.some(c => c.name === newName)) {
+              const parts = restoredNode.name.split('.');
+              if (parts.length > 1) {
+                const ext = parts.pop();
+                newName = `${parts.join('.')} (${counter}).${ext}`;
+              } else {
+                newName = `${restoredNode.name} (${counter})`;
+              }
+              counter++;
+            }
+            restoredNode.name = newName;
+            parent.children.push(restoredNode);
+          }
+
+          const newDeletedItems = [...state.deletedItems];
+          newDeletedItems.splice(itemIndex, 1);
+
+          return { fileSystem: newFS, deletedItems: newDeletedItems };
+        });
+      },
+
+      // Empty Recycle Bin
+      emptyRecycleBin: () => {
+        set({ deletedItems: [] });
       },
 
       // Rename item

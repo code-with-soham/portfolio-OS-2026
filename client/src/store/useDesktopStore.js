@@ -9,6 +9,7 @@
 // No persistence — the OS always boots fresh on page reload.
 
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { OS_STATES } from '../constants';
 import { useWidgetStore } from './useWidgetStore';
 
@@ -19,7 +20,9 @@ import { useWidgetStore } from './useWidgetStore';
  *   const { osState, setOsState } = useDesktopStore();
  *   const { isStartMenuOpen, toggleStartMenu } = useDesktopStore();
  */
-export const useDesktopStore = create((set, get) => ({
+export const useDesktopStore = create(
+  persist(
+    (set, get) => ({
   // ========================
   // OS Lifecycle State
   // ========================
@@ -52,11 +55,38 @@ export const useDesktopStore = create((set, get) => ({
       // Close other panels
       isNotificationCenterOpen: false,
       isQuickSettingsOpen: false,
+      isAIAssistantOpen: false,
     });
   },
 
   /** Close the Start Menu */
   closeStartMenu: () => set({ isStartMenuOpen: false }),
+
+  /** Open the Start Menu explicitly */
+  openStartMenu: () => set({ 
+    isStartMenuOpen: true,
+    isNotificationCenterOpen: false,
+    isQuickSettingsOpen: false,
+    isAIAssistantOpen: false,
+  }),
+
+  // ========================
+  // AI Assistant
+  // ========================
+
+  isAIAssistantOpen: false,
+
+  toggleAIAssistant: () => {
+    const isOpen = get().isAIAssistantOpen;
+    set({
+      isAIAssistantOpen: !isOpen,
+      isStartMenuOpen: false,
+      isNotificationCenterOpen: false,
+      isQuickSettingsOpen: false,
+    });
+  },
+
+  closeAIAssistant: () => set({ isAIAssistantOpen: false }),
 
   // ========================
   // Notification Center
@@ -170,6 +200,7 @@ export const useDesktopStore = create((set, get) => ({
       isStartMenuOpen: false,
       isNotificationCenterOpen: false,
       isQuickSettingsOpen: false,
+      isAIAssistantOpen: false,
       contextMenu: { ...state.contextMenu, isOpen: false },
       selectedIconId: null, // Deselect icons when clicking background
     }));
@@ -180,4 +211,14 @@ export const useDesktopStore = create((set, get) => ({
   // System Telemetry
   // ========================
   bootTime: Date.now(),
-}));
+    }),
+    {
+      name: 'portfolio-os-desktop-storage',
+      partialize: (state) => ({
+        iconPositions: state.iconPositions,
+        iconSize: state.iconSize,
+        sortOrder: state.sortOrder,
+      }),
+    }
+  )
+);

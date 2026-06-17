@@ -9,7 +9,7 @@
 // Phase 3: Only Start and Notification bell are interactive.
 // Other icons are decorative.
 
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { useDesktopStore } from '../../store/useDesktopStore';
 import { useThemeStore } from '../../store/useThemeStore';
 import { useWindowStore } from '../../store/useWindowStore';
@@ -33,7 +33,7 @@ import { useSystemAudioStore } from '../../store/useSystemAudioStore';
 /**
  * Taskbar icon button — reusable for all tray icons
  */
-function TaskbarButton({ id, children, onClick, isActive = false, isOpen = false, title, style = {} }) {
+const TaskbarButton = memo(function TaskbarButton({ id, children, onClick, isActive = false, isOpen = false, title, style = {} }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -82,7 +82,7 @@ function TaskbarButton({ id, children, onClick, isActive = false, isOpen = false
       )}
     </button>
   );
-}
+});
 
 /**
  * Windows logo SVG — 4 colored squares
@@ -121,6 +121,18 @@ export default function Taskbar() {
   const { volume, isMuted } = useSystemAudioStore();
   const hasMusic = playlist && playlist.length > 0;
   const currentSong = hasMusic ? playlist[currentSongIndex] : null;
+
+  const toggleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch((err) => {
+        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  };
 
   const pinnedAppIds = ['mypc', 'about', 'projects', 'skills', 'terminal', 'resume', 'fileexplorer', 'settings'];
 
@@ -303,6 +315,17 @@ export default function Taskbar() {
           title="Notifications"
         >
           <AlertRegular fontSize={18} />
+        </TaskbarButton>
+
+        {/* Full Screen Toggle */}
+        <TaskbarButton
+          id="taskbar-fullscreen-btn"
+          onClick={toggleFullScreen}
+          title="Toggle Full Screen (F11/Esc)"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+          </svg>
         </TaskbarButton>
 
         {/* System clock */}

@@ -17,6 +17,7 @@ import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import BootScreen from './pages/BootScreen';
 import LockScreen from './pages/LockScreen';
 import Desktop from './pages/Desktop';
+import ShutdownScreen from './pages/ShutdownScreen';
 
 /**
  * App — Root component
@@ -46,6 +47,7 @@ function App() {
         {osState === OS_STATES.BOOTING && <BootScreen key="boot" />}
         {osState === OS_STATES.LOCKED && <LockScreen key="lock" />}
         {osState === OS_STATES.DESKTOP && <Desktop key="desktop" />}
+        {osState === OS_STATES.SHUTDOWN && <ShutdownScreen key="shutdown" />}
       </AnimatePresence>
     </div>
   );

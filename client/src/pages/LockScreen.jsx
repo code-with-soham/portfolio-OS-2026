@@ -42,6 +42,8 @@ export default function LockScreen() {
   const setOsState = useDesktopStore((s) => s.setOsState);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isUnlocking, setIsUnlocking] = useState(false);
+  const [pin, setPin] = useState('');
+  const [error, setError] = useState(false);
 
   // Update clock every second
   useEffect(() => {
@@ -54,8 +56,14 @@ export default function LockScreen() {
   // Handle unlock — trigger slide-up animation, then transition
   const handleUnlock = useCallback(() => {
     if (isUnlocking) return;
-    setIsUnlocking(true);
-  }, [isUnlocking]);
+    if (pin === '1234') {
+      setIsUnlocking(true);
+      setError(false);
+    } else {
+      setError(true);
+      setPin('');
+    }
+  }, [isUnlocking, pin]);
 
   return (
     <motion.div
@@ -147,41 +155,70 @@ export default function LockScreen() {
         </p>
       </motion.div>
 
-      {/* Unlock hint */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.0, duration: 0.6 }}
-        style={{
-          position: 'absolute',
-          bottom: '60px',
-          fontSize: '0.875rem',
-          fontWeight: 400,
-          color: 'rgba(255, 255, 255, 0.8)',
-          fontFamily: 'var(--font-family)',
-          animation: 'hint-pulse 3s ease-in-out infinite',
-          letterSpacing: '0.02em',
-          zIndex: 2,
-        }}
-      >
-        Click anywhere to unlock
-      </motion.p>
-
-      {/* Subtle upward arrow indicator */}
+      {/* Profile and Login */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 0.4, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.5 }}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1.0, duration: 0.5 }}
         style={{
           position: 'absolute',
-          bottom: '90px',
-          fontSize: '1.25rem',
-          color: '#ffffff',
-          zIndex: 2,
+          top: '65%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '16px',
+          zIndex: 3,
         }}
+        onClick={(e) => e.stopPropagation()}
       >
-        ⌃
+        <h2 style={{ color: '#fff', margin: 0, fontSize: '24px', fontWeight: 500, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>Soham Kundu</h2>
+        
+        <div style={{ position: 'relative', width: '280px' }}>
+          <input 
+            type="password" 
+            placeholder="PIN" 
+            value={pin}
+            onChange={(e) => { setPin(e.target.value); setError(false); }}
+            style={{
+              width: '100%',
+              padding: '12px 40px 12px 16px',
+              borderRadius: '4px',
+              border: `2px solid ${error ? '#e81123' : 'transparent'}`,
+              background: 'rgba(0,0,0,0.4)',
+              color: '#fff',
+              fontSize: '16px',
+              outline: 'none',
+              backdropFilter: 'blur(10px)',
+              transition: 'all 0.2s'
+            }}
+            onFocus={(e) => e.target.style.background = 'rgba(0,0,0,0.6)'}
+            onBlur={(e) => e.target.style.background = 'rgba(0,0,0,0.4)'}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleUnlock();
+            }}
+            autoFocus
+          />
+          <button 
+            onClick={handleUnlock}
+            style={{
+              position: 'absolute',
+              right: '8px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'transparent',
+              border: 'none',
+              color: '#fff',
+              cursor: 'pointer',
+              fontSize: '20px',
+              opacity: 0.8
+            }}
+          >
+            ➔
+          </button>
+        </div>
+        <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '14px', margin: 0 }}>Pin- 1234</p>
       </motion.div>
+
     </motion.div>
   );
 }

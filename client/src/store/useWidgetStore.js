@@ -4,7 +4,7 @@ export const useWidgetStore = create((set, get) => ({
   isWidgetPanelOpen: false,
   
   // Future-proof: list of active widgets to allow customization later
-  activeWidgets: ['weather', 'system-info', 'activity'],
+  activeWidgets: ['github', 'placement', 'quote'],
 
   toggleWidgetPanel: () => {
     set((state) => ({ isWidgetPanelOpen: !state.isWidgetPanelOpen }));

@@ -16,10 +16,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useDesktopStore } from '../../store/useDesktopStore';
 import { useWindowStore } from '../../store/useWindowStore';
 import { useUIStore } from '../../store/useUIStore';
+import { useFileSystemStore } from '../../store/useFileSystemStore';
 import { DESKTOP_APPS, RECOMMENDED_ITEMS, APP_AUTHOR } from '../../constants';
 import { APPS } from '../../config/apps';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useState, useRef, useEffect } from 'react';
+import { OS_STATES } from '../../constants';
 
 /**
  * Pinned app icon in the start menu grid
@@ -144,8 +146,10 @@ export default function StartMenu() {
   const { setStartMenuSearchFocused } = useUIStore();
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [powerMenuOpen, setPowerMenuOpen] = useState(false);
   const debouncedSearch = useDebounce(searchQuery, 200);
   const searchInputRef = useRef(null);
+  const setOsState = useDesktopStore((s) => s.setOsState);
 
   // Focus search input when menu opens
   useEffect(() => {
@@ -156,14 +160,91 @@ export default function StartMenu() {
     }
   }, [isStartMenuOpen]);
 
-  // Filter apps by search query
-  const filteredApps = debouncedSearch
-    ? DESKTOP_APPS.filter(
-        (app) =>
-          app.label.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-          app.description?.toLowerCase().includes(debouncedSearch.toLowerCase())
-      )
-    : DESKTOP_APPS;
+  const fileSystem = useFileSystemStore((s) => s.fileSystem);
+  
+  // Recursively gather all files
+  const getAllFiles = (node, path = []) => {
+    let results = [];
+    if (node.type === 'file') {
+      results.push({ ...node, fullPath: [...path, node.name] });
+    }
+    if (node.children) {
+      node.children.forEach(c => {
+        results = results.concat(getAllFiles(c, [...path]));
+      });
+    }
+    return results;
+  };
+
+  const allFiles = getAllFiles(fileSystem, [fileSystem.name]);
+
+  const MOCK_RESULTS = [
+    { id: 'mock1', label: 'Interview-Prep Project', icon: '🚀', action: () => openWindow('projects') },
+    { id: 'mock2', label: 'Interview Certificate', icon: '🎓', action: () => openWindow('skills') },
+    { id: 'mock3', label: 'Interview Notes', icon: '📝', action: () => openWindow('notepad') },
+    { id: 'mock4', label: 'Mock Interview Achievement', icon: '🏆', action: () => openWindow('about') }
+  ];
+
+  // Search Logic
+  let searchResults = [];
+  let isSearching = Boolean(debouncedSearch);
+
+  if (isSearching) {
+    const query = debouncedSearch.toLowerCase();
+    
+    // 1. Apps
+    const matchedApps = DESKTOP_APPS.filter(app => 
+      app.label.toLowerCase().includes(query) || app.description?.toLowerCase().includes(query)
+    ).map(app => ({
+      id: app.id,
+      label: app.label,
+      icon: app.icon,
+      type: 'App',
+      action: () => {
+        if (app.id === 'aiassistant') {
+          useDesktopStore.getState().toggleAIAssistant();
+        } else {
+          openWindow(app.id);
+        }
+        closeStartMenu();
+      }
+    }));
+
+    // 2. Files
+    const matchedFiles = allFiles.filter(f => f.name.toLowerCase().includes(query)).map(f => ({
+      id: f.fullPath.join('/'),
+      label: f.name,
+      icon: '📄',
+      type: 'File',
+      action: () => {
+        openWindow('notepad', { filePath: f.fullPath });
+        closeStartMenu();
+      }
+    }));
+
+    // 3. Mocks
+    const matchedMocks = MOCK_RESULTS.filter(m => m.label.toLowerCase().includes(query)).map(m => ({
+      ...m, type: 'Achievement', action: () => { m.action(); closeStartMenu(); }
+    }));
+
+    searchResults = [...matchedApps, ...matchedFiles, ...matchedMocks];
+  } else {
+    // Show Pinned apps by default
+    searchResults = DESKTOP_APPS.map(app => ({
+      id: app.id,
+      label: app.label,
+      icon: app.icon,
+      type: 'App',
+      action: () => {
+        if (app.id === 'aiassistant') {
+          useDesktopStore.getState().toggleAIAssistant();
+        } else {
+          openWindow(app.id);
+        }
+        closeStartMenu();
+      }
+    }));
+  }
 
   // Get recent apps metadata
   const recentAppItems = recentApps
@@ -261,74 +342,35 @@ export default function StartMenu() {
               </div>
             </div>
 
-            {/* Pinned section */}
-            <div style={{ padding: '0 24px 16px' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: '8px',
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: '0.8125rem',
-                    fontWeight: 600,
-                    color: 'var(--color-text-primary)',
-                    fontFamily: 'var(--font-family)',
-                  }}
-                >
-                  {debouncedSearch ? 'Search Results' : 'Pinned'}
-                </span>
-                {!debouncedSearch && (
-                  <button
-                    style={{
-                      fontSize: '0.6875rem',
-                      color: 'var(--color-text-secondary)',
-                      background: 'var(--color-bg-surface)',
-                      border: 'none',
-                      padding: '4px 10px',
-                      borderRadius: 'var(--radius-sm)',
-                      cursor: 'pointer',
-                      fontFamily: 'var(--font-family)',
-                    }}
-                  >
-                    All apps →
+            {/* Pinned Apps / Search Results Grid */}
+            <div style={{ flex: 1, padding: '0 24px 24px', overflowY: 'auto' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <h3 style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-text-primary)', margin: 0 }}>
+                  {isSearching ? 'Search Results' : 'Pinned'}
+                </h3>
+                {!isSearching && (
+                  <button style={{ background: 'transparent', border: 'none', color: 'var(--color-accent)', fontSize: '0.75rem', cursor: 'pointer', padding: '4px 8px', borderRadius: '4px' }}>
+                    All apps &gt;
                   </button>
                 )}
               </div>
-              {filteredApps.length > 0 ? (
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
-                    gap: '4px',
-                  }}
-                >
-                  {filteredApps.map((app) => (
-                    <PinnedApp
-                      key={app.id}
-                      app={app}
-                      onClick={() => {
-                        openWindow(app.id);
-                        closeStartMenu();
-                      }}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div
-                  style={{
-                    padding: '24px',
-                    textAlign: 'center',
-                    color: 'var(--color-text-tertiary)',
-                    fontSize: '0.8125rem',
-                  }}
-                >
-                  No apps found for "{debouncedSearch}"
-                </div>
-              )}
+
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
+                  gap: '12px 4px',
+                }}
+              >
+                {searchResults.map((result) => (
+                  <PinnedApp key={result.id} app={result} onClick={result.action} />
+                ))}
+                {searchResults.length === 0 && isSearching && (
+                  <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'var(--color-text-secondary)', padding: '20px 0' }}>
+                    No results found for "{searchQuery}"
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Divider */}
@@ -449,9 +491,89 @@ export default function StartMenu() {
                 </span>
               </div>
 
-              {/* Power button */}
-              <button
-                title="Power"
+              {/* Power button area */}
+              <div style={{ position: 'relative' }}>
+                {powerMenuOpen && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '40px',
+                      right: '0',
+                      background: 'var(--color-bg-surface)',
+                      border: '1px solid var(--color-border)',
+                      borderRadius: 'var(--radius-md)',
+                      boxShadow: 'var(--shadow-panel)',
+                      padding: '4px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '2px',
+                      minWidth: '120px',
+                      zIndex: 1000,
+                    }}
+                  >
+                    <button
+                      style={{
+                        padding: '8px 12px',
+                        background: 'transparent',
+                        border: 'none',
+                        textAlign: 'left',
+                        color: 'var(--color-text-primary)',
+                        cursor: 'pointer',
+                        borderRadius: '4px',
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = 'var(--color-bg-surface-hover)'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      onClick={() => {
+                        setPowerMenuOpen(false);
+                        closeStartMenu();
+                        setOsState(OS_STATES.LOCKED);
+                      }}
+                    >
+                      Sleep
+                    </button>
+                    <button
+                      style={{
+                        padding: '8px 12px',
+                        background: 'transparent',
+                        border: 'none',
+                        textAlign: 'left',
+                        color: 'var(--color-text-primary)',
+                        cursor: 'pointer',
+                        borderRadius: '4px',
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = 'var(--color-bg-surface-hover)'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      onClick={() => {
+                        setPowerMenuOpen(false);
+                        window.location.reload();
+                      }}
+                    >
+                      Restart
+                    </button>
+                    <button
+                      style={{
+                        padding: '8px 12px',
+                        background: 'transparent',
+                        border: 'none',
+                        textAlign: 'left',
+                        color: 'var(--color-text-primary)',
+                        cursor: 'pointer',
+                        borderRadius: '4px',
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = 'var(--color-bg-surface-hover)'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      onClick={() => {
+                        setPowerMenuOpen(false);
+                        closeStartMenu();
+                        setOsState('shutdown');
+                      }}
+                    >
+                      Shut down
+                    </button>
+                  </div>
+                )}
+                <button
+                  title="Power"
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -472,6 +594,7 @@ export default function StartMenu() {
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = 'transparent';
                 }}
+                onClick={() => setPowerMenuOpen(!powerMenuOpen)}
               >
                 <svg
                   width="16"
@@ -487,6 +610,7 @@ export default function StartMenu() {
                   <line x1="12" y1="2" x2="12" y2="12" />
                 </svg>
               </button>
+              </div>
             </div>
           </motion.div>
         </>

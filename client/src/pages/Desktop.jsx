@@ -9,9 +9,13 @@
 // Icons are arranged in a column-first grid (like Windows 11).
 
 import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import { useDesktopStore } from '../store/useDesktopStore';
 import { useWindowStore } from '../store/useWindowStore';
+import { useFileSystemStore } from '../store/useFileSystemStore';
+import { useNotificationStore } from '../store/useNotificationStore';
 import { DESKTOP_APPS } from '../constants';
+import trashFullIco from '../assets/icons/system/Trash Full.ico';
 import Taskbar from '../components/desktop/Taskbar';
 import StartMenu from '../components/desktop/StartMenu';
 import NotificationCenter from '../components/system/notification/NotificationCenter';
@@ -21,6 +25,7 @@ import ContextMenu from '../components/desktop/ContextMenu';
 import ToastContainer from '../components/desktop/ToastContainer';
 import Window from '../components/desktop/Window';
 import WidgetsPanel from '../components/widgets/WidgetsPanel';
+import AIAssistant from '../components/desktop/AIAssistant';
 import VolumeOSD from '../components/system/osd/VolumeOSD';
 import { useWidgetStore } from '../store/useWidgetStore';
 import {
@@ -30,6 +35,8 @@ import {
   BoardRegular,
   PaintBrushRegular,
   InfoRegular,
+  DocumentRegular,
+  FolderRegular,
 } from '@fluentui/react-icons';
 
 export default function Desktop() {
@@ -42,9 +49,52 @@ export default function Desktop() {
   const windows = useWindowStore((s) => s.windows);
   const setActiveWindow = useWindowStore((s) => s.setActiveWindow);
   const openWindow = useWindowStore((s) => s.openWindow);
+  const deletedItems = useFileSystemStore((s) => s.deletedItems);
+  const toggleAIAssistant = useDesktopStore((s) => s.toggleAIAssistant);
 
   const toggleWidgetPanel = useWidgetStore((s) => s.toggleWidgetPanel);
   const isWidgetPanelOpen = useWidgetStore((s) => s.isWidgetPanelOpen);
+  const addNotification = useNotificationStore((s) => s.addNotification);
+
+  // Trigger mock notifications on boot
+  const hasTriggeredMocks = useRef(false);
+  useEffect(() => {
+    if (hasTriggeredMocks.current) return;
+    hasTriggeredMocks.current = true;
+
+    // GitHub Star
+    setTimeout(() => {
+      addNotification(
+        'GitHub ⭐ New Star Received',
+        'Someone starred your repository "portfolio-os"!',
+        'system',
+        6000
+      );
+    }, 4000);
+
+    // Build Success
+    setTimeout(() => {
+      addNotification(
+        'Build Successful ✓',
+        'portfolio-os deployed successfully to production.',
+        'system',
+        6000
+      );
+    }, 12000);
+
+    // Email
+    setTimeout(() => {
+      addNotification(
+        'TCS Interview Invitation',
+        'You have been invited for a technical interview...',
+        'system',
+        8000,
+        'Read',
+        () => openWindow('mail')
+      );
+    }, 22000);
+
+  }, [addNotification, openWindow]);
 
   const handleContextMenu = (e) => {
     e.preventDefault();
@@ -68,6 +118,24 @@ export default function Desktop() {
         }
       },
       { label: 'Refresh', icon: <ArrowClockwiseRegular />, onClick: () => window.location.reload() },
+      { divider: true },
+      { 
+        label: 'New', 
+        icon: <DocumentRegular />, 
+        onClick: () => {}, 
+        // We simulate a sub-menu or just action.
+        // For simplicity we could just trigger an action directly or open notepad.
+      },
+      { 
+        label: '  Folder', 
+        icon: <FolderRegular />, 
+        onClick: () => openWindow('fileexplorer') 
+      },
+      { 
+        label: '  Text Document', 
+        icon: <DocumentRegular />, 
+        onClick: () => openWindow('notepad') 
+      },
       { divider: true },
       { label: isWidgetPanelOpen ? 'Hide Widgets' : 'Show Widgets', icon: <BoardRegular />, onClick: toggleWidgetPanel },
       { divider: true },
@@ -119,14 +187,29 @@ export default function Desktop() {
           if (sortOrder === 'name') {
             sortedApps.sort((a, b) => a.label.localeCompare(b.label));
           }
-          return sortedApps.map((app) => (
-            <DesktopIcon
-              key={app.id}
-              id={app.id}
-              label={app.label}
-              icon={app.icon}
-            />
-          ));
+          
+          return sortedApps.map((app) => {
+            let currentIcon = app.icon;
+            if (app.id === 'recyclebin' && deletedItems.length > 0) {
+              currentIcon = trashFullIco;
+            }
+            
+            return (
+              <DesktopIcon
+                key={app.id}
+                id={app.id}
+                label={app.label}
+                icon={currentIcon}
+                onDoubleClick={(e) => {
+                  if (app.id === 'aiassistant') {
+                    toggleAIAssistant();
+                  } else {
+                    openWindow(app.id);
+                  }
+                }}
+              />
+            );
+          });
         })()}
       </div>
 
@@ -143,6 +226,9 @@ export default function Desktop() {
 
       {/* Context Menu overlay */}
       <ContextMenu />
+
+      {/* AI Assistant Overlay */}
+      <AIAssistant />
 
       {/* Widgets Panel overlay */}
       <WidgetsPanel />

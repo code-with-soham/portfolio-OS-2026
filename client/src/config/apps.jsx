@@ -7,22 +7,26 @@
 
 import { ErrorBoundary } from '../components/common/ErrorBoundary';
 
-// App components (direct imports — Vite handles tree-shaking)
-import AboutApp from '../apps/AboutApp/index';
-import ProjectsApp from '../apps/ProjectsApp/index';
-import SkillsApp from '../apps/SkillsApp/index';
-import ResumeApp from '../apps/ResumeApp/index';
-import TerminalApp from '../apps/TerminalApp/index';
-import FileExplorerApp from '../apps/FileExplorerApp/index';
-import SettingsApp from '../apps/SettingsApp/index';
-import AboutOSApp from '../apps/AboutOSApp/index';
-import VSCodeApp from '../apps/VSCodeApp/index';
-import MusicApp from '../apps/MusicApp/index';
-import BrowserApp from '../apps/BrowserApp/index';
-import MailApp from '../apps/MailApp/index';
-import PhotosApp from '../apps/PhotosApp/index';
-import CalculatorApp from '../apps/CalculatorApp/index';
-import NotepadApp from '../apps/NotepadApp/index';
+import { lazy, Suspense } from 'react';
+
+// App components (Lazy loaded for code splitting)
+const AboutApp = lazy(() => import('../apps/AboutApp/index'));
+const ProjectsApp = lazy(() => import('../apps/ProjectsApp/index'));
+const SkillsApp = lazy(() => import('../apps/SkillsApp/index'));
+const ResumeApp = lazy(() => import('../apps/ResumeApp/index'));
+const TerminalApp = lazy(() => import('../apps/TerminalApp/index'));
+const FileExplorerApp = lazy(() => import('../apps/FileExplorerApp/index'));
+const SettingsApp = lazy(() => import('../apps/SettingsApp/index'));
+const AboutOSApp = lazy(() => import('../apps/AboutOSApp/index'));
+const ControlPanelApp = lazy(() => import('../apps/ControlPanelApp/index'));
+const VSCodeApp = lazy(() => import('../apps/VSCodeApp/index'));
+const MusicApp = lazy(() => import('../apps/MusicApp/index'));
+const BrowserApp = lazy(() => import('../apps/BrowserApp/index'));
+const MailApp = lazy(() => import('../apps/MailApp/index'));
+const PhotosApp = lazy(() => import('../apps/PhotosApp/index'));
+const CalculatorApp = lazy(() => import('../apps/CalculatorApp/index'));
+const NotepadApp = lazy(() => import('../apps/NotepadApp/index'));
+const RecycleBinApp = lazy(() => import('../apps/RecycleBinApp/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -32,8 +36,15 @@ function withErrorBoundary(Component, appName) {
   return function WrappedApp(props) {
     return (
       <ErrorBoundary appName={appName}>
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <Component {...props} />
+        <Suspense fallback={
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', color: 'var(--color-text-secondary)', fontSize: '14px' }}>
+            <div className="loading-spinner" style={{ marginRight: '12px', width: '20px', height: '20px', border: '2px solid var(--color-border)', borderTop: '2px solid var(--color-accent)', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
+            Loading {appName}...
+          </div>
+        }>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Component {...props} />
+        </Suspense>
       </ErrorBoundary>
     );
   };
@@ -48,6 +59,7 @@ import fileExplorerIco from '../assets/icons/system/Explorer.ico';
 import settingsIco from '../assets/icons/system/Settings.ico';
 import infoIco from '../assets/icons/system/Info.ico';
 import pcIco from '../assets/icons/system/Computer.ico';
+import controlPanelIco from '../assets/icons/system/Control Panel.ico';
 import vscodeIco from '../assets/icons/apps/vscode.svg';
 import musicIco from '../assets/icons/system/Folder Music.ico';
 import browserIco from '../assets/icons/system/Link.ico';
@@ -55,6 +67,7 @@ import mailIco from '../assets/icons/system/Folder Contacts.ico';
 import photosIco from '../assets/icons/system/Photos.ico';
 import calculatorIco from '../assets/icons/system/Tasks.ico';
 import documentIco from '../assets/icons/system/Notes.ico';
+import recycleBinIco from '../assets/icons/system/Trash Empty.ico';
 
 export const APPS = {
   about: {
@@ -145,6 +158,17 @@ export const APPS = {
     version: '1.0.0',
     description: 'Theme, accent color, and system preferences',
   },
+  controlpanel: {
+    id: 'controlpanel',
+    title: 'Task Manager',
+    icon: controlPanelIco,
+    component: withErrorBoundary(ControlPanelApp, 'Task Manager'),
+    defaultWidth: 750,
+    defaultHeight: 550,
+    category: 'System',
+    version: '1.0.0',
+    description: 'System Monitoring',
+  },
   aboutos: {
     id: 'aboutos',
     title: 'About Portfolio OS',
@@ -229,5 +253,16 @@ export const APPS = {
     category: 'Productivity',
     version: '1.0.0',
     description: 'Simple text editor with Markdown support',
+  },
+  recyclebin: {
+    id: 'recyclebin',
+    title: 'Recycle Bin',
+    icon: recycleBinIco,
+    component: withErrorBoundary(RecycleBinApp, 'Recycle Bin'),
+    defaultWidth: 800,
+    defaultHeight: 600,
+    category: 'System',
+    version: '1.0.0',
+    description: 'Manage deleted files',
   },
 };
