@@ -133,6 +133,14 @@ export const useDesktopStore = create((set, get) => ({
   // Desktop Icons
   // ========================
 
+  /** Icon size */
+  iconSize: 'medium', // 'small' | 'medium' | 'large'
+  setIconSize: (size) => set({ iconSize: size }),
+
+  /** Icon sort order */
+  sortOrder: 'name', // 'name' | 'default'
+  setSortOrder: (order) => set({ sortOrder: order }),
+
   /** Icon positions keyed by app ID: { [id]: { x, y } } */
   iconPositions: {},
 

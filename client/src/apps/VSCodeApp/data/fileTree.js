@@ -47,7 +47,28 @@ export const fileTree = [
         isOpen: false,
         children: [{ name: 'skills.yml', type: 'file', path: 'skills/skills.yml' }],
       },
+      {
+        name: 'system',
+        type: 'folder',
+        isOpen: false,
+        children: [
+          { name: 'time.sys', type: 'file', path: 'system/time.sys' },
+          { name: 'deployments.log', type: 'file', path: 'system/deployments.log' }
+        ],
+      },
+      {
+        name: 'src',
+        type: 'folder',
+        isOpen: false,
+        children: [
+          { name: 'Desktop.jsx', type: 'file', path: 'src/Desktop.jsx' },
+          { name: 'Taskbar.jsx', type: 'file', path: 'src/Taskbar.jsx' },
+          { name: 'VSCodeApp.jsx', type: 'file', path: 'src/VSCodeApp.jsx' },
+          { name: 'Architecture.md', type: 'file', path: 'src/Architecture.md' }
+        ],
+      },
       { name: '.gitignore', type: 'file', path: '.gitignore' },
+      { name: 'resume.pdf', type: 'file', path: 'resume.pdf' },
       { name: 'LICENSE.txt', type: 'file', path: 'LICENSE.txt' },
       { name: 'CHANGELOG.md', type: 'file', path: 'CHANGELOG.md' },
     ],

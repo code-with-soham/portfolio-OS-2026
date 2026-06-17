@@ -20,7 +20,7 @@ const BOOT_LINES = [
   { text: '', type: 'output' },
 ];
 
-export default function TerminalCore({ hideHeader = false, style = {}, customPrompt, skipBoot = false }) {
+export default function TerminalCore({ hideHeader = false, style = {}, customPrompt, skipBoot = false, onCommand, externalCommand, onExternalCommandExecuted }) {
   const [output, setOutput] = useState([]);
   const [input, setInput] = useState('');
   const [commandHistory, setCommandHistory] = useState([]);
@@ -62,6 +62,13 @@ export default function TerminalCore({ hideHeader = false, style = {}, customPro
 
     return () => clearInterval(interval);
   }, [skipBoot]);
+
+  useEffect(() => {
+    if (externalCommand && booted) {
+      handleCommand(externalCommand);
+      if (onExternalCommandExecuted) onExternalCommandExecuted();
+    }
+  }, [externalCommand, booted]);
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -113,6 +120,11 @@ export default function TerminalCore({ hideHeader = false, style = {}, customPro
     const parts = trimmed.split(/\s+/);
     const cmd = parts[0].toLowerCase();
     const args = parts.slice(1);
+
+    if (onCommand && onCommand(trimmed, addOutput, clearOutput)) {
+      setInput('');
+      return;
+    }
 
     const command = TERMINAL_COMMANDS[cmd];
     if (command) {

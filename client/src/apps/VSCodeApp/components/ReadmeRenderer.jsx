@@ -3,7 +3,7 @@ import { TypeAnimation } from 'react-type-animation';
 import { useWindowStore } from '../../../store/useWindowStore';
 import './ReadmeRenderer.css';
 
-export default function ReadmeRenderer() {
+export default function ReadmeRenderer({ onOpenRecruiterView }) {
   const openWindow = useWindowStore(s => s.openWindow);
 
   // Generate a random-ish mock heatmap
@@ -68,6 +68,9 @@ export default function ReadmeRenderer() {
           <span className="readme-action-btn" onClick={() => openWindow('resume')}>Resume</span>
           <span className="readme-action-btn" onClick={() => openWindow('projects')}>Projects</span>
           <span className="readme-action-btn" onClick={() => openWindow('about')}>Contact</span>
+          {onOpenRecruiterView && (
+            <span className="readme-action-btn" onClick={onOpenRecruiterView} style={{ background: 'rgba(218, 165, 32, 0.2)', borderColor: 'rgba(218, 165, 32, 0.4)', color: '#ffd700' }}>⭐ Recruiter View</span>
+          )}
         </div>
 
         {/* Section 5: Statistics Cards */}

@@ -29,9 +29,18 @@ export default function DesktopIcon({ id, label, icon, onClick }) {
   const updateIconPosition = useDesktopStore((s) => s.updateIconPosition);
   const selectedIconId = useDesktopStore((s) => s.selectedIconId);
   const setSelectedIconId = useDesktopStore((s) => s.setSelectedIconId);
+  const iconSize = useDesktopStore((s) => s.iconSize);
   const openWindow = useWindowStore((s) => s.openWindow);
   
   const isSelected = selectedIconId === id;
+
+  let sizePx = 40;
+  if (iconSize === 'small') sizePx = 24;
+  if (iconSize === 'large') sizePx = 64;
+
+  let widthPx = 76;
+  if (iconSize === 'small') widthPx = 60;
+  if (iconSize === 'large') widthPx = 96;
 
   // Get saved position or default to 0,0
   const savedPosition = iconPositions[id] || { x: 0, y: 0 };
@@ -79,7 +88,7 @@ export default function DesktopIcon({ id, label, icon, onClick }) {
         alignItems: 'center',
         justifyContent: 'flex-start',
         gap: '6px',
-        width: '76px',
+        width: `${widthPx}px`,
         padding: '8px 4px',
         outline: 'none',
         cursor: 'pointer',
@@ -102,8 +111,8 @@ export default function DesktopIcon({ id, label, icon, onClick }) {
           alt={label}
           draggable={false}
           style={{
-            width: '40px',
-            height: '40px',
+            width: `${sizePx}px`,
+            height: `${sizePx}px`,
             objectFit: 'contain',
             filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
           }}
@@ -111,7 +120,7 @@ export default function DesktopIcon({ id, label, icon, onClick }) {
       ) : (
         <span
           style={{
-            fontSize: '2.5rem',
+            fontSize: `${sizePx / 16 + 0.5}rem`,
             lineHeight: 1,
             filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
           }}

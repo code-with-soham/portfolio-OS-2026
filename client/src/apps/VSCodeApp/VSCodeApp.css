@@ -89,6 +89,84 @@
   border-right: 1px solid #2b2b2b;
 }
 
+/* --- Top Menu --- */
+.vscode-top-menu {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  background-color: #181818;
+  border-bottom: 1px solid #2b2b2b;
+  flex-shrink: 0;
+  padding: 0 5px;
+  user-select: none;
+  position: relative;
+  z-index: 1000;
+}
+
+.vscode-menu-item {
+  position: relative;
+  font-size: 13px;
+  color: #cccccc;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.vscode-menu-item:hover, .vscode-menu-item.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.vscode-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #252526;
+  border: 1px solid #454545;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  min-width: 200px;
+  padding: 4px 0;
+  z-index: 10000;
+}
+
+.vscode-dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 15px;
+  font-size: 13px;
+  color: #cccccc;
+  cursor: pointer;
+}
+
+.vscode-dropdown-item:hover {
+  background-color: #0060a0;
+  color: #ffffff;
+}
+
+.vscode-menu-label {
+  display: flex;
+  align-items: center;
+}
+
+.vscode-menu-shortcut {
+  color: #858585;
+  font-size: 11px;
+}
+
+.vscode-menu-divider {
+  height: 1px;
+  background-color: #454545;
+  margin: 4px 0;
+}
+
+.vscode-menu-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.7;
+  pointer-events: none;
+  font-size: 12px;
+}
 .vscode-activity-top {
   display: flex;
   flex-direction: column;
@@ -1006,4 +1084,23 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* --- GitHub Markdown Style Fix --- */
+.github-style p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.github-style h1, .github-style h2, .github-style h3, .github-style h4 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+.github-style img {
+  max-width: 100%;
+}
+.github-style p > a {
+  display: inline-flex;
+  align-items: center;
 }

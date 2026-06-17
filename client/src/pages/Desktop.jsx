@@ -34,8 +34,13 @@ import {
 export default function Desktop() {
   const closeAllPanels = useDesktopStore((s) => s.closeAllPanels);
   const openContextMenu = useDesktopStore((s) => s.openContextMenu);
+  const iconSize = useDesktopStore((s) => s.iconSize);
+  const sortOrder = useDesktopStore((s) => s.sortOrder);
+  const setIconSize = useDesktopStore((s) => s.setIconSize);
+  const setSortOrder = useDesktopStore((s) => s.setSortOrder);
   const windows = useWindowStore((s) => s.windows);
   const setActiveWindow = useWindowStore((s) => s.setActiveWindow);
+  const openWindow = useWindowStore((s) => s.openWindow);
 
   const toggleWidgetPanel = useWidgetStore((s) => s.toggleWidgetPanel);
   const isWidgetPanelOpen = useWidgetStore((s) => s.isWidgetPanelOpen);
@@ -45,14 +50,28 @@ export default function Desktop() {
     
     // Standard Windows 11 desktop context menu items
     const items = [
-      { label: 'View', icon: <EyeRegular />, disabled: false },
-      { label: 'Sort by', icon: <ArrowSortRegular />, disabled: false },
+      { 
+        label: `View (${iconSize.charAt(0).toUpperCase() + iconSize.slice(1)} icons)`, 
+        icon: <EyeRegular />, 
+        onClick: () => {
+          const nextSize = iconSize === 'small' ? 'medium' : iconSize === 'medium' ? 'large' : 'small';
+          setIconSize(nextSize);
+        }
+      },
+      { 
+        label: `Sort by (${sortOrder.charAt(0).toUpperCase() + sortOrder.slice(1)})`, 
+        icon: <ArrowSortRegular />, 
+        onClick: () => {
+          const nextOrder = sortOrder === 'name' ? 'default' : 'name';
+          setSortOrder(nextOrder);
+        }
+      },
       { label: 'Refresh', icon: <ArrowClockwiseRegular />, onClick: () => window.location.reload() },
       { divider: true },
       { label: isWidgetPanelOpen ? 'Hide Widgets' : 'Show Widgets', icon: <BoardRegular />, onClick: toggleWidgetPanel },
       { divider: true },
-      { label: 'Personalize', icon: <PaintBrushRegular />, disabled: true },
-      { label: 'About OS', icon: <InfoRegular />, disabled: true },
+      { label: 'Personalize', icon: <PaintBrushRegular />, onClick: () => openWindow('settings') },
+      { label: 'About OS', icon: <InfoRegular />, onClick: () => openWindow('aboutos') },
     ];
     
     openContextMenu(e.clientX, e.clientY, items);
@@ -94,14 +113,20 @@ export default function Desktop() {
           gap: '4px',
         }}
       >
-        {DESKTOP_APPS.map((app) => (
-          <DesktopIcon
-            key={app.id}
-            id={app.id}
-            label={app.label}
-            icon={app.icon}
-          />
-        ))}
+        {(() => {
+          const sortedApps = [...DESKTOP_APPS];
+          if (sortOrder === 'name') {
+            sortedApps.sort((a, b) => a.label.localeCompare(b.label));
+          }
+          return sortedApps.map((app) => (
+            <DesktopIcon
+              key={app.id}
+              id={app.id}
+              label={app.label}
+              icon={app.icon}
+            />
+          ));
+        })()}
       </div>
 
 
