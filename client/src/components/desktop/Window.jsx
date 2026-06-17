@@ -106,7 +106,7 @@ function TitleBar({ title, icon, onMinimize, onMaximize, onClose, dragControls, 
  * Main Window Component
  */
 export default function Window({ window: winData }) {
-  const { id, appId, title, icon, isMinimized, isMaximized, bounds, zIndex } = winData;
+  const { id, appId, title, icon, isMinimized, isMaximized, bounds, zIndex, props } = winData;
   
   const { closeWindow, minimizeWindow, toggleMaximize, focusWindow, updateWindowBounds, activeWindowId } = useWindowStore();
   const isActive = activeWindowId === id;
@@ -253,7 +253,7 @@ export default function Window({ window: winData }) {
       
       {/* Window Content Area */}
       <div style={{ flex: 1, overflow: 'auto', position: 'relative' }}>
-        <ContentComponent windowId={id} appId={appId} />
+        <ContentComponent windowId={id} appId={appId} {...props} />
       </div>
 
       {/* Resize Handles (only visible when not maximized) */}

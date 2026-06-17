@@ -25,7 +25,7 @@ export const useWindowStore = create(
        * Open a new window for the given appId.
        * If it's already open, focus it (single instance per app for now).
        */
-      openWindow: (appId) => {
+      openWindow: (appId, props = {}) => {
         const { windows } = get();
         
         // Track achievements
@@ -43,13 +43,18 @@ export const useWindowStore = create(
           if (existingWindow.isMinimized) {
             set((state) => ({
               windows: state.windows.map((w) =>
-                w.id === existingWindow.id ? { ...w, isMinimized: false } : w
+                w.id === existingWindow.id ? { ...w, isMinimized: false, props: { ...w.props, ...props } } : w
               ),
               activeWindowId: existingWindow.id,
             }));
           } else {
-            // Just focus it
-            set({ activeWindowId: existingWindow.id });
+            // Just focus it and update props
+            set((state) => ({
+              windows: state.windows.map((w) =>
+                w.id === existingWindow.id ? { ...w, props: { ...w.props, ...props } } : w
+              ),
+              activeWindowId: existingWindow.id
+            }));
           }
           return;
         }
@@ -74,6 +79,7 @@ export const useWindowStore = create(
           },
           previousBounds: null,
           zIndex: Date.now(), // Initial high z-index
+          props, // Pass initial props
         };
 
         set((state) => {

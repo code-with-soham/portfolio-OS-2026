@@ -1,12 +1,11 @@
 // ============================================
-// Portfolio OS 2026 — File Explorer App
+// Portfolio OS 2026 — File Explorer Pro
 // ============================================
-// Virtual file system browser with breadcrumb navigation,
-// sidebar quick access, and file/folder grid.
 
-import { useState, useCallback } from 'react';
-import { FILE_SYSTEM, resolveNode } from '../../data/fileSystem';
+import { useState, useCallback, useEffect } from 'react';
+import { useFileSystemStore } from '../../store/useFileSystemStore';
 import { useWindowStore } from '../../store/useWindowStore';
+import PropertiesModal from './PropertiesModal';
 import {
   FolderRegular,
   DocumentRegular,
@@ -20,7 +19,8 @@ import {
   HomeRegular,
   ChevronRightRegular,
   BoxRegular,
-  FolderOpenRegular
+  FolderOpenRegular,
+  HistoryRegular
 } from '@fluentui/react-icons';
 import './FileExplorerApp.css';
 
@@ -28,16 +28,13 @@ import driverCIco from '../../assets/icons/system/driver-c.ico';
 import driverDIco from '../../assets/icons/system/driver-d.ico';
 import folderOpenIco from '../../assets/icons/system/Folder Open.ico';
 
-/**
- * Sidebar quick access items
- */
 const QUICK_ACCESS = [
   { name: 'This PC', path: ['This PC'], icon: <DesktopRegular fontSize={16} /> },
   { name: 'Desktop', path: ['Desktop'], icon: <DesktopRegular fontSize={16} /> },
+  { name: 'Recent Files', path: ['Recent Files'], icon: <HistoryRegular fontSize={16} /> },
   { name: 'Projects', path: ['Desktop', 'Projects'], icon: <FolderRegular fontSize={16} /> },
   { name: 'Resume', path: ['Desktop', 'Resume'], icon: <DocumentRegular fontSize={16} /> },
   { name: 'Notes', path: ['Desktop', 'Notes'], icon: <DocumentRegular fontSize={16} /> },
-  { name: 'Downloads', path: ['Desktop', 'Downloads'], icon: <FolderRegular fontSize={16} /> },
 ];
 
 const getIconForType = (type, iconId) => {
@@ -61,25 +58,42 @@ const DRIVES = [
 ];
 
 export default function FileExplorerApp({ appId }) {
-  // Start with 'This PC' if launched from My PC, else 'Desktop'
   const [currentPath, setCurrentPath] = useState(appId === 'mypc' ? ['This PC'] : ['Desktop']);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [contextMenu, setContextMenu] = useState(null);
+  const [propertiesItem, setPropertiesItem] = useState(null);
+  const [renameItemName, setRenameItemName] = useState(null);
+  const [renameInput, setRenameInput] = useState('');
 
+  const { getNode, getRecentFiles, deleteItem, renameItem, moveItem, updateLastOpened } = useFileSystemStore();
   const openWindow = useWindowStore((s) => s.openWindow);
 
   const isThisPC = currentPath.length === 1 && currentPath[0] === 'This PC';
+  const isRecent = currentPath.length === 1 && currentPath[0] === 'Recent Files';
 
-  // Get the current directory node (unless it's This PC)
-  const currentNode = isThisPC ? null : resolveNode(currentPath);
-  const items = currentNode?.children || [];
+  // Get current node items
+  let items = [];
+  if (isRecent) {
+    items = getRecentFiles();
+  } else if (!isThisPC) {
+    const currentNode = getNode(currentPath);
+    items = currentNode?.children || [];
+  }
 
-  // Navigate to a folder
+  // Hide context menu on global click
+  useEffect(() => {
+    const handleGlobalClick = () => setContextMenu(null);
+    window.addEventListener('click', handleGlobalClick);
+    return () => window.removeEventListener('click', handleGlobalClick);
+  }, []);
+
   const navigateTo = useCallback((path) => {
     setCurrentPath(path);
     setSelectedItem(null);
+    setContextMenu(null);
+    setRenameItemName(null);
   }, []);
 
-  // Go back one level
   const goBack = useCallback(() => {
     if (currentPath.length > 1) {
       setCurrentPath((prev) => prev.slice(0, -1));
@@ -87,71 +101,115 @@ export default function FileExplorerApp({ appId }) {
     }
   }, [currentPath]);
 
-  // Handle item click (single = select)
-  const handleItemClick = (item) => {
-    setSelectedItem(item.name || item.id);
-  };
-
-  // Handle item double-click
   const handleItemDoubleClick = (item) => {
     if (item.type === 'folder') {
-      // Navigate into folder
       navigateTo([...currentPath, item.name]);
-    } else if (item.appId) {
-      // Open associated app
-      openWindow(item.appId);
+    } else {
+      const fullPath = isRecent ? item.fullPath : [...currentPath, item.name];
+      updateLastOpened(fullPath);
+      if (item.appId) {
+        openWindow(item.appId, { filePath: fullPath });
+      } else if (item.icon === 'document' || item.name.endsWith('.txt') || item.name.endsWith('.md')) {
+        openWindow('notepad', { filePath: fullPath });
+      }
     }
   };
 
-  // Handle breadcrumb click
-  const handleBreadcrumbClick = (index) => {
-    setCurrentPath((prev) => prev.slice(0, index + 1));
-    setSelectedItem(null);
+  const handleContextMenu = (e, item) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setSelectedItem(item.name || item.id);
+    setContextMenu({ x: e.clientX, y: e.clientY, item });
+  };
+
+  const executeContextAction = (action) => {
+    if (!contextMenu?.item) return;
+    const item = contextMenu.item;
+    const itemPath = isRecent ? item.fullPath : [...currentPath, item.name];
+
+    switch (action) {
+      case 'open':
+        handleItemDoubleClick(item);
+        break;
+      case 'delete':
+        if (!isRecent && !isThisPC) deleteItem(itemPath);
+        break;
+      case 'rename':
+        if (!isRecent && !isThisPC) {
+          setRenameItemName(item.name);
+          setRenameInput(item.name);
+        }
+        break;
+      case 'properties':
+        setPropertiesItem(item);
+        break;
+    }
+    setContextMenu(null);
+  };
+
+  const handleRenameSubmit = (e) => {
+    if (e.key === 'Enter') {
+      if (renameInput.trim() && renameInput !== renameItemName) {
+        renameItem([...currentPath, renameItemName], renameInput.trim());
+      }
+      setRenameItemName(null);
+    } else if (e.key === 'Escape') {
+      setRenameItemName(null);
+    }
+  };
+
+  // Drag and Drop support
+  const handleDragStart = (e, item) => {
+    e.dataTransfer.setData('application/json', JSON.stringify({
+      sourcePath: isRecent ? item.fullPath : [...currentPath, item.name],
+      name: item.name
+    }));
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDrop = (e, targetItem) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (targetItem.type !== 'folder') return;
+
+    try {
+      const data = JSON.parse(e.dataTransfer.getData('application/json'));
+      const targetPath = [...currentPath, targetItem.name];
+      moveItem(data.sourcePath, targetPath);
+    } catch (err) { }
+  };
+
+  const handleDragOver = (e, item) => {
+    if (item.type === 'folder') {
+      e.preventDefault(); // Allows dropping
+    }
   };
 
   return (
-    <div className="explorer-app">
+    <div className="explorer-app" onClick={() => setContextMenu(null)}>
       {/* Navigation Bar */}
       <div className="explorer-nav">
-        <button
-          className="explorer-nav-btn"
-          onClick={goBack}
-          disabled={currentPath.length <= 1}
-          title="Back"
-        >
+        <button className="explorer-nav-btn" onClick={goBack} disabled={currentPath.length <= 1}>
           <ArrowLeftRegular fontSize={16} />
         </button>
-        <button
-          className="explorer-nav-btn"
-          onClick={() => navigateTo(['This PC'])}
-          title="Home"
-        >
+        <button className="explorer-nav-btn" onClick={() => navigateTo(['This PC'])}>
           <HomeRegular fontSize={16} />
         </button>
 
-        {/* Center: Breadcrumbs & Search */}
         <div className="explorer-nav-center">
           <div className="explorer-breadcrumbs">
             {currentPath.map((part, i) => (
               <span key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                 {i > 0 && <span className="explorer-breadcrumb-sep"><ChevronRightRegular fontSize={12} /></span>}
                 <button
-                  className={`explorer-breadcrumb ${
-                    i === currentPath.length - 1 ? 'active' : ''
-                  }`}
-                  onClick={() => handleBreadcrumbClick(i)}
+                  className={`explorer-breadcrumb ${i === currentPath.length - 1 ? 'active' : ''}`}
+                  onClick={() => setCurrentPath(currentPath.slice(0, i + 1))}
                 >
                   {part}
                 </button>
               </span>
             ))}
           </div>
-          <input 
-            type="text" 
-            className="explorer-search" 
-            placeholder={`Search ${currentPath[currentPath.length - 1] || 'This PC'}`} 
-            onChange={(e) => {/* Phase 4: Implementation */}}
-          />
         </div>
       </div>
 
@@ -163,9 +221,7 @@ export default function FileExplorerApp({ appId }) {
           {QUICK_ACCESS.map((item) => (
             <button
               key={item.name}
-              className={`explorer-sidebar-item ${
-                currentPath.join('/') === item.path.join('/') ? 'active' : ''
-              }`}
+              className={`explorer-sidebar-item ${currentPath.join('/') === item.path.join('/') ? 'active' : ''}`}
               onClick={() => navigateTo(item.path)}
             >
               <span className="explorer-sidebar-icon">{item.icon}</span>
@@ -175,38 +231,28 @@ export default function FileExplorerApp({ appId }) {
         </div>
 
         {/* Content Grid */}
-        <div className="explorer-content">
+        <div className="explorer-content" onClick={() => setSelectedItem(null)}>
           {isThisPC ? (
             <div className="explorer-this-pc">
               <h4 className="this-pc-group-title">Devices and drives ({DRIVES.length})</h4>
               <div className="this-pc-drives">
                 {DRIVES.map(drive => {
                   const percentUsed = (drive.used / drive.total) * 100;
-                  const isLowSpace = percentUsed > 90;
                   return (
                     <div
                       key={drive.id}
                       className={`this-pc-drive ${selectedItem === drive.id ? 'selected' : ''}`}
-                      onClick={() => handleItemClick(drive)}
-                      onDoubleClick={() => navigateTo(['Desktop'])} // Route to desktop for now as simulated C: drive
+                      onClick={(e) => { e.stopPropagation(); setSelectedItem(drive.id); }}
+                      onDoubleClick={() => navigateTo(['Desktop'])}
+                      onContextMenu={(e) => handleContextMenu(e, drive)}
                     >
-                      <div className="drive-icon">
-                        <img src={drive.icon} alt={drive.name} style={{ width: '40px', height: '40px' }} />
-                      </div>
+                      <div className="drive-icon"><img src={drive.icon} alt="" style={{ width: 40, height: 40 }} /></div>
                       <div className="drive-info">
                         <div className="drive-name">{drive.name}</div>
                         <div className="drive-progress-bg">
-                          <div
-                            className="drive-progress-fill"
-                            style={{ 
-                              width: `${percentUsed}%`,
-                              backgroundColor: isLowSpace ? '#e81123' : 'var(--color-accent)'
-                            }}
-                          ></div>
+                          <div className="drive-progress-fill" style={{ width: `${percentUsed}%` }}></div>
                         </div>
-                        <div className="drive-details">
-                          {drive.total - drive.used} {drive.unit} free of {drive.total} {drive.unit}
-                        </div>
+                        <div className="drive-details">{drive.total - drive.used} {drive.unit} free</div>
                       </div>
                     </div>
                   );
@@ -217,17 +263,33 @@ export default function FileExplorerApp({ appId }) {
             <div className="explorer-grid">
               {items.map((item) => (
                 <div
-                  key={item.name}
-                  className={`explorer-item ${
-                    selectedItem === item.name ? 'selected' : ''
-                  }`}
-                  onClick={() => handleItemClick(item)}
+                  key={item.name + (item.fullPath?.join('/') || '')}
+                  className={`explorer-item ${selectedItem === item.name ? 'selected' : ''}`}
+                  onClick={(e) => { e.stopPropagation(); setSelectedItem(item.name); }}
                   onDoubleClick={() => handleItemDoubleClick(item)}
+                  onContextMenu={(e) => handleContextMenu(e, item)}
+                  draggable={!isRecent}
+                  onDragStart={(e) => handleDragStart(e, item)}
+                  onDrop={(e) => handleDrop(e, item)}
+                  onDragOver={(e) => handleDragOver(e, item)}
                 >
                   <span className="explorer-item-icon">
                     {getIconForType(item.type, item.icon)}
                   </span>
-                  <span className="explorer-item-name">{item.name}</span>
+                  {renameItemName === item.name ? (
+                    <input 
+                      type="text" 
+                      className="explorer-rename-input"
+                      value={renameInput}
+                      onChange={(e) => setRenameInput(e.target.value)}
+                      onKeyDown={handleRenameSubmit}
+                      onBlur={() => setRenameItemName(null)}
+                      autoFocus
+                      onClick={e => e.stopPropagation()}
+                    />
+                  ) : (
+                    <span className="explorer-item-name">{item.name}</span>
+                  )}
                 </div>
               ))}
             </div>
@@ -240,20 +302,30 @@ export default function FileExplorerApp({ appId }) {
         </div>
       </div>
 
-      {/* Status Bar */}
-      <div className="explorer-status">
-        <span className="explorer-status-text">
-          {isThisPC 
-            ? `${DRIVES.length} item${DRIVES.length !== 1 ? 's' : ''}` 
-            : `${items.length} item${items.length !== 1 ? 's' : ''}`
-          }
-        </span>
-        {selectedItem && !isThisPC && (
-          <span className="explorer-status-text">
-            {items.find((i) => i.name === selectedItem)?.size || ''}
-          </span>
-        )}
-      </div>
+      {/* Context Menu Overlay */}
+      {contextMenu && (
+        <div 
+          className="explorer-context-menu"
+          style={{ top: contextMenu.y, left: contextMenu.x }}
+          onClick={e => e.stopPropagation()}
+        >
+          <div className="context-menu-item" onClick={() => executeContextAction('open')}>Open</div>
+          {!isThisPC && !isRecent && (
+            <>
+              <div className="context-menu-divider" />
+              <div className="context-menu-item" onClick={() => executeContextAction('rename')}>Rename</div>
+              <div className="context-menu-item" onClick={() => executeContextAction('delete')}>Delete</div>
+            </>
+          )}
+          <div className="context-menu-divider" />
+          <div className="context-menu-item" onClick={() => executeContextAction('properties')}>Properties</div>
+        </div>
+      )}
+
+      {/* Properties Modal */}
+      {propertiesItem && (
+        <PropertiesModal item={propertiesItem} onClose={() => setPropertiesItem(null)} />
+      )}
     </div>
   );
 }

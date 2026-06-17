@@ -101,6 +101,11 @@ import videosIco from '../assets/icons/system/Folder Videos.ico';
 import oneDriveIco from '../assets/icons/system/One Drive.ico';
 import trashIco from '../assets/icons/system/Trash Empty.ico';
 import vscodeIco from '../assets/icons/apps/vscode.svg';
+import browserIco from '../assets/icons/system/Link.ico';
+import mailIco from '../assets/icons/system/Folder Contacts.ico';
+import photosIco from '../assets/icons/system/Photos.ico';
+import calculatorIco from '../assets/icons/system/Tasks.ico';
+import documentIco from '../assets/icons/system/Notes.ico';
 
 /**
  * Desktop Applications — the apps shown on desktop and start menu
@@ -209,6 +214,36 @@ export const DESKTOP_APPS = [
     label: 'VS Code',
     icon: vscodeIco,
     description: 'Code Editor',
+  },
+  {
+    id: 'browser',
+    label: 'Browser',
+    icon: browserIco,
+    description: 'Web Browser',
+  },
+  {
+    id: 'mail',
+    label: 'Mail',
+    icon: mailIco,
+    description: 'Email Client',
+  },
+  {
+    id: 'photos',
+    label: 'Photos',
+    icon: photosIco,
+    description: 'Gallery',
+  },
+  {
+    id: 'calculator',
+    label: 'Calculator',
+    icon: calculatorIco,
+    description: 'Scientific Calculator',
+  },
+  {
+    id: 'notepad',
+    label: 'Notepad',
+    icon: documentIco,
+    description: 'Text Editor',
   },
 ];
 

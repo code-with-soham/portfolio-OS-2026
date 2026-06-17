@@ -18,6 +18,11 @@ import SettingsApp from '../apps/SettingsApp/index';
 import AboutOSApp from '../apps/AboutOSApp/index';
 import VSCodeApp from '../apps/VSCodeApp/index';
 import MusicApp from '../apps/MusicApp/index';
+import BrowserApp from '../apps/BrowserApp/index';
+import MailApp from '../apps/MailApp/index';
+import PhotosApp from '../apps/PhotosApp/index';
+import CalculatorApp from '../apps/CalculatorApp/index';
+import NotepadApp from '../apps/NotepadApp/index';
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -45,6 +50,11 @@ import infoIco from '../assets/icons/system/Info.ico';
 import pcIco from '../assets/icons/system/Computer.ico';
 import vscodeIco from '../assets/icons/apps/vscode.svg';
 import musicIco from '../assets/icons/system/Folder Music.ico';
+import browserIco from '../assets/icons/system/Link.ico';
+import mailIco from '../assets/icons/system/Folder Contacts.ico';
+import photosIco from '../assets/icons/system/Photos.ico';
+import calculatorIco from '../assets/icons/system/Tasks.ico';
+import documentIco from '../assets/icons/system/Notes.ico';
 
 export const APPS = {
   about: {
@@ -164,5 +174,60 @@ export const APPS = {
     category: 'Entertainment',
     version: '1.0.0',
     description: 'Listen to local tunes',
+  },
+  browser: {
+    id: 'browser',
+    title: 'Web Browser',
+    icon: browserIco,
+    component: withErrorBoundary(BrowserApp, 'Web Browser'),
+    defaultWidth: 900,
+    defaultHeight: 650,
+    category: 'Internet',
+    version: '1.0.0',
+    description: 'Browse the web and internal apps',
+  },
+  mail: {
+    id: 'mail',
+    title: 'Mail',
+    icon: mailIco,
+    component: withErrorBoundary(MailApp, 'Mail'),
+    defaultWidth: 850,
+    defaultHeight: 600,
+    category: 'Communication',
+    version: '1.0.0',
+    description: 'Email client with mock recruiter emails',
+  },
+  photos: {
+    id: 'photos',
+    title: 'Photos',
+    icon: photosIco,
+    component: withErrorBoundary(PhotosApp, 'Photos'),
+    defaultWidth: 900,
+    defaultHeight: 650,
+    category: 'Entertainment',
+    version: '1.0.0',
+    description: 'Image gallery and slideshow',
+  },
+  calculator: {
+    id: 'calculator',
+    title: 'Calculator',
+    icon: calculatorIco,
+    component: withErrorBoundary(CalculatorApp, 'Calculator'),
+    defaultWidth: 400,
+    defaultHeight: 600,
+    category: 'Utilities',
+    version: '1.0.0',
+    description: 'Standard, Scientific, and Programmer calculator',
+  },
+  notepad: {
+    id: 'notepad',
+    title: 'Notepad',
+    icon: documentIco,
+    component: withErrorBoundary(NotepadApp, 'Notepad'),
+    defaultWidth: 800,
+    defaultHeight: 600,
+    category: 'Productivity',
+    version: '1.0.0',
+    description: 'Simple text editor with Markdown support',
   },
 };

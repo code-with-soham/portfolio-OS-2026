@@ -1,0 +1,251 @@
+/* ============================================
+ * Notepad App Styles
+ * ============================================ */
+
+ .notepad-app {
+  --notepad-bg: #ffffff;
+  --notepad-fg: #000000;
+  --notepad-menubar: #f3f3f3;
+  --notepad-menubar-hover: #e5e5e5;
+  --notepad-border: #cccccc;
+  --notepad-selection: #cce8ff;
+  --notepad-status: #f0f0f0;
+}
+
+[data-theme='dark'] .notepad-app {
+  --notepad-bg: #1e1e1e;
+  --notepad-fg: #d4d4d4;
+  --notepad-menubar: #2d2d2d;
+  --notepad-menubar-hover: #3e3e42;
+  --notepad-border: #333333;
+  --notepad-selection: #264f78;
+  --notepad-status: #007acc;
+}
+
+.notepad-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-family: 'Consolas', 'Courier New', monospace;
+  background-color: var(--notepad-bg);
+  color: var(--notepad-fg);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Menu Bar */
+.notepad-menubar {
+  display: flex;
+  background-color: var(--notepad-menubar);
+  border-bottom: 1px solid var(--notepad-border);
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 13px;
+  position: relative;
+  z-index: 10;
+}
+
+.notepad-menu-item {
+  padding: 4px 12px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.notepad-menu-item:hover, .notepad-menu-item.active {
+  background-color: var(--notepad-menubar-hover);
+}
+
+.notepad-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--notepad-menubar);
+  border: 1px solid var(--notepad-border);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+}
+
+.notepad-dropdown-item {
+  padding: 6px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notepad-dropdown-item:hover {
+  background-color: var(--notepad-menubar-hover);
+}
+
+.notepad-shortcut {
+  color: #888;
+  font-size: 11px;
+}
+
+/* Content Area */
+.notepad-content-wrapper {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.notepad-textarea {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  padding: 8px 12px;
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.notepad-textarea::selection {
+  background-color: var(--notepad-selection);
+}
+
+.notepad-markdown-preview {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  padding: 16px 24px;
+  overflow-y: auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.notepad-markdown-preview h1,
+.notepad-markdown-preview h2,
+.notepad-markdown-preview h3 {
+  border-bottom: 1px solid var(--notepad-border);
+  padding-bottom: 8px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.notepad-markdown-preview p {
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.notepad-markdown-preview code {
+  background-color: var(--notepad-menubar);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: 'Consolas', monospace;
+}
+
+.notepad-markdown-preview pre code {
+  display: block;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+/* Status Bar */
+.notepad-status {
+  background-color: var(--notepad-menubar);
+  border-top: 1px solid var(--notepad-border);
+  padding: 4px 12px;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--notepad-fg);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Save Dialog */
+.notepad-dialog-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.notepad-dialog {
+  background-color: var(--notepad-bg);
+  border: 1px solid var(--notepad-border);
+  border-radius: 6px;
+  width: 400px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.notepad-dialog-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--notepad-border);
+  font-weight: 600;
+  background-color: var(--notepad-menubar);
+}
+
+.notepad-dialog-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.notepad-dialog-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notepad-dialog-label {
+  width: 80px;
+  font-size: 13px;
+}
+
+.notepad-dialog-input, .notepad-dialog-select {
+  flex: 1;
+  padding: 6px 8px;
+  background-color: var(--notepad-bg);
+  color: var(--notepad-fg);
+  border: 1px solid var(--notepad-border);
+  border-radius: 4px;
+  outline: none;
+}
+
+.notepad-dialog-footer {
+  padding: 12px 16px;
+  background-color: var(--notepad-menubar);
+  border-top: 1px solid var(--notepad-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.notepad-btn {
+  padding: 6px 16px;
+  background-color: var(--notepad-bg);
+  color: var(--notepad-fg);
+  border: 1px solid var(--notepad-border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.notepad-btn:hover {
+  background-color: var(--notepad-menubar-hover);
+}
+
+.notepad-btn.primary {
+  background-color: #0078d4;
+  color: white;
+  border-color: #0078d4;
+}
+
+.notepad-btn.primary:hover {
+  background-color: #006cbe;
+}
