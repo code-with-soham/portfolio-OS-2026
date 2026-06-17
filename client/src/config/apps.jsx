@@ -17,6 +17,7 @@ import FileExplorerApp from '../apps/FileExplorerApp/index';
 import SettingsApp from '../apps/SettingsApp/index';
 import AboutOSApp from '../apps/AboutOSApp/index';
 import VSCodeApp from '../apps/VSCodeApp/index';
+import MusicApp from '../apps/MusicApp/index';
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -43,6 +44,7 @@ import settingsIco from '../assets/icons/system/Settings.ico';
 import infoIco from '../assets/icons/system/Info.ico';
 import pcIco from '../assets/icons/system/Computer.ico';
 import vscodeIco from '../assets/icons/apps/vscode.svg';
+import musicIco from '../assets/icons/system/Folder Music.ico';
 
 export const APPS = {
   about: {
@@ -151,5 +153,16 @@ export const APPS = {
     category: 'Development',
     version: '1.0.0',
     description: 'Code Editor',
+  },
+  music: {
+    id: 'music',
+    title: 'Music Player',
+    icon: musicIco,
+    component: withErrorBoundary(MusicApp, 'Music Player'),
+    defaultWidth: 800,
+    defaultHeight: 500,
+    category: 'Entertainment',
+    version: '1.0.0',
+    description: 'Listen to local tunes',
   },
 };

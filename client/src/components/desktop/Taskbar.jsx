@@ -21,8 +21,14 @@ import {
   WeatherMoonRegular,
   Wifi1Regular,
   Speaker2Regular,
-  AlertRegular
+  AlertRegular,
+  PlayRegular,
+  PauseRegular,
+  PreviousRegular,
+  NextRegular
 } from '@fluentui/react-icons';
+import { useMusicStore } from '../../store/useMusicStore';
+import { useSystemAudioStore } from '../../store/useSystemAudioStore';
 
 /**
  * Taskbar icon button — reusable for all tray icons
@@ -109,6 +115,12 @@ export default function Taskbar() {
   const minimizeWindow = useWindowStore((s) => s.minimizeWindow);
   const restoreWindow = useWindowStore((s) => s.restoreWindow);
   const openWindow = useWindowStore((s) => s.openWindow);
+
+  // Music Store
+  const { isPlaying, togglePlayPause, nextSong, prevSong, playlist, currentSongIndex } = useMusicStore();
+  const { volume, isMuted } = useSystemAudioStore();
+  const hasMusic = playlist && playlist.length > 0;
+  const currentSong = hasMusic ? playlist[currentSongIndex] : null;
 
   const pinnedAppIds = ['mypc', 'about', 'projects', 'skills', 'terminal', 'resume', 'fileexplorer', 'settings'];
 
@@ -230,6 +242,45 @@ export default function Taskbar() {
 
       {/* Right section — System tray */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+        {/* Media Controls (conditionally rendered) */}
+        {hasMusic && currentSong && (
+          <div 
+            style={{ display: 'flex', alignItems: 'center', marginRight: '8px', gap: '2px' }}
+            title={`Artist: ${currentSong.artist}\nDuration: ${currentSong.duration}\nVolume: ${isMuted ? 0 : Math.round(volume * 100)}%`}
+          >
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '6px', 
+              marginRight: '8px',
+              padding: '0 8px',
+              maxWidth: '120px',
+              overflow: 'hidden'
+            }}>
+              <span style={{ fontSize: '12px' }}>🎵</span>
+              <span style={{ 
+                fontSize: '0.75rem', 
+                fontWeight: 600, 
+                whiteSpace: 'nowrap', 
+                overflow: 'hidden', 
+                textOverflow: 'ellipsis' 
+              }}>
+                {currentSong.title}
+              </span>
+            </div>
+            <TaskbarButton id="taskbar-media-prev" onClick={prevSong} title="Previous">
+              <PreviousRegular fontSize={14} />
+            </TaskbarButton>
+            <TaskbarButton id="taskbar-media-play" onClick={togglePlayPause} title={isPlaying ? "Pause" : "Play"}>
+              {isPlaying ? <PauseRegular fontSize={16} /> : <PlayRegular fontSize={16} />}
+            </TaskbarButton>
+            <TaskbarButton id="taskbar-media-next" onClick={nextSong} title="Next">
+              <NextRegular fontSize={14} />
+            </TaskbarButton>
+            <div style={{ width: '1px', height: '16px', background: 'var(--color-border)', margin: '0 4px' }} />
+          </div>
+        )}
+
         {/* System Status Area (Quick Settings) */}
         <TaskbarButton
           id="taskbar-quick-settings-btn"

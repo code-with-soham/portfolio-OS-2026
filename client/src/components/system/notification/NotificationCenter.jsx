@@ -1,13 +1,17 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDesktopStore } from '../../../store/useDesktopStore';
 import { useNotificationStore } from '../../../store/useNotificationStore';
+import { useMusicStore } from '../../../store/useMusicStore';
 import NotificationCard from './NotificationCard';
 import CalendarPanel from '../calendar/CalendarPanel';
-import { AlertRegular, CheckmarkRegular, DeleteRegular } from '@fluentui/react-icons';
+import { AlertRegular, CheckmarkRegular, DeleteRegular, PlayRegular, PauseRegular, PreviousRegular, NextRegular } from '@fluentui/react-icons';
 
 export default function NotificationCenter() {
   const { isNotificationCenterOpen, closeNotificationCenter } = useDesktopStore();
   const { history, clearHistory, removeHistoryItem, markAllAsRead, markAsRead } = useNotificationStore();
+  const { playlist, currentSongIndex, isPlaying, togglePlayPause, nextSong, prevSong } = useMusicStore();
+  
+  const currentSong = playlist && playlist.length > 0 ? playlist[currentSongIndex] : null;
 
   const handleAction = (notif) => {
     markAsRead(notif.id);
@@ -129,6 +133,38 @@ export default function NotificationCenter() {
                 </div>
               )}
             </div>
+
+            {/* Now Playing Widget */}
+            {currentSong && (
+              <div style={{
+                margin: '0 20px 16px',
+                padding: '12px',
+                background: 'var(--color-bg-surface)',
+                borderRadius: 'var(--radius-md)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                border: '1px solid var(--color-border)',
+                boxShadow: 'var(--shadow-sm)'
+              }}>
+                <img src={currentSong.cover} alt="Cover" style={{ width: '48px', height: '48px', borderRadius: 'var(--radius-sm)', objectFit: 'cover' }} draggable={false} />
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                  <span style={{ fontSize: '0.9rem', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{currentSong.title}</span>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{currentSong.artist}</span>
+                </div>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button onClick={prevSong} style={{ background: 'none', border: 'none', color: 'var(--color-text-primary)', cursor: 'pointer', padding: '4px' }}>
+                    <PreviousRegular fontSize={16} />
+                  </button>
+                  <button onClick={togglePlayPause} style={{ background: 'none', border: 'none', color: 'var(--color-text-primary)', cursor: 'pointer', padding: '4px' }}>
+                    {isPlaying ? <PauseRegular fontSize={20} /> : <PlayRegular fontSize={20} />}
+                  </button>
+                  <button onClick={nextSong} style={{ background: 'none', border: 'none', color: 'var(--color-text-primary)', cursor: 'pointer', padding: '4px' }}>
+                    <NextRegular fontSize={16} />
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Notifications area */}
             <div style={{ padding: '0 20px', flex: 1, overflowY: 'auto' }}>

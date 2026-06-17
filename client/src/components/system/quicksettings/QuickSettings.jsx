@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useDesktopStore } from '../../../store/useDesktopStore';
 import { useThemeStore } from '../../../store/useThemeStore';
 import { useUIStore } from '../../../store/useUIStore';
+import { useSystemAudioStore } from '../../../store/useSystemAudioStore';
 import {
   Wifi1Regular,
   BluetoothRegular,
@@ -69,9 +70,7 @@ function QuickSettingTile({ id, label, icon, activeIcon, active, onClick }) {
 /**
  * Range slider for Quick Settings
  */
-function Slider({ icon, defaultValue = 70, onChange }) {
-  const [value, setValue] = useState(defaultValue);
-
+function Slider({ icon, value, onChange }) {
   return (
     <div
       style={{
@@ -90,8 +89,7 @@ function Slider({ icon, defaultValue = 70, onChange }) {
         max="100"
         value={value}
         onChange={(e) => {
-          setValue(e.target.value);
-          if (onChange) onChange(e.target.value);
+          if (onChange) onChange(parseFloat(e.target.value));
         }}
         style={{
           flex: 1,
@@ -111,11 +109,11 @@ export default function QuickSettings() {
   const { isQuickSettingsOpen, closeQuickSettings } = useDesktopStore();
   const { theme, toggleTheme } = useThemeStore();
   const { animationsEnabled, toggleAnimations } = useUIStore();
+  const { volume, isMuted, setVolume, toggleMute } = useSystemAudioStore();
 
   // Decorative state for Phase 3
   const [wifiOn, setWifiOn] = useState(true);
   const [btOn, setBtOn] = useState(false);
-  const [soundOn, setSoundOn] = useState(true);
 
   return (
     <AnimatePresence>
@@ -195,11 +193,11 @@ export default function QuickSettings() {
               />
               <QuickSettingTile
                 id="sound"
-                label={soundOn ? 'Sound' : 'Muted'}
+                label={!isMuted ? 'Sound' : 'Muted'}
                 icon={<SpeakerOffRegular />}
                 activeIcon={<Speaker2Regular />}
-                active={soundOn}
-                onClick={() => setSoundOn(!soundOn)}
+                active={!isMuted}
+                onClick={toggleMute}
               />
               <QuickSettingTile
                 id="animation"
@@ -213,10 +211,9 @@ export default function QuickSettings() {
 
             {/* Sliders Area */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <Slider icon={<WeatherSunnyRegular fontSize={18} />} defaultValue={70} />
-              <Slider icon={soundOn ? <Speaker2Regular fontSize={18} /> : <SpeakerOffRegular fontSize={18} />} defaultValue={50} onChange={(val) => {
-                if (val == 0) setSoundOn(false);
-                else if (!soundOn) setSoundOn(true);
+              <Slider icon={<WeatherSunnyRegular fontSize={18} />} value={70} onChange={() => {}} />
+              <Slider icon={!isMuted ? <Speaker2Regular fontSize={18} /> : <SpeakerOffRegular fontSize={18} />} value={Math.round(volume * 100)} onChange={(val) => {
+                setVolume(val / 100);
               }} />
             </div>
           </motion.div>

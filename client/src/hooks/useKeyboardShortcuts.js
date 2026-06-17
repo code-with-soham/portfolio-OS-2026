@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { useWindowStore } from '../store/useWindowStore';
 import { useDesktopStore } from '../store/useDesktopStore';
 import { useUIStore } from '../store/useUIStore';
+import { useMusicStore } from '../store/useMusicStore';
 
 /**
  * Register global keyboard shortcuts.
@@ -52,6 +53,27 @@ export function useKeyboardShortcuts() {
         const { activeWindowId, closeWindow } = useWindowStore.getState();
         if (activeWindowId) {
           closeWindow(activeWindowId);
+        }
+        return;
+      }
+
+      // Media Controls
+      if (!isCapturing) {
+        if (e.code === 'Space') {
+          // Only trigger if we aren't in an input field (isCapturing handles this)
+          // Also check if active element is not a button to avoid double triggers
+          if (document.activeElement.tagName !== 'BUTTON') {
+            e.preventDefault();
+            useMusicStore.getState().togglePlayPause();
+          }
+        }
+        if (e.ctrlKey && e.code === 'ArrowRight') {
+          e.preventDefault();
+          useMusicStore.getState().nextSong();
+        }
+        if (e.ctrlKey && e.code === 'ArrowLeft') {
+          e.preventDefault();
+          useMusicStore.getState().prevSong();
         }
       }
     };

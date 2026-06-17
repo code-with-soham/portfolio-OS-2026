@@ -21,6 +21,7 @@ import ContextMenu from '../components/desktop/ContextMenu';
 import ToastContainer from '../components/desktop/ToastContainer';
 import Window from '../components/desktop/Window';
 import WidgetsPanel from '../components/widgets/WidgetsPanel';
+import VolumeOSD from '../components/system/osd/VolumeOSD';
 import { useWidgetStore } from '../store/useWidgetStore';
 import {
   EyeRegular,
@@ -151,6 +152,9 @@ export default function Desktop() {
       
       {/* Quick Settings overlay */}
       <QuickSettings />
+
+      {/* Volume OSD */}
+      <VolumeOSD />
 
       {/* Taskbar — always at bottom */}
       <Taskbar />

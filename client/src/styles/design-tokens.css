@@ -98,6 +98,14 @@
   --color-border: rgba(255, 255, 255, 0.08);
   --color-border-active: rgba(255, 255, 255, 0.15);
 
+  /* OS Theme Standard (Global App Themes) */
+  --os-bg-primary: #1e1e1e;
+  --os-bg-secondary: #252526;
+  --os-bg-hover: #2d2d30;
+  --os-border: #3c3c3c;
+  --os-text: #cccccc;
+  --os-accent: #0078d4;
+
   /* Materials */
   /* Mica */
   --mica-base: rgba(32, 32, 32, 0.92);
@@ -128,6 +136,14 @@
 
   --color-border: rgba(0, 0, 0, 0.08);
   --color-border-active: rgba(0, 0, 0, 0.12);
+
+  /* OS Theme Standard (Global App Themes) - Light Version */
+  --os-bg-primary: #ffffff;
+  --os-bg-secondary: #f3f3f3;
+  --os-bg-hover: #e5e5e5;
+  --os-border: #cccccc;
+  --os-text: #333333;
+  --os-accent: #005a9e;
 
   /* Elevation Overrides for Light Mode */
   --shadow-window: 0 32px 128px rgba(0, 0, 0, 0.12);
