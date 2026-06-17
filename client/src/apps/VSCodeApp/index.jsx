@@ -14,6 +14,7 @@ import TopMenu from './components/TopMenu';
 import EditorArea from './components/EditorArea';
 import BottomPanel from './components/BottomPanel';
 import StatusBar from './components/StatusBar';
+import ProfileSidebar from './components/ProfileSidebar';
 import { SearchRegular } from '@fluentui/react-icons';
 import './VSCodeApp.css';
 import vscodeIco from '../../assets/icons/apps/vscode.svg';
@@ -644,8 +645,11 @@ export default function VSCodeApp() {
 
     if (fileToRender === 'about/README.md') {
       return (
-        <div className="vscode-markdown github-style" style={{ padding: '20px', backgroundColor: '#0d1117', color: '#c9d1d9', overflowY: 'auto', height: '100%' }}>
-          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{finalContent}</ReactMarkdown>
+        <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%', height: '100%', overflowY: 'auto', backgroundColor: '#0d1117', color: '#c9d1d9' }}>
+          <div className="vscode-markdown github-style" style={{ flex: 1, minWidth: '350px', padding: '20px' }}>
+            <ReactMarkdown rehypePlugins={[rehypeRaw]}>{finalContent}</ReactMarkdown>
+          </div>
+          <ProfileSidebar />
         </div>
       );
     }
