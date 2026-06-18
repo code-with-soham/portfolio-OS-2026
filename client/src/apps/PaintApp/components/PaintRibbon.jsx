@@ -11,7 +11,10 @@ import {
   TriangleRegular,
   DiamondRegular,
   PentagonRegular,
-  HexagonRegular
+  HexagonRegular,
+  CropRegular,
+  ArrowExpandRegular,
+  ArrowRotateClockwiseRegular
 } from '@fluentui/react-icons';
 import { usePaintStore } from '../store/usePaintStore';
 
@@ -50,6 +53,24 @@ export default function PaintRibbon() {
   return (
     <div className="paint-ribbon">
       
+      {/* Image Group */}
+      <div className="paint-ribbon-group">
+          <div className="paint-ribbon-group-items" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '4px' }}>
+            <button 
+              className={`paint-tool-btn ${tool === 'crop' ? 'active' : ''}`}
+              title="Crop"
+              onClick={() => setTool('crop')}
+            >
+              <CropRegular fontSize={18} />
+            </button>
+            <button className="paint-tool-btn" title="Resize"><ArrowExpandRegular fontSize={18} /></button>
+            <button className="paint-tool-btn" title="Rotate"><ArrowRotateClockwiseRegular fontSize={18} /></button>
+          </div>
+          <span className="paint-ribbon-group-label">Image</span>
+      </div>
+
+      <div className="paint-ribbon-separator" />
+
       {/* Tools Group */}
       <div className="paint-ribbon-group">
         <div className="paint-ribbon-group-items" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px' }}>

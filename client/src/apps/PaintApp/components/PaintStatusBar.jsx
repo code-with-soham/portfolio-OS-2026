@@ -1,13 +1,13 @@
 import { usePaintStore } from '../store/usePaintStore';
 
-export default function PaintStatusBar({ mousePos }) {
+export default function PaintStatusBar() {
   const { zoomLevel, setZoomLevel, canvasDimensions } = usePaintStore();
 
   return (
     <div className="paint-statusbar">
       <div className="paint-statusbar-left">
-        <span>
-          {Math.round(mousePos.x)}, {Math.round(mousePos.y)} px
+        <span id="paint-coords-display">
+          0, 0 px
         </span>
         <div style={{ width: '1px', height: '16px', background: 'var(--color-border)' }} />
         <span>

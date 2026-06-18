@@ -9,10 +9,24 @@ export const usePaintStore = create((set, get) => ({
   zoomLevel: 1, // 1 = 100%, 0.25 = 25%, 8 = 800%
   canvasDimensions: { width: 800, height: 600 },
   
-  // History for Undo/Redo (stores ImageData objects)
+  // Layer System
+  layers: [
+    { id: 'layer-1', name: 'Background', visible: true, opacity: 1, isLocked: false }
+  ],
+  activeLayerId: 'layer-1',
+
+  // Floating Selection (for paste and shapes)
+  floatingSelection: null, 
+  // { imageData, x, y, width, height, active }
+
+  // History for Undo/Redo
   history: [],
   historyStep: -1,
   
+  // Time-Lapse System
+  timeLapseEvents: [],
+  isReplaying: false,
+
   setTool: (tool) => set({ tool }),
   setPrimaryColor: (color) => set({ primaryColor: color }),
   setSecondaryColor: (color) => set({ secondaryColor: color }),
@@ -21,7 +35,16 @@ export const usePaintStore = create((set, get) => ({
   setZoomLevel: (zoom) => set({ zoomLevel: zoom }),
   setCanvasDimensions: (dim) => set({ canvasDimensions: dim }),
   
-  // Undo/Redo logic will be handled by the Canvas component directly for performance, 
-  // but we store the step here to update UI buttons (enable/disable Undo buttons)
-  setHistoryStep: (step, maxSteps) => set({ historyStep: step }),
+  setLayers: (layers) => set({ layers }),
+  setActiveLayerId: (id) => set({ activeLayerId: id }),
+  setFloatingSelection: (sel) => set({ floatingSelection: sel }),
+  
+  setHistoryStep: (step) => set({ historyStep: step }),
+
+  recordTimeLapseEvent: (event) => set((state) => {
+    if (state.isReplaying) return state; // Don't record during replay
+    return { timeLapseEvents: [...state.timeLapseEvents, event] };
+  }),
+  setIsReplaying: (val) => set({ isReplaying: val }),
+  clearTimeLapse: () => set({ timeLapseEvents: [] })
 }));

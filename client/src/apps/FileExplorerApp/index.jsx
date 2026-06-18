@@ -129,6 +129,8 @@ export default function FileExplorerApp({ appId }) {
       updateLastOpened(fullPath);
       if (item.appId) {
         openWindow(item.appId, { filePath: fullPath });
+      } else if (item.name.match(/\.(png|jpg|jpeg|webp|bmp)$/i)) {
+        openWindow('paint', { filePath: fullPath });
       } else if (item.icon === 'document' || item.name.endsWith('.txt') || item.name.endsWith('.md')) {
         openWindow('notepad', { filePath: fullPath });
       }
