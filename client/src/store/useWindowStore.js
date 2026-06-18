@@ -20,6 +20,11 @@ export const useWindowStore = create(
       lastActiveWindowId: null,
       // Recent apps opened (for Start Menu — max 5)
       recentApps: [],
+      // Virtual Desktops (VS-25)
+      currentDesktop: 1,
+      totalDesktops: 3,
+
+      setDesktop: (index) => set({ currentDesktop: index }),
 
       /**
        * Open a new window for the given appId.
@@ -39,6 +44,11 @@ export const useWindowStore = create(
         const existingWindow = windows.find((w) => w.appId === appId);
         
         if (existingWindow) {
+          // If the app is on a different desktop, switch to it
+          if (existingWindow.desktop !== get().currentDesktop) {
+            set({ currentDesktop: existingWindow.desktop });
+          }
+
           // If minimized, restore it
           if (existingWindow.isMinimized) {
             set((state) => ({
@@ -68,6 +78,7 @@ export const useWindowStore = create(
           appId,
           title: appConfig.title,
           icon: appConfig.icon,
+          desktop: get().currentDesktop,
           isMinimized: false,
           isMaximized: false,
           bounds: {
@@ -205,6 +216,12 @@ export const useWindowStore = create(
         set((state) => {
           if (state.activeWindowId === id) return state; // Already focused
           
+          const winToFocus = state.windows.find(w => w.id === id);
+          if (!winToFocus) return state;
+          
+          // Switch desktop if necessary
+          const newDesktop = winToFocus.desktop !== state.currentDesktop ? winToFocus.desktop : state.currentDesktop;
+
           // Bring to front by updating zIndex and update order
           const newOrder = [...state.windowOrder.filter((wId) => wId !== id), id];
           return {
@@ -214,6 +231,7 @@ export const useWindowStore = create(
             activeWindowId: id,
             lastActiveWindowId: state.activeWindowId,
             windowOrder: newOrder,
+            currentDesktop: newDesktop,
           };
         });
       },

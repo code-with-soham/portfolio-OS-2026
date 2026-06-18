@@ -208,6 +208,20 @@ export const useDesktopStore = create(
   },
 
   closeSpotlight: () => set({ isSpotlightOpen: false }),
+  // Overlays (Run Dialog, Power Menu, Desktop Switcher)
+  // ========================
+
+  isRunDialogOpen: false,
+  toggleRunDialog: () => set((state) => ({ isRunDialogOpen: !state.isRunDialogOpen, isPowerUserMenuOpen: false })),
+  closeRunDialog: () => set({ isRunDialogOpen: false }),
+
+  isPowerUserMenuOpen: false,
+  togglePowerUserMenu: () => set((state) => ({ isPowerUserMenuOpen: !state.isPowerUserMenuOpen, isRunDialogOpen: false })),
+  closePowerUserMenu: () => set({ isPowerUserMenuOpen: false }),
+
+  isDesktopSwitcherOpen: false,
+  toggleDesktopSwitcher: () => set((state) => ({ isDesktopSwitcherOpen: !state.isDesktopSwitcherOpen })),
+  closeDesktopSwitcher: () => set({ isDesktopSwitcherOpen: false }),
 
   // ========================
   // Utility
@@ -221,6 +235,9 @@ export const useDesktopStore = create(
       isQuickSettingsOpen: false,
       isAIAssistantOpen: false,
       isSpotlightOpen: false,
+      isRunDialogOpen: false,
+      isPowerUserMenuOpen: false,
+      isDesktopSwitcherOpen: false,
       contextMenu: { ...state.contextMenu, isOpen: false },
       selectedIconId: null, // Deselect icons when clicking background
     }));

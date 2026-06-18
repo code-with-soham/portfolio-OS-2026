@@ -27,17 +27,36 @@ function ResizeHandle({ position, onResize, cursor }) {
   );
 }
 
+import SnapLayoutsPopup from './SnapLayoutsPopup';
+
 /**
  * Title Bar Component
  * Acts as the drag handle for the window and contains window controls.
  */
-function TitleBar({ title, icon, onMinimize, onMaximize, onClose, dragControls, isMaximized }) {
+function TitleBar({ title, icon, onMinimize, onMaximize, onClose, onSnap, dragControls, isMaximized }) {
+  const [showSnapLayouts, setShowSnapLayouts] = useState(false);
+  const snapTimeoutRef = useRef(null);
+
+  const handleMouseEnterMaximize = () => {
+    if (snapTimeoutRef.current) clearTimeout(snapTimeoutRef.current);
+    snapTimeoutRef.current = setTimeout(() => {
+      setShowSnapLayouts(true);
+    }, 500); // 500ms hover delay
+  };
+
+  const handleMouseLeaveMaximize = () => {
+    if (snapTimeoutRef.current) clearTimeout(snapTimeoutRef.current);
+    snapTimeoutRef.current = setTimeout(() => {
+      setShowSnapLayouts(false);
+    }, 300); // 300ms grace period to move mouse into popup
+  };
+
   return (
     <div
       className="window-title-bar"
       onPointerDown={(e) => {
         // Only start dragging if not clicking a control button and not maximized
-        if (e.target.closest('.window-controls')) return;
+        if (e.target.closest('.window-controls') || showSnapLayouts) return;
         if (!isMaximized) {
           dragControls.start(e);
         }
@@ -52,6 +71,7 @@ function TitleBar({ title, icon, onMinimize, onMaximize, onClose, dragControls, 
         borderBottom: '1px solid var(--color-border)',
         cursor: isMaximized ? 'default' : 'grab',
         touchAction: 'none',
+        position: 'relative'
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingLeft: '12px' }}>
@@ -73,15 +93,33 @@ function TitleBar({ title, icon, onMinimize, onMaximize, onClose, dragControls, 
         >
           ─
         </button>
-        <button
-          onPointerDown={onMaximize}
-          className="window-control-btn"
-          style={{ width: '46px', background: 'transparent', border: 'none', color: 'var(--color-text-primary)', cursor: 'pointer' }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-bg-surface-hover)')}
-          onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+        <div 
+          onMouseEnter={handleMouseEnterMaximize}
+          onMouseLeave={handleMouseLeaveMaximize}
+          style={{ display: 'flex' }}
         >
-          {isMaximized ? '❐' : '□'}
-        </button>
+          <button
+            onPointerDown={onMaximize}
+            className="window-control-btn"
+            style={{ width: '46px', background: 'transparent', border: 'none', color: 'var(--color-text-primary)', cursor: 'pointer' }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-bg-surface-hover)')}
+            onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+          >
+            {isMaximized ? '❐' : '□'}
+          </button>
+          
+          <AnimatePresence>
+            {showSnapLayouts && (
+              <SnapLayoutsPopup 
+                onMouseLeave={handleMouseLeaveMaximize}
+                onSnap={(layout) => {
+                  setShowSnapLayouts(false);
+                  onSnap(layout);
+                }}
+              />
+            )}
+          </AnimatePresence>
+        </div>
         <button
           onPointerDown={onClose}
           className="window-control-btn"
@@ -246,6 +284,25 @@ const Window = memo(function Window({ window: winData }) {
         onClose={(e) => {
           e.stopPropagation();
           closeWindow(id);
+        }}
+        onSnap={(layout) => {
+          const w = window.innerWidth;
+          const h = window.innerHeight - 48; // taskbar approx 48px
+          let newBounds = { ...localBounds };
+          
+          if (layout === 'left') newBounds = { x: 0, y: 0, width: w/2, height: h };
+          else if (layout === 'right') newBounds = { x: w/2, y: 0, width: w/2, height: h };
+          else if (layout === 'left-two-thirds') newBounds = { x: 0, y: 0, width: (w*2)/3, height: h };
+          else if (layout === 'right-third') newBounds = { x: (w*2)/3, y: 0, width: w/3, height: h };
+          else if (layout === 'top-left') newBounds = { x: 0, y: 0, width: w/2, height: h/2 };
+          else if (layout === 'top-right') newBounds = { x: w/2, y: 0, width: w/2, height: h/2 };
+          else if (layout === 'bottom-left') newBounds = { x: 0, y: h/2, width: w/2, height: h/2 };
+          else if (layout === 'bottom-right') newBounds = { x: w/2, y: h/2, width: w/2, height: h/2 };
+
+          setLocalBounds(newBounds);
+          updateWindowBounds(id, newBounds);
+          // If it was maximized, unmaximize it to snap it
+          if (isMaximized) toggleMaximize(id);
         }}
         dragControls={dragControls}
         isMaximized={isMaximized}

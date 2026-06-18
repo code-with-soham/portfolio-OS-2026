@@ -29,6 +29,7 @@ const NotepadApp = lazy(() => import('../apps/NotepadApp/index'));
 const RecycleBinApp = lazy(() => import('../apps/RecycleBinApp/index'));
 const CalendarApp = lazy(() => import('../apps/CalendarApp/index'));
 const PaintApp = lazy(() => import('../apps/PaintApp/index'));
+const DeveloperDashboardApp = lazy(() => import('../apps/DeveloperDashboardApp/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -289,5 +290,16 @@ export const APPS = {
     category: 'System',
     version: '1.0.0',
     description: 'Manage deleted files',
+  },
+  devdashboard: {
+    id: 'devdashboard',
+    title: 'Developer Dashboard',
+    icon: infoIco,
+    component: withErrorBoundary(DeveloperDashboardApp, 'Developer Dashboard'),
+    defaultWidth: 900,
+    defaultHeight: 700,
+    category: 'Development',
+    version: '1.0.0',
+    description: 'Recruiter Showcase Mode Metrics',
   },
 };

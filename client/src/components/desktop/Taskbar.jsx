@@ -25,7 +25,8 @@ import {
   PlayRegular,
   PauseRegular,
   PreviousRegular,
-  NextRegular
+  NextRegular,
+  SquareMultipleRegular
 } from '@fluentui/react-icons';
 import { useMusicStore } from '../../store/useMusicStore';
 import { useSystemAudioStore } from '../../store/useSystemAudioStore';
@@ -266,6 +267,16 @@ export default function Taskbar() {
           title="Search"
         >
           <SearchRegular fontSize={16} />
+        </TaskbarButton>
+
+        {/* Desktop Switcher */}
+        <TaskbarButton
+          id="taskbar-desktop-btn"
+          onClick={() => useDesktopStore.getState().toggleDesktopSwitcher()}
+          isActive={useDesktopStore.getState().isDesktopSwitcherOpen}
+          title="Task View / Virtual Desktops"
+        >
+          <SquareMultipleRegular fontSize={18} />
         </TaskbarButton>
         {/* Pinned Apps */}
         {pinnedAppIds.map((id) => {

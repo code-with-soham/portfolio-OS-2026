@@ -33,6 +33,10 @@ import StickyNotesLayer from '../components/desktop/StickyNotesLayer';
 import SnippingToolLayer from '../components/system/SnippingToolLayer';
 import BackgroundServices from '../components/system/BackgroundServices';
 import SpotlightSearch from '../components/system/SpotlightSearch';
+import RunDialog from '../components/system/RunDialog';
+import PowerUserMenu from '../components/system/PowerUserMenu';
+import AltTabOverlay from '../components/system/AltTabOverlay';
+import DesktopSwitcherOverlay from '../components/system/DesktopSwitcherOverlay';
 import { useWidgetStore } from '../store/useWidgetStore';
 import { useStickyNotesStore } from '../store/useStickyNotesStore';
 import { useCalendarStore } from '../store/useCalendarStore';
@@ -196,6 +200,41 @@ export default function Desktop() {
 
   }, [addNotification, openWindow, toggleAIAssistant]);
 
+  // Global Keyboard Shortcuts (Win+D, Win+E, Win+R, Win+X)
+  useEffect(() => {
+    const handleGlobalKeyDown = (e) => {
+      if (e.metaKey || e.ctrlKey) { // Win key maps to metaKey. Fallback to ctrlKey for non-windows keyboards
+        const key = e.key.toLowerCase();
+        if (key === 'd') {
+          e.preventDefault();
+          // Toggle Desktop: If any window is NOT minimized, minimize all. Else, restore all.
+          const { windows } = useWindowStore.getState();
+          const anyVisible = windows.some(w => !w.isMinimized);
+          if (anyVisible) {
+            windows.forEach(w => {
+              if (!w.isMinimized) useWindowStore.getState().minimizeWindow(w.id);
+            });
+          } else {
+            windows.forEach(w => {
+              if (w.isMinimized) useWindowStore.getState().restoreWindow(w.id);
+            });
+          }
+        } else if (key === 'e') {
+          e.preventDefault();
+          openWindow('fileexplorer');
+        } else if (key === 'r') {
+          e.preventDefault();
+          useDesktopStore.getState().toggleRunDialog();
+        } else if (key === 'x') {
+          e.preventDefault();
+          useDesktopStore.getState().togglePowerUserMenu();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+  }, [openWindow]);
+
   const handleContextMenu = (e) => {
     e.preventDefault();
     
@@ -327,15 +366,23 @@ export default function Desktop() {
       {/* Sticky Notes Layer */}
       <StickyNotesLayer />
 
-      {/* Render open windows */}
-      {windows.map((win) => (
-        <Window key={win.id} window={win} />
-      ))}
+      {/* Windows Area */}
+      <div className="windows-area">
+        <AnimatePresence>
+          {windows.filter(w => !w.desktop || w.desktop === useWindowStore.getState().currentDesktop).map((win) => (
+            <Window key={win.id} window={win} />
+          ))}
+        </AnimatePresence>
+      </div>
 
       {/* Start Menu overlay */}
       <ToastContainer />
       <SnippingToolLayer />
       <SpotlightSearch />
+      <RunDialog />
+      <PowerUserMenu />
+      <AltTabOverlay />
+      <DesktopSwitcherOverlay />
       <StartMenu />
 
       {/* Context Menu overlay */}
