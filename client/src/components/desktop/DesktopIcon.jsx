@@ -7,7 +7,7 @@
 // Phase 3: Click does nothing (no window manager yet).
 // Phase 5: Double-click will open the app in a window.
 
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { motion } from 'framer-motion';
 import { useDesktopStore } from '../../store/useDesktopStore';
 import { useWindowStore } from '../../store/useWindowStore';
@@ -21,7 +21,7 @@ import { useWindowStore } from '../../store/useWindowStore';
  * @param {string} props.icon - Emoji icon
  * @param {Function} [props.onClick] - Optional click handler
  */
-export default function DesktopIcon({ id, label, icon, onClick, onDoubleClick }) {
+export default memo(function DesktopIcon({ id, label, icon, onClick, onDoubleClick }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
   
@@ -114,6 +114,7 @@ export default function DesktopIcon({ id, label, icon, onClick, onDoubleClick })
           src={icon}
           alt={label}
           draggable={false}
+          loading="lazy"
           style={{
             width: `${sizePx}px`,
             height: `${sizePx}px`,
@@ -151,4 +152,4 @@ export default function DesktopIcon({ id, label, icon, onClick, onDoubleClick })
       </span>
     </motion.button>
   );
-}
+});

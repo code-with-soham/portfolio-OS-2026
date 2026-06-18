@@ -74,27 +74,59 @@ export default function AIAssistant() {
     // Simulate thinking delay
     await new Promise(resolve => setTimeout(resolve, 800));
 
-    let responseText = "I'm not sure how to answer that. Try asking 'Who is Soham?', 'Show Projects', or 'Open Resume'.";
+    let responseText = "I'm not sure how to answer that. Try asking 'Who is Soham?', 'Show Projects', 'What is my strongest skill?', or 'When is my next event?'.";
 
     // App launching intents
     if (q.includes('open resume') || q.includes('show resume')) {
       responseText = "Opening Resume...";
       openWindow('resume');
+    } else if (q.includes('latest project')) {
+      responseText = "Opening the latest project: Portfolio OS 2026...";
+      openWindow('projects');
     } else if (q.includes('show projects') || q.includes('open projects')) {
       responseText = "Opening Projects...";
       openWindow('projects');
     } else if (q.includes('open vs code') || q.includes('open vscode')) {
       responseText = "Launching VS Code...";
       openWindow('vscode');
+    } else if (q.includes('strongest skill') || q.includes('best skill')) {
+      if (data.skills) {
+        // Find skills with highest proficiency
+        const topSkills = [...data.skills].sort((a, b) => b.proficiency - a.proficiency).slice(0, 3);
+        responseText = `Based on proficiency, the top skills are:\n${topSkills.map(s => `- ${s.name}`).join('\n')}`;
+      } else {
+        responseText = "I'm still loading the skills data. Try again in a moment.";
+      }
     } else if (q.includes('show skills') || q.includes('open skills')) {
       if (data.skills) {
-        const cats = data.skills.map(s => s.category).join(', ');
+        const cats = [...new Set(data.skills.map(s => s.category))].join(', ');
         responseText = `Soham's skills include: ${cats}. Opening Skills app for more details...`;
       } else {
         responseText = "Opening Skills app...";
       }
       openWindow('skills');
     } 
+    // Calendar Intents
+    else if (q.includes('next event') || q.includes('upcoming event')) {
+      const { useCalendarStore } = await import('../../store/useCalendarStore');
+      const events = useCalendarStore.getState().events;
+      const now = new Date();
+      // Filter future events
+      const futureEvents = events.filter(e => {
+        if (e.year > now.getFullYear()) return true;
+        if (e.year === now.getFullYear() && e.month > now.getMonth()) return true;
+        if (e.year === now.getFullYear() && e.month === now.getMonth() && e.date >= now.getDate()) return true;
+        return false;
+      });
+      if (futureEvents.length > 0) {
+        // Sort by closest
+        futureEvents.sort((a, b) => a.date - b.date);
+        const next = futureEvents[0];
+        responseText = `Your next event is "${next.title}" on ${next.date}/${next.month + 1}/${next.year} at ${next.time}.`;
+      } else {
+        responseText = "You have no upcoming events in your calendar.";
+      }
+    }
     // Conversational intents
     else if (q.includes('who is soham') || q.includes('about soham')) {
       if (data.profile) {
@@ -104,8 +136,10 @@ export default function AIAssistant() {
         openWindow('about');
       }
     } else if (q.includes('achievements') || q.includes('awards')) {
-      if (data.achievements) {
-        responseText = `Soham has several achievements, including:\n- ${data.achievements[0]?.title}\n- ${data.achievements[1]?.title}`;
+      if (data.achievements && data.achievements.length > 0) {
+        responseText = `Soham has several achievements, including:\n${data.achievements.map(a => `- ${a.title}`).join('\n')}`;
+      } else {
+        responseText = "Soham has accomplished many great things. Check the About Me app for details.";
       }
     } else if (q.includes('os') || q.includes('portfolio os') || q.includes('system') || q.includes('how did you build this')) {
       responseText = "Portfolio OS is a cutting-edge web-based operating system designed by Soham Kundu. It features a fully functional desktop environment, a window manager, a file system, a task manager, and apps like VS Code and Browser. It was built using React, Vite, Framer Motion, and Zustand for state management.";

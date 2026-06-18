@@ -27,6 +27,8 @@ const PhotosApp = lazy(() => import('../apps/PhotosApp/index'));
 const CalculatorApp = lazy(() => import('../apps/CalculatorApp/index'));
 const NotepadApp = lazy(() => import('../apps/NotepadApp/index'));
 const RecycleBinApp = lazy(() => import('../apps/RecycleBinApp/index'));
+const CalendarApp = lazy(() => import('../apps/CalendarApp/index'));
+const PaintApp = lazy(() => import('../apps/PaintApp/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -68,6 +70,7 @@ import photosIco from '../assets/icons/system/Photos.ico';
 import calculatorIco from '../assets/icons/system/Tasks.ico';
 import documentIco from '../assets/icons/system/Notes.ico';
 import recycleBinIco from '../assets/icons/system/Trash Empty.ico';
+import calendarIco from '../assets/icons/system/Tasks.ico';
 
 export const APPS = {
   about: {
@@ -253,6 +256,28 @@ export const APPS = {
     category: 'Productivity',
     version: '1.0.0',
     description: 'Simple text editor with Markdown support',
+  },
+  calendar: {
+    id: 'calendar',
+    title: 'Calendar',
+    icon: calendarIco,
+    component: withErrorBoundary(CalendarApp, 'Calendar'),
+    defaultWidth: 900,
+    defaultHeight: 650,
+    category: 'Productivity',
+    version: '1.0.0',
+    description: 'Keep track of your events and schedules',
+  },
+  paint: {
+    id: 'paint',
+    title: 'Paint',
+    icon: photosIco,
+    component: withErrorBoundary(PaintApp, 'Paint'),
+    defaultWidth: 800,
+    defaultHeight: 600,
+    category: 'Accessories',
+    version: '1.0.0',
+    description: 'Create and edit drawings',
   },
   recyclebin: {
     id: 'recyclebin',

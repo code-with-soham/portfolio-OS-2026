@@ -4,38 +4,56 @@ import GitHubWidget from './GitHubWidget';
 import PlacementWidget from './PlacementWidget';
 import QuoteWidget from './QuoteWidget';
 
+const WIDGETS_CONFIG = {
+  github: { component: GitHubWidget, defaultX: 24, defaultY: 48 },
+  placement: { component: PlacementWidget, defaultX: 24, defaultY: 280 },
+  quote: { component: QuoteWidget, defaultX: 24, defaultY: 480 },
+};
+
+function DraggableWidget({ id, children }) {
+  const { widgetPositions, updateWidgetPosition } = useWidgetStore();
+  const pos = widgetPositions[id] || { x: WIDGETS_CONFIG[id]?.defaultX || 0, y: WIDGETS_CONFIG[id]?.defaultY || 0 };
+
+  return (
+    <motion.div
+      drag
+      dragMomentum={false}
+      onDragEnd={(event, info) => {
+        updateWidgetPosition(id, pos.x + info.offset.x, pos.y + info.offset.y);
+      }}
+      initial={{ x: pos.x - 50, y: pos.y, opacity: 0 }}
+      animate={{ x: pos.x, y: pos.y, opacity: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '340px',
+        zIndex: 100,
+        pointerEvents: 'auto',
+      }}
+      className="no-select"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export default function WidgetsPanel() {
   const { isWidgetPanelOpen, activeWidgets } = useWidgetStore();
 
   return (
     <AnimatePresence>
-      {isWidgetPanelOpen && (
-        <motion.div
-          initial={{ x: -400, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ x: -400, opacity: 0 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-          style={{
-            position: 'absolute',
-            top: '48px',
-            left: '24px',
-            width: '340px',
-            maxHeight: 'calc(100vh - 120px)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-            zIndex: 9000,
-            pointerEvents: 'auto',
-            overflowY: 'auto',
-            paddingBottom: '24px',
-          }}
-          className="no-select"
-        >
-          {activeWidgets.includes('github') && <GitHubWidget />}
-          {activeWidgets.includes('placement') && <PlacementWidget />}
-          {activeWidgets.includes('quote') && <QuoteWidget />}
-        </motion.div>
-      )}
+      {isWidgetPanelOpen && activeWidgets.map(id => {
+        const WidgetComponent = WIDGETS_CONFIG[id]?.component;
+        if (!WidgetComponent) return null;
+        return (
+          <DraggableWidget key={id} id={id}>
+            <WidgetComponent />
+          </DraggableWidget>
+        );
+      })}
     </AnimatePresence>
   );
 }

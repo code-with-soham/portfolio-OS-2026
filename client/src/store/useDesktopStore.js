@@ -191,6 +191,25 @@ export const useDesktopStore = create(
   setSelectedIconId: (id) => set({ selectedIconId: id }),
 
   // ========================
+  // Spotlight Search
+  // ========================
+
+  isSpotlightOpen: false,
+
+  toggleSpotlight: () => {
+    const isOpen = get().isSpotlightOpen;
+    set({
+      isSpotlightOpen: !isOpen,
+      isStartMenuOpen: false,
+      isNotificationCenterOpen: false,
+      isQuickSettingsOpen: false,
+      isAIAssistantOpen: false,
+    });
+  },
+
+  closeSpotlight: () => set({ isSpotlightOpen: false }),
+
+  // ========================
   // Utility
   // ========================
 
@@ -201,6 +220,7 @@ export const useDesktopStore = create(
       isNotificationCenterOpen: false,
       isQuickSettingsOpen: false,
       isAIAssistantOpen: false,
+      isSpotlightOpen: false,
       contextMenu: { ...state.contextMenu, isOpen: false },
       selectedIconId: null, // Deselect icons when clicking background
     }));
@@ -211,6 +231,58 @@ export const useDesktopStore = create(
   // System Telemetry
   // ========================
   bootTime: Date.now(),
+
+  // ========================
+  // VS-21: Taskbar Settings
+  // ========================
+  taskbarAlignment: 'center', // 'left' | 'center'
+  taskbarSize: 'medium', // 'small' | 'medium' | 'large'
+  taskbarAutoHide: false,
+  showSeconds: false,
+  showWeather: true,
+
+  setTaskbarAlignment: (val) => set({ taskbarAlignment: val }),
+  setTaskbarSize: (val) => set({ taskbarSize: val }),
+  setTaskbarAutoHide: (val) => set({ taskbarAutoHide: val }),
+  setShowSeconds: (val) => set({ showSeconds: val }),
+  setShowWeather: (val) => set({ showWeather: val }),
+
+  // ========================
+  // VS-21: Accessibility
+  // ========================
+  textSize: 100, // 100, 125, 150
+  windowAnimations: true,
+  reduceMotion: false,
+  highContrast: false,
+
+  setTextSize: (val) => set({ textSize: val }),
+  setWindowAnimations: (val) => set({ windowAnimations: val }),
+  setReduceMotion: (val) => set({ reduceMotion: val }),
+  setHighContrast: (val) => set({ highContrast: val }),
+
+  // ========================
+  // VS-21: Lock Screen
+  // ========================
+  lockScreenWallpaper: 'default',
+  lockScreenAvatar: null, // base64 string
+  lockScreenText: 'Welcome Back, Soham 🚀',
+
+  setLockScreenWallpaper: (val) => set({ lockScreenWallpaper: val }),
+  setLockScreenAvatar: (val) => set({ lockScreenAvatar: val }),
+  setLockScreenText: (val) => set({ lockScreenText: val }),
+
+  // ========================
+  // VS-22: Startup Apps
+  // ========================
+  startupApps: ['aiassistant'], // IDs of apps to launch on boot
+  
+  toggleStartupApp: (appId) => set((state) => {
+    if (state.startupApps.includes(appId)) {
+      return { startupApps: state.startupApps.filter(id => id !== appId) };
+    }
+    return { startupApps: [...state.startupApps, appId] };
+  }),
+
     }),
     {
       name: 'portfolio-os-desktop-storage',
@@ -218,6 +290,19 @@ export const useDesktopStore = create(
         iconPositions: state.iconPositions,
         iconSize: state.iconSize,
         sortOrder: state.sortOrder,
+        taskbarAlignment: state.taskbarAlignment,
+        taskbarSize: state.taskbarSize,
+        taskbarAutoHide: state.taskbarAutoHide,
+        showSeconds: state.showSeconds,
+        showWeather: state.showWeather,
+        textSize: state.textSize,
+        windowAnimations: state.windowAnimations,
+        reduceMotion: state.reduceMotion,
+        highContrast: state.highContrast,
+        lockScreenWallpaper: state.lockScreenWallpaper,
+        lockScreenAvatar: state.lockScreenAvatar,
+        lockScreenText: state.lockScreenText,
+        startupApps: state.startupApps,
       }),
     }
   )

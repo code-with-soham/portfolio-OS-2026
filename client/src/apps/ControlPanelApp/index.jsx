@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useWindowStore } from '../../store/useWindowStore';
+import { useBackgroundServiceStore } from '../../store/useBackgroundServiceStore';
 import './ControlPanelApp.css';
 
 export default function ControlPanelApp() {
@@ -18,6 +19,11 @@ export default function ControlPanelApp() {
   // Windows store
   const windows = useWindowStore(s => s.windows);
   const closeWindow = useWindowStore(s => s.closeWindow);
+
+  // Background Services store
+  const services = useBackgroundServiceStore(s => s.services);
+  const stopService = useBackgroundServiceStore(s => s.stopService);
+  const startService = useBackgroundServiceStore(s => s.startService);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -97,7 +103,6 @@ export default function ControlPanelApp() {
   );
 
   const renderProcessesTab = () => {
-    // Convert windows object to array, skip the control panel itself if desired (or keep it)
     const runningApps = Object.values(windows);
 
     return (
@@ -141,6 +146,47 @@ export default function ControlPanelApp() {
     );
   };
 
+  const renderServicesTab = () => {
+    return (
+      <div className="tm-processes-tab">
+        <table className="tm-processes-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>PID</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {services.map((svc, i) => (
+              <tr key={svc.id}>
+                <td>
+                  <div className="tm-process-name">
+                    <span>⚙️ {svc.name}</span>
+                  </div>
+                </td>
+                <td>{1024 + i * 14}</td>
+                <td>{svc.status === 'running' ? 'Running' : 'Stopped'}</td>
+                <td>
+                  {svc.status === 'running' ? (
+                    <button className="tm-end-task-btn" onClick={() => stopService(svc.id)}>
+                      Stop
+                    </button>
+                  ) : (
+                    <button className="tm-end-task-btn" style={{ background: 'var(--color-accent)' }} onClick={() => startService(svc.id)}>
+                      Start
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  };
+
   return (
     <div className="task-manager-container glass-heavy">
       <div className="tm-sidebar">
@@ -156,13 +202,19 @@ export default function ControlPanelApp() {
         >
           <span style={{ marginRight: '8px' }}>⚙️</span> Processes
         </button>
+        <button 
+          className={`tm-tab-btn ${activeTab === 'services' ? 'active' : ''}`}
+          onClick={() => setActiveTab('services')}
+        >
+          <span style={{ marginRight: '8px' }}>🔄</span> Services
+        </button>
       </div>
       
       <div className="tm-content">
         <div className="tm-header">
           <h2>Task Manager</h2>
         </div>
-        {activeTab === 'performance' ? renderPerformanceTab() : renderProcessesTab()}
+        {activeTab === 'performance' ? renderPerformanceTab() : activeTab === 'processes' ? renderProcessesTab() : renderServicesTab()}
       </div>
     </div>
   );

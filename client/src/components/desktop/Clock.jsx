@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 /**
  * Compact taskbar clock component
  */
-export default function Clock() {
+export default function Clock({ showSeconds = false }) {
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
@@ -21,12 +21,17 @@ export default function Clock() {
     return () => clearInterval(interval);
   }, []);
 
-  // 12-hour format time
   let hours = now.getHours();
   const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
   const ampm = hours >= 12 ? 'PM' : 'AM';
   hours = hours % 12 || 12;
-  const timeStr = `${hours}:${minutes < 10 ? '0' : ''}${minutes} ${ampm}`;
+  
+  let timeStr = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+  if (showSeconds) {
+    timeStr += `:${seconds < 10 ? '0' : ''}${seconds}`;
+  }
+  timeStr += ` ${ampm}`;
 
   // Short date: M/D/YYYY
   const dateStr = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;

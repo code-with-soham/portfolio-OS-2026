@@ -5,6 +5,8 @@
 .settings-app {
   display: flex;
   height: 100%;
+  background: var(--mica-base);
+  border-radius: 0 0 var(--radius-window) var(--radius-window);
 }
 
 /* Sidebar */

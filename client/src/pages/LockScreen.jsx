@@ -13,6 +13,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useDesktopStore } from '../store/useDesktopStore';
+import { useProfileStore } from '../store/useProfileStore';
 import { OS_STATES } from '../constants';
 
 /**
@@ -40,6 +41,11 @@ function formatDate(date) {
 
 export default function LockScreen() {
   const setOsState = useDesktopStore((s) => s.setOsState);
+  const lockScreenAvatar = useDesktopStore((s) => s.lockScreenAvatar);
+  const lockScreenText = useDesktopStore((s) => s.lockScreenText);
+
+  const { profiles, activeProfileId, switchProfile, addProfile } = useProfileStore();
+
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [pin, setPin] = useState('');
@@ -117,15 +123,16 @@ export default function LockScreen() {
 
       {/* Time — large centered clock */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.7, ease: 'easeOut' }}
         style={{
+          position: 'absolute',
+          top: '15%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: '8px',
-          marginTop: '-60px',
           zIndex: 2,
         }}
       >
@@ -162,7 +169,8 @@ export default function LockScreen() {
         transition={{ delay: 1.0, duration: 0.5 }}
         style={{
           position: 'absolute',
-          top: '65%',
+          top: '50%',
+          transform: 'translateY(-50%)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -171,7 +179,18 @@ export default function LockScreen() {
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 style={{ color: '#fff', margin: 0, fontSize: '24px', fontWeight: 500, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>Soham Kundu</h2>
+        {lockScreenAvatar ? (
+          <img 
+            src={lockScreenAvatar} 
+            alt="Avatar" 
+            style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }} 
+          />
+        ) : (
+          <div style={{ width: '120px', height: '120px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--color-accent), #60cdff)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '48px', color: '#fff', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
+            SK
+          </div>
+        )}
+        <h2 style={{ color: '#fff', margin: 0, fontSize: '24px', fontWeight: 500, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>{lockScreenText || 'Soham Kundu'}</h2>
         
         <div style={{ position: 'relative', width: '280px' }}>
           <input 
@@ -218,6 +237,75 @@ export default function LockScreen() {
         </div>
         <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '14px', margin: 0 }}>Pin- 1234</p>
       </motion.div>
+
+      {/* Profiles List (Bottom Left) */}
+      {isUnlocking && (
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          style={{
+            position: 'absolute',
+            bottom: '24px',
+            left: '24px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+            zIndex: 4,
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {profiles.map(p => (
+            <button
+              key={p.id}
+              onClick={() => switchProfile(p.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                background: p.id === activeProfileId ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.3)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                padding: '8px 16px',
+                borderRadius: '8px',
+                color: '#fff',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                width: '200px',
+                textAlign: 'left'
+              }}
+            >
+              {p.avatar ? (
+                <img src={p.avatar} alt="" style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }} />
+              ) : (
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--color-accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}>
+                  {p.name.charAt(0)}
+                </div>
+              )}
+              <span style={{ fontWeight: p.id === activeProfileId ? '600' : '400' }}>{p.name}</span>
+            </button>
+          ))}
+          <button
+            onClick={() => {
+              const name = prompt("Enter new profile name:");
+              if (name) addProfile(name, null);
+            }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              background: 'transparent',
+              border: '1px dashed rgba(255,255,255,0.3)',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              color: 'rgba(255,255,255,0.8)',
+              cursor: 'pointer',
+              marginTop: '8px'
+            }}
+          >
+            <span style={{ fontSize: '20px' }}>+</span>
+            <span>Add Profile</span>
+          </button>
+        </motion.div>
+      )}
 
     </motion.div>
   );

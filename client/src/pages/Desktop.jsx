@@ -14,6 +14,7 @@ import { useDesktopStore } from '../store/useDesktopStore';
 import { useWindowStore } from '../store/useWindowStore';
 import { useFileSystemStore } from '../store/useFileSystemStore';
 import { useNotificationStore } from '../store/useNotificationStore';
+import { useThemeStore } from '../store/useThemeStore';
 import { DESKTOP_APPS } from '../constants';
 import trashFullIco from '../assets/icons/system/Trash Full.ico';
 import Taskbar from '../components/desktop/Taskbar';
@@ -27,7 +28,14 @@ import Window from '../components/desktop/Window';
 import WidgetsPanel from '../components/widgets/WidgetsPanel';
 import AIAssistant from '../components/desktop/AIAssistant';
 import VolumeOSD from '../components/system/osd/VolumeOSD';
+import AnimatedWallpaper from '../components/desktop/AnimatedWallpaper';
+import StickyNotesLayer from '../components/desktop/StickyNotesLayer';
+import SnippingToolLayer from '../components/system/SnippingToolLayer';
+import BackgroundServices from '../components/system/BackgroundServices';
+import SpotlightSearch from '../components/system/SpotlightSearch';
 import { useWidgetStore } from '../store/useWidgetStore';
+import { useStickyNotesStore } from '../store/useStickyNotesStore';
+import { useCalendarStore } from '../store/useCalendarStore';
 import {
   EyeRegular,
   ArrowSortRegular,
@@ -56,11 +64,103 @@ export default function Desktop() {
   const isWidgetPanelOpen = useWidgetStore((s) => s.isWidgetPanelOpen);
   const addNotification = useNotificationStore((s) => s.addNotification);
 
-  // Trigger mock notifications on boot
-  const hasTriggeredMocks = useRef(false);
+  const { theme, accentColor, wallpaper, animatedWallpaper, customWallpapers, wallpaperSlideshow, slideshowInterval, setWallpaper } = useThemeStore();
+  
+  const textSize = useDesktopStore((s) => s.textSize);
+  const startupApps = useDesktopStore((s) => s.startupApps);
+
+  // Apply Theme and Accent Color globally
   useEffect(() => {
-    if (hasTriggeredMocks.current) return;
-    hasTriggeredMocks.current = true;
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.setProperty('--color-accent', accentColor);
+    
+    // Apply text size scaling globally
+    document.documentElement.style.fontSize = `${(textSize / 100) * 16}px`;
+
+    // Calculate a slightly darker version for hover (quick hex brightness adjust)
+    const adjustBrightness = (hex, amount) => {
+      let num = parseInt(hex.replace('#', ''), 16);
+      let r = Math.min(255, Math.max(0, (num >> 16) + amount));
+      let g = Math.min(255, Math.max(0, ((num >> 8) & 0x00ff) + amount));
+      let b = Math.min(255, Math.max(0, (num & 0x0000ff) + amount));
+      return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
+    };
+    document.documentElement.style.setProperty('--color-accent-hover', adjustBrightness(accentColor, -20));
+
+    // Special OS themes
+    if (theme === 'oled') {
+      document.documentElement.style.setProperty('--color-bg-desktop', '#000000');
+      document.documentElement.style.setProperty('--color-bg-taskbar', '#000000');
+    } else if (theme === 'hacker') {
+      document.documentElement.style.setProperty('--color-text-primary', '#00ff00');
+      document.documentElement.style.setProperty('--color-bg-desktop', '#000000');
+    } else {
+      // Reset custom theme overrides
+      document.documentElement.style.removeProperty('--color-bg-desktop');
+      document.documentElement.style.removeProperty('--color-bg-taskbar');
+      if (theme !== 'hacker') document.documentElement.style.removeProperty('--color-text-primary');
+    }
+  }, [theme, accentColor]);
+
+  // Wallpaper Slideshow Logic
+  useEffect(() => {
+    if (!wallpaperSlideshow) return;
+
+    const intervalMs = slideshowInterval * 60 * 1000;
+    const allIds = ['default', ...customWallpapers.map(w => w.id)];
+    
+    if (allIds.length <= 1) return;
+
+    const timer = setInterval(() => {
+      const currentIndex = allIds.indexOf(useThemeStore.getState().wallpaper);
+      const nextIndex = (currentIndex + 1) % allIds.length;
+      setWallpaper(allIds[nextIndex]);
+    }, intervalMs);
+
+    return () => clearInterval(timer);
+  }, [wallpaperSlideshow, slideshowInterval, customWallpapers, setWallpaper]);
+
+  // Determine wallpaper style
+  const isCustomWallpaper = wallpaper !== 'default' && customWallpapers.some(w => w.id === wallpaper);
+  const customWallpaperData = isCustomWallpaper ? customWallpapers.find(w => w.id === wallpaper)?.dataUrl : null;
+
+  // Trigger mock notifications & startup apps on boot
+  const hasBooted = useRef(false);
+  useEffect(() => {
+    if (hasBooted.current) return;
+    hasBooted.current = true;
+
+    // Launch Startup Apps
+    startupApps.forEach(appId => {
+      if (appId === 'aiassistant') toggleAIAssistant();
+      else if (appId === 'github_widget') {
+        if (!useWidgetStore.getState().activeWidgets.includes('github')) {
+          useWidgetStore.getState().setWidgetVisibility('github', true);
+        }
+        if (!useWidgetStore.getState().isWidgetPanelOpen) {
+          useWidgetStore.getState().toggleWidgetPanel();
+        }
+      }
+      else openWindow(appId);
+    });
+
+    // AI Daily Briefing
+    setTimeout(() => {
+      const todayEvents = useCalendarStore.getState().events.filter(e => 
+        e.date === new Date().getDate() && 
+        e.month === new Date().getMonth() && 
+        e.year === new Date().getFullYear()
+      ).length;
+      
+      const openTasks = useStickyNotesStore.getState().notes.length;
+
+      addNotification(
+        'Portfolio Assistant',
+        `Good Evening Soham 👋\n\nToday's Events: ${todayEvents}\nOpen Tasks: ${openTasks}\nGitHub Contributions: 532\nWeather: 31°C\nMusic Played: 1h 12m\n\nHave a productive day 🚀`,
+        'ai',
+        10000
+      );
+    }, 2000);
 
     // GitHub Star
     setTimeout(() => {
@@ -70,7 +170,7 @@ export default function Desktop() {
         'system',
         6000
       );
-    }, 4000);
+    }, 8000);
 
     // Build Success
     setTimeout(() => {
@@ -80,7 +180,7 @@ export default function Desktop() {
         'system',
         6000
       );
-    }, 12000);
+    }, 16000);
 
     // Email
     setTimeout(() => {
@@ -92,9 +192,9 @@ export default function Desktop() {
         'Read',
         () => openWindow('mail')
       );
-    }, 22000);
+    }, 26000);
 
-  }, [addNotification, openWindow]);
+  }, [addNotification, openWindow, toggleAIAssistant]);
 
   const handleContextMenu = (e) => {
     e.preventDefault();
@@ -120,11 +220,11 @@ export default function Desktop() {
       { label: 'Refresh', icon: <ArrowClockwiseRegular />, onClick: () => window.location.reload() },
       { divider: true },
       { 
-        label: 'New', 
+        label: 'New Sticky Note', 
         icon: <DocumentRegular />, 
-        onClick: () => {}, 
-        // We simulate a sub-menu or just action.
-        // For simplicity we could just trigger an action directly or open notepad.
+        onClick: () => {
+          useStickyNotesStore.getState().addNote(e.clientX, e.clientY);
+        }
       },
       { 
         label: '  Folder', 
@@ -148,7 +248,7 @@ export default function Desktop() {
 
   return (
     <motion.div
-      className="no-select wallpaper-default"
+      className={`no-select ${!isCustomWallpaper ? 'wallpaper-default' : ''}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -157,10 +257,19 @@ export default function Desktop() {
         height: '100vh',
         position: 'relative',
         overflow: 'hidden',
+        ...(isCustomWallpaper ? {
+          backgroundImage: `url(${customWallpaperData})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        } : {})
       }}
     >
+      {/* Animated Wallpaper Layer (Rendered below ambience) */}
+      {animatedWallpaper && <AnimatedWallpaper type={animatedWallpaper} accentColor={accentColor} />}
+
       {/* Subtle desktop ambience overlay */}
-      <div className="desktop-ambient" />
+      <div className="desktop-ambient" style={{ zIndex: 1, position: 'relative', pointerEvents: 'none', width: '100%', height: '100%' }} />
 
       {/* Desktop icon area — click background to close panels */}
       <div
@@ -215,6 +324,9 @@ export default function Desktop() {
 
 
 
+      {/* Sticky Notes Layer */}
+      <StickyNotesLayer />
+
       {/* Render open windows */}
       {windows.map((win) => (
         <Window key={win.id} window={win} />
@@ -222,6 +334,8 @@ export default function Desktop() {
 
       {/* Start Menu overlay */}
       <ToastContainer />
+      <SnippingToolLayer />
+      <SpotlightSearch />
       <StartMenu />
 
       {/* Context Menu overlay */}
@@ -244,6 +358,9 @@ export default function Desktop() {
 
       {/* Taskbar — always at bottom */}
       <Taskbar />
+
+      {/* Background Services */}
+      <BackgroundServices />
     </motion.div>
   );
 }

@@ -115,6 +115,41 @@ export default function Taskbar() {
   const minimizeWindow = useWindowStore((s) => s.minimizeWindow);
   const restoreWindow = useWindowStore((s) => s.restoreWindow);
   const openWindow = useWindowStore((s) => s.openWindow);
+  const toggleMute = useSystemAudioStore((s) => s.toggleMute);
+
+  // System Status
+  const [batteryLevel, setBatteryLevel] = useState(100);
+  const [isCharging, setIsCharging] = useState(false);
+
+  useEffect(() => {
+    let batteryPromise = null;
+    
+    if ('getBattery' in navigator) {
+      batteryPromise = navigator.getBattery().then(battery => {
+        const updateBattery = () => {
+          setBatteryLevel(Math.round(battery.level * 100));
+          setIsCharging(battery.charging);
+        };
+        
+        updateBattery();
+        battery.addEventListener('levelchange', updateBattery);
+        battery.addEventListener('chargingchange', updateBattery);
+        
+        return () => {
+          battery.removeEventListener('levelchange', updateBattery);
+          battery.removeEventListener('chargingchange', updateBattery);
+        };
+      });
+    }
+
+    return () => {
+      if (batteryPromise) {
+        batteryPromise.then(cleanup => {
+          if (cleanup) cleanup();
+        });
+      }
+    };
+  }, []);
 
   // Music Store
   const { isPlaying, togglePlayPause, nextSong, prevSong, playlist, currentSongIndex } = useMusicStore();
@@ -146,16 +181,34 @@ export default function Taskbar() {
     }
   };
 
+  const taskbarAlignment = useDesktopStore(s => s.taskbarAlignment);
+  const taskbarSize = useDesktopStore(s => s.taskbarSize);
+  const taskbarAutoHide = useDesktopStore(s => s.taskbarAutoHide);
+  const showSeconds = useDesktopStore(s => s.showSeconds);
+  const showWeather = useDesktopStore(s => s.showWeather);
+
+  // Map taskbar size to heights
+  const sizeMap = { small: '36px', medium: '48px', large: '60px' };
+  const currentHeight = sizeMap[taskbarSize] || '48px';
+
   return (
     <div
       id="taskbar"
       className="no-select acrylic"
+      onMouseEnter={() => {
+        if (taskbarAutoHide) document.getElementById('taskbar').style.transform = 'translateY(0)';
+      }}
+      onMouseLeave={() => {
+        if (taskbarAutoHide && !isStartMenuOpen && !isNotificationCenterOpen && !isQuickSettingsOpen) {
+          document.getElementById('taskbar').style.transform = 'translateY(100%)';
+        }
+      }}
       style={{
         position: 'fixed',
         bottom: 0,
         left: 0,
         right: 0,
-        height: 'var(--taskbar-height)',
+        height: currentHeight,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -163,17 +216,33 @@ export default function Taskbar() {
         borderTop: '1px solid var(--color-border)',
         boxShadow: 'var(--shadow-taskbar)',
         zIndex: 1000,
+        transition: 'transform 0.3s ease, height 0.3s ease',
+        transform: taskbarAutoHide && !isStartMenuOpen && !isNotificationCenterOpen && !isQuickSettingsOpen ? 'translateY(100%)' : 'translateY(0)',
       }}
     >
-      {/* Left section (Empty for widgets in future) */}
-      <div style={{ flex: 1 }}></div>
+      {/* Left section */}
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+        {showWeather && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0 12px', color: 'var(--color-text-secondary)', fontSize: '0.8rem' }}>
+            <WeatherSunnyRegular fontSize={18} />
+            <span>29°C Kolkata</span>
+          </div>
+        )}
+      </div>
 
-      {/* Center section — Start, Search, Pinned, Open Windows */}
+      {/* Center/Left section — Start, Search, Pinned, Open Windows */}
       <div 
         style={{ 
-          position: 'absolute',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          ...(taskbarAlignment === 'center' ? {
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+          } : {
+            display: 'flex',
+            flex: 1,
+            justifyContent: 'flex-start',
+            marginLeft: showWeather ? '0' : '12px'
+          }),
           display: 'flex', 
           alignItems: 'center', 
           gap: '2px' 
@@ -304,7 +373,10 @@ export default function Taskbar() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Wifi1Regular fontSize={16} />
             <Speaker2Regular fontSize={16} />
-            <span style={{ fontSize: '10px', fontWeight: 'bold' }}>100%</span> {/* Simulated Battery */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+              <span style={{ fontSize: '10px', fontWeight: 'bold' }}>{batteryLevel}%</span>
+              {isCharging && <span style={{ fontSize: '10px' }}>⚡</span>}
+            </div>
           </div>
         </TaskbarButton>
 
@@ -329,7 +401,7 @@ export default function Taskbar() {
         </TaskbarButton>
 
         {/* System clock */}
-        <Clock />
+        <Clock showSeconds={showSeconds} />
       </div>
     </div>
   );

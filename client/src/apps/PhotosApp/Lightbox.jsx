@@ -128,6 +128,7 @@ export default function Lightbox({ images, initialIndex, onClose }) {
             src={currentImage.src} 
             alt={currentImage.title} 
             className="lightbox-img"
+            loading="lazy"
             style={{ transform: `scale(${zoom})` }}
           />
         </div>

@@ -64,6 +64,7 @@ export default function FileExplorerApp({ appId }) {
   const [propertiesItem, setPropertiesItem] = useState(null);
   const [renameItemName, setRenameItemName] = useState(null);
   const [renameInput, setRenameInput] = useState('');
+  const [visibleCount, setVisibleCount] = useState(50);
 
   const { getNode, getRecentFiles, deleteItem, renameItem, moveItem, updateLastOpened } = useFileSystemStore();
   const openWindow = useWindowStore((s) => s.openWindow);
@@ -109,12 +110,14 @@ export default function FileExplorerApp({ appId }) {
     setSelectedItem(null);
     setContextMenu(null);
     setRenameItemName(null);
+    setVisibleCount(50);
   }, []);
 
   const goBack = useCallback(() => {
     if (currentPath.length > 1) {
       setCurrentPath((prev) => prev.slice(0, -1));
       setSelectedItem(null);
+      setVisibleCount(50);
     }
   }, [currentPath]);
 
@@ -202,6 +205,15 @@ export default function FileExplorerApp({ appId }) {
     }
   };
 
+  const handleScroll = (e) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.target;
+    if (scrollTop + clientHeight >= scrollHeight - 100) {
+      if (visibleCount < items.length) {
+        setVisibleCount((prev) => prev + 50);
+      }
+    }
+  };
+
   return (
     <div className="explorer-app" onClick={() => setContextMenu(null)}>
       {/* Navigation Bar */}
@@ -248,7 +260,7 @@ export default function FileExplorerApp({ appId }) {
         </div>
 
         {/* Content Grid */}
-        <div className="explorer-content" onClick={() => setSelectedItem(null)}>
+        <div className="explorer-content" onClick={() => setSelectedItem(null)} onScroll={handleScroll}>
           {isThisPC ? (
             <div className="explorer-this-pc">
               <h4 className="this-pc-group-title">Devices and drives ({DRIVES.length})</h4>
@@ -278,7 +290,7 @@ export default function FileExplorerApp({ appId }) {
             </div>
           ) : items.length > 0 ? (
             <div className="explorer-grid">
-              {items.map((item) => (
+              {items.slice(0, visibleCount).map((item) => (
                 <div
                   key={item.name + (item.fullPath?.join('/') || '')}
                   className={`explorer-item ${selectedItem === item.name ? 'selected' : ''}`}

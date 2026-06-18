@@ -108,6 +108,7 @@ import photosIco from '../assets/icons/system/Photos.ico';
 import calculatorIco from '../assets/icons/system/Tasks.ico';
 import documentIco from '../assets/icons/system/Notes.ico';
 import recycleBinIco from '../assets/icons/system/Trash Empty.ico';
+import calendarIco from '../assets/icons/system/Tasks.ico';
 
 /**
  * Desktop Applications — the apps shown on desktop and start menu
@@ -240,6 +241,18 @@ export const DESKTOP_APPS = [
     label: 'Notepad',
     icon: documentIco,
     description: 'Text Editor',
+  },
+  {
+    id: 'calendar',
+    label: 'Calendar',
+    icon: calendarIco,
+    description: 'Manage Events',
+  },
+  {
+    id: 'paint',
+    label: 'Paint',
+    icon: photosIco,
+    description: 'Create drawings',
   },
   {
     id: 'recyclebin',

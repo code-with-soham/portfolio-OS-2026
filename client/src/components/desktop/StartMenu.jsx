@@ -343,7 +343,7 @@ export default function StartMenu() {
             </div>
 
             {/* Pinned Apps / Search Results Grid */}
-            <div style={{ flex: 1, padding: '0 24px 24px', overflowY: 'auto' }}>
+            <div style={{ flex: 1, padding: '0 24px 24px', overflowY: 'auto', maxHeight: '280px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-text-primary)', margin: 0 }}>
                   {isSearching ? 'Search Results' : 'Pinned'}

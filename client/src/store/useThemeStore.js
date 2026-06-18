@@ -57,6 +57,11 @@ export const useThemeStore = create(
       // Current wallpaper — CSS class name referencing a gradient defined in index.css
       // 'default' maps to the Windows 11 Bloom-inspired gradient
       wallpaper: 'default',
+      animatedWallpaper: null, // 'matrix' | 'particles' | 'bubbles' | null
+      customWallpapers: [], // Array of { id, dataUrl }
+      wallpaperSlideshow: false,
+      slideshowInterval: 60, // minutes (e.g. 1, 5, 30)
+      accentColor: '#0078d4',
 
       /**
        * Set a custom wallpaper
@@ -65,10 +70,30 @@ export const useThemeStore = create(
       setWallpaper: (wallpaperId) => {
         set({ wallpaper: wallpaperId });
       },
+
+      addCustomWallpaper: (id, dataUrl) => {
+        set((state) => ({
+          customWallpapers: [...state.customWallpapers, { id, dataUrl }],
+        }));
+      },
+
+      setWallpaperSlideshow: (enabled) => set({ wallpaperSlideshow: enabled }),
+      setSlideshowInterval: (mins) => set({ slideshowInterval: mins }),
+      setAccentColor: (color) => set({ accentColor: color }),
+      setAnimatedWallpaper: (type) => set({ animatedWallpaper: type }),
     }),
     {
       // Persist config — saves to localStorage
       name: 'portfolio-os-theme',
+      partialize: (state) => ({
+        theme: state.theme,
+        wallpaper: state.wallpaper,
+        animatedWallpaper: state.animatedWallpaper,
+        customWallpapers: state.customWallpapers,
+        wallpaperSlideshow: state.wallpaperSlideshow,
+        slideshowInterval: state.slideshowInterval,
+        accentColor: state.accentColor,
+      }),
     }
   )
 );
