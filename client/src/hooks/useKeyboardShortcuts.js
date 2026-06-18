@@ -21,7 +21,10 @@ import { useMusicStore } from '../store/useMusicStore';
 export function useKeyboardShortcuts() {
   useEffect(() => {
     const handleKeyDown = (e) => {
-      const isCapturing = useUIStore.getState().isCapturingInput();
+      // Check if user is typing in an input field (to prevent intercepting spacebar, etc.)
+      const activeTagName = document.activeElement?.tagName;
+      const isInputFocused = ['INPUT', 'TEXTAREA', 'SELECT'].includes(activeTagName) || document.activeElement?.isContentEditable;
+      const isCapturing = useUIStore.getState().isCapturingInput() || isInputFocused;
 
       // Windows key (Meta) — toggle start menu
       if (e.key === 'Meta' && !e.shiftKey && !e.ctrlKey && !e.altKey) {

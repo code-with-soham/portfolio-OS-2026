@@ -4,6 +4,7 @@ import { useDesktopStore } from '../../store/useDesktopStore';
 import { useWindowStore } from '../../store/useWindowStore';
 import { SparkleRegular, SendRegular, DismissRegular } from '@fluentui/react-icons';
 import { aiBrain } from '../../ai/aiBrain';
+import ReactMarkdown from 'react-markdown';
 
 export default function AIAssistant() {
   const { isAIAssistantOpen, closeAIAssistant } = useDesktopStore();
@@ -104,14 +105,15 @@ export default function AIAssistant() {
               left: '50%',
               width: 'min(600px, 90vw)',
               height: '400px',
-              background: 'var(--color-bg-surface)',
+              background: 'var(--mica-base)',
               border: '1px solid var(--color-border)',
-              borderRadius: 'var(--radius-xl)',
-              boxShadow: '0 16px 40px rgba(0,0,0,0.3)',
+              borderRadius: 'var(--radius-window)',
+              boxShadow: 'var(--shadow-window)',
               zIndex: 1001,
               display: 'flex',
               flexDirection: 'column',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              backdropFilter: 'blur(30px)'
             }}
           >
             {/* Header */}
@@ -141,7 +143,7 @@ export default function AIAssistant() {
             </div>
 
             {/* Chat Area */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: '16px 24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '16px 24px', display: 'flex', flexDirection: 'column', gap: '16px', background: 'var(--color-bg-surface-content)' }}>
               {messages.map((m, i) => (
                 <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
                   <div style={{
@@ -152,9 +154,22 @@ export default function AIAssistant() {
                     color: m.role === 'user' ? '#fff' : 'var(--color-text-primary)',
                     fontSize: '0.875rem',
                     lineHeight: 1.5,
-                    whiteSpace: 'pre-wrap'
+                    whiteSpace: m.role === 'user' ? 'pre-wrap' : 'normal'
                   }}>
-                    {m.text}
+                    {m.role === 'user' ? (
+                      m.text
+                    ) : (
+                      <ReactMarkdown
+                        components={{
+                          p: ({node, ...props}) => <p style={{ margin: '0 0 8px 0' }} {...props} />,
+                          ul: ({node, ...props}) => <ul style={{ margin: '0 0 8px 0', paddingLeft: '20px' }} {...props} />,
+                          ol: ({node, ...props}) => <ol style={{ margin: '0 0 8px 0', paddingLeft: '20px' }} {...props} />,
+                          li: ({node, ...props}) => <li style={{ marginBottom: '4px' }} {...props} />
+                        }}
+                      >
+                        {m.text}
+                      </ReactMarkdown>
+                    )}
                   </div>
                 </div>
               ))}
