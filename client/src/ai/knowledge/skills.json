@@ -1,0 +1,160 @@
+{
+  "categories": [
+    {
+      "name": "Frontend",
+      "icon": "🎨",
+      "skills": [
+        {
+          "name": "HTML5",
+          "level": "Intermediate",
+          "proficiency": 80,
+          "icon": "html5"
+        },
+        {
+          "name": "CSS3",
+          "level": "Intermediate",
+          "proficiency": 78,
+          "icon": "css3"
+        },
+        {
+          "name": "JavaScript",
+          "level": "Intermediate",
+          "proficiency": 80,
+          "icon": "javascript"
+        },
+        {
+          "name": "React",
+          "level": "Intermediate",
+          "proficiency": 78,
+          "icon": "react"
+        },
+        {
+          "name": "TypeScript",
+          "level": "Beginner",
+          "proficiency": 60,
+          "icon": "typescript"
+        },
+        {
+          "name": "Tailwind CSS",
+          "level": "Intermediate",
+          "proficiency": 80,
+          "icon": "tailwindcss"
+        }
+      ]
+    },
+    {
+      "name": "Backend",
+      "icon": "⚙️",
+      "skills": [
+        {
+          "name": "Node.js",
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "nodejs"
+        },
+        {
+          "name": "Express.js",
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "express"
+        },
+        {
+          "name": "MongoDB",
+          "level": "Intermediate",
+          "proficiency": 72,
+          "icon": "mongodb"
+        },
+        {
+          "name": "REST APIs",
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "api"
+        },
+        {
+          "name": "MySQL",
+          "level": "Beginner",
+          "proficiency": 60,
+          "icon": "mysql"
+        }
+      ]
+    },
+    {
+      "name": "Programming",
+      "icon": "💻",
+      "skills": [
+        {
+          "name": "Python",
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "python"
+        },
+        {
+          "name": "C",
+          "level": "Intermediate",
+          "proficiency": 70,
+          "icon": "c"
+        },
+        {
+          "name": "C++",
+          "level": "Intermediate",
+          "proficiency": 70,
+          "icon": "cplusplus"
+        }
+      ]
+    },
+    {
+      "name": "Machine Learning",
+      "icon": "🤖",
+      "skills": [
+        {
+          "name": "Data Analysis",
+          "level": "Intermediate",
+          "proficiency": 72,
+          "icon": "analytics"
+        },
+        {
+          "name": "Machine Learning",
+          "level": "Intermediate",
+          "proficiency": 70,
+          "icon": "machinelearning"
+        },
+        {
+          "name": "Random Forest",
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "forest"
+        }
+      ]
+    },
+    {
+      "name": "Tools",
+      "icon": "🛠️",
+      "skills": [
+        {
+          "name": "Git",
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "git"
+        },
+        {
+          "name": "GitHub",
+          "level": "Intermediate",
+          "proficiency": 78,
+          "icon": "github"
+        },
+        {
+          "name": "Postman",
+          "level": "Intermediate",
+          "proficiency": 75,
+          "icon": "postman"
+        },
+        {
+          "name": "VS Code",
+          "level": "Advanced",
+          "proficiency": 90,
+          "icon": "vscode"
+        }
+      ]
+    }
+  ]
+}

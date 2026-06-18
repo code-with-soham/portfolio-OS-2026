@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useDesktopStore } from '../../store/useDesktopStore';
 import { useWindowStore } from '../../store/useWindowStore';
 import { SparkleRegular, SendRegular, DismissRegular } from '@fluentui/react-icons';
-import { aiBrain } from '../../ai/aiBrain';
+import { aiBrain } from '../../ai/brain/aiBrain';
 import ReactMarkdown from 'react-markdown';
 
 export default function AIAssistant() {

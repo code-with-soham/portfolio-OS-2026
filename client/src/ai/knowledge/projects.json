@@ -1,0 +1,147 @@
+[
+  {
+    "id": "proj-001",
+    "title": "portfolio-OS-2026",
+    "description": "A Windows 11-inspired interactive developer portfolio that provides a complete desktop-like experience inside the browser.",
+    "longDescription": "Portfolio OS reimagines a traditional portfolio as a fully interactive operating system. Users can explore projects, skills, experience, and applications through draggable windows, a taskbar, start menu, and desktop environment.",
+    "techStack": [
+      "React",
+      "JavaScript",
+      "Vite",
+      "Tailwind CSS"
+    ],
+    "category": "Frontend",
+    "status": "In Progress",
+    "featured": true,
+    "thumbnail": "/assets/images/projects/portfolio-os.png",
+    "liveUrl": "https://portfolio-os-2026.vercel.app/",
+    "githubUrl": "https://github.com/code-with-soham/portfolio-OS-2026",
+    "highlights": [
+      "Windows 11-inspired UI",
+      "Draggable and resizable windows",
+      "Desktop environment simulation",
+      "Interactive portfolio experience"
+    ]
+  },
+  {
+    "id": "proj-002",
+    "title": "campusHub",
+    "description": "A full-stack event booking and management platform for browsing, registering, and managing events.",
+    "longDescription": "campusHub allows users to discover events, register online, manage bookings, and make secure payments. It also includes an administrative dashboard for organizers to manage events and attendees efficiently.",
+    "techStack": [
+      "React",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Tailwind CSS"
+    ],
+    "category": "Full Stack",
+    "status": "Completed",
+    "featured": true,
+    "thumbnail": "/assets/images/projects/campushub.png",
+    "liveUrl": "",
+    "githubUrl": "https://github.com/code-with-soham/campusHub",
+    "highlights": [
+      "Event registration system",
+      "Admin dashboard",
+      "Payment integration",
+      "MERN stack architecture"
+    ]
+  },
+  {
+    "id": "proj-003",
+    "title": "Interview-Prep",
+    "description": "An AI-powered mock interview platform designed to help students and job seekers practice interviews.",
+    "longDescription": "Interview-Prep provides role-based interview practice with real-time communication features and AI-assisted feedback. The platform helps users improve confidence, communication, and technical interview performance.",
+    "techStack": [
+      "React",
+      "Node.js",
+      "WebRTC",
+      "Socket.io"
+    ],
+    "category": "Full Stack",
+    "status": "Completed",
+    "featured": true,
+    "thumbnail": "/assets/images/projects/interview-prep.png",
+    "liveUrl": "https://smart-mock-interview-prep.vercel.app/",
+    "githubUrl": "https://github.com/code-with-soham/smart-mock-interview-prep",
+    "highlights": [
+      "AI-powered interview practice",
+      "Real-time video communication",
+      "Socket.io integration",
+      "Role-based interview sessions"
+    ]
+  },
+  {
+    "id": "proj-004",
+    "title": "Student-Placement-Predictor",
+    "description": "A machine learning project that predicts student placement outcomes using academic and skill-based data.",
+    "longDescription": "This project applies machine learning algorithms and data analysis techniques to identify factors affecting student placements and predict placement outcomes with high accuracy.",
+    "techStack": [
+      "Python",
+      "Pandas",
+      "Scikit-learn",
+      "Jupyter Notebook"
+    ],
+    "category": "Machine Learning",
+    "status": "Completed",
+    "featured": true,
+    "thumbnail": "/assets/images/projects/student-placement-predictor.png",
+    "liveUrl": "https://code-with-soham.github.io/Student-Placement-Predictor/",
+    "githubUrl": "https://github.com/code-with-soham/Student-Placement-Predictor",
+    "highlights": [
+      "92% prediction accuracy",
+      "Random Forest model",
+      "Feature engineering",
+      "Data visualization and analysis"
+    ]
+  },
+  {
+    "id": "proj-005",
+    "title": "soham-portfolio-2026",
+    "description": "A modern personal portfolio website showcasing projects, skills, experience, and achievements.",
+    "longDescription": "A responsive developer portfolio built to present technical skills, projects, education, certifications, and professional experience with a modern user interface.",
+    "techStack": [
+      "React",
+      "TypeScript",
+      "Three.js",
+      "GSAP",
+      "Tailwind CSS"
+    ],
+    "category": "Frontend",
+    "status": "Completed",
+    "featured": false,
+    "thumbnail": "/assets/images/projects/soham-portfolio.png",
+    "liveUrl": "https://soham-kundu-portfolio.vercel.app/",
+    "githubUrl": "https://github.com/code-with-soham/soham-portfolio-2026",
+    "highlights": [
+      "Responsive design",
+      "Modern animations",
+      "Project showcase",
+      "Interactive user experience"
+    ]
+  },
+  {
+    "id": "proj-006",
+    "title": "sliding-puzzle",
+    "description": "A browser-based sliding puzzle game built using web technologies.",
+    "longDescription": "An interactive puzzle game featuring tile movement logic, responsive design, and a clean user interface focused on user engagement and problem-solving.",
+    "techStack": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "category": "Frontend",
+    "status": "Completed",
+    "featured": false,
+    "thumbnail": "/assets/images/projects/sliding-puzzle.png",
+    "liveUrl": "https://code-with-soham.github.io/sliding-puzzle/",
+    "githubUrl": "https://github.com/code-with-soham/sliding-puzzle",
+    "highlights": [
+      "Interactive gameplay",
+      "Puzzle-solving mechanics",
+      "Responsive layout",
+      "Pure JavaScript implementation"
+    ]
+  }
+]

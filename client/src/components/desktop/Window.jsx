@@ -270,47 +270,58 @@ const Window = memo(function Window({ window: winData }) {
         willChange: 'transform, width, height',
       }}
     >
-      <TitleBar
-        title={title}
-        icon={icon}
-        onMinimize={(e) => {
-          e.stopPropagation();
-          minimizeWindow(id);
-        }}
-        onMaximize={(e) => {
-          e.stopPropagation();
-          toggleMaximize(id);
-        }}
-        onClose={(e) => {
-          e.stopPropagation();
-          closeWindow(id);
-        }}
-        onSnap={(layout) => {
-          const w = window.innerWidth;
-          const h = window.innerHeight - 48; // taskbar approx 48px
-          let newBounds = { ...localBounds };
-          
-          if (layout === 'left') newBounds = { x: 0, y: 0, width: w/2, height: h };
-          else if (layout === 'right') newBounds = { x: w/2, y: 0, width: w/2, height: h };
-          else if (layout === 'left-two-thirds') newBounds = { x: 0, y: 0, width: (w*2)/3, height: h };
-          else if (layout === 'right-third') newBounds = { x: (w*2)/3, y: 0, width: w/3, height: h };
-          else if (layout === 'top-left') newBounds = { x: 0, y: 0, width: w/2, height: h/2 };
-          else if (layout === 'top-right') newBounds = { x: w/2, y: 0, width: w/2, height: h/2 };
-          else if (layout === 'bottom-left') newBounds = { x: 0, y: h/2, width: w/2, height: h/2 };
-          else if (layout === 'bottom-right') newBounds = { x: w/2, y: h/2, width: w/2, height: h/2 };
+      {!appConfig.hideTitleBar && (
+        <TitleBar
+          title={title}
+          icon={icon}
+          onMinimize={(e) => {
+            e.stopPropagation();
+            minimizeWindow(id);
+          }}
+          onMaximize={(e) => {
+            e.stopPropagation();
+            toggleMaximize(id);
+          }}
+          onClose={(e) => {
+            e.stopPropagation();
+            closeWindow(id);
+          }}
+          onSnap={(layout) => {
+            const w = window.innerWidth;
+            const h = window.innerHeight - 48; // taskbar approx 48px
+            let newBounds = { ...localBounds };
+            
+            if (layout === 'left') newBounds = { x: 0, y: 0, width: w/2, height: h };
+            else if (layout === 'right') newBounds = { x: w/2, y: 0, width: w/2, height: h };
+            else if (layout === 'left-two-thirds') newBounds = { x: 0, y: 0, width: (w*2)/3, height: h };
+            else if (layout === 'right-third') newBounds = { x: (w*2)/3, y: 0, width: w/3, height: h };
+            else if (layout === 'top-left') newBounds = { x: 0, y: 0, width: w/2, height: h/2 };
+            else if (layout === 'top-right') newBounds = { x: w/2, y: 0, width: w/2, height: h/2 };
+            else if (layout === 'bottom-left') newBounds = { x: 0, y: h/2, width: w/2, height: h/2 };
+            else if (layout === 'bottom-right') newBounds = { x: w/2, y: h/2, width: w/2, height: h/2 };
 
-          setLocalBounds(newBounds);
-          updateWindowBounds(id, newBounds);
-          // If it was maximized, unmaximize it to snap it
-          if (isMaximized) toggleMaximize(id);
-        }}
-        dragControls={dragControls}
-        isMaximized={isMaximized}
-      />
+            setLocalBounds(newBounds);
+            updateWindowBounds(id, newBounds);
+            // If it was maximized, unmaximize it to snap it
+            if (isMaximized) toggleMaximize(id);
+          }}
+          dragControls={dragControls}
+          isMaximized={isMaximized}
+        />
+      )}
       
       {/* Window Content Area */}
       <div style={{ flex: 1, overflow: 'auto', position: 'relative' }}>
-        <ContentComponent windowId={id} appId={appId} {...props} />
+        <ContentComponent 
+          windowId={id} 
+          appId={appId} 
+          {...props} 
+          dragControls={dragControls}
+          onClose={() => closeWindow(id)}
+          onMinimize={() => minimizeWindow(id)}
+          onMaximize={() => toggleMaximize(id)}
+          isMaximized={isMaximized}
+        />
       </div>
 
       {/* Resize Handles (only visible when not maximized) */}

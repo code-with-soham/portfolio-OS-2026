@@ -1,0 +1,122 @@
+
+/* History Page */
+.history-page {
+  flex-direction: row;
+}
+
+.history-content-area {
+  flex: 1;
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.history-header {
+  margin-bottom: 24px;
+}
+
+.history-search {
+  display: flex;
+  align-items: center;
+  background: var(--chrome-bg);
+  border: 1px solid var(--chrome-border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  gap: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.history-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+  color: var(--chrome-text);
+}
+
+.history-group {
+  margin-bottom: 24px;
+  background: var(--chrome-bg);
+  border-radius: 8px;
+  border: 1px solid var(--chrome-border);
+  overflow: hidden;
+}
+
+.history-date-header {
+  padding: 16px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--chrome-border);
+}
+
+.history-item-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--chrome-border);
+  cursor: pointer;
+}
+
+.history-item-row:last-child {
+  border-bottom: none;
+}
+
+.history-item-row:hover {
+  background-color: var(--chrome-surface);
+}
+
+.history-time {
+  width: 60px;
+  color: var(--chrome-text-secondary);
+  font-size: 13px;
+}
+
+.history-favicon {
+  margin: 0 16px;
+}
+
+.history-details {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.history-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.history-url {
+  color: var(--chrome-text-secondary);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-action-btn {
+  background: transparent;
+  border: none;
+  color: var(--chrome-text-secondary);
+  cursor: pointer;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.history-action-btn:hover {
+  background-color: var(--chrome-surface);
+}
+
+.history-empty {
+  text-align: center;
+  color: var(--chrome-text-secondary);
+  padding: 40px;
+}

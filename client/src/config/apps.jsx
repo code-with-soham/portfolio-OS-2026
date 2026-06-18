@@ -214,6 +214,7 @@ export const APPS = {
     category: 'Internet',
     version: '1.0.0',
     description: 'Browse the web and internal apps',
+    hideTitleBar: true,
   },
   mail: {
     id: 'mail',
