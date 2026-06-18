@@ -3,7 +3,7 @@ import {
   PenRegular, 
   EraserRegular, 
   CircleRegular, 
-  RectangleRegular, 
+  SquareRegular, 
   TextFontRegular, 
   SaveRegular 
 } from '@fluentui/react-icons';
