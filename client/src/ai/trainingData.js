@@ -83,5 +83,43 @@ export const trainingData = [
   // OPEN_APP INTENT
   { text: "open", intent: INTENTS.OPEN_APP },
   { text: "launch", intent: INTENTS.OPEN_APP },
-  { text: "start", intent: INTENTS.OPEN_APP }
+  { text: "start", intent: INTENTS.OPEN_APP },
+  
+  // ================= VS-30.5 INTENTS ================= //
+
+  // PORTFOLIO OS (Self Awareness)
+  { text: "what is portfolio os", intent: INTENTS.PORTFOLIO_OS },
+  { text: "how did you build this", intent: INTENTS.PORTFOLIO_OS },
+  { text: "tell me about this website", intent: INTENTS.PORTFOLIO_OS },
+  { text: "what is this app", intent: INTENTS.PORTFOLIO_OS },
+  { text: "explain portfolio os", intent: INTENTS.PORTFOLIO_OS },
+  
+  // RECRUITER QUESTIONS
+  { text: "what are your strengths", intent: INTENTS.RECRUITER_Q_STRENGTHS },
+  { text: "strengths", intent: INTENTS.RECRUITER_Q_STRENGTHS },
+  { text: "what are you good at", intent: INTENTS.RECRUITER_Q_STRENGTHS },
+  
+  { text: "what are your weaknesses", intent: INTENTS.RECRUITER_Q_WEAKNESSES },
+  { text: "weakness", intent: INTENTS.RECRUITER_Q_WEAKNESSES },
+  
+  { text: "why should we hire you", intent: INTENTS.RECRUITER_Q_HIRE },
+  { text: "why hire you", intent: INTENTS.RECRUITER_Q_HIRE },
+  
+  { text: "what are your career goals", intent: INTENTS.RECRUITER_Q_GOALS },
+  { text: "where do you see yourself in 5 years", intent: INTENTS.RECRUITER_Q_GOALS },
+  { text: "career goals", intent: INTENTS.RECRUITER_Q_GOALS },
+  
+  { text: "what is the hardest challenge you faced", intent: INTENTS.RECRUITER_Q_CHALLENGE },
+  { text: "biggest challenge", intent: INTENTS.RECRUITER_Q_CHALLENGE },
+  { text: "hardest bug", intent: INTENTS.RECRUITER_Q_CHALLENGE },
+
+  // SPECIFIC TECH/SKILL QUERIES
+  { text: "what technologies did you use", intent: INTENTS.SPECIFIC_PROJECT_TECH },
+  { text: "tech stack for", intent: INTENTS.SPECIFIC_PROJECT_TECH },
+  { text: "which project uses", intent: INTENTS.SPECIFIC_PROJECT_TECH },
+
+  { text: "what is your strongest frontend skill", intent: INTENTS.SKILL_RECOMMENDATION },
+  { text: "strongest skill", intent: INTENTS.SKILL_RECOMMENDATION },
+  { text: "best skill", intent: INTENTS.SKILL_RECOMMENDATION },
+  { text: "what backend technologies do you know", intent: INTENTS.SKILL_RECOMMENDATION }
 ];

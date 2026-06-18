@@ -6,18 +6,22 @@ class ContextManager {
   reset() {
     this.context = {
       lastIntent: null,
-      lastEntity: null, // could be a specific project, skill, etc.
+      lastEntity: null, // Track specific project, skill, category
       conversationHistory: []
     };
   }
 
   update(intent, entity, message) {
     if (intent) this.context.lastIntent = intent;
-    if (entity) this.context.lastEntity = entity;
+    
+    // Update entity if explicitly found, or keep the old one contextually
+    if (entity && (entity.projectId || entity.category)) {
+      this.context.lastEntity = entity;
+    }
     
     if (message) {
       this.context.conversationHistory.push(message);
-      // Keep only last 10 messages
+      // Keep last 10 messages for deep context
       if (this.context.conversationHistory.length > 10) {
         this.context.conversationHistory.shift();
       }

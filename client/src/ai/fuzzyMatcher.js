@@ -2,6 +2,7 @@ import Fuse from 'fuse.js';
 import { trainingData } from './trainingData';
 import { INTENTS } from './intents';
 import { knowledgeBase } from './knowledgeBase';
+import { extractEntities } from './entityExtractor';
 
 // Setup Fuse instance for Intent Matching
 const intentFuse = new Fuse(trainingData, {
@@ -12,30 +13,42 @@ const intentFuse = new Fuse(trainingData, {
 });
 
 /**
- * Perform Fuzzy matching to determine user intent.
+ * Perform Fuzzy matching to determine user intent, boosted by entity extraction.
  */
 export function determineIntent(text) {
   const result = intentFuse.search(text);
+  const entities = extractEntities(text);
   
+  // Base confidence and intent
+  let matchedIntent = INTENTS.SEARCH;
+  let confidence = 0;
+  let match = null;
+
   if (result.length > 0) {
     const bestMatch = result[0];
-    // Convert score (0 is perfect, 1 is total mismatch) to confidence %
-    const confidence = Math.round((1 - bestMatch.score) * 100);
-    
-    // If confidence is decent, return the matched intent
-    if (confidence > 50) {
-      return {
-        intent: bestMatch.item.intent,
-        confidence,
-        match: bestMatch.item.text
-      };
-    }
+    confidence = Math.round((1 - bestMatch.score) * 100);
+    matchedIntent = bestMatch.item.intent;
+    match = bestMatch.item.text;
   }
   
+  // Contextual Boosting
+  // If we found a specific project entity but confidence is low or intent is SEARCH, 
+  // assume they are asking about projects.
+  if (entities.projectId && (confidence < 50 || matchedIntent === INTENTS.SEARCH)) {
+    matchedIntent = INTENTS.PROJECTS;
+    confidence = Math.max(confidence, 70); // Boost to an acceptable threshold
+  }
+  
+  if (entities.category && (confidence < 50 || matchedIntent === INTENTS.SEARCH)) {
+    matchedIntent = INTENTS.SKILLS;
+    confidence = Math.max(confidence, 70);
+  }
+
   return {
-    intent: INTENTS.SEARCH,
-    confidence: 0,
-    match: null
+    intent: matchedIntent,
+    confidence,
+    match,
+    entities
   };
 }
 

@@ -267,10 +267,10 @@ export const DESKTOP_APPS = [
     description: 'Portfolio AI Assistant',
   },
   {
-    id: 'devdashboard',
-    label: 'Dev Dashboard',
+    id: 'aidashboard',
+    label: 'AI Dashboard',
     icon: infoIco,
-    description: 'Recruiter Showcase Mode',
+    description: 'AI Expert Analytics',
   },
 ];
 

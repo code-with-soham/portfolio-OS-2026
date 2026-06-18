@@ -30,6 +30,7 @@ const RecycleBinApp = lazy(() => import('../apps/RecycleBinApp/index'));
 const CalendarApp = lazy(() => import('../apps/CalendarApp/index'));
 const PaintApp = lazy(() => import('../apps/PaintApp/index'));
 const DeveloperDashboardApp = lazy(() => import('../apps/DeveloperDashboardApp/index'));
+const AIDashboardApp = lazy(() => import('../apps/AIDashboardApp/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -301,5 +302,16 @@ export const APPS = {
     category: 'Development',
     version: '1.0.0',
     description: 'Recruiter Showcase Mode Metrics',
+  },
+  aidashboard: {
+    id: 'aidashboard',
+    title: 'AI Dashboard',
+    icon: infoIco,
+    component: withErrorBoundary(AIDashboardApp, 'AI Dashboard'),
+    defaultWidth: 900,
+    defaultHeight: 700,
+    category: 'System',
+    version: '1.0.0',
+    description: 'AI Expert Brain Metrics',
   },
 };
