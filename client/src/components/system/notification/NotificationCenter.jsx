@@ -169,15 +169,41 @@ export default function NotificationCenter() {
             {/* Notifications area */}
             <div style={{ padding: '0 20px', flex: 1, overflowY: 'auto' }}>
               {history.length > 0 ? (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingBottom: '16px' }}>
-                  {history.map((notif) => (
-                    <NotificationCard
-                      key={notif.id}
-                      notif={notif}
-                      onDismiss={removeHistoryItem}
-                      onAction={handleAction}
-                    />
-                  ))}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', paddingBottom: '16px' }}>
+                  {(() => {
+                    const priorities = { system: 1, calendar: 2, achievement: 3, music: 4, ai: 5 };
+                    
+                    // Group by category
+                    const grouped = history.reduce((acc, notif) => {
+                      const cat = notif.category || 'system';
+                      if (!acc[cat]) acc[cat] = [];
+                      acc[cat].push(notif);
+                      return acc;
+                    }, {});
+
+                    // Sort categories by priority
+                    const sortedCategories = Object.keys(grouped).sort((a, b) => {
+                      const pA = priorities[a] || 99;
+                      const pB = priorities[b] || 99;
+                      return pA - pB;
+                    });
+
+                    return sortedCategories.map(cat => (
+                      <div key={cat} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                          {cat} ({grouped[cat].length})
+                        </div>
+                        {grouped[cat].map(notif => (
+                          <NotificationCard
+                            key={notif.id}
+                            notif={notif}
+                            onDismiss={removeHistoryItem}
+                            onAction={handleAction}
+                          />
+                        ))}
+                      </div>
+                    ));
+                  })()}
                 </div>
               ) : (
                 <div
