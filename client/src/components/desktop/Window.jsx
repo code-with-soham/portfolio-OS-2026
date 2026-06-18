@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, memo } from 'react';
-import { motion, useDragControls } from 'framer-motion';
+import { motion, useDragControls, AnimatePresence } from 'framer-motion';
 import { useWindowStore } from '../../store/useWindowStore';
 import { APPS } from '../../config/apps';
 

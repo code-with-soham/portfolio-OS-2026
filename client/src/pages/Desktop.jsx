@@ -8,7 +8,7 @@
 // Clicking the desktop background closes all open panels.
 // Icons are arranged in a column-first grid (like Windows 11).
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { useDesktopStore } from '../store/useDesktopStore';
 import { useWindowStore } from '../store/useWindowStore';

@@ -1,0 +1,23 @@
+{
+  "name": "Soham Kundu",
+  "title": "Full Stack Developer",
+  "bio": "Passionate full-stack developer specializing in modern web technologies. I build scalable, user-centric applications with clean architecture and industry-standard practices. Currently exploring AI/ML integration in web applications and building innovative portfolio experiences.",
+  "email": "sohamkundu84@gmail.com",
+  "phone": "+91-7557804027",
+  "location": {
+    "city": "Kolkata",
+    "state": "West Bengal",
+    "country": "India"
+  },
+  "avatar": "/assets/images/avatar.png",
+  "resumeUrl": "/assets/resume/Soham_Kundu_Resume.pdf",
+  "social": {
+    "github": "https://github.com/code-with-soham",
+    "linkedin": "https://www.linkedin.com/in/soham-kundu-b5a9a0250/",
+    "twitter": "",
+    "portfolio": "https://soham-kundu-portfolio.vercel.app/"
+  },
+  "tagline": "Building the future, one line of code at a time.",
+  "availableForHire": true,
+  "yearsOfExperience": 0
+}

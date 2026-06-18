@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ach-001",
+    "title": "Frontend Developer Internship",
+    "description": "Completed a Frontend Developer Internship at Expantra Tech Pvt Ltd, gaining hands-on experience with React, Tailwind CSS, Git, and GitHub while working on real-world projects.",
+    "category": "professional",
+    "icon": "💼",
+    "link": "https://drive.google.com/file/d/1Vxvp_8EXNUx-AnlyJamUE08rcwBCHctk/view?usp=sharing"
+  },
+  {
+    "id": "ach-002",
+    "title": "Built AI Mock Interview Platform",
+    "description": "Developed an AI-powered mock interview platform featuring role-based interview generation, WebRTC video communication, Socket.io integration, and AI-assisted feedback.",
+    "category": "project",
+    "icon": "🤖",
+    "link": "https://smart-mock-interview-prep.vercel.app/"
+  },
+  {
+    "id": "ach-003",
+    "title": "Developed campusHub",
+    "description": "Built a full-stack event booking and management platform with authentication, event registration, organizer dashboard, and payment integration.",
+    "category": "project",
+    "icon": "🎟️",
+    "link": ""
+  },
+  {
+    "id": "ach-004",
+    "title": "92% Accuracy in Placement Prediction",
+    "description": "Created a machine learning model for student placement prediction using Random Forest and data analysis techniques, achieving 92% prediction accuracy.",
+    "category": "machine-learning",
+    "icon": "📊",
+    "link": "https://code-with-soham.github.io/Student-Placement-Predictor/"
+  },
+  {
+    "id": "ach-005",
+    "title": "Samsung Innovation Campus",
+    "description": "Successfully completed Coding & Programming training under Samsung Innovation Campus.",
+    "category": "certification",
+    "icon": "🏅",
+    "link": "https://drive.google.com/file/d/1q1jdSgmleiSvsFVVlPDJzEtKPGYK5bzp/view"
+  },
+  {
+    "id": "ach-006",
+    "title": "MERN Stack Development with AI Integration",
+    "description": "Completed certification in MERN Stack Development with AI Integration from TechnoExponent.",
+    "category": "certification",
+    "icon": "📜",
+    "link": "https://drive.google.com/file/d/1G26o5X6U1UvCQ-OXifOfVSKwsuEeJAIB/view"
+  }
+]

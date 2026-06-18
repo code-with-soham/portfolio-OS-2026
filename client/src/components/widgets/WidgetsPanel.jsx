@@ -5,9 +5,9 @@ import PlacementWidget from './PlacementWidget';
 import QuoteWidget from './QuoteWidget';
 
 const WIDGETS_CONFIG = {
-  github: { component: GitHubWidget, defaultX: 24, defaultY: 48 },
-  placement: { component: PlacementWidget, defaultX: 24, defaultY: 280 },
-  quote: { component: QuoteWidget, defaultX: 24, defaultY: 480 },
+  github: { component: GitHubWidget, defaultX: -24, defaultY: 48 },
+  placement: { component: PlacementWidget, defaultX: -24, defaultY: 280 },
+  quote: { component: QuoteWidget, defaultX: -24, defaultY: 480 },
 };
 
 function DraggableWidget({ id, children }) {
@@ -21,14 +21,14 @@ function DraggableWidget({ id, children }) {
       onDragEnd={(event, info) => {
         updateWidgetPosition(id, pos.x + info.offset.x, pos.y + info.offset.y);
       }}
-      initial={{ x: pos.x - 50, y: pos.y, opacity: 0 }}
+      initial={{ x: pos.x + 50, y: pos.y, opacity: 0 }}
       animate={{ x: pos.x, y: pos.y, opacity: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ type: 'spring', damping: 25, stiffness: 200 }}
       style={{
         position: 'absolute',
         top: 0,
-        left: 0,
+        right: 0,
         width: '340px',
         zIndex: 100,
         pointerEvents: 'auto',

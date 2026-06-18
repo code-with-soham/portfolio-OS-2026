@@ -9,7 +9,7 @@
 // Phase 3: Only Start and Notification bell are interactive.
 // Other icons are decorative.
 
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 import { useDesktopStore } from '../../store/useDesktopStore';
 import { useThemeStore } from '../../store/useThemeStore';
 import { useWindowStore } from '../../store/useWindowStore';
@@ -107,7 +107,7 @@ function WindowsLogo({ size = 18 }) {
  * Main Taskbar component
  */
 export default function Taskbar() {
-  const { isStartMenuOpen, toggleStartMenu, toggleNotificationCenter, isQuickSettingsOpen, toggleQuickSettings } =
+  const { isStartMenuOpen, toggleStartMenu, isNotificationCenterOpen, toggleNotificationCenter, isQuickSettingsOpen, toggleQuickSettings } =
     useDesktopStore();
   const { theme } = useThemeStore();
   const windows = useWindowStore((s) => s.windows);
@@ -156,7 +156,7 @@ export default function Taskbar() {
   const { isPlaying, togglePlayPause, nextSong, prevSong, playlist, currentSongIndex } = useMusicStore();
   const { volume, isMuted } = useSystemAudioStore();
   const hasMusic = playlist && playlist.length > 0;
-  const currentSong = hasMusic ? playlist[currentSongIndex] : null;
+  const currentSong = hasMusic ? playlist[Number(currentSongIndex)] : null;
 
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {

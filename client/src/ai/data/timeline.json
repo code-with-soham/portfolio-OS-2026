@@ -1,0 +1,150 @@
+[
+  {
+    "id": "tl-001",
+    "type": "education",
+    "title": "Bachelor of Technology in Computer Science and Engineering",
+    "organization": "Brainware University, Barasat",
+    "description": "Currently pursuing B.Tech in Computer Science and Engineering with focus on software development, machine learning, and modern web technologies.",
+    "startDate": "2024-01-01",
+    "endDate": null,
+    "current": true,
+    "highlights": [
+      "Current CGPA: 8.79",
+      "Computer Science and Engineering"
+    ],
+    "icon": "🎓"
+  },
+  {
+    "id": "tl-002",
+    "type": "education",
+    "title": "Diploma in Computer Science and Technology",
+    "organization": "Bishnupur Public Institute of Engineering",
+    "description": "Completed Diploma in Computer Science and Technology, building a strong foundation in programming and software development.",
+    "startDate": "2021-01-01",
+    "endDate": "2024-01-01",
+    "current": false,
+    "highlights": [
+      "CGPA: 8.4"
+    ],
+    "icon": "📚"
+  },
+  {
+    "id": "tl-003",
+    "type": "experience",
+    "title": "Frontend Developer Intern",
+    "organization": "Expantra Tech Pvt Ltd",
+    "description": "Worked on modern frontend development, improving usability and performance while collaborating with development teams on real-world projects.",
+    "startDate": "2025-08-01",
+    "endDate": "2025-12-01",
+    "current": false,
+    "highlights": [
+      "React Development",
+      "Tailwind CSS",
+      "Git & GitHub",
+      "Industry Project Experience"
+    ],
+    "icon": "💼"
+  },
+  {
+    "id": "tl-004",
+    "type": "project",
+    "title": "AI Mock Interview Platform",
+    "organization": "Personal Project",
+    "description": "Developed an AI-powered mock interview platform with role-based interview generation, real-time communication, and AI feedback analysis.",
+    "startDate": "2025-01-01",
+    "endDate": null,
+    "current": true,
+    "highlights": [
+      "WebRTC Video Calls",
+      "Socket.io Real-time Communication",
+      "AI Interview Analysis",
+      "React & Node.js"
+    ],
+    "icon": "🤖"
+  },
+  {
+    "id": "tl-005",
+    "type": "project",
+    "title": "Event Booking System (campusHub)",
+    "organization": "Personal Project",
+    "description": "Built a full-stack event booking and management platform with authentication, booking management, organizer dashboard, and payment integration.",
+    "startDate": "2025-01-01",
+    "endDate": null,
+    "current": true,
+    "highlights": [
+      "MERN Stack",
+      "Payment Integration",
+      "Organizer Dashboard",
+      "MongoDB Database"
+    ],
+    "icon": "🎟️"
+  },
+  {
+    "id": "tl-006",
+    "type": "project",
+    "title": "Student Placement Prediction",
+    "organization": "Machine Learning Project",
+    "description": "Built a machine learning model to predict student placement outcomes using academic and skill-based data.",
+    "startDate": "2024-01-01",
+    "endDate": null,
+    "current": false,
+    "highlights": [
+      "92% Accuracy",
+      "Random Forest Model",
+      "Feature Engineering",
+      "Data Analysis"
+    ],
+    "icon": "📊"
+  },
+  {
+    "id": "tl-007",
+    "type": "project",
+    "title": "soham-portfolio-2026",
+    "organization": "Personal Portfolio",
+    "description": "Designed and developed a modern developer portfolio showcasing projects, skills, achievements, and professional experience.",
+    "startDate": "2025-12-01",
+    "endDate": "2026-01-01",
+    "current": false,
+    "highlights": [
+      "React",
+      "TypeScript",
+      "Three.js",
+      "GSAP Animations"
+    ],
+    "icon": "🚀"
+  },
+  {
+    "id": "tl-008",
+    "type": "project",
+    "title": "portfolio-OS-2026",
+    "organization": "Interactive Portfolio OS",
+    "description": "Built a Windows 11-inspired portfolio operating system featuring draggable windows, desktop environment, taskbar, start menu, and application ecosystem.",
+    "startDate": "2026-01-01",
+    "endDate": null,
+    "current": true,
+    "highlights": [
+      "Windows 11 UI",
+      "Window Management System",
+      "Interactive Desktop Experience",
+      "Modern Frontend Architecture"
+    ],
+    "icon": "🖥️"
+  },
+  {
+    "id": "tl-009",
+    "type": "project",
+    "title": "sliding-puzzle",
+    "organization": "Frontend Game Project",
+    "description": "Developed an interactive sliding puzzle game focused on responsive design, user interaction, and browser-based gameplay.",
+    "startDate": "2026-02-01",
+    "endDate": "2026-02-15",
+    "current": false,
+    "highlights": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Game Logic"
+    ],
+    "icon": "🧩"
+  }
+]
