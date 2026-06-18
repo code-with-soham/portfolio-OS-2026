@@ -3,6 +3,13 @@ class ContextManager {
     this.history = [];
     this.lastIntent = null;
     this.lastEntities = null;
+    // Specific memory slots
+    this.memory = {
+      lastOpenedApp: null,
+      lastProjectViewed: null,
+      lastSkillCategory: null,
+      lastQuestionAsked: null
+    };
   }
 
   addInteraction(userInput, aiResponse, intent, entities) {
@@ -26,6 +33,17 @@ class ContextManager {
     if (entities && Object.keys(entities).length > 0) {
       this.lastEntities = entities;
     }
+  }
+
+  // Memory Slot API
+  setMemory(key, value) {
+    if (this.memory.hasOwnProperty(key)) {
+      this.memory[key] = value;
+    }
+  }
+
+  getMemory(key) {
+    return this.memory[key];
   }
 
   getLastIntent() {

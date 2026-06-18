@@ -17,5 +17,9 @@ export const SYNONYMS = {
   paint: ["paint", "draw", "drawing"],
   calculator: ["calculator", "calc", "math"],
   notepad: ["notepad", "notes", "text editor"],
-  mail: ["mail", "email app", "outlook", "gmail"]
+  mail: ["mail", "email app", "outlook", "gmail"],
+
+  // Workflows
+  prepareRecruiter: ["prepare for recruiter", "recruiter mode", "setup for interview"],
+  showStrongest: ["show my strongest work", "show best work", "best projects"]
 };

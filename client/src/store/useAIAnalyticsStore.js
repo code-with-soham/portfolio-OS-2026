@@ -13,6 +13,11 @@ export const useAIAnalyticsStore = create(
       averageResponseTimeMs: 0,
       totalResponseTimeMs: 0,
       recentQueries: [],
+      
+      // Detailed Analytics
+      openedApps: {},
+      viewedProjects: {},
+      askedSkills: {},
 
       // Track a new query event
       trackQuery: (intent, text, responseTime) => {
@@ -48,17 +53,49 @@ export const useAIAnalyticsStore = create(
         });
       },
 
+      trackAppOpen: (appName) => {
+        set((state) => ({
+          openedApps: {
+            ...state.openedApps,
+            [appName]: (state.openedApps[appName] || 0) + 1
+          }
+        }));
+      },
+
+      trackProjectView: (projectName) => {
+        if (!projectName) return;
+        set((state) => ({
+          viewedProjects: {
+            ...state.viewedProjects,
+            [projectName]: (state.viewedProjects[projectName] || 0) + 1
+          }
+        }));
+      },
+
+      trackSkillQuery: (skillName) => {
+        if (!skillName) return;
+        set((state) => ({
+          askedSkills: {
+            ...state.askedSkills,
+            [skillName]: (state.askedSkills[skillName] || 0) + 1
+          }
+        }));
+      },
+
       clearAnalytics: () => set({
         totalQueries: 0,
         intentsTriggered: {},
         mostAskedIntent: 'None',
         averageResponseTimeMs: 0,
         totalResponseTimeMs: 0,
-        recentQueries: []
+        recentQueries: [],
+        openedApps: {},
+        viewedProjects: {},
+        askedSkills: {}
       })
     }),
     {
-      name: 'portfolio-ai-analytics-v1', // persist to local storage
+      name: 'portfolio-ai-analytics-v2', // persist to local storage
     }
   )
 );

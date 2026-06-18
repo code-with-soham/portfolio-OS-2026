@@ -1,42 +1,63 @@
-import { useWindowStore } from '../../store/useWindowStore';
-import { useDesktopStore } from '../../store/useDesktopStore';
+import { actionRegistry } from '../actions/actionRegistry';
+import { INTENTS } from '../training/intents';
+import { useAIAnalyticsStore } from '../../store/useAIAnalyticsStore';
 
-export function executeAction(intent, entities, intentData) {
-  const windowStore = useWindowStore.getState();
-  const desktopStore = useDesktopStore.getState();
+export function executeAction(intent, entities, intentData, contextManager) {
+  // If it's a multi-step workflow
+  if (intent === INTENTS.PREPARE_RECRUITER) {
+    return [
+      { action: () => actionRegistry.openApp('resume'), delay: 0 },
+      { action: () => actionRegistry.openApp('projects'), delay: 300 },
+      { action: () => actionRegistry.openApp('skills'), delay: 600 },
+      { action: () => actionRegistry.openApp('vscode'), delay: 900 }
+    ];
+  }
 
-  if (intent === 'OPEN_APP') {
+  if (intent === INTENTS.SHOW_STRONGEST_WORK) {
+    return [
+      { action: () => actionRegistry.openApp('projects'), delay: 0 },
+      // Later we can add a way to dispatch events to the Projects app to highlight Portfolio OS
+    ];
+  }
+
+  // Single steps
+  if (intent === INTENTS.OPEN_APP) {
     let appToOpen = intentData.app || entities.app || 'browser';
     
-    // Pronoun resolution
-    if (appToOpen === 'it') {
-      // Default to projects if we were talking about projects or a specific project
-      appToOpen = 'projects';
+    // Pronoun or positional resolution
+    if (appToOpen === 'it' || entities.positional !== undefined) {
+      const lastIntent = contextManager.getLastIntent();
+      const listedProjects = contextManager.getMemory('listedProjects');
+      
+      if (entities.positional !== undefined && listedProjects && listedProjects.length > 0) {
+        // Resolve positional from the listed projects
+        let idx = entities.positional;
+        if (idx === -1) idx = listedProjects.length - 1; // last
+        
+        if (idx >= 0 && idx < listedProjects.length) {
+          appToOpen = 'projects';
+          contextManager.setMemory('lastOpenedApp', appToOpen);
+          useAIAnalyticsStore.getState().trackAppOpen(appToOpen);
+          return [{ action: () => actionRegistry.openApp(appToOpen), delay: 0 }];
+        }
+      }
+
+      if (lastIntent === INTENTS.PROJECTS) appToOpen = 'projects';
+      else if (lastIntent === INTENTS.RESUME) appToOpen = 'resume';
+      else if (lastIntent === INTENTS.SKILLS) appToOpen = 'skills';
+      else appToOpen = 'projects'; // fallback
     }
 
-    windowStore.openWindow(appToOpen);
-    return `Opening ${appToOpen.charAt(0).toUpperCase() + appToOpen.slice(1)}...`;
+    // Memory tracking
+    contextManager.setMemory('lastOpenedApp', appToOpen);
+    useAIAnalyticsStore.getState().trackAppOpen(appToOpen);
+    return [{ action: () => actionRegistry.openApp(appToOpen), delay: 0 }];
   }
 
-  if (intent === 'LOCK_SCREEN') {
-    desktopStore.setLocked(true);
-    return "Locking screen...";
-  }
+  if (intent === INTENTS.LOCK_SCREEN) return [{ action: () => actionRegistry.lockScreen(), delay: 0 }];
+  if (intent === INTENTS.SHUTDOWN) return [{ action: () => actionRegistry.shutdown(), delay: 0 }];
+  if (intent === INTENTS.RESTART) return [{ action: () => actionRegistry.restart(), delay: 0 }];
+  if (intent === INTENTS.PLAY_MUSIC) return [{ action: () => actionRegistry.playMusic(), delay: 0 }];
 
-  if (intent === 'SHUTDOWN') {
-    desktopStore.setPowerState('off');
-    return "Shutting down the system...";
-  }
-
-  if (intent === 'RESTART') {
-    desktopStore.setPowerState('restarting');
-    return "Restarting the system...";
-  }
-
-  if (intent === 'PLAY_MUSIC') {
-    windowStore.openWindow('music');
-    return "Opening Music player. You can play your favorite tracks there!";
-  }
-
-  return null; // No action executed
+  return null; // No actions
 }

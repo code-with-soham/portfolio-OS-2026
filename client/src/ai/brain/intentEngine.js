@@ -28,6 +28,10 @@ const trainingData = [
   ...SYNONYMS.skills.map(s => ({ text: `open ${s}`, intent: INTENTS.OPEN_APP, app: 'skills' })),
   ...SYNONYMS.about.map(s => ({ text: `open ${s}`, intent: INTENTS.OPEN_APP, app: 'profile' })),
 
+  // Workflows
+  ...SYNONYMS.prepareRecruiter.map(s => ({ text: s, intent: INTENTS.PREPARE_RECRUITER })),
+  ...SYNONYMS.showStrongest.map(s => ({ text: s, intent: INTENTS.SHOW_STRONGEST_WORK })),
+
   // System commands
   { text: "lock screen", intent: INTENTS.LOCK_SCREEN },
   { text: "lock", intent: INTENTS.LOCK_SCREEN },

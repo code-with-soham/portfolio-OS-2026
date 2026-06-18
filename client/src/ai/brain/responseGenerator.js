@@ -1,5 +1,6 @@
 import { INTENTS } from '../training/intents';
 import { RECRUITER_ANSWERS } from '../training/recruiterQuestions';
+import { useAIAnalyticsStore } from '../../store/useAIAnalyticsStore';
 
 import projectsData from '../knowledge/projects.json';
 import skillsData from '../knowledge/skills.json';
@@ -60,21 +61,39 @@ For recruiters, ${proj1.title} demonstrates ${proj1.category} architecture, whil
 
       if (entities.modifier === 'best') {
         const best = projectsData.find(p => p.id === 'proj-001'); // Portfolio OS
+        contextManager.setMemory('lastProjectViewed', best.title);
+        useAIAnalyticsStore.getState().trackProjectView(best.title);
         return `**${best.title}** is my strongest project.\n\nWhy?\n${best.highlights.map(h => `• ${h}`).join('\n')}\n• Custom AI Brain\n• State persistence\n• Multi-user support`;
       }
 
       if (entities.tech) {
         const filtered = projectsData.filter(p => p.techStack.some(t => t.toLowerCase() === entities.tech.toLowerCase()) || p.category.toLowerCase().includes(entities.tech.toLowerCase()));
         if (filtered.length > 0) {
+          contextManager.setMemory('lastProjectViewed', filtered[0].title);
+          contextManager.setMemory('listedProjects', filtered.map(p => p.title));
+          useAIAnalyticsStore.getState().trackSkillQuery(entities.tech);
+          useAIAnalyticsStore.getState().trackProjectView(filtered[0].title);
           return `Here are my **${entities.tech}** projects:\n\n${filtered.map(p => `- **${p.title}**: ${p.description}`).join('\n')}`;
         }
       }
       
       const featured = projectsData.filter(p => p.featured);
-      return `I have built several applications. Some of my proudest work includes:\n\n${featured.map(p => `- **${p.title}**: ${p.description}`).join('\n')}\n\nAsk me about a specific project!`;
+      contextManager.setMemory('listedProjects', featured.map(p => p.title));
+      contextManager.setMemory('lastProjectViewed', featured[0].title);
+      return `I have built several applications. Some of my proudest work includes:\n\n${featured.map((p, i) => `${i + 1}. **${p.title}**: ${p.description}`).join('\n')}\n\nAsk me about a specific project!`;
 
     case INTENTS.SKILLS:
+      if (entities.project) {
+        const proj = projectsData.find(p => p.title === entities.project);
+        if (proj) {
+          contextManager.setMemory('lastSkillCategory', proj.techStack.join(', '));
+          useAIAnalyticsStore.getState().trackProjectView(proj.title);
+          return `In **${proj.title}**, I utilized the following technologies:\n\n${proj.techStack.map(t => `• ${t}`).join('\n')}`;
+        }
+      }
+
       if (entities.tech) {
+        useAIAnalyticsStore.getState().trackSkillQuery(entities.tech);
         return `Yes, I am highly proficient in **${entities.tech}**. I have used it to build multiple projects.`;
       }
       return `My technical stack is divided into several areas:\n\n` + 

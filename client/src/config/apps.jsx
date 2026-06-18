@@ -281,6 +281,7 @@ export const APPS = {
     category: 'Accessories',
     version: '1.0.0',
     description: 'Create and edit drawings',
+    hideTitleBar: true,
   },
   recyclebin: {
     id: 'recyclebin',

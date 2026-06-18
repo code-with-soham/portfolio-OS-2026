@@ -1,0 +1,243 @@
+.paint-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Title Bar */
+.paint-titlebar {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 12px;
+  background-color: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.paint-titlebar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.paint-titlebar-menus {
+  display: flex;
+  gap: 4px;
+}
+
+.paint-menu-item {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+}
+
+.paint-menu-item:hover {
+  background-color: var(--color-hover);
+}
+
+.paint-titlebar-tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+}
+
+.paint-titlebar-tool {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+}
+
+.paint-titlebar-tool:hover {
+  background-color: var(--color-hover);
+}
+
+.paint-titlebar-tool:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.paint-titlebar-right {
+  display: flex;
+  height: 100%;
+}
+
+/* Ribbon */
+.paint-ribbon {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border);
+  gap: 16px;
+  overflow-x: auto;
+}
+
+.paint-ribbon-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.paint-ribbon-group-items {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.paint-ribbon-group-label {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.paint-ribbon-separator {
+  width: 1px;
+  height: 48px;
+  background-color: var(--color-border);
+  margin: 0 4px;
+}
+
+.paint-tool-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.paint-tool-btn:hover {
+  background-color: var(--color-hover);
+}
+
+.paint-tool-btn.active {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+.paint-color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+}
+
+.paint-color-swatch.active {
+  border: 2px solid var(--color-accent);
+}
+
+/* Main Content Area */
+.paint-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  background-color: var(--color-bg-elevated);
+}
+
+/* Sidebar */
+.paint-sidebar {
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  background-color: var(--color-bg-surface);
+  border-right: 1px solid var(--color-border);
+  gap: 24px;
+}
+
+.paint-sidebar-slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.paint-vertical-slider {
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
+  width: 8px;
+  height: 100px;
+}
+
+/* Canvas Wrapper */
+.paint-canvas-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  padding: 24px;
+  background-color: #2b2b2b; /* Dark backdrop for the canvas */
+}
+
+.paint-canvas-container {
+  position: relative;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform-origin: center center;
+}
+
+.paint-canvas {
+  display: block;
+  cursor: none; /* We use a custom cursor preview */
+}
+
+/* Cursor Preview */
+.paint-cursor-preview {
+  position: fixed;
+  pointer-events: none;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Status Bar */
+.paint-statusbar {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background-color: var(--color-bg-surface);
+  border-top: 1px solid var(--color-border);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.paint-statusbar-left,
+.paint-statusbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.paint-zoom-slider {
+  width: 100px;
+}

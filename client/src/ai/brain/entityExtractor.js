@@ -16,6 +16,18 @@ export function extractEntities(text) {
     }
   }
 
+  // Find project names
+  const projectKeywords = ["portfolio os", "campushub", "interview prep", "sliding puzzle", "placement predictor"];
+  for (const proj of projectKeywords) {
+    if (normalized.includes(proj)) {
+      entities.project = proj === "portfolio os" ? "portfolio-OS-2026" :
+                         proj === "campushub" ? "campusHub" :
+                         proj === "interview prep" ? "Interview-Prep" :
+                         proj === "placement predictor" ? "Student-Placement-Predictor" :
+                         "sliding-puzzle";
+    }
+  }
+
   // Find categories
   const categoryKeywords = ["hackathon", "professional", "certification", "project"];
   for (const cat of categoryKeywords) {
@@ -34,6 +46,21 @@ export function extractEntities(text) {
   // Best or Top
   if (normalized.includes("best") || normalized.includes("top") || normalized.includes("strongest")) {
     entities.modifier = "best";
+  }
+
+  // Positional matching (first, second, third, etc.)
+  const positionals = {
+    "first": 0, "1st": 0, "one": 0,
+    "second": 1, "2nd": 1, "two": 1,
+    "third": 2, "3rd": 2, "three": 2,
+    "last": -1
+  };
+  
+  for (const [key, val] of Object.entries(positionals)) {
+    // Basic regex to ensure it's a whole word or at end of phrase
+    if (new RegExp(`\\b${key}\\b`).test(normalized)) {
+      entities.positional = val;
+    }
   }
 
   return entities;

@@ -37,11 +37,28 @@ class AIBrain {
       this.context.addInteraction(cleanText, null, finalIntent, entities);
 
       // 4. Action Execution
-      systemActionOutput = executeAction(finalIntent, entities, intentData);
+      const actions = executeAction(finalIntent, entities, intentData, this.context);
 
-      if (systemActionOutput) {
-        // If an OS action was taken, return that as the response
-        finalResponseText = systemActionOutput;
+      if (actions && actions.length > 0) {
+        // Run actions with delays
+        actions.forEach(({ action, delay }) => {
+          if (delay === 0) {
+            systemActionOutput = action();
+          } else {
+            setTimeout(() => {
+              action();
+            }, delay);
+          }
+        });
+
+        // Set final response text based on the workflow
+        if (finalIntent === INTENTS.PREPARE_RECRUITER) {
+          finalResponseText = "Preparing portfolio for recruiter review. Opening Resume, Projects, Skills, and VS Code.";
+        } else if (finalIntent === INTENTS.SHOW_STRONGEST_WORK) {
+          finalResponseText = "Opening Projects to highlight my strongest work.";
+        } else if (systemActionOutput) {
+          finalResponseText = systemActionOutput; // Uses the return from the first action
+        }
       } else {
         // 5. Generate Text Response
         finalResponseText = generateResponse(finalIntent, entities, this.context) || "I'm still learning! Could you try asking about my projects, skills, or experience?";
