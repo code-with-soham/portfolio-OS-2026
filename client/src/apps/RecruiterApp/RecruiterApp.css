@@ -1,0 +1,234 @@
+.recruiter-dashboard {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: 'Inter', sans-serif;
+}
+
+.recruiter-sidebar {
+  width: 320px;
+  background: var(--color-bg-surface);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.recruiter-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.recruiter-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent), #222);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.recruiter-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.recruiter-stat-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.recruiter-stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.recruiter-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.recruiter-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  text-align: left;
+}
+
+.recruiter-nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.recruiter-nav-item.active {
+  background: var(--color-accent);
+  color: #000;
+}
+
+.recruiter-main {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+  background: radial-gradient(circle at top right, rgba(20, 20, 30, 0.5), transparent);
+}
+
+.recruiter-section-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.recruiter-card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Radar Chart CSS Hack */
+.radar-container {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+}
+
+.radar-bg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  position: absolute;
+}
+
+.radar-bg::after {
+  content: '';
+  position: absolute;
+  top: 15%; left: 15%; right: 15%; bottom: 15%;
+  border-radius: 50%;
+  border: 1px dashed var(--color-border);
+}
+
+.radar-axis {
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 1px;
+  background: var(--color-border);
+  transform-origin: center;
+}
+
+/* Pie Chart CSS */
+.pie-chart-container {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #f0db4f 0% 40%, 
+    #61dafb 40% 70%, 
+    #3178c6 70% 85%, 
+    #41b883 85% 95%, 
+    var(--color-border) 95% 100%
+  );
+  margin: 0 auto;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.pie-chart-hole {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  background: var(--color-bg-surface);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.2s;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-accent);
+}
+
+.architecture-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 40px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 12px;
+}
+
+.arch-node {
+  padding: 12px 24px;
+  background: var(--color-bg-elevated);
+  border: 2px solid var(--color-accent);
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.arch-arrow {
+  width: 2px;
+  height: 30px;
+  background: var(--color-accent);
+  position: relative;
+}
+.arch-arrow::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: -4px;
+  border-width: 5px 5px 0;
+  border-style: solid;
+  border-color: var(--color-accent) transparent transparent;
+}

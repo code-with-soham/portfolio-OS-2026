@@ -1,0 +1,73 @@
+.mobile-os-root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-desktop);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.mobile-os-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-page-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Status Bar */
+.mobile-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  height: 28px;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 9999;
+  background: transparent;
+  color: #fff;
+}
+
+/* Bottom Nav */
+.mobile-bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0 24px 0;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  z-index: 9000;
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: rgba(255,255,255,0.5);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.mobile-nav-item.active {
+  color: var(--color-accent);
+  background: rgba(255,255,255,0.1);
+}
+
+.mobile-nav-icon {
+  font-size: 24px;
+}

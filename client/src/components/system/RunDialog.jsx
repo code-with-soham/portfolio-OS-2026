@@ -25,6 +25,12 @@ export default function RunDialog() {
     if (!query.trim()) return;
 
     const q = query.trim().toLowerCase();
+    // Intercept recruiter://mode
+    if (q === 'recruiter://mode') {
+      openWindow('recruiter');
+      close();
+      return;
+    }
     
     // Check if q matches an app ID exactly, or if it's "cmd"
     if (APPS[q]) {

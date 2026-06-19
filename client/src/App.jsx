@@ -19,6 +19,9 @@ import LockScreen from './pages/LockScreen';
 import Desktop from './pages/Desktop';
 import ShutdownScreen from './pages/ShutdownScreen';
 
+import MobileOS from './mobile/MobileOS';
+import { useState, useEffect } from 'react';
+
 /**
  * App — Root component
  *
@@ -28,6 +31,13 @@ import ShutdownScreen from './pages/ShutdownScreen';
 function App() {
   const osState = useDesktopStore((s) => s.osState);
   const theme = useThemeStore((s) => s.theme);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Register global keyboard shortcuts (Esc, etc.)
   useKeyboardShortcuts();
@@ -44,10 +54,16 @@ function App() {
       }}
     >
       <AnimatePresence mode="wait">
-        {osState === OS_STATES.BOOTING && <BootScreen key="boot" />}
-        {osState === OS_STATES.LOCKED && <LockScreen key="lock" />}
-        {osState === OS_STATES.DESKTOP && <Desktop key="desktop" />}
-        {osState === OS_STATES.SHUTDOWN && <ShutdownScreen key="shutdown" />}
+        {isMobile ? (
+          <MobileOS key="mobile" />
+        ) : (
+          <>
+            {osState === OS_STATES.BOOTING && <BootScreen key="boot" />}
+            {osState === OS_STATES.LOCKED && <LockScreen key="lock" />}
+            {osState === OS_STATES.DESKTOP && <Desktop key="desktop" />}
+            {osState === OS_STATES.SHUTDOWN && <ShutdownScreen key="shutdown" />}
+          </>
+        )}
       </AnimatePresence>
     </div>
   );

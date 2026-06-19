@@ -1,0 +1,110 @@
+.mobile-home-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+  /* Dark wallpaper placeholder */
+  background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1a 100%);
+}
+
+.mobile-home-clock-widget {
+  text-align: center;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
+.mobile-clock-time {
+  font-size: 64px;
+  font-weight: 300;
+  margin: 0;
+  letter-spacing: -2px;
+}
+
+.mobile-clock-date {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 8px 0;
+}
+
+.mobile-home-weather {
+  display: inline-flex;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.mobile-weather-desc {
+  color: var(--color-accent);
+}
+
+.mobile-app-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px 12px;
+  margin-top: auto;
+  margin-bottom: 60px;
+}
+
+.mobile-app-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.mobile-app-icon-bg {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px; /* Squircle look */
+  background: var(--color-bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.mobile-app-icon:active .mobile-app-icon-bg {
+  transform: scale(0.9);
+}
+
+.mobile-app-label {
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.mobile-swipe-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.6;
+}
+
+.mobile-swipe-pill {
+  width: 40px;
+  height: 4px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.mobile-swipe-hint span {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

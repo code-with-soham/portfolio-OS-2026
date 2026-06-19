@@ -31,6 +31,7 @@ const CalendarApp = lazy(() => import('../apps/CalendarApp/index'));
 const PaintApp = lazy(() => import('../apps/PaintApp/index'));
 const DeveloperDashboardApp = lazy(() => import('../apps/DeveloperDashboardApp/index'));
 const AIDashboardApp = lazy(() => import('../apps/AIDashboardApp/index'));
+const RecruiterApp = lazy(() => import('../apps/RecruiterApp/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -315,5 +316,17 @@ export const APPS = {
     category: 'System',
     version: '1.0.0',
     description: 'AI Expert Brain Metrics',
+  },
+  recruiter: {
+    id: 'recruiter',
+    title: 'Recruiter Dashboard',
+    icon: userIco, // Reusing user icon for now
+    component: withErrorBoundary(RecruiterApp, 'Recruiter Dashboard'),
+    defaultWidth: 1000,
+    defaultHeight: 700,
+    category: 'Showcase',
+    version: '1.0.0',
+    description: 'Exclusive Recruiter Workspace',
+    hideTitleBar: false,
   },
 };
