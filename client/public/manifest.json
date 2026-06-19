@@ -1,0 +1,24 @@
+{
+  "name": "Portfolio OS 2026",
+  "short_name": "PortfolioOS",
+  "description": "Soham Kundu's Interactive Web OS Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "orientation": "portrait",
+  "shortcuts": [
+    {
+      "name": "Recruiter Mode",
+      "short_name": "Recruiter",
+      "description": "Open Recruiter Dashboard",
+      "url": "/?app=recruiter"
+    },
+    {
+      "name": "AI Assistant",
+      "short_name": "AI",
+      "description": "Chat with Soham's AI",
+      "url": "/?app=aidashboard"
+    }
+  ]
+}

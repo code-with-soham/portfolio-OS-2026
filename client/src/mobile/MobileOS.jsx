@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMobileStore } from './store/useMobileStore';
 
@@ -8,17 +8,31 @@ import MobileHomeScreen from './components/MobileHomeScreen';
 import MobileAppDrawer from './components/MobileAppDrawer';
 import MobileQuickSettings from './components/MobileQuickSettings';
 import MobileLockScreen from './components/MobileLockScreen';
+import MobileSplashScreen from './components/MobileSplashScreen';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
+import MobileNotification from './components/MobileNotification';
 import MobileRecruiterDashboard from './apps/MobileRecruiterDashboard';
+import MobileAppSettings from './apps/MobileAppSettings';
 import { BotRegular } from '@fluentui/react-icons';
 
 import './MobileOS.css';
 
 export default function MobileOS() {
   const { isLocked, unlockDevice, activeApp, activeTab, isAppDrawerOpen, isQuickSettingsOpen } = useMobileStore();
+  const [showSplash, setShowSplash] = useState(true);
 
   // Disable default touch actions to prevent overscroll/pull-to-refresh on mobile
   useEffect(() => {
     document.body.style.overscrollBehavior = 'none';
+    
+    // Check for PWA shortcuts from URL
+    const params = new URLSearchParams(window.location.search);
+    const appToOpen = params.get('app');
+    if (appToOpen) {
+      useMobileStore.getState().openApp(appToOpen);
+      useMobileStore.getState().unlockDevice();
+    }
+
     return () => {
       document.body.style.overscrollBehavior = 'auto';
     };
@@ -26,6 +40,7 @@ export default function MobileOS() {
 
   const renderActiveTab = () => {
     if (activeApp === 'recruiter') return <MobileRecruiterDashboard />;
+    if (activeApp === 'settings') return <MobileAppSettings />;
     if (activeApp) return <div style={{ padding: '20px' }}>Rendering Lite App: {activeApp} <br/><br/> <button onClick={() => useMobileStore.getState().closeApp()}>Close App</button></div>;
 
     switch (activeTab) {
@@ -43,6 +58,10 @@ export default function MobileOS() {
         return <MobileHomeScreen />;
     }
   };
+
+  if (showSplash) {
+    return <MobileSplashScreen onComplete={() => setShowSplash(false)} />;
+  }
 
   return (
     <div className="mobile-os-root">
@@ -94,6 +113,8 @@ export default function MobileOS() {
 
       {/* Overlays */}
       {isLocked && <MobileLockScreen onUnlock={unlockDevice} />}
+      <PWAInstallPrompt />
+      <MobileNotification />
       
       <AnimatePresence>
         {isAppDrawerOpen && <MobileAppDrawer />}
