@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useThemeStore } from '../../store/useThemeStore';
 import { useDesktopStore } from '../../store/useDesktopStore';
 import { useSoundStore } from '../../store/useSoundStore';
+import { useWidgetStore } from '../../store/useWidgetStore';
 import { APP_NAME, APP_VERSION, APP_AUTHOR, THEMES } from '../../constants';
 import { compressImage } from '../../utils/imageUtils';
 import { exportSettings, importSettings } from '../../utils/backupUtils';
@@ -59,6 +60,7 @@ export default function SettingsApp() {
   const themeStore = useThemeStore();
   const desktopStore = useDesktopStore();
   const soundStore = useSoundStore();
+  const widgetStore = useWidgetStore();
 
   const handleCustomWallpaperUpload = async (e) => {
     const file = e.target.files?.[0];
@@ -335,26 +337,42 @@ export default function SettingsApp() {
             </div>
 
             <div className="settings-row">
-              <div className="settings-row-info"><span className="settings-row-label">GitHub Widget</span></div>
+              <div className="settings-row-info"><span className="settings-row-label">GitHub Pro</span></div>
               <ToggleSwitch 
-                isOn={useWidgetStore.getState().activeWidgets.includes('github')} 
-                onToggle={() => useWidgetStore.getState().setWidgetVisibility('github', !useWidgetStore.getState().activeWidgets.includes('github'))} 
+                isOn={widgetStore.activeWidgets.includes('github_pro')} 
+                onToggle={() => widgetStore.setWidgetVisibility('github_pro', !widgetStore.activeWidgets.includes('github_pro'))} 
               />
             </div>
             
             <div className="settings-row">
-              <div className="settings-row-info"><span className="settings-row-label">Placement Widget</span></div>
+              <div className="settings-row-info"><span className="settings-row-label">Music</span></div>
               <ToggleSwitch 
-                isOn={useWidgetStore.getState().activeWidgets.includes('placement')} 
-                onToggle={() => useWidgetStore.getState().setWidgetVisibility('placement', !useWidgetStore.getState().activeWidgets.includes('placement'))} 
+                isOn={widgetStore.activeWidgets.includes('music')} 
+                onToggle={() => widgetStore.setWidgetVisibility('music', !widgetStore.activeWidgets.includes('music'))} 
               />
             </div>
 
             <div className="settings-row">
-              <div className="settings-row-info"><span className="settings-row-label">Quote Widget</span></div>
+              <div className="settings-row-info"><span className="settings-row-label">AI Assistant</span></div>
               <ToggleSwitch 
-                isOn={useWidgetStore.getState().activeWidgets.includes('quote')} 
-                onToggle={() => useWidgetStore.getState().setWidgetVisibility('quote', !useWidgetStore.getState().activeWidgets.includes('quote'))} 
+                isOn={widgetStore.activeWidgets.includes('ai_assistant')} 
+                onToggle={() => widgetStore.setWidgetVisibility('ai_assistant', !widgetStore.activeWidgets.includes('ai_assistant'))} 
+              />
+            </div>
+
+            <div className="settings-row">
+              <div className="settings-row-info"><span className="settings-row-label">Placement Tracker</span></div>
+              <ToggleSwitch 
+                isOn={widgetStore.activeWidgets.includes('placement_tracker')} 
+                onToggle={() => widgetStore.setWidgetVisibility('placement_tracker', !widgetStore.activeWidgets.includes('placement_tracker'))} 
+              />
+            </div>
+
+            <div className="settings-row">
+              <div className="settings-row-info"><span className="settings-row-label">Recruiter</span></div>
+              <ToggleSwitch 
+                isOn={widgetStore.activeWidgets.includes('recruiter')} 
+                onToggle={() => widgetStore.setWidgetVisibility('recruiter', !widgetStore.activeWidgets.includes('recruiter'))} 
               />
             </div>
           </>

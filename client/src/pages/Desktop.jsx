@@ -228,6 +228,9 @@ export default function Desktop() {
         } else if (key === 'x') {
           e.preventDefault();
           useDesktopStore.getState().togglePowerUserMenu();
+        } else if (key === 'w') {
+          e.preventDefault();
+          useWidgetStore.getState().toggleWidgetPanel();
         }
       }
     };

@@ -82,6 +82,15 @@ class AIBrain {
     };
   }
 
+  getSuggestions() {
+    return [
+      { id: 1, text: "Docker Progress (50%)", done: true },
+      { id: 2, text: "Complete 5 DSA Questions", done: true },
+      { id: 3, text: "Review Resume", done: true },
+      { id: 4, text: "Update GitHub Activity", done: true }
+    ];
+  }
+
   // Stubs for future voice integration
   startListening() {
     console.log('Voice recognition starting... (Phase 4)');

@@ -22,6 +22,7 @@ const timelineRoutes = require('./timelineRoutes');
 const achievementsRoutes = require('./achievementsRoutes');
 const contactRoutes = require('./contactRoutes');
 const terminalRoutes = require('./terminalRoutes');
+const weatherRoutes = require('./weatherRoutes');
 
 // Import middleware
 const { responseCache } = require('../middleware/responseCache');
@@ -52,5 +53,8 @@ router.use('/contact', contactLimiter, contactRoutes);
 
 // GET /api/terminal → Terminal specific routes
 router.use('/terminal', responseCache(), terminalRoutes);
+
+// GET /api/weather → Weather API Proxy
+router.use('/weather', responseCache(300), weatherRoutes); // 5 min cache
 
 module.exports = router;

@@ -6,10 +6,10 @@ export const useWidgetStore = create(
     (set, get) => ({
       isWidgetPanelOpen: false,
       
-      // Future-proof: list of active widgets to allow customization later
-      activeWidgets: ['github', 'placement', 'quote'],
+      // List of active widgets 
+      activeWidgets: ['ai_suggestions', 'recruiter_ready', 'learning_progress', 'daily_focus', 'quick_actions', 'weather_pro', 'github_pro', 'music', 'smart_clock', 'system_monitor'],
       
-      // Widget positions for free dragging: { [id]: { x, y } }
+      // Widget configurations: { [id]: { x, y, pinned, transparency, refreshInterval } }
       widgetPositions: {},
 
       toggleWidgetPanel: () => {
@@ -32,17 +32,24 @@ export const useWidgetStore = create(
         });
       },
 
+      updateWidgetConfig: (id, configUpdate) => {
+        set((state) => {
+          const currentConfig = state.widgetPositions[id] || {};
+          return {
+            widgetPositions: {
+              ...state.widgetPositions,
+              [id]: { ...currentConfig, ...configUpdate },
+            },
+          };
+        });
+      },
+
       updateWidgetPosition: (id, x, y) => {
-        set((state) => ({
-          widgetPositions: {
-            ...state.widgetPositions,
-            [id]: { x, y },
-          },
-        }));
+        get().updateWidgetConfig(id, { x, y });
       },
     }),
     {
-      name: 'portfolio-os-widgets',
+      name: 'portfolio-os-widgets-v2', // bump version to reset state for v2
       partialize: (state) => ({
         activeWidgets: state.activeWidgets,
         widgetPositions: state.widgetPositions,
