@@ -33,6 +33,7 @@ const DeveloperDashboardApp = lazy(() => import('../apps/DeveloperDashboardApp/i
 const AIDashboardApp = lazy(() => import('../apps/AIDashboardApp/index'));
 const RecruiterApp = lazy(() => import('../apps/RecruiterApp/index'));
 const AnalyticsCenterApp = lazy(() => import('../apps/AnalyticsCenterApp/index'));
+const ArchitectureApp = lazy(() => import('../apps/ArchitectureApp/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -340,5 +341,16 @@ export const APPS = {
     category: 'System',
     version: '1.0.0',
     description: 'Real-time telemetry and metrics',
+  },
+  architecture: {
+    id: 'architecture',
+    title: 'Architecture Explorer',
+    icon: infoIco, // Using info/layer icon
+    component: withErrorBoundary(ArchitectureApp, 'Architecture Explorer'),
+    defaultWidth: 1000,
+    defaultHeight: 700,
+    category: 'Showcase',
+    version: '1.0.0',
+    description: 'Visualizing the OS layers',
   },
 };

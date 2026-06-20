@@ -92,23 +92,28 @@ export function usePresentationController() {
     });
 
     schedule(12000, () => {
-      setStep(4, 'Inspecting Codebase in VS Code...');
-      openWindow('vscode');
+      setStep(4, 'Visualizing OS Layers...\n(Architecture Explorer)');
+      openWindow('architecture');
     });
 
     schedule(16000, () => {
-      setStep(5, 'Reviewing GitHub Analytics...');
-      openWindow('browser', { initialUrl: 'https://github.com/code-with-soham' });
+      setStep(5, 'Inspecting Codebase in VS Code...');
+      openWindow('vscode');
     });
 
     schedule(20000, () => {
-      setStep(6, 'Consulting AI Assistant...');
+      setStep(6, 'Reviewing GitHub Analytics...');
+      openWindow('browser', { initialUrl: 'https://github.com/code-with-soham' });
+    });
+
+    schedule(24000, () => {
+      setStep(7, 'Consulting AI Assistant...');
       openWindow('aidashboard');
     });
 
     // Final WOW step
-    schedule(25000, () => {
-      setStep(6, 'Demo Complete.\nShowing Portfolio Health Score.');
+    schedule(29000, () => {
+      setStep(7, 'Demo Complete.\nShowing Portfolio Health Score.');
       showHealthScore();
       trackDemoComplete();
     });

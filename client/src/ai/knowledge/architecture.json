@@ -1,0 +1,74 @@
+{
+  "layers": [
+    {
+      "id": "presentation",
+      "name": "Presentation Layer",
+      "overview": "The top-most layer handling all user-facing interactions. It seamlessly switches between a windowed desktop environment and an installable mobile PWA depending on the device viewport.",
+      "technologies": ["React", "Framer Motion", "Vite", "PWA Manifest"],
+      "keyFiles": ["src/pages/Desktop.jsx", "src/mobile/MobileOS.jsx", "public/manifest.json"],
+      "responsibilities": ["Viewport routing", "Responsive layout", "Theme rendering", "Touch/Mouse event handling"],
+      "complexity": "Medium",
+      "color": "#FF4B4B"
+    },
+    {
+      "id": "application",
+      "name": "Application Layer",
+      "overview": "A suite of functional, windowed applications that operate within the OS ecosystem, ranging from standard utilities to complex integrations like a Monaco code editor.",
+      "technologies": ["React", "Monaco Editor", "React Markdown"],
+      "keyFiles": ["src/apps/VSCodeApp/", "src/apps/BrowserApp/", "src/config/apps.jsx"],
+      "responsibilities": ["App-specific business logic", "Sandboxed state", "App metadata registry"],
+      "complexity": "High",
+      "color": "#FF8A00"
+    },
+    {
+      "id": "os_core",
+      "name": "Core OS Layer",
+      "overview": "The essential systems that make the web app behave like a real operating system. This handles window lifecycles, focus management, global shortcuts, and the taskbar.",
+      "technologies": ["React", "DOM Events", "React Icons"],
+      "keyFiles": ["src/components/desktop/Window.jsx", "src/hooks/useKeyboardShortcuts.js", "src/components/system/Taskbar.jsx"],
+      "responsibilities": ["Window dragging & resizing", "Z-index management", "Global hotkeys", "Start menu logic"],
+      "complexity": "High",
+      "color": "#FFC107"
+    },
+    {
+      "id": "intelligence",
+      "name": "Intelligence Layer",
+      "overview": "The localized 'AI Brain' that provides semantic understanding. It parses user input, determines intent, and executes corresponding system actions without relying on a backend LLM.",
+      "technologies": ["Vanilla JS", "Fuse.js", "Regex"],
+      "keyFiles": ["src/ai/brain/aiBrain.js", "src/ai/brain/intentEngine.js", "src/ai/actions/actionRegistry.js"],
+      "responsibilities": ["Fuzzy text matching", "Intent parsing", "Entity extraction", "Action dispatching"],
+      "complexity": "High",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "state",
+      "name": "State Layer",
+      "overview": "The global data management backbone. Independent modular stores manage different domains of the OS state, ensuring highly decoupled and performant updates.",
+      "technologies": ["Zustand", "Zustand Persist"],
+      "keyFiles": ["src/store/useWindowStore.js", "src/store/useThemeStore.js", "src/store/useAnalyticsStore.js"],
+      "responsibilities": ["Global reactive state", "Local storage synchronization", "Action dispatching"],
+      "complexity": "Medium",
+      "color": "#2196F3"
+    },
+    {
+      "id": "data",
+      "name": "Data Layer",
+      "overview": "The internal knowledge base and mock file system representing the developer's portfolio contents (projects, skills, achievements) in structured formats.",
+      "technologies": ["JSON"],
+      "keyFiles": ["src/ai/knowledge/projects.json", "src/ai/knowledge/skills.json", "src/data/mockFileSystem.js"],
+      "responsibilities": ["Static portfolio data", "AI context source", "File explorer traversal"],
+      "complexity": "Low",
+      "color": "#9C27B0"
+    },
+    {
+      "id": "infrastructure",
+      "name": "Infrastructure Layer",
+      "overview": "The external services, backend API, and deployment platforms that power real-time capabilities and host the application.",
+      "technologies": ["Node.js", "Express", "Vercel / Render", "GitHub API", "OpenWeatherMap API"],
+      "keyFiles": ["server/server.js", "src/services/githubService.js", "client/vite.config.js"],
+      "responsibilities": ["Live data fetching", "Telemetry ingestion", "Hosting & CI/CD", "Backend routing"],
+      "complexity": "Medium",
+      "color": "#607D8B"
+    }
+  ]
+}

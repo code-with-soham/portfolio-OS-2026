@@ -171,6 +171,12 @@ export const DESKTOP_APPS = [
     description: 'My work',
   },
   {
+    id: 'architecture',
+    label: 'Architecture Explorer',
+    icon: '🏗️',
+    description: 'Visualize OS layers',
+  },
+  {
     id: 'skills',
     label: 'Skills',
     icon: skillsIco,
