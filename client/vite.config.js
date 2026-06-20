@@ -13,6 +13,7 @@ export default defineConfig({
   ],
   server: {
     port: 5173,
+
     // Proxy API requests to the backend during development
     proxy: {
       '/api': {
@@ -21,4 +22,16 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          animation: ['framer-motion'],
+          state: ['zustand'],
+          monaco: ['@monaco-editor/react']
+        }
+      }
+    }
+  }
 });

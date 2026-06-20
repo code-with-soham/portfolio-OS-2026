@@ -1,15 +1,39 @@
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useMobileStore } from '../store/useMobileStore';
 import { 
   ChevronLeftRegular, 
-  DataPieRegular, 
+  PersonRegular, 
+  BriefcaseRegular, 
+  DocumentRegular, 
   BotRegular, 
-  BriefcaseRegular,
-  DocumentRegular
+  CommunicationRegular,
+  ArrowDownloadRegular
 } from '@fluentui/react-icons';
 
+import OverviewTab from '../components/dashboard/OverviewTab';
+import ProjectsTab from '../components/dashboard/ProjectsTab';
+import ResumeTab from '../components/dashboard/ResumeTab';
+import AITab from '../components/dashboard/AITab';
+import ContactTab from '../components/dashboard/ContactTab';
+
 export default function MobileRecruiterDashboard() {
-  const { closeApp } = useMobileStore();
+  const { closeApp, appArgs } = useMobileStore();
+  const [activeTab, setActiveTab] = useState('overview');
+
+  useEffect(() => {
+    if (appArgs?.tab) {
+      setActiveTab(appArgs.tab);
+    }
+  }, [appArgs]);
+
+  const tabs = [
+    { id: 'overview', label: 'Overview', icon: <PersonRegular /> },
+    { id: 'projects', label: 'Projects', icon: <BriefcaseRegular /> },
+    { id: 'resume', label: 'Resume', icon: <DocumentRegular /> },
+    { id: 'ai', label: 'Ask AI', icon: <BotRegular /> },
+    { id: 'contact', label: 'Contact', icon: <CommunicationRegular /> },
+  ];
 
   return (
     <motion.div
@@ -28,67 +52,103 @@ export default function MobileRecruiterDashboard() {
       }}
     >
       {/* App Header */}
-      <div style={{ display: 'flex', alignItems: 'center', padding: '16px', background: 'var(--color-bg-surface)', borderBottom: '1px solid var(--color-border)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', padding: '16px', background: 'var(--color-bg-surface)', borderBottom: '1px solid var(--color-border)', flexShrink: 0 }}>
         <button onClick={closeApp} style={{ background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', padding: '8px' }}>
           <ChevronLeftRegular fontSize={24} />
         </button>
-        <span style={{ fontSize: '18px', fontWeight: 600, marginLeft: '8px' }}>Recruiter Dashboard</span>
+        <span style={{ fontSize: '18px', fontWeight: 600, marginLeft: '8px' }}>Recruiter Pro</span>
       </div>
 
-      {/* Scrollable Content */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        
-        {/* Profile Card */}
-        <div style={{ background: 'var(--color-bg-elevated)', borderRadius: '16px', padding: '24px', textAlign: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' }}>
-          <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'var(--color-accent)', margin: '0 auto 16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '32px', fontWeight: 'bold' }}>SK</div>
-          <h2 style={{ margin: '0 0 4px 0', fontSize: '22px' }}>Soham Kundu</h2>
-          <p style={{ margin: 0, color: 'var(--color-text-secondary)', fontSize: '14px' }}>Full Stack & AI Developer</p>
-          <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center', gap: '12px' }}>
-            <button style={{ padding: '8px 24px', background: 'var(--color-accent)', color: '#fff', border: 'none', borderRadius: '24px', fontWeight: 600 }}>Hire Me</button>
-            <button style={{ padding: '8px 24px', background: 'var(--color-bg-surface-hover)', color: '#fff', border: '1px solid var(--color-border)', borderRadius: '24px', fontWeight: 600 }}>Resume</button>
-          </div>
-        </div>
-
-        {/* Quick Stats */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-          <div style={{ background: 'var(--color-bg-surface)', padding: '16px', borderRadius: '12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <BriefcaseRegular fontSize={24} color="var(--color-accent)" />
-            <span style={{ fontSize: '24px', fontWeight: 700 }}>12+</span>
-            <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>Projects</span>
-          </div>
-          <div style={{ background: 'var(--color-bg-surface)', padding: '16px', borderRadius: '12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <DataPieRegular fontSize={24} color="var(--color-accent)" />
-            <span style={{ fontSize: '24px', fontWeight: 700 }}>35+</span>
-            <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>Skills</span>
-          </div>
-        </div>
-
-        {/* AI Assistant Hook */}
-        <div style={{ background: 'linear-gradient(135deg, rgba(74, 222, 128, 0.2), transparent)', border: '1px solid var(--color-accent)', padding: '20px', borderRadius: '16px', display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
-          <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--color-accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <BotRegular fontSize={24} color="#000" />
-          </div>
-          <div>
-            <h3 style={{ margin: '0 0 8px 0', fontSize: '16px' }}>Ask AI about Soham</h3>
-            <p style={{ margin: '0 0 12px 0', fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>Use the AI Assistant to ask questions about my experience, skills, and projects.</p>
-            <button style={{ padding: '6px 16px', background: 'var(--color-bg-surface)', border: '1px solid var(--color-accent)', color: 'var(--color-text-primary)', borderRadius: '16px', fontSize: '12px', cursor: 'pointer' }}>What is his best project?</button>
-          </div>
-        </div>
-
-        {/* Mobile Projects Feed */}
-        <h3 style={{ margin: '12px 0 0 0', fontSize: '18px' }}>Featured Projects</h3>
-        {['Portfolio OS 2026', 'CampusHub', 'Placement Predictor'].map(proj => (
-          <div key={proj} style={{ background: 'var(--color-bg-elevated)', border: '1px solid var(--color-border)', borderRadius: '16px', padding: '16px' }}>
-            <h4 style={{ margin: '0 0 8px 0', fontSize: '16px' }}>{proj}</h4>
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
-              <span style={{ fontSize: '10px', padding: '4px 8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px' }}>React</span>
-              <span style={{ fontSize: '10px', padding: '4px 8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px' }}>Node.js</span>
-            </div>
-            <button style={{ width: '100%', padding: '8px', background: 'var(--color-bg-surface)', border: '1px solid var(--color-border)', borderRadius: '8px', color: 'var(--color-text-primary)' }}>View Details</button>
-          </div>
+      {/* Tab Navigation (Scrollable horizontal if needed, or fixed) */}
+      <div style={{ display: 'flex', overflowX: 'auto', background: 'var(--color-bg-surface)', borderBottom: '1px solid var(--color-border)', flexShrink: 0, padding: '0 8px' }}>
+        {tabs.map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            style={{
+              padding: '12px 16px',
+              background: 'transparent',
+              border: 'none',
+              borderBottom: activeTab === tab.id ? '2px solid var(--color-accent)' : '2px solid transparent',
+              color: activeTab === tab.id ? 'var(--color-accent)' : 'var(--color-text-secondary)',
+              fontWeight: activeTab === tab.id ? 600 : 400,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            {tab.icon}
+            {tab.label}
+          </button>
         ))}
-        
-        <div style={{ height: '40px' }} /> {/* Padding for bottom nav */}
+      </div>
+
+      {/* Scrollable Content Area */}
+      <div style={{ flex: 1, overflowY: 'auto', position: 'relative' }}>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            style={{ padding: '20px', paddingBottom: '100px' }}
+          >
+            {activeTab === 'overview' && <OverviewTab />}
+            {activeTab === 'projects' && <ProjectsTab />}
+            {activeTab === 'resume' && <ResumeTab />}
+            {activeTab === 'ai' && <AITab />}
+            {activeTab === 'contact' && <ContactTab />}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Sticky Bottom CTA Bar */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        background: 'rgba(15, 15, 26, 0.85)',
+        backdropFilter: 'blur(10px)',
+        borderTop: '1px solid var(--color-border)',
+        padding: '12px 16px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        gap: '12px',
+        zIndex: 10
+      }}>
+        <button style={{
+          flex: 1,
+          padding: '12px',
+          background: 'var(--color-bg-elevated)',
+          border: '1px solid var(--color-border)',
+          borderRadius: '12px',
+          color: 'var(--color-text-primary)',
+          fontWeight: 600,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <ArrowDownloadRegular />
+          Resume
+        </button>
+        <button style={{
+          flex: 1.5,
+          padding: '12px',
+          background: 'var(--color-accent)',
+          border: 'none',
+          borderRadius: '12px',
+          color: '#fff',
+          fontWeight: 600,
+          boxShadow: '0 4px 12px rgba(74, 222, 128, 0.3)'
+        }}>
+          Hire Me
+        </button>
       </div>
     </motion.div>
   );

@@ -27,6 +27,10 @@ import ToastContainer from '../components/desktop/ToastContainer';
 import Window from '../components/desktop/Window';
 import WidgetsPanel from '../components/widgets/WidgetsPanel';
 import AIAssistant from '../components/desktop/AIAssistant';
+import GlobalSearch from '../components/system/GlobalSearch';
+import CommandPalette from '../components/system/CommandPalette';
+import UniversalSpotlight from '../components/system/UniversalSpotlight';
+import PresentationSystem from '../components/desktop/PresentationSystem';
 import VolumeOSD from '../components/system/osd/VolumeOSD';
 import AnimatedWallpaper from '../components/desktop/AnimatedWallpaper';
 import StickyNotesLayer from '../components/desktop/StickyNotesLayer';
@@ -392,6 +396,10 @@ export default function Desktop() {
       <ContextMenu />
 
       {/* AI Assistant Overlay */}
+      {/* System Overlays */}
+      <GlobalSearch />
+      <CommandPalette />
+      <UniversalSpotlight />
       <AIAssistant />
 
       {/* Widgets Panel overlay */}
@@ -405,6 +413,9 @@ export default function Desktop() {
 
       {/* Volume OSD */}
       <VolumeOSD />
+
+      {/* Presentation & Auto Demo Modes */}
+      <PresentationSystem />
 
       {/* Taskbar — always at bottom */}
       <Taskbar />

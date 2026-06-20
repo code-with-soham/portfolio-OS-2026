@@ -5,6 +5,7 @@ import { executeAction } from './actionExecutor';
 import { generateResponse } from './responseGenerator';
 import { INTENTS } from '../training/intents';
 import { useAIAnalyticsStore } from '../../store/useAIAnalyticsStore';
+import { useAnalyticsStore } from '../../store/useAnalyticsStore';
 
 class AIBrain {
   constructor() {
@@ -13,6 +14,12 @@ class AIBrain {
 
   processInput(text) {
     if (!text || text.trim() === '') return { response: "Please say something!", intent: INTENTS.UNKNOWN };
+
+    try {
+      useAnalyticsStore.getState().trackAiQuery();
+    } catch (e) {
+      console.warn('Analytics tracking failed', e);
+    }
 
     const cleanText = text.trim();
     const startTime = Date.now();

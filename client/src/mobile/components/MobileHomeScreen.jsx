@@ -28,6 +28,30 @@ export default function MobileHomeScreen() {
         </div>
       </div>
 
+      {/* Recruiter Mode Widgets */}
+      <div className="mobile-home-widgets">
+        <div className="mobile-widget-card highlight" onClick={() => openApp('recruiter')}>
+          <div className="mobile-widget-icon">👤</div>
+          <h3 className="mobile-widget-title">Recruiter Mode</h3>
+          <p className="mobile-widget-subtitle">Hireable Dashboard</p>
+        </div>
+        <div className="mobile-widget-card" onClick={() => openApp('recruiter', { tab: 'resume' })}>
+          <div className="mobile-widget-icon">📄</div>
+          <h3 className="mobile-widget-title">Resume</h3>
+          <p className="mobile-widget-subtitle">View Profile</p>
+        </div>
+        <div className="mobile-widget-card" onClick={() => openApp('recruiter', { tab: 'projects' })}>
+          <div className="mobile-widget-icon">🚀</div>
+          <h3 className="mobile-widget-title">Best Projects</h3>
+          <p className="mobile-widget-subtitle">Showcase</p>
+        </div>
+        <div className="mobile-widget-card" onClick={() => openApp('recruiter', { tab: 'ai' })}>
+          <div className="mobile-widget-icon">🤖</div>
+          <h3 className="mobile-widget-title">Ask AI</h3>
+          <p className="mobile-widget-subtitle">VS-31 Brain</p>
+        </div>
+      </div>
+
       {/* App Grid */}
       <div className="mobile-app-grid">
         {homeApps.map((appId) => {

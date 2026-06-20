@@ -6,6 +6,12 @@
 
 import { useState } from 'react';
 import AppShell from '../../components/app/AppShell';
+import { 
+  ArrowDownloadRegular, 
+  ShareRegular, 
+  MailRegular 
+} from '@fluentui/react-icons';
+import { useAnalyticsStore } from '../../store/useAnalyticsStore';
 import './ResumeApp.css';
 
 const RESUME_URL = '/Soham_June_Resume_1_Page.pdf';
@@ -14,10 +20,13 @@ export default function ResumeApp() {
   const [showToast, setShowToast] = useState(false);
 
   const handleDownload = () => {
+    try { useAnalyticsStore.getState().trackResumeDownload(); } catch(e){}
     const link = document.createElement('a');
     link.href = RESUME_URL;
     link.download = 'Soham_Kundu_Resume.pdf';
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   };
 
   const handleCopyLink = () => {

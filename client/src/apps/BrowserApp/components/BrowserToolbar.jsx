@@ -19,8 +19,9 @@ export default function BrowserToolbar() {
   const activeTab = tabs.find(t => t.id === activeTabId);
   const [urlInput, setUrlInput] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [githubProfile, setGithubProfile] = useState(null);
   const menuRef = useRef(null);
+  
+  const { data: githubProfile, fetchData } = useGitHubStore();
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -41,11 +42,8 @@ export default function BrowserToolbar() {
   }, [activeTabId, tabs]);
 
   useEffect(() => {
-    fetch('https://api.github.com/users/code-with-soham')
-      .then(res => res.json())
-      .then(data => setGithubProfile(data))
-      .catch(console.error);
-  }, []);
+    fetchData();
+  }, [fetchData]);
 
   const handleUrlSubmit = (e) => {
     e.preventDefault();
@@ -130,7 +128,7 @@ export default function BrowserToolbar() {
             setIsMenuOpen(!isMenuOpen);
           }}
         >
-          {githubProfile?.avatar_url ? <img src={githubProfile.avatar_url} alt="Profile" /> : <PersonRegular />}
+          {githubProfile?.avatar ? <img src={githubProfile.avatar} alt="Profile" /> : <PersonRegular />}
         </div>
         <button className="chrome-toolbar-btn" onClick={(e) => { e.stopPropagation(); setIsMenuOpen(!isMenuOpen); }}>
           <MoreVerticalRegular />
@@ -140,12 +138,12 @@ export default function BrowserToolbar() {
           <div className="chrome-menu-dropdown" onClick={(e) => e.stopPropagation()}>
             {githubProfile && (
               <div style={{ padding: '8px 16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <img src={githubProfile.avatar_url} style={{ width: 40, height: 40, borderRadius: '50%' }} alt="Avatar" />
+                <img src={githubProfile.avatar} style={{ width: 40, height: 40, borderRadius: '50%' }} alt="Avatar" />
                 <div>
-                  <div style={{ fontWeight: '500', fontSize: '14px', color: 'var(--chrome-text)' }}>{githubProfile.name || 'Soham Kundu'}</div>
-                  <div style={{ fontSize: '12px', color: 'var(--chrome-text-secondary)' }}>@{githubProfile.login}</div>
+                  <div style={{ fontWeight: '500', fontSize: '14px', color: 'var(--chrome-text)' }}>{githubProfile.name}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--chrome-text-secondary)' }}>@code-with-soham</div>
                   <div style={{ fontSize: '11px', color: 'var(--chrome-text-secondary)', marginTop: '2px' }}>
-                    {githubProfile.followers} Followers • {githubProfile.public_repos} Repos
+                    {githubProfile.followers} Followers • {githubProfile.publicRepos} Repos
                   </div>
                 </div>
               </div>

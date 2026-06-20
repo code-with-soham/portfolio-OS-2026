@@ -16,6 +16,8 @@ import BottomPanel from './components/BottomPanel';
 import StatusBar from './components/StatusBar';
 import ProfileSidebar from './components/ProfileSidebar';
 import { SearchRegular } from '@fluentui/react-icons';
+import { useGitHubStore } from '../../store/useGitHubStore';
+import { usePresentationStore } from '../../store/usePresentationStore';
 import './VSCodeApp.css';
 import vscodeIco from '../../assets/icons/apps/vscode.svg';
 
@@ -168,35 +170,22 @@ export default function VSCodeApp({ project }) {
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    if (activeFile === '.github/profile.json' && !githubData) {
-      const cached = localStorage.getItem('vscode.github_json_cache');
-      const cachedTime = localStorage.getItem('vscode.github_json_timestamp');
-      if (cached && cachedTime && (Date.now() - parseInt(cachedTime)) < 24 * 60 * 60 * 1000) {
-        setGithubData(cached);
-        return;
-      }
+  const { data: storeGithubData, fetchData: fetchGlobalGithubData } = useGitHubStore();
 
-      Promise.all([
-        fetch('https://api.github.com/users/code-with-soham').then(res => res.json()),
-        fetch('https://api.github.com/users/code-with-soham/repos?per_page=100').then(res => res.json())
-      ])
-        .then(([user, repos]) => {
-          const stars = Array.isArray(repos) ? repos.reduce((acc, repo) => acc + repo.stargazers_count, 0) : 0;
-          const data = {
-            followers: user.followers || 0,
-            following: user.following || 0,
-            repos: user.public_repos || 0,
-            stars: stars
-          };
-          const jsonStr = JSON.stringify(data, null, 2);
-          setGithubData(jsonStr);
-          localStorage.setItem('vscode.github_json_cache', jsonStr);
-          localStorage.setItem('vscode.github_json_timestamp', Date.now().toString());
-        })
-        .catch(() => setGithubData('{\n  "error": "Failed to fetch GitHub profile"\n}'));
+  useEffect(() => {
+    if (activeFile === '.github/profile.json') {
+      if (!storeGithubData) {
+        fetchGlobalGithubData();
+      } else {
+        const formattedData = {
+          followers: storeGithubData.followers || 0,
+          following: storeGithubData.following || 0,
+          repos: storeGithubData.publicRepos || 0,
+        };
+        setGithubData(JSON.stringify(formattedData, null, 2));
+      }
     }
-  }, [activeFile, githubData]);
+  }, [activeFile, storeGithubData, fetchGlobalGithubData]);
 
   const addNotification = (msg) => {
     const id = Date.now();
@@ -663,9 +652,25 @@ export default function VSCodeApp({ project }) {
     }
 
     if (fileToRender === 'about/README.md') {
+      const isHighlight = usePresentationStore.getState().activeMode === 'PRESENTATION' 
+        && usePresentationStore.getState().currentStep === 4;
+
       return (
         <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%', height: '100%', overflowY: 'auto', backgroundColor: '#0d1117', color: '#c9d1d9' }}>
-          <div className="vscode-markdown github-style" style={{ flex: 1, minWidth: '350px', padding: '20px' }}>
+          <div 
+            className="vscode-markdown github-style" 
+            style={{ 
+              flex: 1, 
+              minWidth: '350px', 
+              padding: '20px',
+              ...(isHighlight ? { boxShadow: 'inset 0 0 0 4px var(--color-accent)' } : {})
+            }}
+          >
+            {isHighlight && (
+              <div style={{ padding: '12px', background: 'rgba(80, 227, 194, 0.1)', color: 'var(--color-accent)', borderBottom: '1px solid var(--color-accent)', fontWeight: 600, marginBottom: '16px' }}>
+                Highlighting: Architecture, Features, Tech Stack (Mocked view)
+              </div>
+            )}
             <ReactMarkdown rehypePlugins={[rehypeRaw]}>{finalContent}</ReactMarkdown>
           </div>
           <ProfileSidebar />

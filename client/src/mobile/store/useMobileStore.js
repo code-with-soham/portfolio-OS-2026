@@ -7,6 +7,7 @@ export const useMobileStore = create(
       // Navigation
       activeApp: null, // null means Home Screen
       activeTab: 'home', // For bottom nav: home, apps, search, ai, profile
+      appArgs: null, // Store arguments for the active app
       
       // Overlays
       isLocked: true,
@@ -21,8 +22,8 @@ export const useMobileStore = create(
       cellularSignal: 4, // 0-4
       
       // Actions
-      openApp: (appId) => set({ activeApp: appId, isAppDrawerOpen: false }),
-      closeApp: () => set({ activeApp: null }),
+      openApp: (appId, args = null) => set({ activeApp: appId, appArgs: args, isAppDrawerOpen: false }),
+      closeApp: () => set({ activeApp: null, appArgs: null }),
       
       setBottomNavTab: (tab) => set({ activeTab: tab, activeApp: null }),
       

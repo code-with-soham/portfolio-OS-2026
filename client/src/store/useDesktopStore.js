@@ -73,19 +73,29 @@ export const useDesktopStore = create(
   // ========================
   // AI Assistant
   // ========================
+  // Global Overlays (VS-33)
+  isGlobalSearchOpen: false,
+  toggleGlobalSearch: () => set((state) => ({ isGlobalSearchOpen: !state.isGlobalSearchOpen, isStartMenuOpen: false })),
+  closeGlobalSearch: () => set({ isGlobalSearchOpen: false }),
 
+  isCommandPaletteOpen: false,
+  toggleCommandPalette: () => set((state) => ({ isCommandPaletteOpen: !state.isCommandPaletteOpen })),
+  closeCommandPalette: () => set({ isCommandPaletteOpen: false }),
+
+  isUniversalSpotlightOpen: false,
+  toggleUniversalSpotlight: () => set((state) => ({ isUniversalSpotlightOpen: !state.isUniversalSpotlightOpen })),
+  closeUniversalSpotlight: () => set({ isUniversalSpotlightOpen: false }),
+
+  // AI Assistant
   isAIAssistantOpen: false,
-
   toggleAIAssistant: () => {
     const isOpen = get().isAIAssistantOpen;
-    set({
-      isAIAssistantOpen: !isOpen,
-      isStartMenuOpen: false,
-      isNotificationCenterOpen: false,
-      isQuickSettingsOpen: false,
+    set({ 
+      isAIAssistantOpen: !isOpen, 
+      isStartMenuOpen: false, 
+      isNotificationCenterOpen: false 
     });
   },
-
   closeAIAssistant: () => set({ isAIAssistantOpen: false }),
 
   // ========================

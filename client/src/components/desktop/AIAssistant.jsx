@@ -33,6 +33,23 @@ export default function AIAssistant() {
     }
   }, [messages]);
 
+  // Handle auto query (from Presentation Mode)
+  useEffect(() => {
+    const handleAutoQuery = (e) => {
+      const q = e.detail;
+      const userMessage = { role: 'user', text: q };
+      setMessages(prev => [...prev, userMessage]);
+      setIsLoading(true);
+      setTimeout(() => {
+         const result = aiBrain.processInput(q);
+         setMessages(prev => [...prev, { role: 'assistant', text: result.response }]);
+         setIsLoading(false);
+      }, 1500);
+    };
+    window.addEventListener('AI_AUTO_QUERY', handleAutoQuery);
+    return () => window.removeEventListener('AI_AUTO_QUERY', handleAutoQuery);
+  }, []);
+
   // No need to fetch data here anymore, aiBrain has it bundled.
 
   const handleQuery = async () => {

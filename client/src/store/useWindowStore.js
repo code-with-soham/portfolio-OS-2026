@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { APPS } from '../config/apps';
+import { useAnalyticsStore } from './useAnalyticsStore';
 
 /**
  * Generates a unique ID for a new window instance
@@ -32,6 +33,9 @@ export const useWindowStore = create(
        */
       openWindow: (appId, props = {}) => {
         const { windows } = get();
+        
+        // Track analytics
+        useAnalyticsStore.getState().trackAppOpen(appId);
         
         // Track achievements
         import('./useAchievementStore').then(({ useAchievementStore }) => {

@@ -10,6 +10,8 @@ import { projectService } from '../../services/projectService';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useUIStore } from '../../store/useUIStore';
 import { useWindowStore } from '../../store/useWindowStore';
+import { useAnalyticsStore } from '../../store/useAnalyticsStore';
+import { usePresentationStore } from '../../store/usePresentationStore';
 import AppShell from '../../components/app/AppShell';
 import './ProjectsApp.css';
 
@@ -99,8 +101,20 @@ export default function ProjectsApp() {
         {/* Project Cards */}
         {filtered.length > 0 ? (
           <div className="projects-grid">
-            {filtered.map((project) => (
-              <div key={project.id} className="project-card">
+            {filtered.map((project) => {
+              const isHighlight = usePresentationStore.getState().activeMode === 'PRESENTATION' 
+                && usePresentationStore.getState().currentStep === 3 
+                && project.title === 'Portfolio OS 2026';
+
+              return (
+              <div 
+                key={project.id} 
+                className="project-card" 
+                style={isHighlight ? { boxShadow: '0 0 15px var(--color-accent)' } : {}}
+                onClick={() => {
+                  try { useAnalyticsStore.getState().trackProjectView(project.id); } catch(e){}
+                }}
+              >
                 <div className="project-card-header">
                   <h3 className="project-card-title">{project.title}</h3>
                   <div className="project-card-badges">

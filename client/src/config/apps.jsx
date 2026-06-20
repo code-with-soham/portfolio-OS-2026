@@ -32,6 +32,7 @@ const PaintApp = lazy(() => import('../apps/PaintApp/index'));
 const DeveloperDashboardApp = lazy(() => import('../apps/DeveloperDashboardApp/index'));
 const AIDashboardApp = lazy(() => import('../apps/AIDashboardApp/index'));
 const RecruiterApp = lazy(() => import('../apps/RecruiterApp/index'));
+const AnalyticsCenterApp = lazy(() => import('../apps/AnalyticsCenterApp/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -328,5 +329,16 @@ export const APPS = {
     version: '1.0.0',
     description: 'Exclusive Recruiter Workspace',
     hideTitleBar: false,
+  },
+  analytics: {
+    id: 'analytics',
+    title: 'Analytics Center',
+    icon: infoIco,
+    component: withErrorBoundary(AnalyticsCenterApp, 'Analytics Center'),
+    defaultWidth: 900,
+    defaultHeight: 650,
+    category: 'System',
+    version: '1.0.0',
+    description: 'Real-time telemetry and metrics',
   },
 };

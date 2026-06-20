@@ -13,6 +13,7 @@ import {
 } from '@fluentui/react-icons';
 import './RecruiterApp.css';
 import { useThemeStore } from '../../store/useThemeStore';
+import { usePresentationStore, MODE_F9_PRESENTATION } from '../../store/usePresentationStore';
 
 const TABS = [
   { id: 'overview', label: 'Overview', icon: <PersonRegular /> },
@@ -78,6 +79,7 @@ export default function RecruiterApp() {
   const [aiQuery, setAiQuery] = useState('');
   const [aiResponse, setAiResponse] = useState('');
   const { accentColor } = useThemeStore();
+  const { activeMode, currentStep } = usePresentationStore();
 
   const handleGenerateReport = () => {
     setReport(null);
@@ -312,11 +314,11 @@ Strong candidate for Full Stack / Frontend roles. Proceed to Technical Interview
             <div className="recruiter-stat-value"><AnimatedCounter value={12} />+</div>
             <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>Projects</div>
           </div>
-          <div className="recruiter-stat-card">
+          <div className="recruiter-stat-card" style={activeMode === MODE_F9_PRESENTATION && currentStep === 2 ? { boxShadow: '0 0 15px var(--color-accent)' } : {}}>
             <div className="recruiter-stat-value"><AnimatedCounter value={35} />+</div>
             <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>Skills</div>
           </div>
-          <div className="recruiter-stat-card">
+          <div className="recruiter-stat-card" style={activeMode === MODE_F9_PRESENTATION && currentStep === 2 ? { boxShadow: '0 0 15px var(--color-accent)' } : {}}>
             <div className="recruiter-stat-value"><AnimatedCounter value={15} />+</div>
             <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>Achievements</div>
           </div>
@@ -331,6 +333,7 @@ Strong candidate for Full Stack / Frontend roles. Proceed to Technical Interview
             <button 
               key={tab.id}
               className={`recruiter-nav-item ${activeTab === tab.id ? 'active' : ''}`}
+              style={activeMode === MODE_F9_PRESENTATION && currentStep === 2 && (tab.id === 'projects' || tab.id === 'overview') ? { boxShadow: '0 0 15px var(--color-accent)' } : {}}
               onClick={() => setActiveTab(tab.id)}
             >
               {tab.icon} {tab.label}

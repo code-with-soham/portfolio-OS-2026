@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useGitHubStore } from '../../store/useGitHubStore';
 
 export default function GitHubWidget() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { data: stats, isLoading, fetchData } = useGitHubStore();
 
   useEffect(() => {
-    fetch('https://api.github.com/users/code-with-soham')
-      .then(res => res.json())
-      .then(json => {
-        setData(json);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  }, []);
+    fetchData();
+  }, [fetchData]);
+
+  if (isLoading || !stats) {
+    return (
+      <div style={{ padding: '16px', background: 'var(--color-bg-elevated)', borderRadius: '12px', height: '100%' }}>
+        Loading GitHub Stats...
+      </div>
+    );
+  }
 
   return (
     <motion.div
@@ -34,7 +34,7 @@ export default function GitHubWidget() {
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <img
-          src={data?.avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'}
+          src={stats?.avatar || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'}
           alt="GitHub Avatar"
           style={{ width: '48px', height: '48px', borderRadius: '50%' }}
         />
@@ -44,18 +44,16 @@ export default function GitHubWidget() {
         </div>
       </div>
 
-      {!loading && data && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '8px' }}>
-          <div style={{ background: 'var(--color-bg-surface-hover)', padding: '12px', borderRadius: 'var(--radius-md)', textAlign: 'center' }}>
-            <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--color-text-primary)' }}>{data.followers || 0}</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Followers</div>
-          </div>
-          <div style={{ background: 'var(--color-bg-surface-hover)', padding: '12px', borderRadius: 'var(--radius-md)', textAlign: 'center' }}>
-            <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--color-text-primary)' }}>{data.public_repos || 0}</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Repositories</div>
-          </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '8px' }}>
+        <div style={{ background: 'var(--color-bg-surface-hover)', padding: '12px', borderRadius: 'var(--radius-md)', textAlign: 'center' }}>
+          <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--color-text-primary)' }}>{stats?.followers || 0}</div>
+          <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Followers</div>
         </div>
-      )}
+        <div style={{ background: 'var(--color-bg-surface-hover)', padding: '12px', borderRadius: 'var(--radius-md)', textAlign: 'center' }}>
+          <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--color-text-primary)' }}>{stats?.publicRepos || 0}</div>
+          <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Repositories</div>
+        </div>
+      </div>
     </motion.div>
   );
 }
