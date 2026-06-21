@@ -34,6 +34,8 @@ const AIDashboardApp = lazy(() => import('../apps/AIDashboardApp/index'));
 const RecruiterApp = lazy(() => import('../apps/RecruiterApp/index'));
 const AnalyticsCenterApp = lazy(() => import('../apps/AnalyticsCenterApp/index'));
 const ArchitectureApp = lazy(() => import('../apps/ArchitectureApp/index'));
+const PortfolioHealthApp = lazy(() => import('../apps/PortfolioHealthApp/index'));
+const WeatherApp = lazy(() => import('../apps/WeatherApp/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -352,5 +354,38 @@ export const APPS = {
     category: 'Showcase',
     version: '1.0.0',
     description: 'Visualizing the OS layers',
+  },
+  portfoliohealth: {
+    id: 'portfoliohealth',
+    title: 'Portfolio Health',
+    icon: infoIco, // Or a health icon
+    component: withErrorBoundary(PortfolioHealthApp, 'Portfolio Health'),
+    defaultWidth: 900,
+    defaultHeight: 700,
+    category: 'Showcase',
+    version: '1.0.0',
+    description: 'Real-time Portfolio Analysis',
+  },
+  weather: {
+    id: 'weather',
+    title: 'Weather Pro',
+    icon: '☀️',
+    component: withErrorBoundary(WeatherApp, 'Weather Pro'),
+    defaultWidth: 1000,
+    defaultHeight: 750,
+    category: 'System',
+    version: '2.0.0',
+    description: 'Premium live weather radar and forecast',
+  },
+  voicecenter: {
+    id: 'voicecenter',
+    title: 'Voice Center',
+    icon: '🎤', // Using emoji for now, or could use terminal/info icon
+    component: withErrorBoundary(lazy(() => import('../apps/VoiceCenterApp/index')), 'Voice Center'),
+    defaultWidth: 800,
+    defaultHeight: 600,
+    category: 'System',
+    version: '1.0.0',
+    description: 'VS-36 AI Voice Copilot History',
   },
 };

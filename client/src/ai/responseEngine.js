@@ -3,6 +3,7 @@ import { knowledgeBase } from './knowledgeBase';
 import { knowledgeGraph } from './knowledgeGraph';
 import { semanticSearch } from './fuzzyMatcher';
 import { RECRUITER_ANSWERS } from './recruiterQuestions';
+import { useWeatherStore } from '../store/useWeatherStore';
 
 export function generateResponse(intentData, text, context) {
   const { intent, confidence, entities } = intentData;
@@ -98,6 +99,23 @@ export function generateResponse(intentData, text, context) {
 
     case INTENTS.OPEN_APP:
       return `[SYSTEM_COMMAND: OPEN_APP]`;
+
+    case INTENTS.WEATHER_QUERY:
+      const { currentWeather, dailyForecast } = useWeatherStore.getState();
+      if (!currentWeather) {
+        return "I'm currently fetching the latest satellite data. Please ask again in a moment!";
+      }
+      
+      const isRainy = currentWeather.condition.toLowerCase().includes('rain') || currentWeather.condition.toLowerCase().includes('drizzle');
+      let advice = isRainy 
+        ? "Yes, you should definitely carry an umbrella today!" 
+        : "It looks like a great day to be outside. No umbrella needed!";
+        
+      if (dailyForecast && dailyForecast.length > 0) {
+        advice += ` The high today will be ${dailyForecast[0].high}°C and the low will be ${dailyForecast[0].low}°C.`;
+      }
+      
+      return `It is currently **${currentWeather.temp}°C** and **${currentWeather.description}** in ${currentWeather.city}.\n\n${advice}`;
 
     case INTENTS.HELP:
       return `I am the Portfolio AI Expert Brain. Try asking me:\n- "What is Portfolio OS?"\n- "Why should we hire you?"\n- "What are your strengths?"\n- "Tell me about campusHub"\n- "What backend technologies do you know?"`;

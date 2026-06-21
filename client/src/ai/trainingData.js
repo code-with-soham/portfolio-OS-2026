@@ -121,5 +121,13 @@ export const trainingData = [
   { text: "what is your strongest frontend skill", intent: INTENTS.SKILL_RECOMMENDATION },
   { text: "strongest skill", intent: INTENTS.SKILL_RECOMMENDATION },
   { text: "best skill", intent: INTENTS.SKILL_RECOMMENDATION },
-  { text: "what backend technologies do you know", intent: INTENTS.SKILL_RECOMMENDATION }
+  { text: "what backend technologies do you know", intent: INTENTS.SKILL_RECOMMENDATION },
+
+  // WEATHER INTENT
+  { text: "will it rain today", intent: INTENTS.WEATHER_QUERY },
+  { text: "weather tomorrow", intent: INTENTS.WEATHER_QUERY },
+  { text: "should i carry an umbrella", intent: INTENTS.WEATHER_QUERY },
+  { text: "best time to go outside", intent: INTENTS.WEATHER_QUERY },
+  { text: "what is the weather like", intent: INTENTS.WEATHER_QUERY },
+  { text: "weather forecast", intent: INTENTS.WEATHER_QUERY }
 ];

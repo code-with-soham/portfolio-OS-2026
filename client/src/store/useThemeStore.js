@@ -62,6 +62,7 @@ export const useThemeStore = create(
       wallpaperSlideshow: false,
       slideshowInterval: 60, // minutes (e.g. 1, 5, 30)
       accentColor: '#0078d4',
+      brightness: 100,
 
       /**
        * Set a custom wallpaper
@@ -81,6 +82,7 @@ export const useThemeStore = create(
       setSlideshowInterval: (mins) => set({ slideshowInterval: mins }),
       setAccentColor: (color) => set({ accentColor: color }),
       setAnimatedWallpaper: (type) => set({ animatedWallpaper: type }),
+      setBrightness: (val) => set({ brightness: val }),
     }),
     {
       // Persist config — saves to localStorage
@@ -93,6 +95,7 @@ export const useThemeStore = create(
         wallpaperSlideshow: state.wallpaperSlideshow,
         slideshowInterval: state.slideshowInterval,
         accentColor: state.accentColor,
+        brightness: state.brightness,
       }),
     }
   )

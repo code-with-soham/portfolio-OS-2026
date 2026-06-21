@@ -109,7 +109,7 @@ const COMMANDS = [
   { id: 'theme-vsdark', label: 'Theme: Dark+', category: 'Theme' },
 ];
 
-export default function VSCodeApp({ project }) {
+export default function VSCodeApp({ project, initialFile }) {
   const [activeFile, setActiveFile] = useState(() => localStorage.getItem('vscode.activeFile') || 'about/README.md');
   const [openFiles, setOpenFiles] = useState(() => {
     const saved = localStorage.getItem('vscode.openFiles');
@@ -145,7 +145,14 @@ export default function VSCodeApp({ project }) {
       }
       setActiveFile('projects/portfolio.db');
     }
-  }, [project]);
+    if (initialFile) {
+      setOpenFiles(prev => {
+        if (!prev.includes(initialFile)) return [...prev, initialFile];
+        return prev;
+      });
+      setActiveFile(initialFile);
+    }
+  }, [project, initialFile]);
 
   const handleContextMenu = (e, path) => {
     e.preventDefault();

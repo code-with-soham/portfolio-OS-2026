@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LockClosedRegular } from '@fluentui/react-icons';
+import { useWeatherStore } from '../../store/useWeatherStore';
 
 export default function MobileLockScreen({ onUnlock }) {
   const [isUnlocking, setIsUnlocking] = useState(false);
@@ -45,6 +46,18 @@ export default function MobileLockScreen({ onUnlock }) {
           <p style={{ fontSize: '18px', fontWeight: 500 }}>
             {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
           </p>
+
+          {useWeatherStore.getState().currentWeather && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '12px', fontSize: '16px' }}>
+              <img 
+                src={`https://openweathermap.org/img/wn/${useWeatherStore.getState().currentWeather.icon}.png`} 
+                alt="weather" 
+                style={{ width: '24px', height: '24px' }} 
+              />
+              <span>{useWeatherStore.getState().currentWeather.temp}°C</span>
+              <span style={{ textTransform: 'capitalize' }}>• {useWeatherStore.getState().currentWeather.condition}</span>
+            </div>
+          )}
 
           <div style={{ marginTop: 'auto', marginBottom: '60px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', opacity: 0.8 }}>
             <motion.div 

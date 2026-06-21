@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import LayerNode from './components/LayerNode';
 import DetailsPanel from './components/DetailsPanel';
 import architectureData from '../../ai/knowledge/architecture.json';
+import metricsData from '../../data/metrics.json';
 import { PlayRegular, StopRegular } from '@fluentui/react-icons';
 
 export default function ArchitectureApp() {
@@ -88,10 +89,11 @@ export default function ArchitectureApp() {
       {/* Bottom Metrics Bar */}
       <div style={{ padding: '16px 32px', background: 'var(--color-bg-elevated)', borderTop: '1px solid var(--color-border)', display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: 'var(--color-text-secondary)', alignItems: 'center' }}>
         <div style={{ display: 'flex', gap: '32px' }}>
-          <span><strong style={{ color: 'var(--color-text-primary)' }}>40+</strong> Applications & Components</span>
-          <span><strong style={{ color: 'var(--color-text-primary)' }}>20+</strong> Zustand Stores</span>
-          <span><strong style={{ color: 'var(--color-text-primary)' }}>100+</strong> React Components</span>
-          <span><strong style={{ color: 'var(--color-text-primary)' }}>30+</strong> Keyboard Shortcuts</span>
+          <span><strong style={{ color: 'var(--color-text-primary)' }}>{metricsData.apps || '20+'}</strong> Applications & Components</span>
+          <span><strong style={{ color: 'var(--color-text-primary)' }}>{metricsData.stores || '20+'}</strong> Zustand Stores</span>
+          <span><strong style={{ color: 'var(--color-text-primary)' }}>{metricsData.components || '100+'}</strong> React Components</span>
+          <span><strong style={{ color: 'var(--color-text-primary)' }}>{metricsData.shortcuts || '30+'}</strong> Keyboard Shortcuts</span>
+          <span><strong style={{ color: 'var(--color-text-primary)' }}>{metricsData.aiIntents || '50+'}</strong> AI Intents</span>
         </div>
         <div style={{ fontWeight: 500, color: 'var(--color-text-primary)' }}>
           <span>Desktop + Mobile + PWA + AI Brain Integrated</span>

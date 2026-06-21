@@ -63,6 +63,15 @@ export function useKeyboardShortcuts() {
         return;
       }
 
+      // Ctrl + Shift + V to toggle Voice Assistant (VS-36)
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'v') {
+        e.preventDefault();
+        import('../ai/voice/voiceController').then(({ voiceController }) => {
+          voiceController.toggleListening();
+        });
+        return;
+      }
+
       // Win + Space to open AI Assistant
       if ((e.metaKey || e.key === 'Meta') && e.code === 'Space') {
         e.preventDefault();

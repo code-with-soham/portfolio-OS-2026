@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useThemeStore } from '../store/useThemeStore';
+import { useWeatherStore } from '../store/useWeatherStore';
+import { useWindowStore } from '../store/useWindowStore';
 import { 
   WeatherSunnyRegular, 
   WeatherMoonRegular, 
@@ -15,40 +17,17 @@ import {
 
 export default function WeatherProWidget() {
   const { accentColor } = useThemeStore();
-  const [weatherData, setWeatherData] = useState(null);
-  const [error, setError] = useState(false);
+  const { currentWeather, dailyForecast, loading, fetchWeather } = useWeatherStore();
+  const { openWindow } = useWindowStore();
 
   useEffect(() => {
-    let isMounted = true;
-
-    const fetchWeather = async () => {
-      try {
-        const res = await fetch('http://localhost:5000/api/weather?city=Kolkata');
-        if (!res.ok) throw new Error('Network response was not ok');
-        const data = await res.json();
-        if (isMounted) {
-          setWeatherData(data);
-          setError(false);
-        }
-      } catch (err) {
-        console.error('Error fetching weather:', err);
-        if (isMounted) setError(true);
-      }
-    };
-
     fetchWeather();
-    const interval = setInterval(fetchWeather, 300000); // 5 minutes
-    
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
-  }, []);
+  }, [fetchWeather]);
 
   const getBackgroundGradient = () => {
-    if (!weatherData) return 'rgba(20, 20, 20, 0.65)';
-    const condition = weatherData.condition.toLowerCase();
-    const isNight = weatherData.icon.includes('n');
+    if (!currentWeather) return 'rgba(20, 20, 20, 0.65)';
+    const condition = currentWeather.condition.toLowerCase();
+    const isNight = currentWeather.icon.includes('n');
 
     if (isNight) return 'linear-gradient(135deg, rgba(10, 15, 40, 0.8), rgba(20, 20, 20, 0.9))'; // Night
     if (condition.includes('rain') || condition.includes('drizzle')) return 'linear-gradient(135deg, rgba(30, 60, 114, 0.8), rgba(42, 82, 152, 0.9))'; // Rain
@@ -79,10 +58,10 @@ export default function WeatherProWidget() {
   };
 
   const handleOpenApp = () => {
-    console.log("Opening full weather app...");
+    openWindow('weather');
   };
 
-  if (!weatherData) {
+  if (loading || !currentWeather) {
     return (
       <div className="widget-card weather-pro-widget" style={{ width: '340px', padding: '20px', background: 'rgba(20, 20, 20, 0.65)', borderRadius: '20px', color: '#fff' }}>
         Loading Weather...
@@ -116,20 +95,20 @@ export default function WeatherProWidget() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: 600, opacity: 0.9 }}>
-            <LocationRegular /> {weatherData.city}, {weatherData.country}
+            <LocationRegular /> {currentWeather.city}, {currentWeather.country}
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '4px' }}>
-            <span style={{ fontSize: '42px', fontWeight: 'bold' }}>{weatherData.temperature}°C</span>
+            <span style={{ fontSize: '42px', fontWeight: 'bold' }}>{currentWeather.temp}°C</span>
           </div>
           <div style={{ fontSize: '14px', fontWeight: 500, marginTop: '-4px' }}>
-            {weatherData.condition}
+            {currentWeather.condition}
           </div>
           <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
-            Feels Like {weatherData.feelsLike}°C
+            Feels Like {currentWeather.feelsLike}°C
           </span>
         </div>
         <div style={{ padding: '8px' }}>
-          {getWeatherIcon(weatherData.condition, weatherData.icon, { fontSize: '56px' })}
+          {getWeatherIcon(currentWeather.condition, currentWeather.icon, { fontSize: '56px' })}
         </div>
       </div>
 
@@ -138,7 +117,7 @@ export default function WeatherProWidget() {
           <DropRegular fontSize="20px" color={accentColor} />
           <div>
             <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)' }}>Humidity</div>
-            <div style={{ fontSize: '14px', fontWeight: 600 }}>{weatherData.humidity}%</div>
+            <div style={{ fontSize: '14px', fontWeight: 600 }}>{currentWeather.humidity}%</div>
           </div>
         </div>
         <div style={{ width: '1px', background: 'rgba(255,255,255,0.1)' }} />
@@ -146,17 +125,17 @@ export default function WeatherProWidget() {
           <WeatherFogRegular fontSize="20px" color={accentColor} />
           <div>
             <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)' }}>Wind</div>
-            <div style={{ fontSize: '14px', fontWeight: 600 }}>{weatherData.wind} km/h</div>
+            <div style={{ fontSize: '14px', fontWeight: 600 }}>{currentWeather.windSpeed} km/h</div>
           </div>
         </div>
       </div>
 
-      {weatherData.forecast && weatherData.forecast.length > 0 && (
+      {dailyForecast && dailyForecast.length > 0 && (
         <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 4px 4px 4px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-          {weatherData.forecast.map((day, idx) => (
+          {dailyForecast.slice(1, 5).map((day, idx) => (
             <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
               <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>{day.day}</span>
-              <span style={{ fontSize: '14px', fontWeight: 600 }}>{day.temp}°</span>
+              <span style={{ fontSize: '14px', fontWeight: 600 }}>{day.high}°</span>
             </div>
           ))}
         </div>
@@ -164,7 +143,7 @@ export default function WeatherProWidget() {
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px' }}>
         <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)' }}>
-          Updated {getRelativeTime(weatherData.updatedAt)}
+          Live Weather Sync
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 600, color: 'rgba(255,255,255,0.9)' }}>
           <motion.div 

@@ -1,6 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { useWindowStore } from '../../../store/useWindowStore';
+import { ArrowRightRegular } from '@fluentui/react-icons';
 
 export default function DetailsPanel({ activeLayer }) {
+  const { openWindow } = useWindowStore();
+
   if (!activeLayer) {
     return (
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-secondary)' }}>
@@ -51,10 +55,36 @@ export default function DetailsPanel({ activeLayer }) {
           <h3 style={{ fontSize: '14px', textTransform: 'uppercase', color: 'var(--color-text-secondary)', margin: '0 0 12px 0', letterSpacing: '1px' }}>Key Files</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {activeLayer.keyFiles.map((f, i) => (
-              <code key={i} style={{ padding: '12px', background: 'var(--color-bg-base)', borderRadius: '8px', fontSize: '14px', color: 'var(--color-accent)', border: '1px solid var(--color-border)', fontFamily: 'monospace', fontWeight: 500 }}>{f}</code>
+              <code 
+                key={i} 
+                onClick={() => openWindow('vscode', { initialFile: f })}
+                className="architecture-file-link"
+                style={{ 
+                  padding: '12px', background: 'var(--color-bg-base)', borderRadius: '8px', 
+                  fontSize: '14px', color: 'var(--color-accent)', border: '1px solid var(--color-border)', 
+                  fontFamily: 'monospace', fontWeight: 500, cursor: 'pointer', transition: 'all 0.2s'
+                }}
+              >
+                {f}
+              </code>
             ))}
           </div>
         </div>
+
+        {activeLayer.id === 'intelligence' && (
+          <div>
+            <h3 style={{ fontSize: '14px', textTransform: 'uppercase', color: 'var(--color-text-secondary)', margin: '0 0 12px 0', letterSpacing: '1px' }}>Dependency Graph</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', padding: '24px', background: 'var(--color-bg-elevated)', borderRadius: '12px', border: '1px solid var(--color-border)' }}>
+              <div style={{ padding: '12px 20px', background: 'var(--color-bg-base)', borderRadius: '8px', fontWeight: 600, border: '1px solid var(--color-border)' }}>AI Brain</div>
+              <ArrowRightRegular fontSize={24} style={{ color: 'var(--color-text-secondary)' }} />
+              <div style={{ padding: '12px 20px', background: 'var(--color-bg-base)', borderRadius: '8px', fontWeight: 600, border: '1px solid var(--color-border)' }}>Knowledge Base</div>
+              <ArrowRightRegular fontSize={24} style={{ color: 'var(--color-text-secondary)' }} />
+              <div style={{ padding: '12px 20px', background: 'var(--color-bg-base)', borderRadius: '8px', fontWeight: 600, border: '1px solid var(--color-border)' }}>Context Manager</div>
+              <ArrowRightRegular fontSize={24} style={{ color: 'var(--color-text-secondary)' }} />
+              <div style={{ padding: '12px 20px', background: 'var(--color-bg-base)', borderRadius: '8px', fontWeight: 600, border: '1px solid var(--color-border)' }}>Action Executor</div>
+            </div>
+          </div>
+        )}
       </motion.div>
     </AnimatePresence>
   );

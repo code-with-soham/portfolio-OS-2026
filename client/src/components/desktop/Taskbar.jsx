@@ -30,6 +30,7 @@ import {
 } from '@fluentui/react-icons';
 import { useMusicStore } from '../../store/useMusicStore';
 import { useSystemAudioStore } from '../../store/useSystemAudioStore';
+import { useWeatherStore } from '../../store/useWeatherStore';
 
 /**
  * Taskbar icon button — reusable for all tray icons
@@ -143,6 +144,9 @@ export default function Taskbar() {
       });
     }
 
+    // Weather Fetch on Mount
+    useWeatherStore.getState().fetchWeather();
+
     return () => {
       if (batteryPromise) {
         batteryPromise.then(cleanup => {
@@ -224,9 +228,38 @@ export default function Taskbar() {
       {/* Left section */}
       <div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
         {showWeather && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0 12px', color: 'var(--color-text-secondary)', fontSize: '0.8rem' }}>
-            <WeatherSunnyRegular fontSize={18} />
-            <span>29°C Kolkata</span>
+          <div 
+            onClick={() => openWindow('weather')}
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '8px', 
+              padding: '4px 12px', 
+              color: 'var(--color-text-secondary)', 
+              fontSize: '0.8rem',
+              cursor: 'pointer',
+              borderRadius: 'var(--radius-sm)',
+              transition: 'background var(--transition-fast)'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'var(--color-bg-surface-hover)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+            title="Open Weather Pro"
+          >
+            {useWeatherStore.getState().currentWeather ? (
+              <>
+                <img 
+                  src={`https://openweathermap.org/img/wn/${useWeatherStore.getState().currentWeather.icon}.png`} 
+                  alt="weather" 
+                  style={{ width: '20px', height: '20px' }} 
+                />
+                <span>{useWeatherStore.getState().currentWeather.temp}°C {useWeatherStore.getState().currentWeather.city}</span>
+              </>
+            ) : (
+              <>
+                <WeatherSunnyRegular fontSize={18} />
+                <span>Loading...</span>
+              </>
+            )}
           </div>
         )}
       </div>

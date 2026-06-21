@@ -4,7 +4,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "generate-metrics": "node ../scripts/generateMetrics.js",
+    "predev": "npm run generate-metrics",
     "dev": "vite",
+    "prebuild": "npm run generate-metrics",
     "build": "vite build",
     "preview": "vite preview"
   },

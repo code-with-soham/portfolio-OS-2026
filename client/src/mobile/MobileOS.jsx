@@ -13,6 +13,7 @@ import PWAInstallPrompt from './components/PWAInstallPrompt';
 import MobileNotification from './components/MobileNotification';
 import MobileRecruiterDashboard from './apps/MobileRecruiterDashboard';
 import MobileAppSettings from './apps/MobileAppSettings';
+import MobileWeatherApp from './apps/MobileWeatherApp';
 import { BotRegular } from '@fluentui/react-icons';
 
 import './MobileOS.css';
@@ -41,6 +42,7 @@ export default function MobileOS() {
   const renderActiveTab = () => {
     if (activeApp === 'recruiter') return <MobileRecruiterDashboard />;
     if (activeApp === 'settings') return <MobileAppSettings />;
+    if (activeApp === 'weather') return <MobileWeatherApp />;
     if (activeApp) return <div style={{ padding: '20px' }}>Rendering Lite App: {activeApp} <br/><br/> <button onClick={() => useMobileStore.getState().closeApp()}>Close App</button></div>;
 
     switch (activeTab) {
@@ -84,7 +86,60 @@ export default function MobileOS() {
 
       <MobileBottomNav />
       
-      {/* AI Assistant FAB */}
+      {/* Virtual Hardware Power Button (Android Style) */}
+      <div 
+        style={{
+          position: 'fixed',
+          right: '0',
+          top: '30%',
+          width: '6px',
+          height: '60px',
+          background: '#333',
+          borderTopLeftRadius: '4px',
+          borderBottomLeftRadius: '4px',
+          zIndex: 9999,
+          cursor: 'pointer',
+          boxShadow: '-2px 0 5px rgba(0,0,0,0.5)'
+        }}
+        onPointerDown={(e) => {
+          e.currentTarget.dataset.pressTimer = setTimeout(() => {
+            import('../ai/voice/voiceController').then(({ voiceController }) => voiceController.toggleListening());
+          }, 800); // 800ms long press
+        }}
+        onPointerUp={(e) => clearTimeout(e.currentTarget.dataset.pressTimer)}
+        onPointerLeave={(e) => clearTimeout(e.currentTarget.dataset.pressTimer)}
+      />
+
+      {/* Voice Assistant FAB */}
+      {!isLocked && !activeApp && (
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          onClick={() => {
+            import('../ai/voice/voiceController').then(({ voiceController }) => voiceController.toggleListening());
+          }}
+          style={{
+            position: 'absolute',
+            bottom: '150px', // Above the Bot FAB
+            right: '20px',
+            width: '56px',
+            height: '56px',
+            borderRadius: '50%',
+            background: 'var(--color-accent)',
+            color: '#fff',
+            border: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+            zIndex: 8500,
+            cursor: 'pointer'
+          }}
+        >
+          <span style={{ fontSize: '24px' }}>🎤</span>
+        </motion.button>
+      )}
+
+      {/* Original AI Assistant FAB */}
       {!isLocked && !activeApp && (
         <motion.button
           whileTap={{ scale: 0.9 }}

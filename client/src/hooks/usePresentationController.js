@@ -80,6 +80,10 @@ export function usePresentationController() {
     trackDemoStart();
     startDemo();
 
+    import('../ai/voice/speechSynthesis').then(({ speechSynthesizer }) => {
+      speechSynthesizer.speak("Welcome to Portfolio OS. This operating system contains over 24 applications. Let's start with the Recruiter Dashboard.");
+    });
+
     // Step 1 is welcome
     schedule(4000, () => {
       setStep(2, 'Opening Recruiter Dashboard...');
@@ -89,39 +93,54 @@ export function usePresentationController() {
     schedule(8000, () => {
       setStep(3, 'Exploring Projects...\n(Portfolio OS, CampusHub...)');
       openWindow('projects');
+      import('../ai/voice/speechSynthesis').then(({ speechSynthesizer }) => {
+        speechSynthesizer.speak("Opening Projects. Here you can explore my major works like Portfolio OS and CampusHub.");
+      });
     });
 
-    schedule(12000, () => {
+    schedule(14000, () => {
       setStep(4, 'Visualizing OS Layers...\n(Architecture Explorer)');
       openWindow('architecture');
-    });
-
-    schedule(16000, () => {
-      setStep(5, 'Inspecting Codebase in VS Code...');
-      openWindow('vscode');
+      import('../ai/voice/speechSynthesis').then(({ speechSynthesizer }) => {
+        speechSynthesizer.speak("Opening the Architecture Explorer. This visualizes the layers of the OS.");
+      });
     });
 
     schedule(20000, () => {
+      setStep(5, 'Inspecting Codebase in VS Code...');
+      openWindow('vscode');
+      import('../ai/voice/speechSynthesis').then(({ speechSynthesizer }) => {
+        speechSynthesizer.speak("Opening VS Code. Feel free to inspect the codebase directly inside the browser.");
+      });
+    });
+
+    schedule(26000, () => {
       setStep(6, 'Reviewing GitHub Analytics...');
       openWindow('browser', { initialUrl: 'https://github.com/code-with-soham' });
     });
 
-    schedule(24000, () => {
+    schedule(32000, () => {
       setStep(7, 'Consulting AI Assistant...');
       openWindow('aidashboard');
     });
 
     // Final WOW step
-    schedule(29000, () => {
+    schedule(38000, () => {
       setStep(7, 'Demo Complete.\nShowing Portfolio Health Score.');
       showHealthScore();
       trackDemoComplete();
+      import('../ai/voice/speechSynthesis').then(({ speechSynthesizer }) => {
+        speechSynthesizer.speak("The demo is now complete. Feel free to explore the rest of the OS, or use the voice assistant by pressing Control Shift V.");
+      });
     });
   };
 
   const killSequence = () => {
     clearTimers();
     stopAll();
+    import('../ai/voice/speechSynthesis').then(({ speechSynthesizer }) => {
+      speechSynthesizer.stop();
+    });
   };
 
   // Expose the triggers

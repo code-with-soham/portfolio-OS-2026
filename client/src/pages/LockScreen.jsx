@@ -14,7 +14,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useDesktopStore } from '../store/useDesktopStore';
 import { useProfileStore } from '../store/useProfileStore';
+import { useWeatherStore } from '../store/useWeatherStore';
 import { OS_STATES } from '../constants';
+import { WeatherSunnyRegular } from '@fluentui/react-icons';
 
 /**
  * Formats time in 12-hour format: "7:44 PM"
@@ -57,6 +59,11 @@ export default function LockScreen() {
       setCurrentTime(new Date());
     }, 1000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Fetch weather on mount
+  useEffect(() => {
+    useWeatherStore.getState().fetchWeather();
   }, []);
 
   // Handle unlock — trigger slide-up animation, then transition
@@ -156,10 +163,27 @@ export default function LockScreen() {
             color: 'rgba(255, 255, 255, 0.85)',
             fontFamily: 'var(--font-family)',
             textShadow: '0 1px 10px rgba(0, 0, 0, 0.3)',
+            marginBottom: '8px'
           }}
         >
           {formatDate(currentTime)}
         </p>
+        
+        {/* Weather Info */}
+        {useWeatherStore.getState().currentWeather && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255, 255, 255, 0.9)', fontSize: '1.2rem', textShadow: '0 1px 10px rgba(0,0,0,0.3)', fontWeight: 400 }}>
+            <img 
+              src={`https://openweathermap.org/img/wn/${useWeatherStore.getState().currentWeather.icon}.png`} 
+              alt="weather" 
+              style={{ width: '32px', height: '32px' }} 
+            />
+            <span>{useWeatherStore.getState().currentWeather.temp}°C</span>
+            <span style={{ margin: '0 4px' }}>•</span>
+            <span style={{ textTransform: 'capitalize' }}>{useWeatherStore.getState().currentWeather.condition}</span>
+            <span style={{ margin: '0 4px' }}>•</span>
+            <span>{useWeatherStore.getState().currentWeather.city}</span>
+          </div>
+        )}
       </motion.div>
 
       {/* Profile and Login */}

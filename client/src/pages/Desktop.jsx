@@ -15,6 +15,7 @@ import { useWindowStore } from '../store/useWindowStore';
 import { useFileSystemStore } from '../store/useFileSystemStore';
 import { useNotificationStore } from '../store/useNotificationStore';
 import { useThemeStore } from '../store/useThemeStore';
+import { useWeatherStore } from '../store/useWeatherStore';
 import { DESKTOP_APPS } from '../constants';
 import trashFullIco from '../assets/icons/system/Trash Full.ico';
 import Taskbar from '../components/desktop/Taskbar';
@@ -44,6 +45,8 @@ import DesktopSwitcherOverlay from '../components/system/DesktopSwitcherOverlay'
 import { useWidgetStore } from '../store/useWidgetStore';
 import { useStickyNotesStore } from '../store/useStickyNotesStore';
 import { useCalendarStore } from '../store/useCalendarStore';
+import VoiceCopilotOrb from '../components/desktop/VoiceCopilotOrb';
+import VoiceOverlay from '../components/desktop/VoiceOverlay';
 import {
   EyeRegular,
   ArrowSortRegular,
@@ -292,6 +295,21 @@ export default function Desktop() {
     openContextMenu(e.clientX, e.clientY, items);
   };
 
+  const { currentWeather } = useWeatherStore();
+  let weatherOverlay = null;
+  // Weather overlay disabled to prevent the wallpaper from looking faded/dark
+  // if (currentWeather) {
+  //   const condition = currentWeather.condition.toLowerCase();
+  //   const isNight = currentWeather.icon.includes('n');
+  //   if (isNight) {
+  //     weatherOverlay = 'radial-gradient(circle at 50% 0%, rgba(20,20,40,0.3) 0%, rgba(0,0,0,0.5) 100%)'; // Night dark
+  //   } else if (condition.includes('rain') || condition.includes('drizzle')) {
+  //     weatherOverlay = 'linear-gradient(180deg, rgba(40,50,60,0.4) 0%, rgba(20,30,40,0.6) 100%)'; // Rain dark
+  //   } else if (condition.includes('clear')) {
+  //     weatherOverlay = 'radial-gradient(circle at 80% 20%, rgba(255,200,100,0.15) 0%, transparent 60%)'; // Sunny glow
+  //   }
+  // }
+
   return (
     <motion.div
       className={`no-select ${!isCustomWallpaper ? 'wallpaper-default' : ''}`}
@@ -314,8 +332,13 @@ export default function Desktop() {
       {/* Animated Wallpaper Layer (Rendered below ambience) */}
       {animatedWallpaper && <AnimatedWallpaper type={animatedWallpaper} accentColor={accentColor} />}
 
-      {/* Subtle desktop ambience overlay */}
-      <div className="desktop-ambient" style={{ zIndex: 1, position: 'relative', pointerEvents: 'none', width: '100%', height: '100%' }} />
+      {/* Dynamic Weather Overlay */}
+      {weatherOverlay && (
+        <div style={{ position: 'absolute', inset: 0, background: weatherOverlay, pointerEvents: 'none', zIndex: 1, transition: 'background 2s ease' }} />
+      )}
+
+      {/* Subtle desktop ambience overlay removed to prevent fading */}
+      {/* <div className="desktop-ambient" style={{ zIndex: 1, position: 'relative', pointerEvents: 'none', width: '100%', height: '100%' }} /> */}
 
       {/* Desktop icon area — click background to close panels */}
       <div
@@ -407,9 +430,13 @@ export default function Desktop() {
 
       {/* Notification Center overlay */}
       <NotificationCenter />
-      
+
       {/* Quick Settings overlay */}
       <QuickSettings />
+
+      {/* Voice Copilot Elements */}
+      <VoiceCopilotOrb />
+      <VoiceOverlay />
 
       {/* Volume OSD */}
       <VolumeOSD />

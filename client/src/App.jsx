@@ -31,6 +31,7 @@ import { useState, useEffect } from 'react';
 function App() {
   const osState = useDesktopStore((s) => s.osState);
   const theme = useThemeStore((s) => s.theme);
+  const brightness = useThemeStore((s) => s.brightness ?? 100);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ function App() {
         height: '100vh',
         overflow: 'hidden',
         background: 'var(--color-bg-desktop)',
+        position: 'relative',
       }}
     >
       <AnimatePresence mode="wait">
@@ -65,6 +67,18 @@ function App() {
           </>
         )}
       </AnimatePresence>
+
+      {/* Brightness Overlay */}
+      <div 
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundColor: 'black',
+          opacity: 1 - (brightness / 100),
+          pointerEvents: 'none',
+          zIndex: 999999,
+        }}
+      />
     </div>
   );
 }

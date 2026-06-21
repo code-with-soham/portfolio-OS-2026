@@ -8,10 +8,12 @@ import {
   StarRegular,
   PersonRegular,
   WeatherMoonRegular,
-  WeatherSunnyRegular
+  WeatherSunnyRegular,
+  SearchRegular
 } from '@fluentui/react-icons';
 import { useBrowserStore } from '../../../store/useBrowserStore';
 import { useProfileStore } from '../../../store/useProfileStore';
+import { useGitHubStore } from '../../../store/useGitHubStore';
 
 export default function BrowserToolbar() {
   const { tabs, activeTabId, navigateTo, theme, toggleTheme } = useBrowserStore();

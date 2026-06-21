@@ -107,7 +107,7 @@ function Slider({ icon, value, onChange }) {
 
 export default function QuickSettings() {
   const { isQuickSettingsOpen, closeQuickSettings } = useDesktopStore();
-  const { theme, toggleTheme } = useThemeStore();
+  const { theme, toggleTheme, brightness, setBrightness } = useThemeStore();
   const { animationsEnabled, toggleAnimations } = useUIStore();
   const { volume, isMuted, setVolume, toggleMute } = useSystemAudioStore();
 
@@ -211,7 +211,7 @@ export default function QuickSettings() {
 
             {/* Sliders Area */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <Slider icon={<WeatherSunnyRegular fontSize={18} />} value={70} onChange={() => {}} />
+              <Slider icon={<WeatherSunnyRegular fontSize={18} />} value={brightness ?? 100} onChange={(val) => setBrightness(val)} />
               <Slider icon={!isMuted ? <Speaker2Regular fontSize={18} /> : <SpeakerOffRegular fontSize={18} />} value={Math.round(volume * 100)} onChange={(val) => {
                 setVolume(val / 100);
               }} />

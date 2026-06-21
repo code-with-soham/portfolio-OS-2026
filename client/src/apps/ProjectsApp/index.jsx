@@ -180,7 +180,8 @@ export default function ProjectsApp() {
                   )}
                 </div>
               </div>
-            ))}
+            );
+          })}
           </div>
         ) : (
           <div className="projects-empty">
