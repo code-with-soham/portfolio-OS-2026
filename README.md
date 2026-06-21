@@ -8,7 +8,7 @@ Built with the **MERN stack** (minus MongoDB — uses JSON flat-file storage).
 
 ## Live Demo
 
-https://portfolio-os-2026-chn9ztp2s-soham-kundus-projects.vercel.app/
+https://portfolio-os-2026.vercel.app/
 
 ## Status
 
@@ -99,7 +99,7 @@ App runs on `http://localhost:5173`
 | 1     | Project Foundation | ✅ Complete |
 | 2     | Backend APIs       | ✅ Complete |
 | 3     | Windows Desktop    | ✅ Complete |
-| 4     | Window Manager     | 🔲 Pending |
+| 4     | Window Manager     | ✅ Complete |
 | 5     | Applications       | 🔲 Pending |
 
 ---
