@@ -87,9 +87,7 @@ export const OS_STATES = {
 
 import userIco from '../assets/icons/system/User.ico';
 import projectsIco from '../assets/icons/system/Briefcase.ico';
-import skillsIco from '../assets/icons/system/Hardware.ico';
 import terminalIco from '../assets/icons/system/Windows_Terminal_logo.svg.ico';
-import resumeIco from '../assets/icons/system/Notes.ico';
 import fileExplorerIco from '../assets/icons/system/Explorer.ico';
 import settingsIco from '../assets/icons/system/Settings.ico';
 import infoIco from '../assets/icons/system/Info.ico';
@@ -102,13 +100,22 @@ import videosIco from '../assets/icons/system/Folder Videos.ico';
 import oneDriveIco from '../assets/icons/system/One Drive.ico';
 import trashIco from '../assets/icons/system/Trash Empty.ico';
 import vscodeIco from '../assets/icons/apps/vscode.svg';
-import browserIco from '../assets/icons/system/Link.ico';
-import mailIco from '../assets/icons/system/Folder Contacts.ico';
-import photosIco from '../assets/icons/system/Photos.ico';
-import calculatorIco from '../assets/icons/system/Tasks.ico';
-import documentIco from '../assets/icons/system/Notes.ico';
 import recycleBinIco from '../assets/icons/system/Trash Empty.ico';
-import calendarIco from '../assets/icons/system/Tasks.ico';
+
+// New Custom Icons
+import aboutIco from '../assets/icons/apps/icons8-about-me-48.png';
+import skillsIco from '../assets/icons/apps/icons8-skill-48.png';
+import resumeIco from '../assets/icons/apps/icons8-resume-64.png';
+import browserIco from '../assets/icons/apps/icons8-chrome-48.png';
+import mailIco from '../assets/icons/apps/icons8-gmail-48.png';
+import photosIco from '../assets/icons/apps/icons8-photos-48.png';
+import calculatorIco from '../assets/icons/apps/icons8-calculator-94.png';
+import documentIco from '../assets/icons/apps/icons8-notepad-48.png';
+import calendarIco from '../assets/icons/apps/icons8-google-calendar-100.png';
+import paintIco from '../assets/icons/apps/icons8-paint-94.png';
+import aiDashboardIco from '../assets/icons/apps/icons8-dashboard-60.png';
+import aiAssistantIco from '../assets/icons/apps/icons8-gemini-ai-48.png';
+import aboutOsIco from '../assets/icons/apps/icons8-windows-defender-50.png';
 
 /**
  * Desktop Applications — the apps shown on desktop and start menu
@@ -161,7 +168,7 @@ export const DESKTOP_APPS = [
   {
     id: 'about',
     label: 'About Me',
-    icon: userIco,
+    icon: aboutIco,
     description: 'Profile & Bio',
   },
   {
@@ -209,7 +216,7 @@ export const DESKTOP_APPS = [
   {
     id: 'aboutos',
     label: 'About OS',
-    icon: infoIco,
+    icon: aboutOsIco,
     description: 'System info',
   },
   {
@@ -257,7 +264,7 @@ export const DESKTOP_APPS = [
   {
     id: 'paint',
     label: 'Paint',
-    icon: photosIco,
+    icon: paintIco,
     description: 'Create drawings',
   },
   {
@@ -269,13 +276,13 @@ export const DESKTOP_APPS = [
   {
     id: 'aiassistant',
     label: 'AI Assistant',
-    icon: '✨',
+    icon: aiAssistantIco,
     description: 'Portfolio AI Assistant',
   },
   {
     id: 'aidashboard',
     label: 'AI Dashboard',
-    icon: infoIco,
+    icon: aiDashboardIco,
     description: 'AI Expert Analytics',
   },
 ];
