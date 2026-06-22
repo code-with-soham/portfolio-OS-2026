@@ -116,6 +116,7 @@ import paintIco from '../assets/icons/apps/icons8-paint-94.png';
 import aiDashboardIco from '../assets/icons/apps/icons8-dashboard-60.png';
 import aiAssistantIco from '../assets/icons/apps/icons8-gemini-ai-48.png';
 import aboutOsIco from '../assets/icons/apps/icons8-windows-defender-50.png';
+import whatsappIco from '../assets/icons/apps/icons8-whatsapp-48.png';
 
 /**
  * Desktop Applications — the apps shown on desktop and start menu
@@ -284,6 +285,12 @@ export const DESKTOP_APPS = [
     label: 'AI Dashboard',
     icon: aiDashboardIco,
     description: 'AI Expert Analytics',
+  },
+  {
+    id: 'whatsapp',
+    label: 'WhatsApp',
+    icon: whatsappIco,
+    description: 'Real-time Chat',
   },
 ];
 

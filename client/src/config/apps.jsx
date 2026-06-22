@@ -36,6 +36,7 @@ const AnalyticsCenterApp = lazy(() => import('../apps/AnalyticsCenterApp/index')
 const ArchitectureApp = lazy(() => import('../apps/ArchitectureApp/index'));
 const PortfolioHealthApp = lazy(() => import('../apps/PortfolioHealthApp/index'));
 const WeatherApp = lazy(() => import('../apps/WeatherApp/index'));
+const WhatsAppApp = lazy(() => import('../apps/WhatsAppApp/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -85,6 +86,7 @@ import paintIco from '../assets/icons/apps/icons8-paint-94.png';
 import aiDashboardIco from '../assets/icons/apps/icons8-dashboard-60.png';
 import aiAssistantIco from '../assets/icons/apps/icons8-gemini-ai-48.png';
 import aboutOsIco from '../assets/icons/apps/icons8-windows-defender-50.png';
+import whatsappIco from '../assets/icons/apps/icons8-whatsapp-48.png';
 
 export const APPS = {
   about: {
@@ -394,5 +396,16 @@ export const APPS = {
     category: 'System',
     version: '1.0.0',
     description: 'VS-36 AI Voice Copilot History',
+  },
+  whatsapp: {
+    id: 'whatsapp',
+    title: 'WhatsApp',
+    icon: whatsappIco,
+    component: withErrorBoundary(WhatsAppApp, 'WhatsApp'),
+    defaultWidth: 1000,
+    defaultHeight: 700,
+    category: 'Communication',
+    version: '1.0.0',
+    description: 'Real-time chat with Socket.IO',
   },
 };
