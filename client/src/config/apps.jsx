@@ -61,9 +61,7 @@ function withErrorBoundary(Component, appName) {
 
 import userIco from '../assets/icons/system/User.ico';
 import projectsIco from '../assets/icons/system/Briefcase.ico';
-import skillsIco from '../assets/icons/system/Hardware.ico';
 import terminalIco from '../assets/icons/system/Windows_Terminal_logo.svg.ico';
-import resumeIco from '../assets/icons/system/Notes.ico';
 import fileExplorerIco from '../assets/icons/system/Explorer.ico';
 import settingsIco from '../assets/icons/system/Settings.ico';
 import infoIco from '../assets/icons/system/Info.ico';
@@ -71,19 +69,28 @@ import pcIco from '../assets/icons/system/Computer.ico';
 import controlPanelIco from '../assets/icons/system/Control Panel.ico';
 import vscodeIco from '../assets/icons/apps/vscode.svg';
 import musicIco from '../assets/icons/system/Folder Music.ico';
-import browserIco from '../assets/icons/system/Link.ico';
-import mailIco from '../assets/icons/system/Folder Contacts.ico';
-import photosIco from '../assets/icons/system/Photos.ico';
-import calculatorIco from '../assets/icons/system/Tasks.ico';
-import documentIco from '../assets/icons/system/Notes.ico';
 import recycleBinIco from '../assets/icons/system/Trash Empty.ico';
-import calendarIco from '../assets/icons/system/Tasks.ico';
+
+// New Custom Icons
+import aboutIco from '../assets/icons/apps/icons8-about-me-48.png';
+import skillsIco from '../assets/icons/apps/icons8-skill-48.png';
+import resumeIco from '../assets/icons/apps/icons8-resume-64.png';
+import browserIco from '../assets/icons/apps/icons8-chrome-48.png';
+import mailIco from '../assets/icons/apps/icons8-gmail-48.png';
+import photosIco from '../assets/icons/apps/icons8-photos-48.png';
+import calculatorIco from '../assets/icons/apps/icons8-calculator-94.png';
+import documentIco from '../assets/icons/apps/icons8-notepad-48.png';
+import calendarIco from '../assets/icons/apps/icons8-google-calendar-100.png';
+import paintIco from '../assets/icons/apps/icons8-paint-94.png';
+import aiDashboardIco from '../assets/icons/apps/icons8-dashboard-60.png';
+import aiAssistantIco from '../assets/icons/apps/icons8-gemini-ai-48.png';
+import aboutOsIco from '../assets/icons/apps/icons8-windows-defender-50.png';
 
 export const APPS = {
   about: {
     id: 'about',
     title: 'About Me',
-    icon: userIco,
+    icon: aboutIco,
     component: withErrorBoundary(AboutApp, 'About Me'),
     defaultWidth: 600,
     defaultHeight: 550,
@@ -182,7 +189,7 @@ export const APPS = {
   aboutos: {
     id: 'aboutos',
     title: 'About Portfolio OS',
-    icon: infoIco,
+    icon: aboutOsIco,
     component: withErrorBoundary(AboutOSApp, 'About Portfolio OS'),
     defaultWidth: 400,
     defaultHeight: 450,
@@ -279,7 +286,7 @@ export const APPS = {
   paint: {
     id: 'paint',
     title: 'Paint',
-    icon: photosIco,
+    icon: paintIco,
     component: withErrorBoundary(PaintApp, 'Paint'),
     defaultWidth: 800,
     defaultHeight: 600,
@@ -313,7 +320,7 @@ export const APPS = {
   aidashboard: {
     id: 'aidashboard',
     title: 'AI Dashboard',
-    icon: infoIco,
+    icon: aiDashboardIco,
     component: withErrorBoundary(AIDashboardApp, 'AI Dashboard'),
     defaultWidth: 900,
     defaultHeight: 700,
@@ -380,7 +387,7 @@ export const APPS = {
   voicecenter: {
     id: 'voicecenter',
     title: 'Voice Center',
-    icon: '🎤', // Using emoji for now, or could use terminal/info icon
+    icon: aiAssistantIco, // Using emoji for now, or could use terminal/info icon
     component: withErrorBoundary(lazy(() => import('../apps/VoiceCenterApp/index')), 'Voice Center'),
     defaultWidth: 800,
     defaultHeight: 600,
