@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useVoiceStore } from '../../../store/useVoiceStore';
+import { useVoiceStore } from '../../store/useVoiceStore';
 import { MicRegular, DeleteRegular, SettingsRegular } from '@fluentui/react-icons';
 import './VoiceCenterApp.css';
 
@@ -37,16 +37,16 @@ export default function VoiceCenterApp() {
         ) : (
           <div className="history-list">
             {history.map((entry, idx) => (
-              <motion.div 
+              <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.05 }}
                 className="history-entry"
-                style={{ 
-                  background: 'var(--color-bg-surface)', 
-                  padding: '16px', 
-                  borderRadius: '8px', 
+                style={{
+                  background: 'var(--color-bg-surface)',
+                  padding: '16px',
+                  borderRadius: '8px',
                   marginBottom: '16px',
                   border: '1px solid var(--color-border)'
                 }}
