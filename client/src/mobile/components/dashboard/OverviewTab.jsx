@@ -24,7 +24,7 @@ export default function OverviewTab() {
             'AI Integration & Agentic Logic',
             'Portfolio OS Creator',
             'Hackathon Finalist (2025)',
-            '500+ GitHub Contributions'
+            '250+ GitHub Contributions'
           ].map((point, i) => (
             <motion.div 
               key={i}

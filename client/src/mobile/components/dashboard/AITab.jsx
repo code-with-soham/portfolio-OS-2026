@@ -5,11 +5,11 @@ import { aiBrain } from '../../../ai/brain/aiBrain';
 import ReactMarkdown from 'react-markdown';
 
 const PREDEFINED_PROMPTS = [
-  "What is his best project?",
-  "What is his strongest skill?",
-  "Any MERN Stack projects?",
-  "Tell me about his hackathon experience",
-  "What are his main achievements?"
+  "What is your best project?",
+  "Tell me about SUPPORTGPT",
+  "What backend technologies do you know?",
+  "Tell me about your hackathon experience",
+  "Download your resume"
 ];
 
 export default function AITab() {

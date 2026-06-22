@@ -3,6 +3,7 @@ import { INTENTS } from './intents';
 /**
  * Dataset for training the Fuzzy Matcher.
  * Maps potential user questions/keywords to the appropriate Intent.
+ * Includes typo variants, abbreviations, and natural language phrasing.
  */
 export const trainingData = [
   // ABOUT INTENT
@@ -13,26 +14,78 @@ export const trainingData = [
   { text: "bio", intent: INTENTS.ABOUT },
   { text: "about soham", intent: INTENTS.ABOUT },
   { text: "tell me about soham", intent: INTENTS.ABOUT },
+  { text: "who is soham", intent: INTENTS.ABOUT },
+  { text: "who is soham kundu", intent: INTENTS.ABOUT },
+  { text: "about him", intent: INTENTS.ABOUT },
+  { text: "introduce", intent: INTENTS.ABOUT },
+  { text: "introduction", intent: INTENTS.ABOUT },
+  { text: "who is he", intent: INTENTS.ABOUT },
+  { text: "tell me about him", intent: INTENTS.ABOUT },
+  { text: "soham kundu", intent: INTENTS.ABOUT },
 
-  // PROJECTS INTENT
+  // PROJECTS INTENT — extensive typo/abbreviation coverage
   { text: "What projects have you built?", intent: INTENTS.PROJECTS },
   { text: "show work", intent: INTENTS.PROJECTS },
   { text: "portfolio work", intent: INTENTS.PROJECTS },
   { text: "projects", intent: INTENTS.PROJECTS },
+  { text: "project", intent: INTENTS.PROJECTS },
   { text: "prjct", intent: INTENTS.PROJECTS },
+  { text: "prjt", intent: INTENTS.PROJECTS },
   { text: "projcts", intent: INTENTS.PROJECTS },
+  { text: "prjcts", intent: INTENTS.PROJECTS },
+  { text: "pro", intent: INTENTS.PROJECTS },
+  { text: "projs", intent: INTENTS.PROJECTS },
+  { text: "proj", intent: INTENTS.PROJECTS },
   { text: "show me your projects", intent: INTENTS.PROJECTS },
   { text: "what have you built", intent: INTENTS.PROJECTS },
+  { text: "project list", intent: INTENTS.PROJECTS },
+  { text: "show projects", intent: INTENTS.PROJECTS },
+  { text: "list projects", intent: INTENTS.PROJECTS },
+  { text: "all projects", intent: INTENTS.PROJECTS },
+  { text: "what did you build", intent: INTENTS.PROJECTS },
+  { text: "your work", intent: INTENTS.PROJECTS },
+  { text: "my work", intent: INTENTS.PROJECTS },
+  { text: "portfolio", intent: INTENTS.PROJECTS },
+  { text: "your portfolio", intent: INTENTS.PROJECTS },
+
+  // Specific project queries
+  { text: "portfolio os", intent: INTENTS.PROJECTS },
+  { text: "campushub", intent: INTENTS.PROJECTS },
+  { text: "campus hub", intent: INTENTS.PROJECTS },
+  { text: "placement predictor", intent: INTENTS.PROJECTS },
+  { text: "supportgpt", intent: INTENTS.PROJECTS },
+  { text: "support gpt", intent: INTENTS.PROJECTS },
+  { text: "3d web", intent: INTENTS.PROJECTS },
+  { text: "3d website", intent: INTENTS.PROJECTS },
+  { text: "sliding puzzle", intent: INTENTS.PROJECTS },
+  { text: "puzzle game", intent: INTENTS.PROJECTS },
+  { text: "mock interview", intent: INTENTS.PROJECTS },
+  { text: "smart mock interview", intent: INTENTS.PROJECTS },
+  { text: "interview app", intent: INTENTS.PROJECTS },
+  { text: "soham portfolio", intent: INTENTS.PROJECTS },
+  { text: "old portfolio", intent: INTENTS.PROJECTS },
+  { text: "tell me about portfolio os", intent: INTENTS.PROJECTS },
+  { text: "tell me about campushub", intent: INTENTS.PROJECTS },
 
   // SKILLS INTENT
   { text: "What technologies do you know?", intent: INTENTS.SKILLS },
   { text: "skill", intent: INTENTS.SKILLS },
   { text: "skills", intent: INTENTS.SKILLS },
+  { text: "skl", intent: INTENTS.SKILLS },
+  { text: "skils", intent: INTENTS.SKILLS },
+  { text: "skilz", intent: INTENTS.SKILLS },
   { text: "tech stack", intent: INTENTS.SKILLS },
   { text: "technology", intent: INTENTS.SKILLS },
+  { text: "tech", intent: INTENTS.SKILLS },
   { text: "abilities", intent: INTENTS.SKILLS },
   { text: "what are you good at", intent: INTENTS.SKILLS },
   { text: "what languages do you know", intent: INTENTS.SKILLS },
+  { text: "what tech do you use", intent: INTENTS.SKILLS },
+  { text: "programming languages", intent: INTENTS.SKILLS },
+  { text: "what technologies", intent: INTENTS.SKILLS },
+  { text: "competencies", intent: INTENTS.SKILLS },
+  { text: "frontend skills", intent: INTENTS.SKILLS },
+  { text: "backend skills", intent: INTENTS.SKILLS },
 
   // RESUME INTENT
   { text: "resume", intent: INTENTS.RESUME },
@@ -40,12 +93,28 @@ export const trainingData = [
   { text: "curriculum vitae", intent: INTENTS.RESUME },
   { text: "my profile", intent: INTENTS.RESUME },
   { text: "download resume", intent: INTENTS.RESUME },
+  { text: "resme", intent: INTENTS.RESUME },
+  { text: "rsm", intent: INTENTS.RESUME },
+  { text: "resume download", intent: INTENTS.RESUME },
+  { text: "cv download", intent: INTENTS.RESUME },
+  { text: "download cv", intent: INTENTS.RESUME },
+  { text: "bio-data", intent: INTENTS.RESUME },
+  { text: "show resume", intent: INTENTS.RESUME },
+  { text: "view resume", intent: INTENTS.RESUME },
 
   // ACHIEVEMENTS INTENT
   { text: "achievements", intent: INTENTS.ACHIEVEMENTS },
   { text: "awards", intent: INTENTS.ACHIEVEMENTS },
   { text: "certifications", intent: INTENTS.ACHIEVEMENTS },
   { text: "what have you achieved", intent: INTENTS.ACHIEVEMENTS },
+  { text: "achivment", intent: INTENTS.ACHIEVEMENTS },
+  { text: "achivements", intent: INTENTS.ACHIEVEMENTS },
+  { text: "achmnt", intent: INTENTS.ACHIEVEMENTS },
+  { text: "accomplishments", intent: INTENTS.ACHIEVEMENTS },
+  { text: "certs", intent: INTENTS.ACHIEVEMENTS },
+  { text: "samsung", intent: INTENTS.ACHIEVEMENTS },
+  { text: "samsung innovation", intent: INTENTS.ACHIEVEMENTS },
+  { text: "internship certificate", intent: INTENTS.ACHIEVEMENTS },
 
   // CONTACT INTENT
   { text: "contact", intent: INTENTS.CONTACT },
@@ -55,6 +124,20 @@ export const trainingData = [
   { text: "phone number", intent: INTENTS.CONTACT },
   { text: "github", intent: INTENTS.CONTACT },
   { text: "linkedin", intent: INTENTS.CONTACT },
+  { text: "how to contact", intent: INTENTS.CONTACT },
+  { text: "phone", intent: INTENTS.CONTACT },
+  { text: "number", intent: INTENTS.CONTACT },
+  { text: "call", intent: INTENTS.CONTACT },
+  { text: "reach", intent: INTENTS.CONTACT },
+  { text: "connect", intent: INTENTS.CONTACT },
+  { text: "hire me", intent: INTENTS.CONTACT },
+  { text: "get in touch", intent: INTENTS.CONTACT },
+  { text: "contact details", intent: INTENTS.CONTACT },
+  { text: "contact info", intent: INTENTS.CONTACT },
+  { text: "email address", intent: INTENTS.CONTACT },
+  { text: "how can i reach you", intent: INTENTS.CONTACT },
+  { text: "social media", intent: INTENTS.CONTACT },
+  { text: "social links", intent: INTENTS.CONTACT },
 
   // EDUCATION INTENT
   { text: "show education", intent: INTENTS.EDUCATION },
@@ -62,23 +145,41 @@ export const trainingData = [
   { text: "degree", intent: INTENTS.EDUCATION },
   { text: "college", intent: INTENTS.EDUCATION },
   { text: "university", intent: INTENTS.EDUCATION },
+  { text: "brainware", intent: INTENTS.EDUCATION },
+  { text: "brainware university", intent: INTENTS.EDUCATION },
+  { text: "btech", intent: INTENTS.EDUCATION },
+  { text: "b.tech", intent: INTENTS.EDUCATION },
+  { text: "diploma", intent: INTENTS.EDUCATION },
+  { text: "cgpa", intent: INTENTS.EDUCATION },
+  { text: "bishnupur", intent: INTENTS.EDUCATION },
+  { text: "where did you study", intent: INTENTS.EDUCATION },
+  { text: "which college", intent: INTENTS.EDUCATION },
 
   // EXPERIENCE INTENT
   { text: "What internship experience do you have?", intent: INTENTS.EXPERIENCE },
   { text: "experience", intent: INTENTS.EXPERIENCE },
   { text: "internship", intent: INTENTS.EXPERIENCE },
   { text: "work experience", intent: INTENTS.EXPERIENCE },
+  { text: "intern", intent: INTENTS.EXPERIENCE },
+  { text: "professional experience", intent: INTENTS.EXPERIENCE },
+  { text: "expantra", intent: INTENTS.EXPERIENCE },
+  { text: "where did you work", intent: INTENTS.EXPERIENCE },
+  { text: "job experience", intent: INTENTS.EXPERIENCE },
 
   // TIMELINE INTENT
   { text: "timeline", intent: INTENTS.TIMELINE },
   { text: "journey", intent: INTENTS.TIMELINE },
   { text: "history", intent: INTENTS.TIMELINE },
+  { text: "career journey", intent: INTENTS.TIMELINE },
 
   // HELP INTENT
   { text: "help", intent: INTENTS.HELP },
   { text: "what can you do", intent: INTENTS.HELP },
   { text: "features", intent: INTENTS.HELP },
   { text: "commands", intent: INTENTS.HELP },
+  { text: "how to use", intent: INTENTS.HELP },
+  { text: "what can i ask", intent: INTENTS.HELP },
+  { text: "what should i ask", intent: INTENTS.HELP },
 
   // OPEN_APP INTENT
   { text: "open", intent: INTENTS.OPEN_APP },
@@ -93,25 +194,36 @@ export const trainingData = [
   { text: "tell me about this website", intent: INTENTS.PORTFOLIO_OS },
   { text: "what is this app", intent: INTENTS.PORTFOLIO_OS },
   { text: "explain portfolio os", intent: INTENTS.PORTFOLIO_OS },
+  { text: "how does this work", intent: INTENTS.PORTFOLIO_OS },
+  { text: "what is this", intent: INTENTS.PORTFOLIO_OS },
   
   // RECRUITER QUESTIONS
   { text: "what are your strengths", intent: INTENTS.RECRUITER_Q_STRENGTHS },
   { text: "strengths", intent: INTENTS.RECRUITER_Q_STRENGTHS },
   { text: "what are you good at", intent: INTENTS.RECRUITER_Q_STRENGTHS },
+  { text: "your strengths", intent: INTENTS.RECRUITER_Q_STRENGTHS },
+  { text: "strong points", intent: INTENTS.RECRUITER_Q_STRENGTHS },
   
   { text: "what are your weaknesses", intent: INTENTS.RECRUITER_Q_WEAKNESSES },
   { text: "weakness", intent: INTENTS.RECRUITER_Q_WEAKNESSES },
+  { text: "weak points", intent: INTENTS.RECRUITER_Q_WEAKNESSES },
   
   { text: "why should we hire you", intent: INTENTS.RECRUITER_Q_HIRE },
   { text: "why hire you", intent: INTENTS.RECRUITER_Q_HIRE },
+  { text: "why should i hire you", intent: INTENTS.RECRUITER_Q_HIRE },
+  { text: "why hire soham", intent: INTENTS.RECRUITER_Q_HIRE },
   
   { text: "what are your career goals", intent: INTENTS.RECRUITER_Q_GOALS },
   { text: "where do you see yourself in 5 years", intent: INTENTS.RECRUITER_Q_GOALS },
   { text: "career goals", intent: INTENTS.RECRUITER_Q_GOALS },
+  { text: "future plans", intent: INTENTS.RECRUITER_Q_GOALS },
+  { text: "goals", intent: INTENTS.RECRUITER_Q_GOALS },
   
   { text: "what is the hardest challenge you faced", intent: INTENTS.RECRUITER_Q_CHALLENGE },
   { text: "biggest challenge", intent: INTENTS.RECRUITER_Q_CHALLENGE },
   { text: "hardest bug", intent: INTENTS.RECRUITER_Q_CHALLENGE },
+  { text: "toughest problem", intent: INTENTS.RECRUITER_Q_CHALLENGE },
+  { text: "hardest problem", intent: INTENTS.RECRUITER_Q_CHALLENGE },
 
   // SPECIFIC TECH/SKILL QUERIES
   { text: "what technologies did you use", intent: INTENTS.SPECIFIC_PROJECT_TECH },
@@ -122,6 +234,8 @@ export const trainingData = [
   { text: "strongest skill", intent: INTENTS.SKILL_RECOMMENDATION },
   { text: "best skill", intent: INTENTS.SKILL_RECOMMENDATION },
   { text: "what backend technologies do you know", intent: INTENTS.SKILL_RECOMMENDATION },
+  { text: "strongest technology", intent: INTENTS.SKILL_RECOMMENDATION },
+  { text: "most used tech", intent: INTENTS.SKILL_RECOMMENDATION },
 
   // WEATHER INTENT
   { text: "will it rain today", intent: INTENTS.WEATHER_QUERY },
@@ -129,5 +243,6 @@ export const trainingData = [
   { text: "should i carry an umbrella", intent: INTENTS.WEATHER_QUERY },
   { text: "best time to go outside", intent: INTENTS.WEATHER_QUERY },
   { text: "what is the weather like", intent: INTENTS.WEATHER_QUERY },
-  { text: "weather forecast", intent: INTENTS.WEATHER_QUERY }
+  { text: "weather forecast", intent: INTENTS.WEATHER_QUERY },
+  { text: "weather", intent: INTENTS.WEATHER_QUERY }
 ];

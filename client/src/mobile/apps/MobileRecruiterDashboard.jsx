@@ -121,32 +121,47 @@ export default function MobileRecruiterDashboard() {
         gap: '12px',
         zIndex: 10
       }}>
-        <button style={{
-          flex: 1,
-          padding: '12px',
-          background: 'var(--color-bg-elevated)',
-          border: '1px solid var(--color-border)',
-          borderRadius: '12px',
-          color: 'var(--color-text-primary)',
-          fontWeight: 600,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '8px'
-        }}>
+        <button
+          onClick={() => {
+            const a = document.createElement('a');
+            a.href = '/AI Resume.pdf';
+            a.download = 'Soham_Kundu_Resume.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }}
+          style={{
+            flex: 1,
+            padding: '12px',
+            background: 'var(--color-bg-elevated)',
+            border: '1px solid var(--color-border)',
+            borderRadius: '12px',
+            color: 'var(--color-text-primary)',
+            fontWeight: 600,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '8px',
+            cursor: 'pointer'
+          }}
+        >
           <ArrowDownloadRegular />
           Resume
         </button>
-        <button style={{
-          flex: 1.5,
-          padding: '12px',
-          background: 'var(--color-accent)',
-          border: 'none',
-          borderRadius: '12px',
-          color: '#fff',
-          fontWeight: 600,
-          boxShadow: '0 4px 12px rgba(74, 222, 128, 0.3)'
-        }}>
+        <button
+          onClick={() => setActiveTab('contact')}
+          style={{
+            flex: 1.5,
+            padding: '12px',
+            background: 'var(--color-accent)',
+            border: 'none',
+            borderRadius: '12px',
+            color: '#fff',
+            fontWeight: 600,
+            boxShadow: '0 4px 12px rgba(74, 222, 128, 0.3)',
+            cursor: 'pointer'
+          }}
+        >
           Hire Me
         </button>
       </div>

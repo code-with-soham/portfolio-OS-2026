@@ -143,5 +143,54 @@
       "Responsive layout",
       "Pure JavaScript implementation"
     ]
+  },
+  {
+    "id": "proj-007",
+    "title": "SUPPORTGPT",
+    "description": "An intelligent website support assistant powered by AI that provides instant, context-aware responses to user queries on any website.",
+    "longDescription": "SUPPORTGPT is designed to integrate seamlessly into existing websites to act as a 24/7 support agent. It uses LangChain and OpenAI models to fetch context and generate highly accurate responses to customer questions.",
+    "techStack": [
+      "Python",
+      "LangChain",
+      "OpenAI",
+      "Flask",
+      "JavaScript"
+    ],
+    "category": "Machine Learning",
+    "status": "Completed",
+    "featured": true,
+    "thumbnail": "/assets/images/projects/supportgpt.png",
+    "liveUrl": "#",
+    "githubUrl": "https://github.com/code-with-soham/SUPPORTGPT--Intelligent-Website-Support-Assistant-",
+    "highlights": [
+      "Website integration",
+      "Context-aware AI responses",
+      "LangChain pipeline",
+      "OpenAI GPT models"
+    ]
+  },
+  {
+    "id": "proj-008",
+    "title": "3D-WEB",
+    "description": "An immersive 3D web experience showcasing advanced WebGL rendering, interactive 3D scenes, and modern browser-based graphics.",
+    "longDescription": "This project explores the boundaries of what is possible in the browser with WebGL and Three.js, creating an interactive 3D scene with custom lighting, materials, and camera controls.",
+    "techStack": [
+      "Three.js",
+      "WebGL",
+      "JavaScript",
+      "HTML/CSS"
+    ],
+    "category": "Frontend",
+    "status": "Completed",
+    "featured": false,
+    "thumbnail": "/assets/images/projects/3d-web.png",
+    "liveUrl": "https://code-with-soham.github.io/3D-WEB/",
+    "githubUrl": "https://github.com/code-with-soham/3D-WEB",
+    "highlights": [
+      "Three.js 3D rendering",
+      "Custom shaders and materials",
+      "Interactive camera controls",
+      "Performance optimized WebGL"
+    ]
   }
 ]

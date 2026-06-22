@@ -52,32 +52,6 @@ export default function MobileHomeScreen() {
         </div>
       </div>
 
-      {/* App Grid */}
-      <div className="mobile-app-grid">
-        {homeApps.map((appId) => {
-          const app = APPS[appId];
-          if (!app) return null;
-          
-          return (
-            <div key={appId} className="mobile-app-icon" onClick={() => openApp(appId)}>
-              <div className="mobile-app-icon-bg">
-                {typeof app.icon === 'string' && app.icon.includes('.') ? (
-                  <img src={app.icon} alt={app.title} width="32" height="32" />
-                ) : (
-                  <span style={{ fontSize: '24px' }}>{app.icon}</span>
-                )}
-              </div>
-              <span className="mobile-app-label">{app.title.split(' ')[0]}</span>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Swipe Up Hint */}
-      <div className="mobile-swipe-hint" onClick={() => toggleAppDrawer(true)}>
-        <div className="mobile-swipe-pill"></div>
-        <span>Swipe up for apps</span>
-      </div>
     </div>
   );
 }
