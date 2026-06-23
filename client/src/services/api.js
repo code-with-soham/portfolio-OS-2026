@@ -1,9 +1,15 @@
 import axios from 'axios';
 
+console.log("VITE_API_URL:", import.meta.env.VITE_API_URL);
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+if (!API_URL) {
+  throw new Error('VITE_API_URL is not configured');
+}
+
 const api = axios.create({
-  baseURL:
-    import.meta.env.VITE_API_URL ||
-    'http://localhost:5000/api',
+  baseURL: API_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
