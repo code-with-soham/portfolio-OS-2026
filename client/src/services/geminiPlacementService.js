@@ -2,8 +2,11 @@
 // Placement Prep - AI Service Client
 // ============================================
 
-// Assume backend is on port 5000 based on standard setup
-const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/ai/generate` : 'http://localhost:5000/api/ai/generate';
+let baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+if (!baseUrl.endsWith('/api')) {
+  baseUrl = `${baseUrl}/api`;
+}
+const API_URL = `${baseUrl}/ai/generate`;
 
 export async function enhanceRoadmapWithAI(baseRoadmap) {
   try {
