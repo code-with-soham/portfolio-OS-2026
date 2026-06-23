@@ -17,7 +17,7 @@ async function handleGeminiRequest(req, res) {
       return res.status(400).json({ error: 'Prompt is required.' });
     }
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
     const requestBody = {
       contents: [
@@ -29,10 +29,10 @@ async function handleGeminiRequest(req, res) {
     };
 
     if (systemInstruction) {
-        requestBody.systemInstruction = {
-            role: "system",
-            parts: [{ text: systemInstruction }]
-        };
+      requestBody.systemInstruction = {
+        role: "system",
+        parts: [{ text: systemInstruction }]
+      };
     }
 
     requestBody.generationConfig = {
@@ -51,19 +51,19 @@ async function handleGeminiRequest(req, res) {
     });
 
     if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Gemini API Error:', response.status, errorText);
-        return res.status(response.status).json({ error: 'Failed to communicate with Gemini API' });
+      const errorText = await response.text();
+      console.error('Gemini API Error:', response.status, errorText);
+      return res.status(response.status).json({ error: 'Failed to communicate with Gemini API' });
     }
 
     const data = await response.json();
-    
+
     let generatedText = '';
     if (data.candidates && data.candidates.length > 0 && data.candidates[0].content && data.candidates[0].content.parts.length > 0) {
-        generatedText = data.candidates[0].content.parts[0].text;
+      generatedText = data.candidates[0].content.parts[0].text;
     } else {
-        console.warn('Unexpected Gemini API response structure:', JSON.stringify(data));
-        return res.status(500).json({ error: 'Unexpected response from AI service.' });
+      console.warn('Unexpected Gemini API response structure:', JSON.stringify(data));
+      return res.status(500).json({ error: 'Unexpected response from AI service.' });
     }
 
     res.json({ text: generatedText });
