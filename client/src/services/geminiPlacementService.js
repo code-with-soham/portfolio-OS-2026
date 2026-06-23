@@ -3,7 +3,7 @@
 // ============================================
 
 // Assume backend is on port 5000 based on standard setup
-const API_URL = 'http://localhost:5000/api/ai/generate'; 
+const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/ai/generate` : 'http://localhost:5000/api/ai/generate';
 
 export async function enhanceRoadmapWithAI(baseRoadmap) {
   try {
