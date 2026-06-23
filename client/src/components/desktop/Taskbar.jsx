@@ -128,19 +128,26 @@ export default function Taskbar() {
     
     if ('getBattery' in navigator) {
       batteryPromise = navigator.getBattery().then(battery => {
+        if (!battery) return null;
         const updateBattery = () => {
           setBatteryLevel(Math.round(battery.level * 100));
           setIsCharging(battery.charging);
         };
         
         updateBattery();
-        battery.addEventListener('levelchange', updateBattery);
-        battery.addEventListener('chargingchange', updateBattery);
-        
-        return () => {
-          battery.removeEventListener('levelchange', updateBattery);
-          battery.removeEventListener('chargingchange', updateBattery);
-        };
+        if (typeof battery.addEventListener === 'function') {
+          battery.addEventListener('levelchange', updateBattery);
+          battery.addEventListener('chargingchange', updateBattery);
+          
+          return () => {
+            battery.removeEventListener('levelchange', updateBattery);
+            battery.removeEventListener('chargingchange', updateBattery);
+          };
+        }
+        return null;
+      }).catch(err => {
+        console.warn('Battery API error:', err);
+        return null;
       });
     }
 

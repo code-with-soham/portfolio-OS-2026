@@ -17,7 +17,7 @@ async function handleGeminiRequest(req, res) {
       return res.status(400).json({ error: 'Prompt is required.' });
     }
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`;
 
     const requestBody = {
       contents: [
