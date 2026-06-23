@@ -51,16 +51,16 @@ export const TERMINAL_COMMANDS = {
         `  ╚══════════════════════════════════════════╝`,
         '',
         '  📍 Kolkata, West Bengal, India',
-        '  💼 2+ years of experience',
-        '  🎓 B.Tech CSE — UEM Kolkata',
-        '  📧 soham.kundu@example.com',
+        '  💼 1+ years of experience',
+        '  🎓 B.Tech CSE — Brainware University',
+        '  📧 sohamkundu84@gmail.com',
         '',
         '  Passionate full-stack developer specializing',
         '  in modern web technologies.',
         '',
         '  🔗 GitHub:    github.com/sohamkundu',
         '  🔗 LinkedIn:  linkedin.com/in/sohamkundu',
-        '  🔗 Portfolio: sohamkundu.dev',
+        '  🔗 Portfolio: sohamkundu.vercel.app',
         '',
       ]);
     },
@@ -180,7 +180,7 @@ export const TERMINAL_COMMANDS = {
     description: 'Display system specs',
     handler: ({ addOutput }) => TERMINAL_COMMANDS.sysinfo.handler({ addOutput })
   },
-  
+
   education: {
     description: 'Show educational background',
     handler: ({ addOutput }) => {
@@ -304,7 +304,7 @@ export const TERMINAL_COMMANDS = {
       if (!node || node.type !== 'folder') {
         return addOutput([`  ls: cannot access '${cwd.join('/')}': No such directory`]);
       }
-      
+
       if (!node.children || node.children.length === 0) {
         return; // Empty directory
       }
@@ -343,7 +343,7 @@ export const TERMINAL_COMMANDS = {
       }
 
       const target = currentNode.children.find(c => c.name.toLowerCase() === pathArg.toLowerCase() || c.name.toLowerCase() === pathArg.toLowerCase().replace('/', ''));
-      
+
       if (!target) {
         return addOutput([`  cd: ${pathArg}: No such file or directory`]);
       }
@@ -360,16 +360,16 @@ export const TERMINAL_COMMANDS = {
     description: 'Display file contents',
     handler: ({ args, addOutput, cwd }) => {
       if (!args[0]) return addOutput(['  Usage: cat <file>']);
-      
+
       const fileName = args[0];
       const currentNode = resolveNode(cwd);
-      
+
       if (!currentNode || !currentNode.children) {
         return addOutput([`  cat: ${fileName}: No such file or directory`]);
       }
 
       const target = currentNode.children.find(c => c.name.toLowerCase() === fileName.toLowerCase());
-      
+
       if (!target) {
         return addOutput([`  cat: ${fileName}: No such file or directory`]);
       }

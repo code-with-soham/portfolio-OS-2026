@@ -23,6 +23,7 @@ const achievementsRoutes = require('./achievementsRoutes');
 const contactRoutes = require('./contactRoutes');
 const terminalRoutes = require('./terminalRoutes');
 const weatherRoutes = require('./weatherRoutes');
+const aiRoutes = require('./aiRoutes');
 
 // Import middleware
 const { responseCache } = require('../middleware/responseCache');
@@ -56,5 +57,8 @@ router.use('/terminal', responseCache(), terminalRoutes);
 
 // GET /api/weather → Weather API Proxy
 router.use('/weather', responseCache(300), weatherRoutes); // 5 min cache
+
+// POST /api/ai/generate → Gemini Proxy
+router.use('/ai', aiRoutes);
 
 module.exports = router;

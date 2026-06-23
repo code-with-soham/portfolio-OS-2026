@@ -174,7 +174,7 @@ export default function Taskbar() {
     }
   };
 
-  const pinnedAppIds = ['mypc', 'about', 'projects', 'skills', 'terminal', 'resume', 'fileexplorer', 'settings'];
+  const pinnedAppIds = ['mypc', 'about', 'projects', 'skills', 'terminal', 'resume', 'fileexplorer', 'settings', 'placementprep'];
 
   const handleWindowClick = (win) => {
     if (win.isMinimized) {

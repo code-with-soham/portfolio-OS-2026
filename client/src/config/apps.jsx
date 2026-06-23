@@ -37,6 +37,8 @@ const ArchitectureApp = lazy(() => import('../apps/ArchitectureApp/index'));
 const PortfolioHealthApp = lazy(() => import('../apps/PortfolioHealthApp/index'));
 const WeatherApp = lazy(() => import('../apps/WeatherApp/index'));
 const WhatsAppApp = lazy(() => import('../apps/WhatsAppApp/index'));
+const SlidingPuzzleApp = lazy(() => import('../apps/SlidingPuzzleApp/index'));
+const PlacementPrepApp = lazy(() => import('../apps/PlacementPrepApp/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -407,5 +409,27 @@ export const APPS = {
     category: 'Communication',
     version: '1.0.0',
     description: 'Real-time chat with Socket.IO',
+  },
+  slidingpuzzle: {
+    id: 'slidingpuzzle',
+    title: 'Puzzle Game',
+    icon: '🧩',
+    component: withErrorBoundary(SlidingPuzzleApp, 'Puzzle Game'),
+    defaultWidth: 750,
+    defaultHeight: 500,
+    category: 'Entertainment',
+    version: '1.0.0',
+    description: 'A fun Sliding Puzzle Game',
+  },
+  placementprep: {
+    id: 'placementprep',
+    title: 'Placement Prep',
+    icon: aiDashboardIco,
+    component: withErrorBoundary(PlacementPrepApp, 'Placement Prep'),
+    defaultWidth: 1100,
+    defaultHeight: 700,
+    category: 'Productivity',
+    version: '1.0.0',
+    description: 'Deterministic Placement OS with Gemini AI',
   },
 };

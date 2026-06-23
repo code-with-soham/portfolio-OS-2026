@@ -143,6 +143,12 @@ export const DESKTOP_APPS = [
     description: 'Downloads Folder',
   },
   {
+    id: 'placementprep',
+    label: 'Placement Prep',
+    icon: aiDashboardIco,
+    description: 'Placement OS',
+  },
+  {
     id: 'music',
     label: 'Music',
     icon: musicIco,
@@ -291,6 +297,12 @@ export const DESKTOP_APPS = [
     label: 'WhatsApp',
     icon: whatsappIco,
     description: 'Real-time Chat',
+  },
+  {
+    id: 'slidingpuzzle',
+    label: 'Puzzle Game',
+    icon: '🧩',
+    description: 'Sliding Puzzle Game',
   },
 ];
 
