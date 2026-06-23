@@ -8,6 +8,28 @@ if (!baseUrl.endsWith('/api')) {
 }
 const API_URL = `${baseUrl}/ai/generate`;
 
+async function fetchWithRetry(url, options) {
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const response = await fetch(url, options);
+
+      if (response.ok) {
+        return await response.json();
+      }
+
+      if (response.status !== 503) {
+        throw new Error('AI request failed');
+      }
+
+      await new Promise(resolve =>
+        setTimeout(resolve, attempt * 2000)
+      );
+    } catch (err) {
+      if (attempt === 3) throw err;
+    }
+  }
+}
+
 export async function enhanceRoadmapWithAI(baseRoadmap) {
   try {
     const prompt = `
@@ -18,15 +40,11 @@ export async function enhanceRoadmapWithAI(baseRoadmap) {
       Return the enhanced roadmap strictly as a JSON array matching the original structure but with enriched "tasks". Do not use markdown backticks in the response.
     `;
 
-    const response = await fetch(API_URL, {
+    const data = await fetchWithRetry(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt, systemInstruction: 'You are a strict JSON formatting assistant for technical interview prep.' })
     });
-
-    if (!response.ok) throw new Error('AI request failed');
-
-    const data = await response.json();
     try {
         const jsonMatch = data.text.match(/\[.*\]/s) || [data.text];
         return JSON.parse(jsonMatch[0]);
@@ -53,14 +71,11 @@ export async function askStudyCoach(question, context = {}) {
       Use markdown formatting. Keep the explanation concise and actionable.
     `;
 
-    const response = await fetch(API_URL, {
+    const data = await fetchWithRetry(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt, systemInstruction: 'You are an expert AI Career Coach for software engineering placements.' })
     });
-
-    if (!response.ok) throw new Error('AI request failed');
-    const data = await response.json();
     return data.text;
 
   } catch (error) {
