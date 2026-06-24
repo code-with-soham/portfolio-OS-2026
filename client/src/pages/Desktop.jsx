@@ -45,8 +45,6 @@ import DesktopSwitcherOverlay from '../components/system/DesktopSwitcherOverlay'
 import { useWidgetStore } from '../store/useWidgetStore';
 import { useStickyNotesStore } from '../store/useStickyNotesStore';
 import { useCalendarStore } from '../store/useCalendarStore';
-import VoiceCopilotOrb from '../components/desktop/VoiceCopilotOrb';
-import VoiceOverlay from '../components/desktop/VoiceOverlay';
 import {
   EyeRegular,
   ArrowSortRegular,
@@ -433,10 +431,6 @@ export default function Desktop() {
 
       {/* Quick Settings overlay */}
       <QuickSettings />
-
-      {/* Voice Copilot Elements */}
-      <VoiceCopilotOrb />
-      <VoiceOverlay />
 
       {/* Volume OSD */}
       <VolumeOSD />

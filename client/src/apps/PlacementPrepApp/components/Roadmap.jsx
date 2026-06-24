@@ -38,7 +38,7 @@ export default function Roadmap() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2 style={{ marginTop: 0 }}>Placement Journey</h2>
         <button className="placement-btn-primary" onClick={handleGenerate} disabled={loading}>
-          {loading ? 'AI Optimizing...' : 'Regenerate Roadmap'}
+          {loading ? 'Generating roadmap...' : 'Regenerate Roadmap'}
         </button>
       </div>
 

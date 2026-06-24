@@ -30,6 +30,12 @@ const config = {
     user: process.env.SMTP_USER || '',
     pass: process.env.SMTP_PASS || '',
   },
+
+  // MongoDB Connection String
+  mongoUri: process.env.MONGO_URI || 'mongodb://localhost:27017/portfolio-os',
+
+  // JWT Secret
+  jwtSecret: process.env.JWT_SECRET || 'supersecretjwtkey_portfolio_os',
 };
 
 module.exports = config;

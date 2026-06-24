@@ -53,7 +53,7 @@ async function handleGeminiRequest(req, res) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error('Gemini API Error:', response.status, errorText);
-      return res.status(response.status).json({ error: 'Failed to communicate with Gemini API' });
+      return res.status(response.status).json({ error: errorText });
     }
 
     const data = await response.json();

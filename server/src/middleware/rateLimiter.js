@@ -45,7 +45,20 @@ const contactLimiter = rateLimit({
   },
 });
 
+const aiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 50,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many AI requests. Please try again later.',
+    retryAfter: '15 minutes',
+  },
+});
+
 module.exports = {
   apiLimiter,
   contactLimiter,
+  aiLimiter,
 };

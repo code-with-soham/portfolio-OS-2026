@@ -11,6 +11,10 @@ const config = require('./src/config/config');
 const { Server } = require('socket.io');
 const { registerChatSocket } = require('./src/sockets/chatSocket');
 const { setupRedisAdapter } = require('./src/sockets/redisAdapter');
+const connectDB = require('./src/config/db');
+
+// Connect to MongoDB
+connectDB();
 
 const PORT = config.port;
 

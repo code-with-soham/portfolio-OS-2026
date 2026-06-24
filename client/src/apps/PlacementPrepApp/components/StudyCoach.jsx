@@ -44,8 +44,9 @@ export default function StudyCoach() {
             </div>
           ))}
           {loading && (
-            <div style={{ alignSelf: 'flex-start', padding: '12px', color: 'var(--color-text-secondary)' }}>
-              Thinking...
+            <div style={{ alignSelf: 'flex-start', padding: '12px', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center' }}>
+              <div style={{ marginRight: '10px', width: '16px', height: '16px', border: '2px solid var(--color-border)', borderTop: '2px solid var(--color-accent)', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
+              Thinking... Analyzing...
             </div>
           )}
         </div>

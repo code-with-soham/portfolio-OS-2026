@@ -61,4 +61,12 @@ router.use('/weather', responseCache(300), weatherRoutes); // 5 min cache
 // POST /api/ai/generate → Gemini Proxy
 router.use('/ai', aiRoutes);
 
+// AI Auth Routes
+const authRoutes = require('./authRoutes');
+router.use('/auth', authRoutes);
+
+// AI Chat Routes
+const chatRoutes = require('./chatRoutes');
+router.use('/chats', chatRoutes);
+
 module.exports = router;

@@ -1,65 +1,109 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
+import { Paperclip, Link, Code, Mic, Send, Info, Bot, X, LogOut } from 'lucide-react';
 import { useDesktopStore } from '../../store/useDesktopStore';
 import { useWindowStore } from '../../store/useWindowStore';
-import { SparkleRegular, SendRegular, DismissRegular } from '@fluentui/react-icons';
+import { useVoiceStore } from '../../store/useVoiceStore';
+import { useAuthStore } from '../../store/useAuthStore';
 import { aiBrain } from '../../ai/brain/aiBrain';
+import { voiceController } from '../../ai/voice/voiceController';
 import ReactMarkdown from 'react-markdown';
+import LoginScreen from '../auth/LoginScreen';
+import axios from 'axios';
 
-export default function AIAssistant() {
-  const { isAIAssistantOpen, closeAIAssistant } = useDesktopStore();
+const AIAssistant = () => {
+  const { isAIAssistantOpen, toggleAIAssistant, closeAIAssistant } = useDesktopStore();
   const openWindow = useWindowStore((s) => s.openWindow);
+  const { isListening, isSpeaking } = useVoiceStore();
   
-  const [query, setQuery] = useState('');
-  const [messages, setMessages] = useState([
-    { role: 'assistant', text: "Hi, I'm Portfolio Assistant 2.0! Ask me anything about Soham, or ask me to open apps. I am now powered by a semantic AI Brain!" }
-  ]);
+  // Auth state
+  const { isAuthenticated, user, token, logout } = useAuthStore();
+  const [conversationId, setConversationId] = useState(null);
+
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [charCount, setCharCount] = useState(0);
+  const maxChars = 2000;
   
-  const inputRef = useRef(null);
+  const chatRef = useRef(null);
   const messagesEndRef = useRef(null);
 
-  // Focus input on mount
+  // Set up axios interceptor once
   useEffect(() => {
-    if (isAIAssistantOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
-  }, [isAIAssistantOpen]);
-
-  // Scroll to bottom
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages]);
-
-  // Handle auto query (from Presentation Mode)
-  useEffect(() => {
-    const handleAutoQuery = (e) => {
-      const q = e.detail;
-      const userMessage = { role: 'user', text: q };
-      setMessages(prev => [...prev, userMessage]);
-      setIsLoading(true);
-      setTimeout(() => {
-         const result = aiBrain.processInput(q);
-         setMessages(prev => [...prev, { role: 'assistant', text: result.response }]);
-         setIsLoading(false);
-      }, 1500);
-    };
-    window.addEventListener('AI_AUTO_QUERY', handleAutoQuery);
-    return () => window.removeEventListener('AI_AUTO_QUERY', handleAutoQuery);
+    const interceptor = axios.interceptors.request.use((config) => {
+      const currentToken = useAuthStore.getState().token;
+      if (currentToken) {
+        config.headers.Authorization = `Bearer ${currentToken}`;
+      }
+      return config;
+    });
+    return () => axios.interceptors.request.eject(interceptor);
   }, []);
 
-  // No need to fetch data here anymore, aiBrain has it bundled.
+  // Initialize voice controller and load history when auth changes
+  useEffect(() => {
+    voiceController.init();
+  }, []);
 
-  const handleQuery = async () => {
-    if (!query.trim()) return;
+  useEffect(() => {
+    if (isAuthenticated && isAIAssistantOpen) {
+      loadChatHistory();
+    }
+  }, [isAuthenticated, isAIAssistantOpen]);
+
+  const loadChatHistory = async () => {
+    try {
+      // 1. Get user's conversations
+      const convRes = await axios.get('/api/chats/conversation');
+      let currentConvId = null;
+
+      if (convRes.data.length > 0) {
+        currentConvId = convRes.data[0]._id;
+      } else {
+        // Create new conversation if none exists
+        const newConv = await axios.post('/api/chats/conversation', { title: 'General Session' });
+        currentConvId = newConv.data._id;
+      }
+      
+      setConversationId(currentConvId);
+
+      // 2. Fetch messages
+      const msgRes = await axios.get(`/api/chats/${currentConvId}/messages`);
+      if (msgRes.data.length > 0) {
+        setMessages(msgRes.data.map(m => ({ role: m.role, text: m.content })));
+      } else {
+        setMessages([{ role: 'assistant', text: `Hi ${user?.name || 'there'}, I'm VS-31, your AI Assistant! Ask me anything.` }]);
+      }
+    } catch (error) {
+      console.error('Error loading chat history:', error);
+      if (messages.length === 0) {
+         setMessages([{ role: 'assistant', text: "Hi, I'm VS-31! It looks like I couldn't load past messages, but I am ready to help." }]);
+      }
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setMessage(value);
+    setCharCount(value.length);
+  };
+
+  const handleSend = async () => {
+    if (!message.trim() || isLoading || !isAuthenticated) return;
     
-    const currentQuery = query;
+    const currentQuery = message.trim();
     const userMessage = { role: 'user', text: currentQuery };
+    
+    // Optimistic UI update
     setMessages(prev => [...prev, userMessage]);
-    setQuery('');
+    setMessage('');
+    setCharCount(0);
     setIsLoading(true);
+
+    // Save user message to backend
+    if (conversationId) {
+      axios.post('/api/chats/message', { conversationId, role: 'user', content: currentQuery }).catch(console.error);
+    }
 
     // Simulate thinking delay for better UX
     await new Promise(resolve => setTimeout(resolve, 600));
@@ -67,9 +111,8 @@ export default function AIAssistant() {
     const result = aiBrain.processInput(currentQuery);
     let responseText = result.response;
 
-    // Handle App opening logic if intent is OPEN_APP or specific app commands
+    // Handle App opening logic
     const q = currentQuery.toLowerCase();
-    
     if (result.systemCommand === 'OPEN_APP' || result.intent === 'OPEN_APP') {
       let appId = null;
       if (q.includes('resume')) appId = 'resume';
@@ -89,162 +132,367 @@ export default function AIAssistant() {
         responseText = "Which app would you like me to open? (e.g. Projects, Skills, VS Code, Resume)";
       }
     } else if (result.intent === 'RESUME') {
-      // It might just be asking for resume
       if (q.includes('open') || q.includes('show') || q.includes('download')) {
         responseText = `Opening Resume...`;
         openWindow('resume');
       }
     }
 
+    // Save assistant message to backend
+    if (conversationId) {
+      axios.post('/api/chats/message', { conversationId, role: 'assistant', content: responseText }).catch(console.error);
+    }
+
     setMessages(prev => [...prev, { role: 'assistant', text: responseText }]);
     setIsLoading(false);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  // Handle auto query (from Presentation Mode)
+  useEffect(() => {
+    const handleAutoQuery = (e) => {
+      if (!isAuthenticated) return;
+      const q = e.detail;
+      const userMessage = { role: 'user', text: q };
+      setMessages(prev => [...prev, userMessage]);
+      setIsLoading(true);
+      setTimeout(() => {
+         const result = aiBrain.processInput(q);
+         setMessages(prev => [...prev, { role: 'assistant', text: result.response }]);
+         setIsLoading(false);
+      }, 1500);
+    };
+    window.addEventListener('AI_AUTO_QUERY', handleAutoQuery);
+    return () => window.removeEventListener('AI_AUTO_QUERY', handleAutoQuery);
+  }, [isAuthenticated]);
+
+  // Scroll to bottom
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, isLoading, isAIAssistantOpen, isAuthenticated]);
+
+  // Close chat when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isAIAssistantOpen && chatRef.current && !chatRef.current.contains(event.target)) {
+        if (!event.target.closest('.floating-ai-button') && !event.target.closest('iframe')) {
+          closeAIAssistant();
+        }
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isAIAssistantOpen, closeAIAssistant]);
+
+  // Use voice recognized text in the input
+  useEffect(() => {
+    const handleVoiceRecognized = (e) => {
+      if (!isAuthenticated) return;
+      if (e.detail && e.detail.text) {
+        const text = e.detail.text;
+        setMessage(text);
+        setCharCount(text.length);
+      }
+    };
+    window.addEventListener('VOICE_RECOGNIZED', handleVoiceRecognized);
+    return () => window.removeEventListener('VOICE_RECOGNIZED', handleVoiceRecognized);
+  }, [isAuthenticated]);
+
   return (
-    <AnimatePresence>
+    <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 10000 }}>
+      {/* Floating Button */}
+      <button 
+        className="floating-ai-button"
+        onClick={toggleAIAssistant}
+        style={{
+          width: '64px',
+          height: '64px',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'linear-gradient(135deg, rgba(99,102,241,0.8) 0%, rgba(168,85,247,0.8) 100%)',
+          boxShadow: '0 0 20px rgba(139, 92, 246, 0.5)',
+          border: '2px solid rgba(255, 255, 255, 0.2)',
+          cursor: 'pointer',
+          transition: 'transform 0.5s ease',
+          transform: isAIAssistantOpen ? 'rotate(90deg)' : 'rotate(0deg)'
+        }}
+      >
+        <div style={{ position: 'relative', zIndex: 10 }}>
+          {isAIAssistantOpen ? <X size={32} color="white" /> : <Bot size={32} color="white" />}
+        </div>
+      </button>
+
+      {/* Interface Wrapper */}
       {isAIAssistantOpen && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeAIAssistant}
-            style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(0,0,0,0.3)', backdropFilter: 'blur(2px)' }}
-          />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: -20, x: '-50%' }}
-            animate={{ opacity: 1, scale: 1, y: 0, x: '-50%' }}
-            exit={{ opacity: 0, scale: 0.95, y: -10, x: '-50%' }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            style={{
-              position: 'fixed',
-              top: '15%',
-              left: '50%',
-              width: 'min(600px, 90vw)',
-              height: '400px',
-              background: 'var(--mica-base)',
-              border: '1px solid var(--color-border)',
-              borderRadius: 'var(--radius-window)',
-              boxShadow: 'var(--shadow-window)',
-              zIndex: 1001,
-              display: 'flex',
-              flexDirection: 'column',
-              overflow: 'hidden',
-              backdropFilter: 'blur(30px)'
-            }}
-          >
-            {/* Header */}
-            <div style={{ padding: '16px 24px', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <SparkleRegular fontSize={20} color="#0078d4" />
-                <h3 style={{ margin: 0, fontSize: '1rem', color: 'var(--color-text-primary)' }}>Portfolio Assistant</h3>
-              </div>
-              <button 
-                onClick={closeAIAssistant}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: 'var(--color-text-secondary)',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '4px',
-                  borderRadius: '4px'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.background = 'var(--color-bg-surface-hover)'}
-                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-              >
-                <DismissRegular fontSize={20} />
-              </button>
-            </div>
-
-            {/* Chat Area */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: '16px 24px', display: 'flex', flexDirection: 'column', gap: '16px', background: 'var(--color-bg-surface-content)' }}>
-              {messages.map((m, i) => (
-                <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
-                  <div style={{
-                    maxWidth: '80%',
-                    padding: '12px 16px',
-                    borderRadius: '12px',
-                    background: m.role === 'user' ? 'var(--color-accent)' : 'var(--color-bg-surface-hover)',
-                    color: m.role === 'user' ? '#fff' : 'var(--color-text-primary)',
-                    fontSize: '0.875rem',
-                    lineHeight: 1.5,
-                    whiteSpace: m.role === 'user' ? 'pre-wrap' : 'normal'
+        <div 
+          ref={chatRef}
+          className="acrylic"
+          style={{
+            position: 'absolute',
+            bottom: '80px',
+            right: 0,
+            width: '450px',
+            maxWidth: 'calc(100vw - 48px)',
+            height: '600px',
+            maxHeight: 'calc(100vh - 120px)',
+            borderRadius: 'var(--radius-window)',
+            display: 'flex',
+            flexDirection: 'column',
+            boxShadow: 'var(--shadow-window)',
+            overflow: 'hidden',
+            animation: 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+            transformOrigin: 'bottom right'
+          }}
+        >
+          {!isAuthenticated ? (
+            <LoginScreen />
+          ) : (
+            <>
+              {/* Header */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '16px 24px',
+                borderBottom: '1px solid var(--color-border)',
+                background: 'var(--color-bg-surface)'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></div>
+                  <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-text-primary)' }}>AI Assistant</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ 
+                    padding: '4px 8px', 
+                    fontSize: '12px', 
+                    background: 'rgba(239, 68, 68, 0.1)', 
+                    color: '#ef4444', 
+                    border: '1px solid rgba(239, 68, 68, 0.2)', 
+                    borderRadius: '12px' 
                   }}>
-                    {m.role === 'user' ? (
-                      m.text
-                    ) : (
-                      <ReactMarkdown
-                        components={{
-                          p: ({node, ...props}) => <p style={{ margin: '0 0 8px 0' }} {...props} />,
-                          ul: ({node, ...props}) => <ul style={{ margin: '0 0 8px 0', paddingLeft: '20px' }} {...props} />,
-                          ol: ({node, ...props}) => <ol style={{ margin: '0 0 8px 0', paddingLeft: '20px' }} {...props} />,
-                          li: ({node, ...props}) => <li style={{ marginBottom: '4px' }} {...props} />
-                        }}
-                      >
-                        {m.text}
-                      </ReactMarkdown>
-                    )}
-                  </div>
-                </div>
-              ))}
-              {isLoading && (
-                <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-                  <div style={{ padding: '12px 16px', borderRadius: '12px', background: 'var(--color-bg-surface-hover)' }}>
-                    <SparkleRegular className="spin" fontSize={16} />
-                  </div>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
+                    GPT-4 Pro
+                  </span>
+                  
+                  <button 
+                    onClick={logout}
+                    title="Logout"
+                    style={{ background: 'transparent', border: 'none', color: 'var(--color-text-secondary)', cursor: 'pointer', display: 'flex', padding: '4px' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#ef4444'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}
+                  >
+                    <LogOut size={16} />
+                  </button>
 
-            {/* Input Area */}
-            <div style={{ padding: '16px 24px', borderTop: '1px solid var(--color-border)' }}>
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'center', background: 'var(--color-bg-surface-content)', borderRadius: '24px', padding: '8px 16px', border: '1px solid var(--color-border)' }}>
-                <input
-                  ref={inputRef}
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') handleQuery();
-                    if (e.key === 'Escape') closeAIAssistant();
-                  }}
-                  placeholder="Ask a question or type a command..."
+                  <button 
+                    onClick={closeAIAssistant}
+                    style={{ background: 'transparent', border: 'none', color: 'var(--color-text-secondary)', cursor: 'pointer', display: 'flex', padding: '4px' }}
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Messages Area */}
+              <div style={{
+                flex: 1,
+                overflowY: 'auto',
+                padding: '24px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px'
+              }}>
+                {messages.map((m, i) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
+                    <div style={{
+                      maxWidth: '85%',
+                      padding: '12px 16px',
+                      borderRadius: '16px',
+                      borderBottomRightRadius: m.role === 'user' ? '4px' : '16px',
+                      borderBottomLeftRadius: m.role === 'user' ? '16px' : '4px',
+                      background: m.role === 'user' ? 'var(--color-accent)' : 'var(--color-bg-surface-content)',
+                      color: m.role === 'user' ? '#fff' : 'var(--color-text-primary)',
+                      boxShadow: 'var(--shadow-card)',
+                      fontSize: '14px',
+                      lineHeight: 1.5,
+                      wordBreak: 'break-word'
+                    }}>
+                      {m.role === 'user' ? m.text : (
+                        <div className="markdown-body">
+                          <ReactMarkdown>{m.text}</ReactMarkdown>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                {isLoading && (
+                  <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                    <div style={{
+                      padding: '12px 16px',
+                      borderRadius: '16px',
+                      borderBottomLeftRadius: '4px',
+                      background: 'var(--color-bg-surface-content)',
+                      display: 'flex',
+                      gap: '6px'
+                    }}>
+                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--color-text-secondary)', animation: 'bounce 1.4s infinite ease-in-out both' }}></div>
+                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--color-text-secondary)', animation: 'bounce 1.4s infinite ease-in-out both', animationDelay: '0.16s' }}></div>
+                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--color-text-secondary)', animation: 'bounce 1.4s infinite ease-in-out both', animationDelay: '0.32s' }}></div>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+
+              {/* Input Area */}
+              <div style={{
+                borderTop: '1px solid var(--color-border)',
+                background: 'var(--color-bg-surface)',
+                padding: '0'
+              }}>
+                <textarea
+                  value={message}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
+                  placeholder={isListening ? "Listening..." : "What would you like to explore today? Ask anything..."}
                   style={{
-                    flex: 1,
+                    width: '100%',
+                    minHeight: '80px',
+                    maxHeight: '150px',
                     background: 'transparent',
                     border: 'none',
                     outline: 'none',
+                    resize: 'none',
+                    padding: '16px 24px',
                     color: 'var(--color-text-primary)',
-                    fontSize: '0.9375rem',
+                    fontFamily: 'inherit',
+                    fontSize: '14px',
+                    lineHeight: 1.5
                   }}
                 />
-                <button
-                  onClick={handleQuery}
-                  disabled={!query.trim() || isLoading}
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    cursor: query.trim() && !isLoading ? 'pointer' : 'default',
-                    color: query.trim() && !isLoading ? 'var(--color-accent)' : 'var(--color-text-tertiary)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <SendRegular fontSize={20} />
-                </button>
+
+                {/* Controls */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '0 24px 16px 24px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--color-bg-surface-hover)', padding: '4px', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
+                      <button style={iconBtnStyle} onMouseEnter={(e) => e.currentTarget.style.color='var(--color-text-primary)'} onMouseLeave={(e) => e.currentTarget.style.color='var(--color-text-secondary)'}><Paperclip size={16} /></button>
+                      <button style={iconBtnStyle} onMouseEnter={(e) => e.currentTarget.style.color='var(--color-text-primary)'} onMouseLeave={(e) => e.currentTarget.style.color='var(--color-text-secondary)'}><Link size={16} /></button>
+                      <button style={iconBtnStyle} onMouseEnter={(e) => e.currentTarget.style.color='var(--color-text-primary)'} onMouseLeave={(e) => e.currentTarget.style.color='var(--color-text-secondary)'}><Code size={16} /></button>
+                    </div>
+                    
+                    <button 
+                      onClick={() => voiceController.toggleListening()}
+                      style={{
+                        ...iconBtnStyle,
+                        border: '1px solid',
+                        borderColor: isListening ? '#22c55e' : 'var(--color-border)',
+                        background: isListening ? 'rgba(34, 197, 94, 0.1)' : 'transparent',
+                        color: isListening ? '#22c55e' : 'var(--color-text-secondary)'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.borderColor = '#ef4444'}
+                      onMouseLeave={(e) => e.currentTarget.style.borderColor = isListening ? '#22c55e' : 'var(--color-border)'}
+                    >
+                      <Mic size={16} />
+                    </button>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <div style={{ fontSize: '12px', color: 'var(--color-text-tertiary)' }}>
+                      {charCount}/{maxChars}
+                    </div>
+                    <button
+                      onClick={handleSend}
+                      disabled={!message.trim() || isLoading}
+                      style={{
+                        background: (!message.trim() || isLoading) ? 'var(--color-bg-surface-hover)' : 'linear-gradient(to right, #ef4444, #dc2626)',
+                        color: (!message.trim() || isLoading) ? 'var(--color-text-tertiary)' : '#fff',
+                        border: 'none',
+                        borderRadius: '8px',
+                        padding: '8px 12px',
+                        cursor: (!message.trim() || isLoading) ? 'not-allowed' : 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: (!message.trim() || isLoading) ? 'none' : '0 4px 12px rgba(239, 68, 68, 0.3)'
+                      }}
+                    >
+                      <Send size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '12px 24px',
+                  borderTop: '1px solid var(--color-border)',
+                  fontSize: '12px',
+                  color: 'var(--color-text-tertiary)'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Info size={14} />
+                    <span>Press Shift + Enter for new line</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#22c55e' }}></div>
+                    <span>{isListening ? 'Listening...' : 'All systems operational'}</span>
+                  </div>
+                </div>
               </div>
-            </div>
-            <style>{`
-              @keyframes spin { 100% { transform: rotate(360deg); } }
-              .spin { animation: spin 2s linear infinite; }
-            `}</style>
-          </motion.div>
-        </>
+            </>
+          )}
+        </div>
       )}
-    </AnimatePresence>
+
+      <style>{`
+        @keyframes popIn {
+          0% { opacity: 0; transform: scale(0.9) translateY(10px); }
+          100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes bounce {
+          0%, 80%, 100% { transform: scale(0); }
+          40% { transform: scale(1); }
+        }
+        .floating-ai-button:hover {
+          transform: scale(1.1) rotate(5deg) !important;
+        }
+        .markdown-body p { margin-bottom: 8px; }
+        .markdown-body p:last-child { margin-bottom: 0; }
+        .markdown-body a { color: var(--color-accent-light); text-decoration: underline; }
+        .markdown-body ul { padding-left: 20px; margin-bottom: 8px; }
+        .markdown-body li { margin-bottom: 4px; }
+      `}</style>
+    </div>
   );
-}
+};
+
+const iconBtnStyle = {
+  background: 'transparent',
+  border: 'none',
+  color: 'var(--color-text-secondary)',
+  cursor: 'pointer',
+  padding: '6px',
+  borderRadius: '4px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  transition: 'background 0.2s ease, color 0.2s ease'
+};
+
+export default AIAssistant;

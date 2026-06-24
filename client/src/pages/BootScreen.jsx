@@ -23,7 +23,7 @@ export default function BootScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setOsState(OS_STATES.LOCKED);
-    }, ANIMATION.BOOT_DURATION * 1500);
+    }, ANIMATION.BOOT_DURATION * 1000);
 
     return () => clearTimeout(timer);
   }, [setOsState]);

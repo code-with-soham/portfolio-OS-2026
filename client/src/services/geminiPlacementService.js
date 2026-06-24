@@ -43,7 +43,10 @@ export async function enhanceRoadmapWithAI(baseRoadmap) {
     const data = await fetchWithRetry(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, systemInstruction: 'You are a strict JSON formatting assistant for technical interview prep.' })
+      body: JSON.stringify({ 
+        prompt, 
+        systemInstruction: 'Generate day-wise roadmap. Focus on consistency. Include revision days. Mention coding questions count. Return strictly as a JSON array without markdown backticks.' 
+      })
     });
     try {
         const jsonMatch = data.text.match(/\[.*\]/s) || [data.text];
@@ -74,7 +77,10 @@ export async function askStudyCoach(question, context = {}) {
     const data = await fetchWithRetry(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, systemInstruction: 'You are an expert AI Career Coach for software engineering placements.' })
+      body: JSON.stringify({ 
+        prompt, 
+        systemInstruction: 'You are an expert DSA and Placement Mentor. Explain concepts simply. Provide examples. Give coding interview insights. Focus on TCS, Infosys, Wipro, Accenture and product companies.' 
+      })
     });
     return data.text;
 
