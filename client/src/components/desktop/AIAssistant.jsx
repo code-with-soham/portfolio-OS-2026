@@ -8,7 +8,7 @@ import { aiBrain } from '../../ai/brain/aiBrain';
 import { voiceController } from '../../ai/voice/voiceController';
 import ReactMarkdown from 'react-markdown';
 import LoginScreen from '../auth/LoginScreen';
-import axios from 'axios';
+import api from '../../services/api';
 
 const AIAssistant = () => {
   const { isAIAssistantOpen, toggleAIAssistant, closeAIAssistant } = useDesktopStore();
@@ -30,14 +30,14 @@ const AIAssistant = () => {
 
   // Set up axios interceptor once
   useEffect(() => {
-    const interceptor = axios.interceptors.request.use((config) => {
+    const interceptor = api.interceptors.request.use((config) => {
       const currentToken = useAuthStore.getState().token;
       if (currentToken) {
         config.headers.Authorization = `Bearer ${currentToken}`;
       }
       return config;
     });
-    return () => axios.interceptors.request.eject(interceptor);
+    return () => api.interceptors.request.eject(interceptor);
   }, []);
 
   // Initialize voice controller and load history when auth changes
@@ -54,21 +54,21 @@ const AIAssistant = () => {
   const loadChatHistory = async () => {
     try {
       // 1. Get user's conversations
-      const convRes = await axios.get('/api/chats/conversation');
+      const convRes = await api.get('/chats/conversation');
       let currentConvId = null;
 
       if (convRes.data.length > 0) {
         currentConvId = convRes.data[0]._id;
       } else {
         // Create new conversation if none exists
-        const newConv = await axios.post('/api/chats/conversation', { title: 'General Session' });
+        const newConv = await api.post('/chats/conversation', { title: 'General Session' });
         currentConvId = newConv.data._id;
       }
       
       setConversationId(currentConvId);
 
       // 2. Fetch messages
-      const msgRes = await axios.get(`/api/chats/${currentConvId}/messages`);
+      const msgRes = await api.get(`/chats/${currentConvId}/messages`);
       if (msgRes.data.length > 0) {
         setMessages(msgRes.data.map(m => ({ role: m.role, text: m.content })));
       } else {
@@ -102,7 +102,7 @@ const AIAssistant = () => {
 
     // Save user message to backend
     if (conversationId) {
-      axios.post('/api/chats/message', { conversationId, role: 'user', content: currentQuery }).catch(console.error);
+      api.post('/chats/message', { conversationId, role: 'user', content: currentQuery }).catch(console.error);
     }
 
     // Simulate thinking delay for better UX
@@ -140,7 +140,7 @@ const AIAssistant = () => {
 
     // Save assistant message to backend
     if (conversationId) {
-      axios.post('/api/chats/message', { conversationId, role: 'assistant', content: responseText }).catch(console.error);
+      api.post('/chats/message', { conversationId, role: 'assistant', content: responseText }).catch(console.error);
     }
 
     setMessages(prev => [...prev, { role: 'assistant', text: responseText }]);

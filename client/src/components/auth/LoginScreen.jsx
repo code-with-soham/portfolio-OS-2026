@@ -2,7 +2,7 @@ import React from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { useAuthStore } from '../../store/useAuthStore';
 import { Bot, ShieldCheck } from 'lucide-react';
-import axios from 'axios';
+import api from '../../services/api';
 
 // Get Client ID from env or use a placeholder
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '1234567890-placeholder.apps.googleusercontent.com';
@@ -12,7 +12,7 @@ const LoginScreen = () => {
 
   const handleSuccess = async (credentialResponse) => {
     try {
-      const res = await axios.post('/api/auth/google', {
+      const res = await api.post('/auth/google', {
         credential: credentialResponse.credential
       });
       
