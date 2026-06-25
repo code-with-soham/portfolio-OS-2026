@@ -42,6 +42,7 @@ const PlacementPrepApp = lazy(() => import('../apps/PlacementPrepApp/index'));
 const MongoDBExplorerApp = lazy(() => import('../apps/MongoDBExplorer/index'));
 const MongoPlaygroundApp = lazy(() => import('../apps/MongoPlayground/index'));
 const AICopilotApp = lazy(() => import('../apps/AICopilot/index'));
+const VectorSearchStudioApp = lazy(() => import('../apps/VectorSearchStudio/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -481,5 +482,16 @@ export const APPS = {
     category: 'Development',
     version: '1.0.0',
     description: 'AI-powered MongoDB queries',
+  },
+  vectorsearch: {
+    id: 'vectorsearch',
+    title: 'Vector Search Studio',
+    icon: mongodbIco,
+    component: withErrorBoundary(VectorSearchStudioApp, 'Vector Search Studio'),
+    defaultWidth: 1100,
+    defaultHeight: 800,
+    category: 'Development',
+    version: '1.0.0',
+    description: 'Semantic vector search and embeddings',
   },
 };
