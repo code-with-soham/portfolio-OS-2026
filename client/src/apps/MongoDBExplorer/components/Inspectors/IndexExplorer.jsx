@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCollectionIndexes } from '../hooks/useDatabaseQueries';
+import { useCollectionIndexes } from '../../hooks/useDatabaseQueries';
 import { Key, AlertCircle, Check } from 'lucide-react';
 
 const IndexExplorer = ({ currentCollection }) => {

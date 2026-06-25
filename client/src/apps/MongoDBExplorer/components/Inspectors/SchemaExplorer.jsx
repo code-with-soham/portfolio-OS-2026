@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDatabaseSchema } from '../hooks/useDatabaseQueries';
+import { useDatabaseSchema } from '../../hooks/useDatabaseQueries';
 import { LayoutTemplate, AlertCircle } from 'lucide-react';
 
 const SchemaExplorer = ({ currentCollection }) => {
