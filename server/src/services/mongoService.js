@@ -217,6 +217,124 @@ class MongoService {
       size: 'N/A' // Requires $indexStats aggregation for exact bytes
     }));
   }
+
+  /**
+   * Safely execute a raw MongoDB shell query string
+   */
+  async executeQuery(queryString) {
+    const db = this.getDb();
+    
+    // 1. Basic format validation using Regex
+    // Matches: db.<collection>.<method>(<args>)
+    // Improved regex to handle newlines and chained methods (rudimentary support)
+    const queryRegex = /^db\.([a-zA-Z0-9_]+)\.(find|aggregate|count|distinct|limit|skip|sort)\(([\s\S]*)\)(?:\.(limit|skip|sort)\(([\s\S]*)\))?(?:\.(limit|skip|sort)\(([\s\S]*)\))?$/;
+    
+    const match = queryString.trim().match(queryRegex);
+    if (!match) {
+      throw new Error("Invalid query format. Expected format: db.collection.method({...})");
+    }
+
+    const collectionName = match[1];
+    const method = match[2];
+    const argsStr = match[3];
+
+    // Allowed Collections Whitelist
+    const ALLOWED_COLLECTIONS = ['movies', 'embedded_movies', 'users', 'sessions', 'theaters'];
+    if (!ALLOWED_COLLECTIONS.includes(collectionName)) {
+      throw new Error(`Unauthorized collection: ${collectionName}. Allowed: ${ALLOWED_COLLECTIONS.join(', ')}`);
+    }
+
+    // Allowed Methods Whitelist (Read-Only)
+    const ALLOWED_METHODS = ['find', 'aggregate', 'count', 'distinct', 'limit', 'skip', 'sort'];
+    if (!ALLOWED_METHODS.includes(method)) {
+      throw new Error(`Unauthorized method: ${method}. Only read operations are allowed.`);
+    }
+
+    // 2. Safe Parsing using VM module
+    // We create an isolated sandbox to evaluate the JS object literal arguments safely
+    const vm = require('vm');
+    let parsedArgs = [];
+    
+    if (argsStr && argsStr.trim().length > 0) {
+      try {
+        // We wrap the args in an array so multiple arguments (e.g. find(query, projection)) parse correctly
+        const sandbox = {};
+        vm.createContext(sandbox);
+        // Using "return [...]" isn't direct in vm.runInContext for expressions, 
+        // evaluating an array literal evaluates to the array
+        const script = new vm.Script(`[${argsStr}]`);
+        parsedArgs = script.runInContext(sandbox, { timeout: 100 }); 
+      } catch (e) {
+        throw new Error(`Failed to parse query arguments: ${e.message}`);
+      }
+    }
+
+    const collection = db.collection(collectionName);
+    
+    // 3. Execution
+    const startTime = Date.now();
+    let result;
+    let cursor;
+
+    switch (method) {
+      case 'find':
+        cursor = collection.find(...parsedArgs);
+        break;
+      case 'aggregate':
+        cursor = collection.aggregate(...parsedArgs);
+        break;
+      case 'count':
+        result = await collection.countDocuments(...parsedArgs);
+        break;
+      case 'distinct':
+        result = await collection.distinct(...parsedArgs);
+        break;
+      default:
+        // Handle standalone limit, skip, sort on a blank find
+        cursor = collection.find({});
+        cursor = cursor[method](...parsedArgs);
+        break;
+    }
+
+    // 4. Chain processing (limit, skip, sort)
+    // Extract chained methods from match groups 4-5 and 6-7
+    const applyChained = (chainedMethod, chainedArgsStr) => {
+      if (!chainedMethod) return;
+      if (!cursor) throw new Error(`Cannot chain .${chainedMethod}() onto a non-cursor result`);
+      
+      try {
+        const sandbox = {};
+        vm.createContext(sandbox);
+        const script = new vm.Script(`[${chainedArgsStr}]`);
+        const chainedArgs = script.runInContext(sandbox, { timeout: 100 });
+        cursor = cursor[chainedMethod](...chainedArgs);
+      } catch (e) {
+        throw new Error(`Failed to parse arguments for .${chainedMethod}()`);
+      }
+    };
+
+    applyChained(match[4], match[5]);
+    applyChained(match[6], match[7]);
+
+    // 5. Resolution
+    if (cursor) {
+      // By default, cap massive playground queries to prevent memory crashes
+      const limitExceedsMax = cursor.cmd?.limit > 100;
+      if (!cursor.cmd?.limit || limitExceedsMax) {
+         cursor.limit(limitExceedsMax ? Math.min(cursor.cmd.limit, 100) : 50);
+      }
+      result = await cursor.toArray();
+    }
+
+    const latency = Date.now() - startTime;
+
+    return {
+      success: true,
+      data: result,
+      executionTimeMs: latency,
+      rows: Array.isArray(result) ? result.length : 1
+    };
+  }
 }
 
 module.exports = new MongoService();

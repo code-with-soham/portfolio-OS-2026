@@ -106,3 +106,17 @@ exports.getIndexes = async (req, res) => {
     res.status(400).json({ error: 'Failed to get indexes', details: error.message });
   }
 };
+
+exports.executeQuery = async (req, res) => {
+  try {
+    const { query } = req.body;
+    if (!query || typeof query !== 'string') {
+      return res.status(400).json({ error: 'Missing or invalid query string' });
+    }
+
+    const result = await mongoService.executeQuery(query);
+    res.json(result);
+  } catch (error) {
+    res.status(400).json({ error: 'Query execution failed', details: error.message });
+  }
+};

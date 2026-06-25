@@ -40,6 +40,7 @@ const WhatsAppApp = lazy(() => import('../apps/WhatsAppApp/index'));
 const SlidingPuzzleApp = lazy(() => import('../apps/SlidingPuzzleApp/index'));
 const PlacementPrepApp = lazy(() => import('../apps/PlacementPrepApp/index'));
 const MongoDBExplorerApp = lazy(() => import('../apps/MongoDBExplorer/index'));
+const MongoPlaygroundApp = lazy(() => import('../apps/MongoPlayground/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -457,5 +458,16 @@ export const APPS = {
     version: '1.0.0',
     description: 'Detailed MongoDB Document View',
     hideTitleBar: false,
+  },
+  mongoplayground: {
+    id: 'mongoplayground',
+    title: 'Mongo Playground',
+    icon: mongodbIco,
+    component: withErrorBoundary(MongoPlaygroundApp, 'Mongo Playground'),
+    defaultWidth: 1000,
+    defaultHeight: 750,
+    category: 'Development',
+    version: '1.0.0',
+    description: 'Execute MongoDB queries',
   },
 };
