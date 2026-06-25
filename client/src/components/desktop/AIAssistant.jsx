@@ -207,7 +207,7 @@ const AIAssistant = () => {
   }, [isAuthenticated]);
 
   return (
-    <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 10000 }}>
+    <div style={{ position: 'fixed', bottom: '64px', right: '24px', zIndex: 10000 }}>
       {/* Floating Button */}
       <button 
         className="floating-ai-button"

@@ -446,4 +446,16 @@ export const APPS = {
     version: '1.0.0',
     description: 'AI-powered MongoDB Client',
   },
+  mongodocument: {
+    id: 'mongodocument',
+    title: 'Document Details',
+    icon: mongodbIco,
+    component: withErrorBoundary(lazy(() => import('../apps/MongoDocumentApp/index')), 'Document Details'),
+    defaultWidth: 800,
+    defaultHeight: 600,
+    category: 'Development',
+    version: '1.0.0',
+    description: 'Detailed MongoDB Document View',
+    hideTitleBar: false,
+  },
 };

@@ -29,3 +29,28 @@ export const getDatabaseHealth = async () => {
   const { data } = await databaseApi.get('/health');
   return data;
 };
+
+export const getCollectionDocuments = async (collection, params = {}) => {
+  const { data } = await databaseApi.get(`/collection/${collection}`, { params });
+  return data;
+};
+
+export const getSingleDocument = async (collection, id) => {
+  const { data } = await databaseApi.get(`/document/${collection}/${id}`);
+  return data;
+};
+
+export const getCollectionSchema = async (collection) => {
+  const { data } = await databaseApi.get(`/schema/${collection}`);
+  return data;
+};
+
+export const getCollectionStats = async (collection) => {
+  const { data } = await databaseApi.get(`/stats/${collection}`);
+  return data;
+};
+
+export const getCollectionIndexes = async (collection) => {
+  const { data } = await databaseApi.get(`/indexes/${collection}`);
+  return data;
+};

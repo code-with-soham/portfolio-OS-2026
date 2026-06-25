@@ -1,106 +1,184 @@
 import React, { useState } from 'react';
 import { useMongoStore } from '../hooks/useMongoStore';
-import { Copy, Trash2, Edit2, ChevronDown, ChevronRight, FileJson, Check } from 'lucide-react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { useCollectionDocuments } from '../hooks/useDatabaseQueries';
+import { ArrowLeft, ArrowRight, FileJson, LayoutGrid, List, Code } from 'lucide-react';
+import { useWindowStore } from '../../../store/useWindowStore';
+import GridView from './Views/GridView';
+import TableView from './Views/TableView';
+import JsonView from './Views/JsonView';
 
-const DocumentCard = ({ doc, index, allExpanded }) => {
-  const [localExpanded, setLocalExpanded] = useState(true);
-  const [copied, setCopied] = useState(false);
-
-  // Sync with global expand/collapse
-  React.useEffect(() => {
-    setLocalExpanded(allExpanded);
-  }, [allExpanded]);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(JSON.stringify(doc, null, 2));
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+const PaginationControl = () => {
+  const { page, limit, setPage, setLimit } = useMongoStore();
 
   return (
-    <div className="border border-[var(--color-border)] rounded-md mb-4 bg-[#1E1E1E] overflow-hidden shadow-sm">
-      <div className="flex items-center justify-between p-2 bg-[#2D2D2D] border-b border-[var(--color-border)] group">
-        <div className="flex items-center">
-          <button onClick={() => setLocalExpanded(!localExpanded)} className="mr-2 text-gray-400 hover:text-gray-200">
-            {localExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-          </button>
-          <span className="text-xs font-mono text-gray-400">
-            {doc._id?.$oid ? `ObjectId("${doc._id.$oid}")` : `Document ${index + 1}`}
-          </span>
-        </div>
-        <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button className="text-gray-400 hover:text-blue-400 p-1" title="Edit Document"><Edit2 size={14} /></button>
-          <button onClick={handleCopy} className="text-gray-400 hover:text-green-400 p-1" title="Copy JSON">
-            {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
-          </button>
-          <button className="text-gray-400 hover:text-red-400 p-1" title="Delete Document"><Trash2 size={14} /></button>
-        </div>
+    <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-2">
+        <span className="text-gray-400">Rows</span>
+        <select 
+          value={limit} 
+          onChange={(e) => setLimit(Number(e.target.value))}
+          className="bg-[#1E1E1E] border border-gray-600 text-gray-200 rounded px-2 py-1 outline-none focus:border-[var(--color-accent)]"
+        >
+          <option value={10}>10</option>
+          <option value={25}>25</option>
+          <option value={50}>50</option>
+          <option value={100}>100</option>
+        </select>
       </div>
-      
-      {localExpanded && (
-        <div className="p-4 overflow-x-auto text-sm font-mono custom-scrollbar">
-          <SyntaxHighlighter 
-            language="json" 
-            style={vscDarkPlus}
-            customStyle={{ margin: 0, padding: 0, background: 'transparent', fontSize: '13px' }}
-            wrapLongLines={false}
-          >
-            {JSON.stringify(doc, null, 2)}
-          </SyntaxHighlighter>
-        </div>
-      )}
+      <div className="flex items-center space-x-2">
+        <button 
+          onClick={() => setPage(Math.max(1, page - 1))}
+          disabled={page === 1}
+          className="p-1 rounded text-gray-400 hover:bg-[#2A2D2E] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <ArrowLeft size={16} />
+        </button>
+        <span className="text-gray-300 font-medium px-2">{page}</span>
+        <button 
+          onClick={() => setPage(page + 1)}
+          className="p-1 rounded text-gray-400 hover:bg-[#2A2D2E] hover:text-white"
+        >
+          <ArrowRight size={16} />
+        </button>
+      </div>
     </div>
   );
 };
 
 const DocumentViewer = () => {
-  const { documents, searchQuery, currentCollection } = useMongoStore();
+  const { currentCollection, searchQuery, page, limit, sort, order, setSort, viewMode, setViewMode } = useMongoStore();
+  const openWindow = useWindowStore((s) => s.openWindow);
   const [allExpanded, setAllExpanded] = useState(true);
 
-  // Simple client-side search mock
-  const filteredDocs = React.useMemo(() => {
-    if (!searchQuery) return documents;
-    try {
-      const query = searchQuery.toLowerCase();
-      return documents.filter(doc => JSON.stringify(doc).toLowerCase().includes(query));
-    } catch (e) {
-      return documents;
-    }
-  }, [documents, searchQuery]);
+  const { data, isLoading, isError, error } = useCollectionDocuments(currentCollection, {
+    page, limit, sort, order, search: searchQuery
+  });
 
-  if (!currentCollection) return null; // Handled by WelcomeScreen
+  const handleOpenDetails = (doc) => {
+    openWindow('mongodocument', { documentData: doc, collection: currentCollection });
+  };
+
+  if (!currentCollection) return null;
+
+  const docs = data?.documents || [];
+  const totalCount = data?.totalCount || 0;
+  
+  const startIdx = totalCount === 0 ? 0 : (page - 1) * limit + 1;
+  const endIdx = Math.min(page * limit, totalCount);
 
   return (
     <div className="flex-1 flex flex-col min-h-0 bg-[#1A1A1A]">
       {/* Viewer Toolbar */}
       <div className="flex items-center justify-between px-4 py-2 bg-[#212121] border-b border-[var(--color-border)] text-xs text-gray-400">
         <div className="flex items-center gap-4">
-          <button onClick={() => setAllExpanded(true)} className="hover:text-white transition-colors">Expand All</button>
-          <button onClick={() => setAllExpanded(false)} className="hover:text-white transition-colors">Collapse All</button>
-          <button className="flex items-center hover:text-white transition-colors">
-            <FileJson size={14} className="mr-1" /> Pretty Print
-          </button>
+          
+          {/* View Toggles */}
+          <div className="flex bg-[#1E1E1E] rounded-md border border-gray-600 overflow-hidden">
+            <button 
+              onClick={() => setViewMode('grid')}
+              className={`p-1.5 transition-colors ${viewMode === 'grid' ? 'bg-[var(--color-accent)] text-white' : 'hover:bg-[#2A2D2E]'}`}
+              title="Grid View"
+            ><LayoutGrid size={14} /></button>
+            <button 
+              onClick={() => setViewMode('table')}
+              className={`p-1.5 transition-colors ${viewMode === 'table' ? 'bg-[var(--color-accent)] text-white' : 'hover:bg-[#2A2D2E]'}`}
+              title="Table View"
+            ><List size={14} /></button>
+            <button 
+              onClick={() => setViewMode('json')}
+              className={`p-1.5 transition-colors ${viewMode === 'json' ? 'bg-[var(--color-accent)] text-white' : 'hover:bg-[#2A2D2E]'}`}
+              title="JSON View"
+            ><Code size={14} /></button>
+          </div>
+
+          <div className="h-4 w-px bg-gray-600"></div>
+          
+          {viewMode === 'grid' && (
+            <>
+              <button onClick={() => setAllExpanded(true)} className="hover:text-white transition-colors">Expand All</button>
+              <button onClick={() => setAllExpanded(false)} className="hover:text-white transition-colors">Collapse All</button>
+              <div className="h-4 w-px bg-gray-600"></div>
+            </>
+          )}
+          
+          {/* Simple Sort Controls */}
+          <div className="flex items-center space-x-2">
+            <span>Sort By:</span>
+            <select 
+              value={sort}
+              onChange={(e) => setSort(e.target.value, order)}
+              className="bg-[#1E1E1E] border border-gray-600 text-gray-200 rounded px-2 py-0.5 outline-none"
+            >
+              <option value="_id">_id</option>
+              <option value="title">Title / Name</option>
+              <option value="year">Year</option>
+              <option value="imdb.rating">IMDb</option>
+              <option value="released">Released</option>
+            </select>
+            <select 
+              value={order}
+              onChange={(e) => setSort(sort, e.target.value)}
+              className="bg-[#1E1E1E] border border-gray-600 text-gray-200 rounded px-2 py-0.5 outline-none"
+            >
+              <option value="asc">ASC</option>
+              <option value="desc">DESC</option>
+            </select>
+          </div>
         </div>
+        
         <div>
           <span className="font-medium text-gray-300">
-            {filteredDocs.length > 0 ? `1–${filteredDocs.length} of 21,349` : '0 Documents'}
+            {isLoading ? 'Loading...' : `${startIdx}–${endIdx} of ${totalCount.toLocaleString()}`}
           </span>
         </div>
       </div>
 
       {/* Documents List */}
-      <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
-        {filteredDocs.length > 0 ? (
-          filteredDocs.map((doc, idx) => (
-            <DocumentCard key={doc._id?.$oid || idx} doc={doc} index={idx} allExpanded={allExpanded} />
-          ))
-        ) : (
-          <div className="flex flex-col items-center justify-center h-full text-gray-500">
-            <p>No documents found matching your query.</p>
+      <div className="flex-1 overflow-y-auto p-4 custom-scrollbar relative bg-[#1A1A1A]">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-[#1A1A1A] bg-opacity-80 z-20">
+            <div className="flex flex-col items-center">
+              <div className="loading-spinner w-8 h-8 border-4 border-gray-600 border-t-[var(--color-accent)] rounded-full animate-spin mb-4"></div>
+              <p className="text-gray-400 font-medium">Fetching documents...</p>
+            </div>
           </div>
         )}
+        
+        {isError && (
+          <div className="flex flex-col items-center justify-center h-full text-red-400">
+            <p>Error loading documents: {error?.message}</p>
+          </div>
+        )}
+
+        {!isLoading && !isError && docs.length > 0 && (
+          <>
+            {viewMode === 'grid' && (
+              <GridView docs={docs} allExpanded={allExpanded} onOpenDetails={handleOpenDetails} currentCollection={currentCollection} />
+            )}
+            {viewMode === 'table' && (
+              <TableView docs={docs} onOpenDetails={handleOpenDetails} />
+            )}
+            {viewMode === 'json' && (
+              <JsonView docs={docs} />
+            )}
+          </>
+        )}
+
+        {!isLoading && !isError && docs.length === 0 && (
+          <div className="flex flex-col items-center justify-center h-full text-gray-500">
+            <FileJson size={48} className="mb-4 opacity-50" />
+            <p className="text-lg">No documents found.</p>
+            {searchQuery && <p className="text-sm mt-2">Try adjusting your filter query.</p>}
+          </div>
+        )}
+      </div>
+
+      {/* Bottom Pagination Bar */}
+      <div className="flex items-center justify-between px-4 py-2 bg-[#212121] border-t border-[var(--color-border)] text-xs">
+        <div className="text-gray-500">
+          MongoDB Atlas Cloud Query
+        </div>
+        <PaginationControl />
       </div>
     </div>
   );

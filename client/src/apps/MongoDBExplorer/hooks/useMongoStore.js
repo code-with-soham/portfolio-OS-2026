@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { mockCollections } from '../constants/mockData';
 
 export const useMongoStore = create(
   persist(
@@ -8,39 +7,58 @@ export const useMongoStore = create(
       isConnected: true,
       databases: ['sample_mflix'],
       currentDatabase: 'sample_mflix',
-      collections: Object.keys(mockCollections),
-      currentCollection: null, // Default to null for Welcome Screen
-      documents: [],
+      currentCollection: null,
       searchQuery: '',
+      
+      // Pagination & Sorting State
+      page: 1,
+      limit: 25,
+      sort: '_id',
+      order: 'asc',
+
+      // Phase 4 State
+      viewMode: 'grid', // 'grid' | 'table' | 'json'
+      activeTab: 'documents', // 'documents' | 'aggregation' | 'schema' | 'indexes'
+      queryHistory: [],
+      favorites: {
+        collections: [],
+        queries: [],
+      },
       
       setCurrentCollection: (collectionName) => set({
         currentCollection: collectionName,
-        documents: mockCollections[collectionName] || [],
         searchQuery: '', // Reset search on collection change
+        page: 1, // Reset to first page
+        activeTab: 'documents', // Reset to default tab
       }),
 
-      setSearchQuery: (query) => set({ searchQuery: query }),
+      setSearchQuery: (query) => set((state) => {
+        // Simple distinct logic to add to history if it's a substantive search
+        const newHistory = query && query.length > 2 && !state.queryHistory.includes(query) 
+          ? [query, ...state.queryHistory].slice(0, 10) 
+          : state.queryHistory;
+          
+        return { searchQuery: query, page: 1, queryHistory: newHistory };
+      }),
+      setPage: (page) => set({ page }),
+      setLimit: (limit) => set({ limit, page: 1 }),
+      setSort: (sort, order) => set({ sort, order, page: 1 }),
+      setViewMode: (mode) => set({ viewMode: mode }),
+      setActiveTab: (tab) => set({ activeTab: tab }),
 
-      refreshData: () => {
-        // Simulate refresh by resetting documents to mock data
-        const currentColl = get().currentCollection;
-        if (currentColl) {
-          set({ documents: mockCollections[currentColl] || [] });
-        }
-      },
     }),
     {
-      name: 'mongo-explorer-storage', // name of the item in the storage (must be unique)
+      name: 'mongo-explorer-storage',
       partialize: (state) => ({ 
         currentCollection: state.currentCollection,
         searchQuery: state.searchQuery,
-      }), // Persist only these fields
-      onRehydrateStorage: () => (state) => {
-        // After hydration, ensure documents are loaded for the persisted collection
-        if (state && state.currentCollection) {
-          state.setCurrentCollection(state.currentCollection);
-        }
-      },
+        limit: state.limit,
+        sort: state.sort,
+        order: state.order,
+        viewMode: state.viewMode,
+        queryHistory: state.queryHistory,
+        favorites: state.favorites
+      }),
     }
   )
 );
