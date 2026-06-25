@@ -8,28 +8,25 @@ const generateToken = (id) => {
   });
 };
 
-const googleLogin = async (req, res) => {
+const login = async (req, res) => {
   try {
-    const { credential } = req.body;
+    const { name, email } = req.body;
     
-    // Decode the Google JWT
-    const decoded = jwt.decode(credential);
-    if (!decoded) {
-      return res.status(400).json({ message: 'Invalid Google credential' });
+    if (!name || !email) {
+      return res.status(400).json({ message: 'Name and email are required' });
     }
 
-    const { sub: googleId, email, name, picture } = decoded;
+    // Normalize email
+    const normalizedEmail = email.toLowerCase().trim();
 
     // Check if user exists
-    let user = await User.findOne({ googleId });
+    let user = await User.findOne({ email: normalizedEmail });
 
     if (!user) {
       // Create new user
       user = await User.create({
-        googleId,
-        email,
-        name,
-        picture,
+        email: normalizedEmail,
+        name: name.trim(),
         role: 'user'
       });
     }
@@ -38,7 +35,6 @@ const googleLogin = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      picture: user.picture,
       role: user.role,
       token: generateToken(user._id)
     });
@@ -49,5 +45,5 @@ const googleLogin = async (req, res) => {
 };
 
 module.exports = {
-  googleLogin
+  login
 };

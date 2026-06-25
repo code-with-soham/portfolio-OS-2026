@@ -1,4 +1,4 @@
-const { GoogleGenerativeAI, SchemaType } = require("@google/genai");
+
 
 /**
  * Reusable generic Gemini client enforcing application/json output.
@@ -75,6 +75,48 @@ class GeminiClient {
       }
     } catch (error) {
       console.error('GeminiClient error:', error.message);
+      throw error;
+    }
+  }
+
+  /**
+   * Generates a float array embedding for a given text using gemini-embedding-2.
+   */
+  async generateEmbedding(text) {
+    if (!this.apiKey) {
+      throw new Error('GEMINI_API_KEY not configured on server.');
+    }
+
+    const embedUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-2:embedContent?key=${this.apiKey}`;
+    
+    const requestBody = {
+      model: "models/gemini-embedding-2",
+      content: {
+        parts: [{ text }]
+      }
+    };
+
+    try {
+      const response = await fetch(embedUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Gemini Embedding API Error:', response.status, errorText);
+        throw new Error(`Embedding Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.embedding && data.embedding.values) {
+        return data.embedding.values;
+      } else {
+        throw new Error('Unexpected response structure from Embedding API');
+      }
+    } catch (error) {
+      console.error('Gemini Embedding error:', error.message);
       throw error;
     }
   }

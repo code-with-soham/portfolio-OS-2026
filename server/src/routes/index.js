@@ -77,4 +77,8 @@ router.use('/db', mongoRoutes);
 const mongoAiRoutes = require('./mongoAiRoutes');
 router.use('/db-ai', mongoAiRoutes);
 
+// Vector Search Studio Routes
+const vectorSearchRoutes = require('./vectorSearchRoutes');
+router.use('/vector-search', vectorSearchRoutes);
+
 module.exports = router;

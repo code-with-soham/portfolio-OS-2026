@@ -32,7 +32,7 @@ const config = {
   },
 
   // MongoDB Connection String
-  mongoUri: process.env.MONGO_URI || 'mongodb://localhost:27017/portfolio-os',
+  mongoUri: process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb://localhost:27017/portfolio-os',
 
   // JWT Secret
   jwtSecret: process.env.JWT_SECRET || 'supersecretjwtkey_portfolio_os',
