@@ -118,6 +118,8 @@ import aiAssistantIco from '../assets/icons/apps/icons8-gemini-ai-48.png';
 import aboutOsIco from '../assets/icons/apps/icons8-windows-defender-50.png';
 import whatsappIco from '../assets/icons/apps/icons8-whatsapp-48.png';
 
+import mongodbIco from '../assets/icons/apps/mongodb.svg';
+
 /**
  * Desktop Applications — the apps shown on desktop and start menu
  * Each app has an id, display label, emoji icon, and description.
@@ -303,6 +305,12 @@ export const DESKTOP_APPS = [
     label: 'Puzzle Game',
     icon: '🧩',
     description: 'Sliding Puzzle Game',
+  },
+  {
+    id: 'mongodbexplorer',
+    label: 'MongoDB Atlas Explorer AI',
+    icon: mongodbIco,
+    description: 'AI Database Client',
   },
 ];
 

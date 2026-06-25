@@ -39,6 +39,7 @@ const WeatherApp = lazy(() => import('../apps/WeatherApp/index'));
 const WhatsAppApp = lazy(() => import('../apps/WhatsAppApp/index'));
 const SlidingPuzzleApp = lazy(() => import('../apps/SlidingPuzzleApp/index'));
 const PlacementPrepApp = lazy(() => import('../apps/PlacementPrepApp/index'));
+const MongoDBExplorerApp = lazy(() => import('../apps/MongoDBExplorer/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -89,6 +90,8 @@ import aiDashboardIco from '../assets/icons/apps/icons8-dashboard-60.png';
 import aiAssistantIco from '../assets/icons/apps/icons8-gemini-ai-48.png';
 import aboutOsIco from '../assets/icons/apps/icons8-windows-defender-50.png';
 import whatsappIco from '../assets/icons/apps/icons8-whatsapp-48.png';
+
+import mongodbIco from '../assets/icons/apps/mongodb.svg';
 
 export const APPS = {
   about: {
@@ -431,5 +434,16 @@ export const APPS = {
     category: 'Productivity',
     version: '1.0.0',
     description: 'Deterministic Placement OS with Gemini AI',
+  },
+  mongodbexplorer: {
+    id: 'mongodbexplorer',
+    title: 'MongoDB Atlas Explorer AI',
+    icon: mongodbIco,
+    component: withErrorBoundary(MongoDBExplorerApp, 'MongoDB Atlas Explorer AI'),
+    defaultWidth: 1000,
+    defaultHeight: 700,
+    category: 'Development',
+    version: '1.0.0',
+    description: 'AI-powered MongoDB Client',
   },
 };

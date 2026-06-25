@@ -69,4 +69,8 @@ router.use('/auth', authRoutes);
 const chatRoutes = require('./chatRoutes');
 router.use('/chats', chatRoutes);
 
+// MongoDB Explorer Routes
+const mongoRoutes = require('./mongoRoutes');
+router.use('/db', mongoRoutes);
+
 module.exports = router;

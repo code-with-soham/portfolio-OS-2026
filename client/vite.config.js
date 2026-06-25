@@ -1,5 +1,6 @@
 // ============================================
 // Portfolio OS 2026 — Vite Configuration
+// (Modified to trigger Vite restart and Tailwind JIT generation)
 // ============================================
 
 import { defineConfig } from 'vite';
