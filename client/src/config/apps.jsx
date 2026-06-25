@@ -41,6 +41,7 @@ const SlidingPuzzleApp = lazy(() => import('../apps/SlidingPuzzleApp/index'));
 const PlacementPrepApp = lazy(() => import('../apps/PlacementPrepApp/index'));
 const MongoDBExplorerApp = lazy(() => import('../apps/MongoDBExplorer/index'));
 const MongoPlaygroundApp = lazy(() => import('../apps/MongoPlayground/index'));
+const AICopilotApp = lazy(() => import('../apps/AICopilot/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -469,5 +470,16 @@ export const APPS = {
     category: 'Development',
     version: '1.0.0',
     description: 'Execute MongoDB queries',
+  },
+  aicopilot: {
+    id: 'aicopilot',
+    title: 'AI Database Copilot',
+    icon: aiAssistantIco,
+    component: withErrorBoundary(AICopilotApp, 'AI Database Copilot'),
+    defaultWidth: 1000,
+    defaultHeight: 750,
+    category: 'Development',
+    version: '1.0.0',
+    description: 'AI-powered MongoDB queries',
   },
 };

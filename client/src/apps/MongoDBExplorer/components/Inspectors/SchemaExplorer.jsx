@@ -1,9 +1,9 @@
 import React from 'react';
-import { useDatabaseSchema } from '../../hooks/useDatabaseQueries';
+import { useCollectionSchema } from '../../hooks/useDatabaseQueries';
 import { LayoutTemplate, AlertCircle } from 'lucide-react';
 
 const SchemaExplorer = ({ currentCollection }) => {
-  const { data: schema, isLoading, isError } = useDatabaseSchema(currentCollection);
+  const { data: schema, isLoading, isError } = useCollectionSchema(currentCollection);
 
   if (isLoading) {
     return (

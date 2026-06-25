@@ -73,4 +73,8 @@ router.use('/chats', chatRoutes);
 const mongoRoutes = require('./mongoRoutes');
 router.use('/db', mongoRoutes);
 
+// MongoDB AI Copilot Routes
+const mongoAiRoutes = require('./mongoAiRoutes');
+router.use('/db-ai', mongoAiRoutes);
+
 module.exports = router;
