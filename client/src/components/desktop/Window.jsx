@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, memo } from 'react';
 import { motion, useDragControls, AnimatePresence } from 'framer-motion';
 import { useWindowStore } from '../../store/useWindowStore';
 import { APPS } from '../../config/apps';
+import { windowMotion } from '../../animations/WindowMotion';
 
 /**
  * Resize Handle Component
@@ -242,16 +243,17 @@ const Window = memo(function Window({ window: winData }) {
         // Commit to store
         updateWindowBounds(id, localBounds);
       }}
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={windowMotion.initial}
       animate={{ 
-        opacity: 1, 
-        scale: 1,
+        ...windowMotion.animate,
         x: isMaximized ? 0 : localBounds.x,
         y: isMaximized ? 0 : localBounds.y,
         width: isMaximized ? '100vw' : localBounds.width,
         height: isMaximized ? 'calc(100vh - var(--taskbar-height))' : localBounds.height,
       }}
-      transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+      exit={windowMotion.exit}
+      whileDrag={windowMotion.drag}
+      transition={windowMotion.animate.transition}
       className={`mica ${isActive ? 'active-window' : ''}`}
       style={{
         position: 'absolute',

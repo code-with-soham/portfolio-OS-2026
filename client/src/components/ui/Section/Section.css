@@ -1,0 +1,17 @@
+.ds-section {
+  padding: var(--ds-space-3xl) 0;
+}
+
+.ds-section-title {
+  font-size: var(--ds-text-2xl);
+  font-weight: var(--ds-font-bold);
+  color: var(--ds-text-primary);
+  margin-bottom: var(--ds-space-md);
+}
+
+.ds-section-description {
+  font-size: var(--ds-text-lg);
+  color: var(--ds-text-secondary);
+  margin-bottom: var(--ds-space-2xl);
+  max-width: 800px;
+}

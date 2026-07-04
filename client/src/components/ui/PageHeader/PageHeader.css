@@ -1,0 +1,25 @@
+.ds-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--ds-space-3xl);
+  gap: var(--ds-space-xl);
+}
+
+.ds-page-header-title {
+  font-size: var(--ds-text-3xl);
+  font-weight: var(--ds-font-bold);
+  color: var(--ds-text-primary);
+  margin-bottom: var(--ds-space-sm);
+}
+
+.ds-page-header-description {
+  font-size: var(--ds-text-lg);
+  color: var(--ds-text-secondary);
+}
+
+.ds-page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-md);
+}

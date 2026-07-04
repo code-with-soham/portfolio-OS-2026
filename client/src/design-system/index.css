@@ -1,0 +1,42 @@
+/*
+  index.css
+  Entry point for Enterprise Design System
+  Import this at the very top of your main application entry (e.g., main.jsx or App.jsx)
+*/
+
+@import './colors.css';
+@import './typography.css';
+@import './spacing.css';
+@import './radius.css';
+@import './elevation.css';
+@import './glass.css';
+@import './icons.css';
+@import './scrollbars.css';
+@import './focus.css';
+
+/* Global Reset & Base Styles enforcing the Design System */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--ds-bg-primary);
+  color: var(--ds-text-primary);
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-text-body);
+  line-height: var(--ds-leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  line-height: var(--ds-leading-tight);
+  font-weight: var(--ds-font-bold);
+}
+
+p {
+  margin: 0;
+}

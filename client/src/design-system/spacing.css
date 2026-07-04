@@ -1,0 +1,17 @@
+/*
+  spacing.css
+  OS-Wide Spacing Scale
+*/
+
+:root {
+  --ds-space-xs: 4px;
+  --ds-space-sm: 8px;
+  --ds-space-md: 12px;
+  --ds-space-lg: 16px;
+  --ds-space-xl: 20px;
+  --ds-space-2xl: 24px;
+  --ds-space-3xl: 32px;
+  --ds-space-4xl: 40px;
+  --ds-space-5xl: 48px;
+  --ds-space-6xl: 64px;
+}

@@ -1,0 +1,73 @@
+.ds-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: var(--ds-blur-md);
+  -webkit-backdrop-filter: var(--ds-blur-md);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ds-space-2xl);
+}
+
+.ds-modal {
+  background: var(--ds-panel);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-xl);
+  box-shadow: var(--ds-shadow-xl);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.ds-modal-header {
+  padding: var(--ds-space-xl) var(--ds-space-2xl);
+  border-bottom: 1px solid var(--ds-border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ds-modal-title {
+  font-size: var(--ds-text-xl);
+  font-weight: var(--ds-font-bold);
+  margin: 0;
+}
+
+.ds-modal-close {
+  background: transparent;
+  border: none;
+  color: var(--ds-text-secondary);
+  cursor: pointer;
+  padding: var(--ds-space-xs);
+  border-radius: var(--ds-radius-circle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.ds-modal-close:hover {
+  background-color: var(--ds-surface-hover);
+  color: var(--ds-text-primary);
+}
+
+.ds-modal-content {
+  padding: var(--ds-space-2xl);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.ds-modal-footer {
+  padding: var(--ds-space-xl) var(--ds-space-2xl);
+  border-top: 1px solid var(--ds-border-light);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--ds-space-md);
+  background: var(--ds-surface);
+}

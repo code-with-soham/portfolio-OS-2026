@@ -1,0 +1,31 @@
+.ds-spinner {
+  display: inline-block;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: var(--ds-radius-circle);
+  animation: ds-spin 0.75s linear infinite;
+}
+
+.ds-spinner-sm {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.ds-spinner-md {
+  width: 24px;
+  height: 24px;
+  border-width: 3px;
+}
+
+.ds-spinner-lg {
+  width: 32px;
+  height: 32px;
+  border-width: 3px;
+}
+
+.ds-spinner-xl {
+  width: 48px;
+  height: 48px;
+  border-width: 4px;
+}

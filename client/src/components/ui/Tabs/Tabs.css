@@ -1,0 +1,45 @@
+.ds-tabs-list {
+  display: flex;
+  gap: var(--ds-space-md);
+  border-bottom: 1px solid var(--ds-border);
+  margin-bottom: var(--ds-space-xl);
+}
+
+.ds-tab-trigger {
+  background: transparent;
+  border: none;
+  color: var(--ds-text-secondary);
+  font-size: var(--ds-text-sm);
+  font-weight: var(--ds-font-medium);
+  font-family: var(--ds-font-sans);
+  padding: var(--ds-space-md) var(--ds-space-sm);
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.ds-tab-trigger:hover {
+  color: var(--ds-text-primary);
+}
+
+.ds-tab-trigger[data-state="active"] {
+  color: var(--ds-text-primary);
+}
+
+.ds-tab-indicator {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--ds-accent);
+  border-radius: var(--ds-radius-pill) var(--ds-radius-pill) 0 0;
+}
+
+.ds-tabs-content {
+  display: none;
+}
+
+.ds-tabs-content[data-state="active"] {
+  display: block;
+}

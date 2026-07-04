@@ -1,0 +1,76 @@
+/* 
+  colors.css
+  OS-Wide Semantic Colors
+  Do not hardcode colors in applications. Use these tokens.
+*/
+
+:root {
+  /* Surface Colors */
+  --ds-bg-primary: #0a0a0a;
+  --ds-bg-secondary: #111111;
+  --ds-bg-tertiary: #1a1a1a;
+  
+  /* Layout Surfaces */
+  --ds-surface: rgba(255, 255, 255, 0.02);
+  --ds-surface-hover: rgba(255, 255, 255, 0.05);
+  --ds-surface-active: rgba(255, 255, 255, 0.08);
+
+  /* Component Surfaces */
+  --ds-card: rgba(17, 17, 17, 0.7);
+  --ds-panel: rgba(10, 10, 10, 0.85);
+
+  /* Borders */
+  --ds-border: rgba(255, 255, 255, 0.1);
+  --ds-border-light: rgba(255, 255, 255, 0.05);
+  --ds-border-hover: rgba(255, 255, 255, 0.2);
+
+  /* Text Colors */
+  --ds-text-primary: #ffffff;
+  --ds-text-secondary: #aaaaaa;
+  --ds-text-tertiary: #666666;
+  --ds-text-inverse: #000000;
+
+  /* Semantic State Colors */
+  --ds-accent: #00bfff;
+  --ds-accent-hover: #33ccff;
+  --ds-accent-dim: rgba(0, 191, 255, 0.15);
+
+  --ds-success: #4CAF50;
+  --ds-success-hover: #45a049;
+  --ds-success-dim: rgba(76, 175, 80, 0.15);
+
+  --ds-warning: #ff9800;
+  --ds-warning-hover: #f57c00;
+  --ds-warning-dim: rgba(255, 152, 0, 0.15);
+
+  --ds-error: #f44336;
+  --ds-error-hover: #d32f2f;
+  --ds-error-dim: rgba(244, 67, 54, 0.15);
+
+  --ds-info: #2196f3;
+  --ds-info-hover: #1976d2;
+  --ds-info-dim: rgba(33, 150, 243, 0.15);
+}
+
+/* Light Theme Variables - can be toggled by a top-level .theme-light class */
+.theme-light {
+  --ds-bg-primary: #f0f2f5;
+  --ds-bg-secondary: #ffffff;
+  --ds-bg-tertiary: #e4e6eb;
+  
+  --ds-surface: rgba(0, 0, 0, 0.03);
+  --ds-surface-hover: rgba(0, 0, 0, 0.06);
+  --ds-surface-active: rgba(0, 0, 0, 0.09);
+
+  --ds-card: rgba(255, 255, 255, 0.85);
+  --ds-panel: rgba(255, 255, 255, 0.9);
+
+  --ds-border: rgba(0, 0, 0, 0.1);
+  --ds-border-light: rgba(0, 0, 0, 0.05);
+  --ds-border-hover: rgba(0, 0, 0, 0.2);
+
+  --ds-text-primary: #1a1a1a;
+  --ds-text-secondary: #555555;
+  --ds-text-tertiary: #888888;
+  --ds-text-inverse: #ffffff;
+}

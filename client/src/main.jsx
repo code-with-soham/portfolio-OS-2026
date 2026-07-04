@@ -10,6 +10,8 @@ import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from './App.jsx';
 import './index.css';
+import './design-system/index.css'; // VS-UIX 2.0 Enterprise Design Tokens
+
 
 const queryClient = new QueryClient({
   defaultOptions: {

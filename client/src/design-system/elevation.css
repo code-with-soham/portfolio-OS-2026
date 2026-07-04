@@ -1,0 +1,22 @@
+/*
+  elevation.css
+  OS-Wide Shadows and Elevations
+*/
+
+:root {
+  --ds-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --ds-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --ds-shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.4);
+  --ds-shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.5);
+  
+  --ds-shadow-glow: 0 0 16px var(--ds-accent-dim);
+  --ds-shadow-glow-success: 0 0 16px var(--ds-success-dim);
+  --ds-shadow-glow-error: 0 0 16px var(--ds-error-dim);
+}
+
+.theme-light {
+  --ds-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --ds-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --ds-shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.15);
+  --ds-shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.2);
+}

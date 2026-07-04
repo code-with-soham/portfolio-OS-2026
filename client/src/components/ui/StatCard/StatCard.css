@@ -1,0 +1,34 @@
+.ds-stat-card {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-lg);
+}
+
+.ds-stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--ds-radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--ds-surface);
+  color: var(--ds-text-secondary);
+}
+
+.ds-stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-stat-label {
+  font-size: var(--ds-text-sm);
+  color: var(--ds-text-secondary);
+  font-weight: var(--ds-font-medium);
+}
+
+.ds-stat-value {
+  font-size: var(--ds-text-2xl);
+  font-weight: var(--ds-font-bold);
+  color: var(--ds-text-primary);
+  line-height: var(--ds-leading-tight);
+}

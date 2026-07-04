@@ -1,0 +1,95 @@
+.ds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-sm);
+  font-family: var(--ds-font-sans);
+  font-weight: var(--ds-font-semibold);
+  font-size: var(--ds-text-sm);
+  border: none;
+  border-radius: var(--ds-radius-md);
+  padding: var(--ds-space-sm) var(--ds-space-lg);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  user-select: none;
+  min-height: 36px;
+}
+
+.ds-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Primary Variant */
+.ds-button-primary {
+  background-color: var(--ds-accent);
+  color: var(--ds-text-inverse);
+}
+.ds-button-primary:not(:disabled):hover {
+  background-color: var(--ds-accent-hover);
+}
+
+/* Secondary Variant */
+.ds-button-secondary {
+  background-color: var(--ds-surface);
+  color: var(--ds-text-primary);
+  border: 1px solid var(--ds-border);
+}
+.ds-button-secondary:not(:disabled):hover {
+  background-color: var(--ds-surface-hover);
+  border-color: var(--ds-border-hover);
+}
+
+/* Ghost Variant */
+.ds-button-ghost {
+  background-color: transparent;
+  color: var(--ds-text-secondary);
+}
+.ds-button-ghost:not(:disabled):hover {
+  background-color: var(--ds-surface);
+  color: var(--ds-text-primary);
+}
+
+/* Danger Variant */
+.ds-button-danger {
+  background-color: var(--ds-error-dim);
+  color: var(--ds-error);
+  border: 1px solid rgba(244, 67, 54, 0.2);
+}
+.ds-button-danger:not(:disabled):hover {
+  background-color: var(--ds-error);
+  color: var(--ds-text-inverse);
+}
+
+/* Success Variant */
+.ds-button-success {
+  background-color: var(--ds-success-dim);
+  color: var(--ds-success);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+}
+.ds-button-success:not(:disabled):hover {
+  background-color: var(--ds-success);
+  color: var(--ds-text-inverse);
+}
+
+/* Icon Only */
+.ds-button-icon {
+  padding: var(--ds-space-sm);
+  min-width: 36px;
+}
+
+/* Loading Spinner */
+.ds-button-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: ds-spin 0.75s linear infinite;
+}
+
+@keyframes ds-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

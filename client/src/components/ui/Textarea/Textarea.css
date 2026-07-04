@@ -1,0 +1,8 @@
+/* Reuses most styles from Input.css for consistency */
+@import '../Input/Input.css';
+
+.ds-textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: var(--ds-leading-normal);
+}

@@ -1,0 +1,15 @@
+.ds-skeleton {
+  background: var(--ds-surface-hover);
+  border-radius: var(--ds-radius-md);
+  animation: ds-pulse 1.5s infinite ease-in-out;
+}
+
+.ds-skeleton-circle {
+  border-radius: var(--ds-radius-circle);
+}
+
+@keyframes ds-pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}

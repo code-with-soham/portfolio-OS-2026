@@ -1,0 +1,15 @@
+/* Reuses most styles from Input.css */
+@import '../Input/Input.css';
+
+.ds-select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.ds-select:disabled {
+  cursor: not-allowed;
+}
+
+.ds-select-icon {
+  pointer-events: none;
+}

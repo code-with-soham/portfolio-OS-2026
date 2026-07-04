@@ -1,0 +1,15 @@
+/*
+  radius.css
+  OS-Wide Border Radius Scale
+*/
+
+:root {
+  --ds-radius-sm: 4px;
+  --ds-radius-md: 8px;
+  --ds-radius-lg: 12px;
+  --ds-radius-xl: 16px;
+  --ds-radius-2xl: 20px;
+  --ds-radius-3xl: 24px;
+  --ds-radius-pill: 9999px;
+  --ds-radius-circle: 50%;
+}

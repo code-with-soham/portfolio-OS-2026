@@ -1,0 +1,31 @@
+/*
+  typography.css
+  OS-Wide Typography Scale
+*/
+
+:root {
+  /* Font Families */
+  --ds-font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --ds-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* Font Sizes */
+  --ds-text-xs: 11px;
+  --ds-text-sm: 13px;
+  --ds-text-body: 15px;
+  --ds-text-lg: 18px;
+  --ds-text-xl: 24px;
+  --ds-text-2xl: 32px;
+  --ds-text-3xl: 48px;
+
+  /* Font Weights */
+  --ds-font-normal: 400;
+  --ds-font-medium: 500;
+  --ds-font-semibold: 600;
+  --ds-font-bold: 700;
+
+  /* Line Heights */
+  --ds-leading-none: 1;
+  --ds-leading-tight: 1.25;
+  --ds-leading-normal: 1.5;
+  --ds-leading-loose: 1.75;
+}

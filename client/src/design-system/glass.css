@@ -1,0 +1,39 @@
+/*
+  glass.css
+  OS-Wide Glassmorphism Tokens and Utilities
+*/
+
+:root {
+  /* Glassmorphism Variables */
+  --ds-blur-sm: blur(4px);
+  --ds-blur-md: blur(8px);
+  --ds-blur-lg: blur(16px);
+  --ds-blur-xl: blur(24px);
+  
+  --ds-glass-bg: rgba(10, 10, 10, 0.6);
+  --ds-glass-bg-light: rgba(255, 255, 255, 0.6);
+  
+  --ds-glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --ds-glass-border-light: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.theme-light {
+  --ds-glass-bg: var(--ds-glass-bg-light);
+  --ds-glass-border: var(--ds-glass-border-light);
+}
+
+/* Glassmorphism utility classes */
+.ds-glass {
+  background: var(--ds-glass-bg);
+  backdrop-filter: var(--ds-blur-lg);
+  -webkit-backdrop-filter: var(--ds-blur-lg);
+  border: var(--ds-glass-border);
+}
+
+.ds-glass-panel {
+  background: var(--ds-panel);
+  backdrop-filter: var(--ds-blur-xl);
+  -webkit-backdrop-filter: var(--ds-blur-xl);
+  border: var(--ds-glass-border);
+  box-shadow: var(--ds-shadow-lg);
+}

@@ -1,0 +1,47 @@
+/*
+  scrollbars.css
+  OS-Wide Scrollbar Styling
+*/
+
+/* Apply to elements with .ds-scrollbar class */
+.ds-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ds-border-hover) transparent;
+}
+
+.ds-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.ds-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ds-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--ds-border);
+  border-radius: var(--ds-radius-pill);
+}
+
+.ds-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--ds-border-hover);
+}
+
+/* Also override existing custom-scrollbar to point to new tokens */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--ds-border);
+  border-radius: var(--ds-radius-pill);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--ds-border-hover);
+}

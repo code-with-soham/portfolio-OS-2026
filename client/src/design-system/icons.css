@@ -1,0 +1,13 @@
+/*
+  icons.css
+  OS-Wide Icon Sizing Tokens
+*/
+
+:root {
+  --ds-icon-sm: 12px;
+  --ds-icon-md: 16px;
+  --ds-icon-lg: 20px;
+  --ds-icon-xl: 24px;
+  --ds-icon-2xl: 32px;
+  --ds-icon-3xl: 48px;
+}

@@ -1,0 +1,43 @@
+.ds-metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-sm);
+}
+
+.ds-metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ds-metric-label {
+  font-size: var(--ds-text-sm);
+  color: var(--ds-text-secondary);
+  font-weight: var(--ds-font-medium);
+}
+
+.ds-metric-value {
+  font-size: var(--ds-text-3xl);
+  font-weight: var(--ds-font-bold);
+  color: var(--ds-text-primary);
+}
+
+.ds-metric-trend {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-xs);
+  font-size: var(--ds-text-sm);
+  font-weight: var(--ds-font-medium);
+}
+
+.ds-metric-trend-up {
+  color: var(--ds-success);
+}
+
+.ds-metric-trend-down {
+  color: var(--ds-error);
+}
+
+.ds-metric-trend-neutral {
+  color: var(--ds-text-secondary);
+}

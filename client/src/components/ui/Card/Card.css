@@ -1,0 +1,63 @@
+.ds-card {
+  background: var(--ds-card);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-xl);
+  padding: var(--ds-space-2xl);
+  box-shadow: var(--ds-shadow-sm);
+  color: var(--ds-text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+/* For Glass variants */
+.ds-card.ds-glass {
+  background: var(--ds-glass-bg);
+  backdrop-filter: var(--ds-blur-lg);
+  -webkit-backdrop-filter: var(--ds-blur-lg);
+  border: var(--ds-glass-border);
+}
+
+/* Card Header */
+.ds-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-md);
+}
+
+.ds-card-title {
+  font-size: var(--ds-text-lg);
+  font-weight: var(--ds-font-semibold);
+  margin: 0;
+  color: var(--ds-text-primary);
+}
+
+.ds-card-description {
+  font-size: var(--ds-text-sm);
+  color: var(--ds-text-secondary);
+  margin-top: var(--ds-space-xs);
+}
+
+/* Card Content Area */
+.ds-card-content {
+  flex: 1;
+}
+
+/* Card Footer */
+.ds-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--ds-space-md);
+  margin-top: auto;
+  padding-top: var(--ds-space-lg);
+  border-top: 1px solid var(--ds-border-light);
+}
+
+/* Interactive Card */
+.ds-card-interactive {
+  cursor: pointer;
+}

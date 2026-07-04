@@ -493,6 +493,110 @@
       "VoiceOverlay"
     ]
   },
+  "animations/ButtonMotion.js": {
+    "name": "ButtonMotion",
+    "category": "other",
+    "lines": 24,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "buttonMotion"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "animations/CardMotion.js": {
+    "name": "CardMotion",
+    "category": "other",
+    "lines": 38,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "cardMotion"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "animations/DialogMotion.js": {
+    "name": "DialogMotion",
+    "category": "other",
+    "lines": 43,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "dialogMotion",
+      "drawerMotion"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "animations/OverlayMotion.js": {
+    "name": "OverlayMotion",
+    "category": "other",
+    "lines": 9,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "overlayMotion"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "animations/PageMotion.js": {
+    "name": "PageMotion",
+    "category": "other",
+    "lines": 25,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "pageMotion"
+    ],
+    "usedBy": []
+  },
+  "animations/TooltipMotion.js": {
+    "name": "TooltipMotion",
+    "category": "other",
+    "lines": 23,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "tooltipMotion"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "animations/WindowMotion.js": {
+    "name": "WindowMotion",
+    "category": "other",
+    "lines": 35,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "windowMotion"
+    ],
+    "usedBy": [
+      "Window"
+    ]
+  },
   "App.jsx": {
     "name": "App",
     "category": "other",
@@ -4052,7 +4156,7 @@
   "components/desktop/Window.jsx": {
     "name": "Window",
     "category": "component",
-    "lines": 348,
+    "lines": 350,
     "functions": 22,
     "hooks": [
       "useEffect",
@@ -4065,6 +4169,7 @@
     "imports": [
       "../../store/useWindowStore",
       "../../config/apps",
+      "../../animations/WindowMotion",
       "./SnapLayoutsPopup"
     ],
     "exports": [
@@ -4456,6 +4561,122 @@
       "Desktop"
     ]
   },
+  "components/ui/Avatar/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 40,
+    "functions": 1,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./Avatar.css"
+    ],
+    "exports": [
+      "Avatar"
+    ],
+    "usedBy": []
+  },
+  "components/ui/Badge/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 24,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./Badge.css"
+    ],
+    "exports": [
+      "Badge"
+    ],
+    "usedBy": []
+  },
+  "components/ui/Button/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 51,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../../animations/ButtonMotion",
+      "./Button.css"
+    ],
+    "exports": [
+      "Button"
+    ],
+    "usedBy": []
+  },
+  "components/ui/Card/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 68,
+    "functions": 4,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../../animations/CardMotion",
+      "./Card.css"
+    ],
+    "exports": [
+      "Card",
+      "CardHeader",
+      "CardContent",
+      "CardFooter"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "components/ui/Drawer/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 97,
+    "functions": 5,
+    "hooks": [
+      "useEffect"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../animations/OverlayMotion",
+      "../../../animations/DialogMotion",
+      "./Drawer.css"
+    ],
+    "exports": [
+      "Drawer"
+    ],
+    "usedBy": []
+  },
+  "components/ui/EmptyState/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 28,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./EmptyState.css"
+    ],
+    "exports": [
+      "EmptyState"
+    ],
+    "usedBy": []
+  },
+  "components/ui/GlassPanel/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 25,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "GlassPanel"
+    ],
+    "usedBy": []
+  },
   "components/ui/glowing-ai-chat-assistant.jsx": {
     "name": "glowing-ai-chat-assistant",
     "category": "component",
@@ -4469,6 +4690,216 @@
     "hooksCount": 3,
     "imports": [],
     "exports": [],
+    "usedBy": []
+  },
+  "components/ui/Input/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 55,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./Input.css"
+    ],
+    "exports": [
+      "Input"
+    ],
+    "usedBy": []
+  },
+  "components/ui/LoadingSpinner/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 28,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./LoadingSpinner.css"
+    ],
+    "exports": [
+      "LoadingSpinner"
+    ],
+    "usedBy": []
+  },
+  "components/ui/MetricCard/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 26,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../Card",
+      "./MetricCard.css"
+    ],
+    "exports": [
+      "MetricCard"
+    ],
+    "usedBy": []
+  },
+  "components/ui/Modal/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 94,
+    "functions": 5,
+    "hooks": [
+      "useEffect"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../animations/OverlayMotion",
+      "../../../animations/DialogMotion",
+      "./Modal.css"
+    ],
+    "exports": [
+      "Modal"
+    ],
+    "usedBy": []
+  },
+  "components/ui/PageHeader/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 27,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./PageHeader.css"
+    ],
+    "exports": [
+      "PageHeader"
+    ],
+    "usedBy": []
+  },
+  "components/ui/Section/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 27,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./Section.css"
+    ],
+    "exports": [
+      "Section"
+    ],
+    "usedBy": []
+  },
+  "components/ui/Select/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 56,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./Select.css"
+    ],
+    "exports": [
+      "Select"
+    ],
+    "usedBy": []
+  },
+  "components/ui/Skeleton/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 28,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./Skeleton.css"
+    ],
+    "exports": [
+      "Skeleton"
+    ],
+    "usedBy": []
+  },
+  "components/ui/StatCard/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 22,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../Card",
+      "./StatCard.css"
+    ],
+    "exports": [
+      "StatCard"
+    ],
+    "usedBy": []
+  },
+  "components/ui/Tabs/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 78,
+    "functions": 6,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./Tabs.css"
+    ],
+    "exports": [
+      "Tabs",
+      "TabsList",
+      "TabsTrigger",
+      "TabsContent"
+    ],
+    "usedBy": []
+  },
+  "components/ui/Textarea/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 46,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./Textarea.css"
+    ],
+    "exports": [
+      "Textarea"
+    ],
+    "usedBy": []
+  },
+  "components/ui/Toggle/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 53,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./Toggle.css"
+    ],
+    "exports": [
+      "Toggle"
+    ],
+    "usedBy": []
+  },
+  "components/ui/Tooltip/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 56,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useRef"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../animations/TooltipMotion",
+      "./Tooltip.css"
+    ],
+    "exports": [
+      "Tooltip"
+    ],
     "usedBy": []
   },
   "components/widgets/ActivityWidget.jsx": {
@@ -4881,13 +5312,14 @@
   "main.jsx": {
     "name": "main",
     "category": "other",
-    "lines": 44,
+    "lines": 46,
     "functions": 3,
     "hooks": [],
     "hooksCount": 0,
     "imports": [
       "./App.jsx",
-      "./index.css"
+      "./index.css",
+      "./design-system/index.css"
     ],
     "exports": [],
     "usedBy": []

@@ -1,0 +1,34 @@
+/*
+  focus.css
+  OS-Wide Focus States for Accessibility
+*/
+
+:root {
+  --ds-focus-ring-color: var(--ds-accent);
+  --ds-focus-ring-width: 2px;
+  --ds-focus-ring-offset: 2px;
+  --ds-focus-ring: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+}
+
+/* Base utility for focusable elements */
+.ds-focusable {
+  outline: none;
+}
+
+.ds-focusable:focus-visible {
+  outline: var(--ds-focus-ring);
+  outline-offset: var(--ds-focus-ring-offset);
+}
+
+/* Applied globally to common interactive elements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: var(--ds-focus-ring) !important;
+  outline-offset: var(--ds-focus-ring-offset) !important;
+  border-radius: inherit; /* ensure ring matches element radius if possible */
+}
