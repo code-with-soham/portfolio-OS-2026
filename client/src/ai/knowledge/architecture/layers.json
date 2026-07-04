@@ -1,0 +1,46 @@
+{
+  "layers": [
+    {
+      "id": "presentation",
+      "name": "Presentation Layer",
+      "description": "The top-most layer handling all user-facing interactions. It seamlessly switches between a windowed desktop environment and an installable mobile PWA depending on the device viewport.",
+      "internals": ["Desktop", "Mobile", "PWA", "Browser", "Widgets", "Window Manager", "Taskbar"]
+    },
+    {
+      "id": "application",
+      "name": "Application Layer",
+      "description": "A suite of functional, windowed applications that operate within the OS ecosystem, ranging from standard utilities to complex integrations like a Monaco code editor.",
+      "internals": ["VSCodeApp", "BrowserApp", "TerminalApp", "RecruiterApp", "AnalyticsCenterApp"]
+    },
+    {
+      "id": "os_core",
+      "name": "OS Core Layer",
+      "description": "The essential systems that make the web app behave like a real operating system. This handles window lifecycles, focus management, global shortcuts, and the taskbar.",
+      "internals": ["Window Lifecycle", "Z-Index Calculation", "Global Shortcuts", "Focus Management", "Drag & Drop Engine"]
+    },
+    {
+      "id": "intelligence",
+      "name": "AI Brain Layer",
+      "description": "The localized 'AI Brain' that provides semantic understanding. It parses user input, determines intent, and executes corresponding system actions without relying on a backend LLM.",
+      "internals": ["Intent Engine", "Entity Extraction", "Fuzzy Text Matching", "Action Dispatcher", "Local Knowledge Graph"]
+    },
+    {
+      "id": "state",
+      "name": "State Layer",
+      "description": "The global data management backbone. Independent modular stores manage different domains of the OS state, ensuring highly decoupled and performant updates.",
+      "internals": ["useWindowStore", "useDesktopStore", "useFileSystemStore", "useThemeStore", "useAnalyticsStore"]
+    },
+    {
+      "id": "backend",
+      "name": "Backend Layer",
+      "description": "The internal API and external service connectors representing live data fetching, database logic, and integrations.",
+      "internals": ["Express.js", "MongoDB", "GitHub API Integration", "Weather Service", "Telemetry Ingestion"]
+    },
+    {
+      "id": "infrastructure",
+      "name": "Infrastructure Layer",
+      "description": "The deployment platforms and build tooling that power real-time capabilities, hosting, and bundling of the application.",
+      "internals": ["Vercel", "Vite Bundler", "CI/CD Pipeline", "PWA Manifest", "Service Workers"]
+    }
+  ]
+}

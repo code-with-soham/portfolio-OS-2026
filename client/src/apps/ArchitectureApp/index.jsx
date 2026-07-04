@@ -1,104 +1,110 @@
-import { useState, useEffect } from 'react';
-import LayerNode from './components/LayerNode';
-import DetailsPanel from './components/DetailsPanel';
-import architectureData from '../../ai/knowledge/architecture.json';
-import metricsData from '../../data/metrics.json';
-import { PlayRegular, StopRegular } from '@fluentui/react-icons';
+import { useState, Suspense, lazy } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  BuildingRegular, 
+  AppsListRegular, 
+  PlayCircleRegular, 
+  BrainCircuitRegular, 
+  FolderRegular, 
+  ArrowFlowUpRightRegular, 
+  DataPieRegular, 
+  SearchRegular 
+} from '@fluentui/react-icons';
+import Sidebar from './components/Sidebar';
+import StatusBar from './components/StatusBar';
+
+// Lazy load heavy components for performance
+const Hero = lazy(() => import('./components/Hero'));
+const LayerExplorer = lazy(() => import('./components/LayerExplorer'));
+const RuntimeEngine = lazy(() => import('./components/RuntimeEngine'));
+const AIBrain = lazy(() => import('./components/AIBrain'));
+const ProjectTree = lazy(() => import('./components/ProjectTree'));
+const DataFlow = lazy(() => import('./components/DataFlow'));
+const MetricsDashboard = lazy(() => import('./components/MetricsDashboard'));
+const JourneyMode = lazy(() => import('./components/JourneyMode'));
+const SearchBar = lazy(() => import('./components/SearchBar'));
 
 export default function ArchitectureApp() {
-  const [activeLayerId, setActiveLayerId] = useState(architectureData.layers[0].id);
-  const [isJourneyMode, setIsJourneyMode] = useState(false);
+  const [activeTab, setActiveTab] = useState('overview');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isJourneyActive, setIsJourneyActive] = useState(false);
 
-  const activeLayer = architectureData.layers.find(l => l.id === activeLayerId);
+  const TABS = [
+    { id: 'overview', label: 'Overview', icon: <BuildingRegular /> },
+    { id: 'architecture', label: 'Architecture', icon: <AppsListRegular /> },
+    { id: 'runtime', label: 'Runtime Engine', icon: <PlayCircleRegular /> },
+    { id: 'ai', label: 'AI Brain', icon: <BrainCircuitRegular /> },
+    { id: 'project_tree', label: 'Project Tree', icon: <FolderRegular /> },
+    { id: 'data_flow', label: 'Data Flow', icon: <ArrowFlowUpRightRegular /> },
+    { id: 'metrics', label: 'Metrics', icon: <DataPieRegular /> },
+    { id: 'journey', label: 'Journey Mode', icon: <PlayCircleRegular /> }
+  ];
 
-  // Journey Mode Logic
-  useEffect(() => {
-    if (!isJourneyMode) return;
-    
-    let currentIndex = architectureData.layers.findIndex(l => l.id === activeLayerId);
-    
-    const timer = setInterval(() => {
-      currentIndex = (currentIndex + 1);
-      
-      if (currentIndex >= architectureData.layers.length) {
-        setIsJourneyMode(false); // Stop automatically when we hit the end
-      } else {
-        setActiveLayerId(architectureData.layers[currentIndex].id);
-      }
-    }, 4500); // 4.5 seconds per layer
-    
-    return () => clearInterval(timer);
-  }, [isJourneyMode, activeLayerId]);
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'overview': return <Hero onNavigate={setActiveTab} />;
+      case 'architecture': return <LayerExplorer />;
+      case 'runtime': return <RuntimeEngine />;
+      case 'ai': return <AIBrain />;
+      case 'project_tree': return <ProjectTree />;
+      case 'data_flow': return <DataFlow />;
+      case 'metrics': return <MetricsDashboard />;
+      case 'journey': return <JourneyMode onClose={() => setActiveTab('overview')} />;
+      default: return <Hero onNavigate={setActiveTab} />;
+    }
+  };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--mica-base)', overflow: 'hidden' }}>
-      {/* Top Bar / Actions */}
-      <div style={{ padding: '20px 32px', borderBottom: '1px solid var(--color-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 600 }}>Architecture Explorer</h1>
-          <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: 'var(--color-text-secondary)' }}>Visualize the 7-layer technology stack behind Portfolio OS 2026.</p>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: '#0a0a0a', color: '#ededed', overflow: 'hidden' }}>
+      
+      {/* Top Bar with Quick Search */}
+      <div style={{ height: '48px', borderBottom: '1px solid #222', display: 'flex', alignItems: 'center', padding: '0 16px', background: 'rgba(10,10,10,0.8)', backdropFilter: 'blur(10px)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#888' }}>
+          <BuildingRegular fontSize={20} />
+          <span style={{ fontWeight: 600, color: '#fff', fontSize: '13px' }}>Architecture Explorer</span>
         </div>
-        
-        <button
-          onClick={() => {
-            if (!isJourneyMode) {
-              setActiveLayerId(architectureData.layers[0].id); // reset to top on start
-            }
-            setIsJourneyMode(!isJourneyMode);
-          }}
-          style={{
-            display: 'flex', alignItems: 'center', gap: '8px',
-            padding: '10px 20px', borderRadius: '24px',
-            background: isJourneyMode ? 'var(--color-bg-elevated)' : 'var(--color-accent)',
-            color: isJourneyMode ? 'var(--color-accent)' : '#000',
-            border: isJourneyMode ? '1px solid var(--color-accent)' : 'none',
-            fontWeight: 600, cursor: 'pointer',
-            transition: 'all 0.2s',
-            fontSize: '14px'
-          }}
-        >
-          {isJourneyMode ? <><StopRegular fontSize={20} /> Stop Journey</> : <><PlayRegular fontSize={20} /> Explain Architecture</>}
+        <div style={{ flex: 1 }} />
+        <button 
+          onClick={() => setIsSearchOpen(true)}
+          style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#1a1a1a', border: '1px solid #333', borderRadius: '6px', padding: '4px 12px', color: '#888', cursor: 'pointer', fontSize: '12px' }}>
+          <SearchRegular /> Search Architecture... 
+          <span style={{ background: '#333', padding: '2px 4px', borderRadius: '4px', fontSize: '10px' }}>Ctrl K</span>
         </button>
       </div>
 
-      {/* Main Split Content */}
       <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
-        
-        {/* Left: Stack Visualizer */}
-        <div className="custom-scrollbar" style={{ width: '380px', minWidth: '380px', padding: '32px', borderRight: '1px solid var(--color-border)', display: 'flex', flexDirection: 'column', gap: '16px', overflowY: 'auto' }}>
-          {architectureData.layers.map((layer, index) => (
-            <LayerNode 
-              key={layer.id} 
-              layer={layer} 
-              index={index}
-              isActive={activeLayerId === layer.id} 
-              onClick={() => {
-                setIsJourneyMode(false);
-                setActiveLayerId(layer.id);
-              }} 
-            />
-          ))}
-        </div>
+        {/* Sidebar Navigation */}
+        <Sidebar tabs={TABS} activeTab={activeTab} onSelectTab={setActiveTab} />
 
-        {/* Right: Details Panel */}
-        <div className="custom-scrollbar" style={{ flex: 1, overflowY: 'auto', background: 'var(--color-bg-surface)' }}>
-          <DetailsPanel activeLayer={activeLayer} />
+        {/* Main Content Area */}
+        <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: '#0a0a0a' }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+              transition={{ duration: 0.2 }}
+              style={{ width: '100%', height: '100%', overflowY: 'auto' }}
+              className="custom-scrollbar"
+            >
+              <Suspense fallback={<div style={{ padding: '32px', color: '#888' }}>Loading...</div>}>
+                {renderContent()}
+              </Suspense>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 
-      {/* Bottom Metrics Bar */}
-      <div style={{ padding: '16px 32px', background: 'var(--color-bg-elevated)', borderTop: '1px solid var(--color-border)', display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: 'var(--color-text-secondary)', alignItems: 'center' }}>
-        <div style={{ display: 'flex', gap: '32px' }}>
-          <span><strong style={{ color: 'var(--color-text-primary)' }}>{metricsData.apps || '20+'}</strong> Applications & Components</span>
-          <span><strong style={{ color: 'var(--color-text-primary)' }}>{metricsData.stores || '20+'}</strong> Zustand Stores</span>
-          <span><strong style={{ color: 'var(--color-text-primary)' }}>{metricsData.components || '100+'}</strong> React Components</span>
-          <span><strong style={{ color: 'var(--color-text-primary)' }}>{metricsData.shortcuts || '30+'}</strong> Keyboard Shortcuts</span>
-          <span><strong style={{ color: 'var(--color-text-primary)' }}>{metricsData.aiIntents || '50+'}</strong> AI Intents</span>
-        </div>
-        <div style={{ fontWeight: 500, color: 'var(--color-text-primary)' }}>
-          <span>Desktop + Mobile + PWA + AI Brain Integrated</span>
-        </div>
-      </div>
+      {/* Architecture Health Status Bar */}
+      <StatusBar />
+
+      {/* Search Overlay */}
+      {isSearchOpen && (
+        <Suspense fallback={null}>
+          <SearchBar onClose={() => setIsSearchOpen(false)} onSelectTab={setActiveTab} />
+        </Suspense>
+      )}
     </div>
   );
 }

@@ -1,0 +1,69 @@
+{
+  "name": "portfolio-os",
+  "type": "folder",
+  "children": [
+    {
+      "name": "client",
+      "type": "folder",
+      "children": [
+        {
+          "name": "src",
+          "type": "folder",
+          "children": [
+            {
+              "name": "apps",
+              "type": "folder",
+              "description": "Windowed applications like Browser, VSCode, and Architecture Explorer.",
+              "children": [
+                { "name": "BrowserApp", "type": "folder" },
+                { "name": "WeatherApp", "type": "folder" },
+                { "name": "RecruiterApp", "type": "folder" },
+                { "name": "ArchitectureApp", "type": "folder" }
+              ]
+            },
+            {
+              "name": "ai",
+              "type": "folder",
+              "description": "Local NLP Brain, Intents, Entities, and Knowledge Graph.",
+              "children": [
+                { "name": "brain", "type": "folder" },
+                { "name": "intents", "type": "folder" },
+                { "name": "knowledge", "type": "folder" }
+              ]
+            },
+            {
+              "name": "components",
+              "type": "folder",
+              "description": "Reusable UI components like Window, Taskbar, StartMenu."
+            },
+            {
+              "name": "store",
+              "type": "folder",
+              "description": "Zustand global state managers (useWindowStore, useThemeStore)."
+            },
+            {
+              "name": "widgets",
+              "type": "folder",
+              "description": "Desktop widget components."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "server",
+      "type": "folder",
+      "description": "Express.js backend for analytics and real-time APIs."
+    },
+    {
+      "name": "docs",
+      "type": "folder",
+      "description": "Documentation and Architectural Roadmap."
+    },
+    {
+      "name": "scripts",
+      "type": "folder",
+      "description": "Build utilities and metric generators."
+    }
+  ]
+}

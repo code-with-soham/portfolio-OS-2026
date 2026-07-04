@@ -1,0 +1,45 @@
+{
+  "flows": [
+    {
+      "id": "weather",
+      "title": "Weather Data Flow",
+      "steps": [
+        "User opens Widget",
+        "Weather Widget mounts",
+        "Weather Store dispatched",
+        "Weather Service called",
+        "OpenWeather API queried",
+        "JSON Response parsed",
+        "Zustand Store updated",
+        "React re-renders",
+        "UI displays 72° Sunny"
+      ]
+    },
+    {
+      "id": "github",
+      "title": "GitHub Analytics Flow",
+      "steps": [
+        "User opens ResumeApp",
+        "GitHub Store checks cache",
+        "Cache Miss",
+        "Axios fetches GitHub REST API",
+        "Repo data mapped & sorted",
+        "State hydrated",
+        "Framer Motion animates list"
+      ]
+    },
+    {
+      "id": "analytics",
+      "title": "Telemetry Data Flow",
+      "steps": [
+        "User clicks App Icon",
+        "Analytics Store tracks event",
+        "Event batched locally",
+        "setInterval flushes batch",
+        "POST /api/telemetry",
+        "Express Controller receives",
+        "MongoDB inserts records"
+      ]
+    }
+  ]
+}

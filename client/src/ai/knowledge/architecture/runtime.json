@@ -1,0 +1,25 @@
+{
+  "flows": [
+    {
+      "id": "keyboard_shortcut",
+      "name": "Keyboard Shortcut Flow",
+      "nodes": [
+        "Keyboard Event",
+        "Shortcut Engine",
+        "Action Registry",
+        "Window Store",
+        "React Reconciliation",
+        "Framer Motion",
+        "Desktop View"
+      ],
+      "edges": [
+        { "from": 0, "to": 1, "label": "Key Press (e.g. Win+E)" },
+        { "from": 1, "to": 2, "label": "Parse Keybind" },
+        { "from": 2, "to": 3, "label": "openWindow('fileexplorer')" },
+        { "from": 3, "to": 4, "label": "State Update" },
+        { "from": 4, "to": 5, "label": "Mount Node" },
+        { "from": 5, "to": 6, "label": "Animate Pop-in" }
+      ]
+    }
+  ]
+}
