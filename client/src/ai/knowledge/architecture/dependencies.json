@@ -1,0 +1,6691 @@
+{
+  "ai/actions/actionRegistry.js": {
+    "name": "actionRegistry",
+    "category": "ai",
+    "lines": 35,
+    "functions": 5,
+    "hooks": [
+      "useWindowStore",
+      "useDesktopStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../store/useWindowStore",
+      "../../store/useDesktopStore"
+    ],
+    "exports": [
+      "actionRegistry"
+    ],
+    "usedBy": [
+      "actionExecutor"
+    ]
+  },
+  "ai/aiBrain.js": {
+    "name": "aiBrain",
+    "category": "ai",
+    "lines": 77,
+    "functions": 0,
+    "hooks": [
+      "useAIAnalyticsStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./fuzzyMatcher",
+      "./contextManager",
+      "./responseEngine",
+      "./intents",
+      "../store/useAIAnalyticsStore"
+    ],
+    "exports": [
+      "aiBrain"
+    ],
+    "usedBy": [
+      "voiceCommands"
+    ]
+  },
+  "ai/brain/actionExecutor.js": {
+    "name": "actionExecutor",
+    "category": "ai",
+    "lines": 64,
+    "functions": 1,
+    "hooks": [
+      "useAIAnalyticsStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../actions/actionRegistry",
+      "../training/intents",
+      "../../store/useAIAnalyticsStore"
+    ],
+    "exports": [
+      "executeAction"
+    ],
+    "usedBy": [
+      "aiBrain"
+    ]
+  },
+  "ai/brain/aiBrain.js": {
+    "name": "aiBrain",
+    "category": "ai",
+    "lines": 112,
+    "functions": 2,
+    "hooks": [
+      "useAIAnalyticsStore",
+      "useAnalyticsStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "./intentEngine",
+      "./entityExtractor",
+      "./contextManager",
+      "./actionExecutor",
+      "./responseGenerator",
+      "../training/intents",
+      "../../store/useAIAnalyticsStore",
+      "../../store/useAnalyticsStore"
+    ],
+    "exports": [
+      "aiBrain"
+    ],
+    "usedBy": [
+      "testBrain",
+      "AIAssistant",
+      "GlobalSearch",
+      "UniversalSpotlight",
+      "AITab",
+      "AISuggestionsWidget"
+    ]
+  },
+  "ai/brain/contextManager.js": {
+    "name": "contextManager",
+    "category": "ai",
+    "lines": 69,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "contextManager"
+    ],
+    "usedBy": [
+      "aiBrain"
+    ]
+  },
+  "ai/brain/entityExtractor.js": {
+    "name": "entityExtractor",
+    "category": "ai",
+    "lines": 68,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "extractEntities"
+    ],
+    "usedBy": [
+      "aiBrain",
+      "testBrain"
+    ]
+  },
+  "ai/brain/intentEngine.js": {
+    "name": "intentEngine",
+    "category": "ai",
+    "lines": 105,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../training/intents",
+      "../training/synonyms"
+    ],
+    "exports": [
+      "detectIntent"
+    ],
+    "usedBy": [
+      "aiBrain",
+      "testBrain"
+    ]
+  },
+  "ai/brain/responseGenerator.js": {
+    "name": "responseGenerator",
+    "category": "ai",
+    "lines": 171,
+    "functions": 2,
+    "hooks": [
+      "useAIAnalyticsStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../training/intents",
+      "../training/recruiterQuestions",
+      "../../store/useAIAnalyticsStore",
+      "../knowledge/projects.json",
+      "../knowledge/skills.json",
+      "../knowledge/profile.json",
+      "../knowledge/achievements.json",
+      "../knowledge/timeline.json"
+    ],
+    "exports": [
+      "generateResponse"
+    ],
+    "usedBy": [
+      "aiBrain"
+    ]
+  },
+  "ai/contextManager.js": {
+    "name": "contextManager",
+    "category": "ai",
+    "lines": 38,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "contextManager"
+    ],
+    "usedBy": [
+      "aiBrain"
+    ]
+  },
+  "ai/entityExtractor.js": {
+    "name": "entityExtractor",
+    "category": "ai",
+    "lines": 48,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "extractEntities"
+    ],
+    "usedBy": [
+      "fuzzyMatcher"
+    ]
+  },
+  "ai/fuzzyMatcher.js": {
+    "name": "fuzzyMatcher",
+    "category": "ai",
+    "lines": 78,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./trainingData",
+      "./intents",
+      "./knowledgeBase",
+      "./entityExtractor"
+    ],
+    "exports": [
+      "determineIntent",
+      "semanticSearch"
+    ],
+    "usedBy": [
+      "aiBrain",
+      "responseEngine"
+    ]
+  },
+  "ai/intents.js": {
+    "name": "intents",
+    "category": "ai",
+    "lines": 27,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "INTENTS"
+    ],
+    "usedBy": [
+      "aiBrain",
+      "fuzzyMatcher",
+      "responseEngine",
+      "trainingData"
+    ]
+  },
+  "ai/knowledgeBase.js": {
+    "name": "knowledgeBase",
+    "category": "ai",
+    "lines": 27,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./data/profile.json",
+      "./data/projects.json",
+      "./data/skills.json",
+      "./data/achievements.json",
+      "./data/timeline.json"
+    ],
+    "exports": [
+      "portfolioData",
+      "knowledgeBase"
+    ],
+    "usedBy": [
+      "fuzzyMatcher",
+      "responseEngine"
+    ]
+  },
+  "ai/knowledgeGraph.js": {
+    "name": "knowledgeGraph",
+    "category": "ai",
+    "lines": 61,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./data/projects.json",
+      "./data/skills.json"
+    ],
+    "exports": [
+      "knowledgeGraph"
+    ],
+    "usedBy": [
+      "responseEngine"
+    ]
+  },
+  "ai/recruiterQuestions.js": {
+    "name": "recruiterQuestions",
+    "category": "ai",
+    "lines": 12,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "RECRUITER_ANSWERS"
+    ],
+    "usedBy": [
+      "responseEngine"
+    ]
+  },
+  "ai/responseEngine.js": {
+    "name": "responseEngine",
+    "category": "ai",
+    "lines": 139,
+    "functions": 1,
+    "hooks": [
+      "useWeatherStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./intents",
+      "./knowledgeBase",
+      "./knowledgeGraph",
+      "./fuzzyMatcher",
+      "./recruiterQuestions",
+      "../store/useWeatherStore"
+    ],
+    "exports": [
+      "generateResponse"
+    ],
+    "usedBy": [
+      "aiBrain"
+    ]
+  },
+  "ai/testBrain.js": {
+    "name": "testBrain",
+    "category": "ai",
+    "lines": 13,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./brain/intentEngine.js",
+      "./brain/entityExtractor.js",
+      "./brain/aiBrain.js"
+    ],
+    "exports": [],
+    "usedBy": []
+  },
+  "ai/training/intents.js": {
+    "name": "intents",
+    "category": "ai",
+    "lines": 37,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "INTENTS"
+    ],
+    "usedBy": [
+      "actionExecutor",
+      "aiBrain",
+      "intentEngine",
+      "responseGenerator"
+    ]
+  },
+  "ai/training/recruiterQuestions.js": {
+    "name": "recruiterQuestions",
+    "category": "ai",
+    "lines": 12,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "RECRUITER_ANSWERS"
+    ],
+    "usedBy": [
+      "responseGenerator"
+    ]
+  },
+  "ai/training/synonyms.js": {
+    "name": "synonyms",
+    "category": "ai",
+    "lines": 26,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "SYNONYMS"
+    ],
+    "usedBy": [
+      "intentEngine"
+    ]
+  },
+  "ai/trainingData.js": {
+    "name": "trainingData",
+    "category": "ai",
+    "lines": 249,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./intents"
+    ],
+    "exports": [
+      "trainingData"
+    ],
+    "usedBy": [
+      "fuzzyMatcher"
+    ]
+  },
+  "ai/voice/speechRecognition.js": {
+    "name": "speechRecognition",
+    "category": "ai",
+    "lines": 119,
+    "functions": 4,
+    "hooks": [
+      "useVoiceStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../store/useVoiceStore"
+    ],
+    "exports": [
+      "speechRecognizer"
+    ],
+    "usedBy": [
+      "voiceController"
+    ]
+  },
+  "ai/voice/speechSynthesis.js": {
+    "name": "speechSynthesis",
+    "category": "ai",
+    "lines": 79,
+    "functions": 4,
+    "hooks": [
+      "useVoiceStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../store/useVoiceStore"
+    ],
+    "exports": [
+      "speechSynthesizer"
+    ],
+    "usedBy": [
+      "voiceController"
+    ]
+  },
+  "ai/voice/voiceCommands.js": {
+    "name": "voiceCommands",
+    "category": "ai",
+    "lines": 157,
+    "functions": 2,
+    "hooks": [
+      "useDesktopStore",
+      "useWindowStore",
+      "useThemeStore",
+      "useSystemAudioStore",
+      "useMusicStore",
+      "useVoiceStore"
+    ],
+    "hooksCount": 6,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useWindowStore",
+      "../../store/useThemeStore",
+      "../../store/useSystemAudioStore",
+      "../../store/useMusicStore",
+      "../aiBrain"
+    ],
+    "exports": [
+      "processVoiceCommand"
+    ],
+    "usedBy": [
+      "voiceController"
+    ]
+  },
+  "ai/voice/voiceController.js": {
+    "name": "voiceController",
+    "category": "ai",
+    "lines": 87,
+    "functions": 1,
+    "hooks": [
+      "useVoiceStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./speechRecognition",
+      "./speechSynthesis",
+      "./voiceCommands",
+      "../../store/useVoiceStore"
+    ],
+    "exports": [
+      "voiceController"
+    ],
+    "usedBy": [
+      "AIAssistant",
+      "VoiceCopilotOrb",
+      "VoiceOverlay"
+    ]
+  },
+  "App.jsx": {
+    "name": "App",
+    "category": "other",
+    "lines": 87,
+    "functions": 3,
+    "hooks": [
+      "useDesktopStore",
+      "useThemeStore",
+      "useKeyboardShortcuts",
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "./store/useDesktopStore",
+      "./store/useThemeStore",
+      "./constants",
+      "./hooks/useKeyboardShortcuts",
+      "./pages/BootScreen",
+      "./pages/LockScreen",
+      "./pages/Desktop",
+      "./pages/ShutdownScreen",
+      "./mobile/MobileOS"
+    ],
+    "exports": [
+      "App"
+    ],
+    "usedBy": [
+      "main"
+    ]
+  },
+  "apps/AboutApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 171,
+    "functions": 1,
+    "hooks": [
+      "useQuery"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../services/profileService",
+      "../../services/timelineService",
+      "../../components/app/AppShell",
+      "./AboutApp.css"
+    ],
+    "exports": [
+      "AboutApp"
+    ],
+    "usedBy": [
+      "BrowserContent"
+    ]
+  },
+  "apps/AboutOSApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 83,
+    "functions": 4,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useWindowStore",
+      "useDesktopStore",
+      "useUptime"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../../config/systemInfo",
+      "../../store/useWindowStore",
+      "../../store/useDesktopStore",
+      "./AboutOSApp.css"
+    ],
+    "exports": [
+      "AboutOSApp"
+    ],
+    "usedBy": []
+  },
+  "apps/AICopilot/api/databaseCopilotApi.js": {
+    "name": "databaseCopilotApi",
+    "category": "app",
+    "lines": 33,
+    "functions": 4,
+    "hooks": [
+      "useMutation",
+      "useGeneratePlan",
+      "useExecutePlan"
+    ],
+    "hooksCount": 3,
+    "imports": [],
+    "exports": [
+      "generateExecutionPlan",
+      "executeAiPlan",
+      "useGeneratePlan",
+      "useExecutePlan"
+    ],
+    "usedBy": [
+      "CopilotConversation",
+      "GeneratedQueryPanel"
+    ]
+  },
+  "apps/AICopilot/components/CopilotConversation.jsx": {
+    "name": "CopilotConversation",
+    "category": "app",
+    "lines": 153,
+    "functions": 7,
+    "hooks": [
+      "useState",
+      "useRef",
+      "useEffect",
+      "useCopilotStore",
+      "useGeneratePlan",
+      "useDatabaseSchema",
+      "useDatabaseQueries"
+    ],
+    "hooksCount": 7,
+    "imports": [
+      "../hooks/useCopilotStore",
+      "../api/databaseCopilotApi",
+      "../../MongoDBExplorer/hooks/useDatabaseQueries"
+    ],
+    "exports": [
+      "CopilotConversation"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/AICopilot/components/GeneratedQueryPanel.jsx": {
+    "name": "GeneratedQueryPanel",
+    "category": "app",
+    "lines": 115,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useCopilotStore",
+      "useExecutePlan"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../hooks/useCopilotStore",
+      "../api/databaseCopilotApi"
+    ],
+    "exports": [
+      "GeneratedQueryPanel"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/AICopilot/components/VisualizationPanel.jsx": {
+    "name": "VisualizationPanel",
+    "category": "app",
+    "lines": 114,
+    "functions": 3,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../MongoDBExplorer/components/Views/TableView",
+      "../../MongoDBExplorer/components/Views/JsonView"
+    ],
+    "exports": [
+      "VisualizationPanel"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/AICopilot/hooks/useCopilotStore.js": {
+    "name": "useCopilotStore",
+    "category": "app",
+    "lines": 37,
+    "functions": 0,
+    "hooks": [
+      "useCopilotStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useCopilotStore"
+    ],
+    "usedBy": [
+      "CopilotConversation",
+      "GeneratedQueryPanel"
+    ]
+  },
+  "apps/AICopilot/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 34,
+    "functions": 1,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./components/CopilotConversation",
+      "./components/GeneratedQueryPanel",
+      "./components/VisualizationPanel"
+    ],
+    "exports": [
+      "AICopilotApp"
+    ],
+    "usedBy": []
+  },
+  "apps/AIDashboardApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 113,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useAIAnalyticsStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../store/useAIAnalyticsStore"
+    ],
+    "exports": [
+      "AIDashboardApp"
+    ],
+    "usedBy": []
+  },
+  "apps/AnalyticsCenterApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 215,
+    "functions": 6,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useAnalyticsStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../store/useAnalyticsStore"
+    ],
+    "exports": [
+      "AnalyticsCenterApp"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/AIBrain.jsx": {
+    "name": "AIBrain",
+    "category": "app",
+    "lines": 59,
+    "functions": 1,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../ai/knowledge/architecture/ai-brain.json"
+    ],
+    "exports": [
+      "AIBrain"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/AIExplainButton.jsx": {
+    "name": "AIExplainButton",
+    "category": "app",
+    "lines": 148,
+    "functions": 1,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../ai/knowledge/architecture/overview.json",
+      "../../../ai/knowledge/architecture/layers.json",
+      "../../../ai/knowledge/architecture/runtime.json",
+      "../../../ai/knowledge/architecture/ai-brain.json",
+      "../../../ai/knowledge/architecture/data-flow.json"
+    ],
+    "exports": [
+      "AIExplainButton"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/ArchitectureApp/components/ArchitectureHealth.jsx": {
+    "name": "ArchitectureHealth",
+    "category": "app",
+    "lines": 116,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../ai/knowledge/architecture/architecture-health.json"
+    ],
+    "exports": [
+      "ArchitectureHealth"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/ComponentInspector.jsx": {
+    "name": "ComponentInspector",
+    "category": "app",
+    "lines": 228,
+    "functions": 9,
+    "hooks": [
+      "useState",
+      "useMemo"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../ai/knowledge/architecture/dependencies.json"
+    ],
+    "exports": [
+      "ComponentInspector"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/DataFlow.jsx": {
+    "name": "DataFlow",
+    "category": "app",
+    "lines": 200,
+    "functions": 11,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../ai/knowledge/architecture/data-flow.json"
+    ],
+    "exports": [
+      "DataFlow"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/DependencyGraph.jsx": {
+    "name": "DependencyGraph",
+    "category": "app",
+    "lines": 203,
+    "functions": 7,
+    "hooks": [
+      "useState",
+      "useMemo"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../ai/knowledge/architecture/dependencies.json"
+    ],
+    "exports": [
+      "DependencyGraph"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/DetailsPanel.jsx": {
+    "name": "DetailsPanel",
+    "category": "app",
+    "lines": 92,
+    "functions": 1,
+    "hooks": [
+      "useWindowStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/useWindowStore"
+    ],
+    "exports": [
+      "DetailsPanel"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/EventTimeline.jsx": {
+    "name": "EventTimeline",
+    "category": "app",
+    "lines": 184,
+    "functions": 9,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useDesktopStore",
+      "useThemeStore",
+      "useWindowStore",
+      "useAnalyticsStore",
+      "useWidgetStore"
+    ],
+    "hooksCount": 8,
+    "imports": [],
+    "exports": [
+      "EventTimeline"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/ExportPanel.jsx": {
+    "name": "ExportPanel",
+    "category": "app",
+    "lines": 163,
+    "functions": 9,
+    "hooks": [
+      "useState",
+      "useRef"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "ExportPanel"
+    ],
+    "usedBy": [
+      "StatusBar"
+    ]
+  },
+  "apps/ArchitectureApp/components/Hero.jsx": {
+    "name": "Hero",
+    "category": "app",
+    "lines": 66,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../../ai/knowledge/architecture/overview.json"
+    ],
+    "exports": [
+      "Hero"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/JourneyMode.jsx": {
+    "name": "JourneyMode",
+    "category": "app",
+    "lines": 74,
+    "functions": 2,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "JourneyMode"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/LayerExplorer.jsx": {
+    "name": "LayerExplorer",
+    "category": "app",
+    "lines": 75,
+    "functions": 2,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../ai/knowledge/architecture/layers.json"
+    ],
+    "exports": [
+      "LayerExplorer"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/LayerNode.jsx": {
+    "name": "LayerNode",
+    "category": "app",
+    "lines": 41,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "LayerNode"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/MetricsDashboard.jsx": {
+    "name": "MetricsDashboard",
+    "category": "app",
+    "lines": 87,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../data/metrics.json"
+    ],
+    "exports": [
+      "MetricsDashboard"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/PerformanceMonitor.jsx": {
+    "name": "PerformanceMonitor",
+    "category": "app",
+    "lines": 138,
+    "functions": 8,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useCallback"
+    ],
+    "hooksCount": 4,
+    "imports": [],
+    "exports": [
+      "PerformanceMonitor"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/ProjectTree.jsx": {
+    "name": "ProjectTree",
+    "category": "app",
+    "lines": 224,
+    "functions": 6,
+    "hooks": [
+      "useState",
+      "useMemo"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../ai/knowledge/architecture/project-structure.json",
+      "../../../ai/knowledge/architecture/dependencies.json"
+    ],
+    "exports": [
+      "ProjectTree"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/RuntimeEngine.jsx": {
+    "name": "RuntimeEngine",
+    "category": "app",
+    "lines": 99,
+    "functions": 4,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../ai/knowledge/architecture/runtime.json"
+    ],
+    "exports": [
+      "RuntimeEngine"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/SearchBar.jsx": {
+    "name": "SearchBar",
+    "category": "app",
+    "lines": 72,
+    "functions": 4,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef"
+    ],
+    "hooksCount": 3,
+    "imports": [],
+    "exports": [
+      "SearchBar"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/Sidebar.jsx": {
+    "name": "Sidebar",
+    "category": "app",
+    "lines": 71,
+    "functions": 4,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "Sidebar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/ArchitectureApp/components/SimulationMode.jsx": {
+    "name": "SimulationMode",
+    "category": "app",
+    "lines": 281,
+    "functions": 11,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../../ai/knowledge/architecture/simulations.json"
+    ],
+    "exports": [
+      "SimulationMode"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/components/StatusBar.jsx": {
+    "name": "StatusBar",
+    "category": "app",
+    "lines": 91,
+    "functions": 6,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../../ai/knowledge/architecture/architecture-health.json",
+      "./ExportPanel"
+    ],
+    "exports": [
+      "StatusBar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/ArchitectureApp/components/SystemMap.jsx": {
+    "name": "SystemMap",
+    "category": "app",
+    "lines": 310,
+    "functions": 16,
+    "hooks": [
+      "useState",
+      "useRef",
+      "useEffect",
+      "useCallback"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../../../ai/knowledge/architecture/system-map.json"
+    ],
+    "exports": [
+      "SystemMap"
+    ],
+    "usedBy": []
+  },
+  "apps/ArchitectureApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 163,
+    "functions": 2,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./components/Sidebar",
+      "./components/StatusBar",
+      "./components/AIExplainButton"
+    ],
+    "exports": [
+      "ArchitectureApp"
+    ],
+    "usedBy": []
+  },
+  "apps/BrowserApp/components/BrowserBookmarksBar.jsx": {
+    "name": "BrowserBookmarksBar",
+    "category": "app",
+    "lines": 23,
+    "functions": 1,
+    "hooks": [
+      "useBrowserStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/useBrowserStore"
+    ],
+    "exports": [
+      "BrowserBookmarksBar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/BrowserApp/components/BrowserContent.jsx": {
+    "name": "BrowserContent",
+    "category": "app",
+    "lines": 125,
+    "functions": 1,
+    "hooks": [
+      "useRef",
+      "useState",
+      "useBrowserStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../../store/useBrowserStore",
+      "./BrowserNewTab",
+      "../../ResumeApp",
+      "../../ProjectsApp",
+      "../../SkillsApp",
+      "../../AboutApp"
+    ],
+    "exports": [
+      "BrowserContent"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/BrowserApp/components/BrowserDeploymentDashboard.jsx": {
+    "name": "BrowserDeploymentDashboard",
+    "category": "app",
+    "lines": 78,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "BrowserDeploymentDashboard"
+    ],
+    "usedBy": []
+  },
+  "apps/BrowserApp/components/BrowserDevTools.jsx": {
+    "name": "BrowserDevTools",
+    "category": "app",
+    "lines": 149,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "useRef",
+      "useEffect",
+      "useBrowserStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../../../store/useBrowserStore"
+    ],
+    "exports": [
+      "BrowserDevTools"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/BrowserApp/components/BrowserDownloads.jsx": {
+    "name": "BrowserDownloads",
+    "category": "app",
+    "lines": 62,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "useBrowserStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../store/useBrowserStore"
+    ],
+    "exports": [
+      "BrowserDownloads"
+    ],
+    "usedBy": []
+  },
+  "apps/BrowserApp/components/BrowserHistory.jsx": {
+    "name": "BrowserHistory",
+    "category": "app",
+    "lines": 85,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "useBrowserStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../store/useBrowserStore",
+      "../BrowserHistory.css"
+    ],
+    "exports": [
+      "BrowserHistory"
+    ],
+    "usedBy": []
+  },
+  "apps/BrowserApp/components/BrowserNewTab.jsx": {
+    "name": "BrowserNewTab",
+    "category": "app",
+    "lines": 78,
+    "functions": 3,
+    "hooks": [
+      "useBrowserStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/useBrowserStore"
+    ],
+    "exports": [
+      "BrowserNewTab"
+    ],
+    "usedBy": [
+      "BrowserContent"
+    ]
+  },
+  "apps/BrowserApp/components/BrowserSettings.jsx": {
+    "name": "BrowserSettings",
+    "category": "app",
+    "lines": 56,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "BrowserSettings"
+    ],
+    "usedBy": []
+  },
+  "apps/BrowserApp/components/BrowserTabs.jsx": {
+    "name": "BrowserTabs",
+    "category": "app",
+    "lines": 101,
+    "functions": 6,
+    "hooks": [
+      "useBrowserStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/useBrowserStore"
+    ],
+    "exports": [
+      "BrowserTabs"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/BrowserApp/components/BrowserToolbar.jsx": {
+    "name": "BrowserToolbar",
+    "category": "app",
+    "lines": 167,
+    "functions": 8,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useBrowserStore",
+      "useProfileStore",
+      "useGitHubStore"
+    ],
+    "hooksCount": 6,
+    "imports": [
+      "../../../store/useBrowserStore",
+      "../../../store/useProfileStore",
+      "../../../store/useGitHubStore"
+    ],
+    "exports": [
+      "BrowserToolbar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/BrowserApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 90,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useState",
+      "useBrowserStore",
+      "useWindowStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "./BrowserApp.css",
+      "./components/BrowserTabs",
+      "./components/BrowserToolbar",
+      "./components/BrowserBookmarksBar",
+      "./components/BrowserContent",
+      "./components/BrowserDevTools",
+      "../../store/useBrowserStore",
+      "../../store/useWindowStore"
+    ],
+    "exports": [
+      "BrowserApp"
+    ],
+    "usedBy": []
+  },
+  "apps/CalculatorApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 347,
+    "functions": 26,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "./CalculatorApp.css"
+    ],
+    "exports": [
+      "CalculatorApp"
+    ],
+    "usedBy": []
+  },
+  "apps/CalendarApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 1038,
+    "functions": 58,
+    "hooks": [
+      "useState",
+      "useMemo",
+      "useCallback",
+      "useEffect",
+      "useRef",
+      "useCalendarStore"
+    ],
+    "hooksCount": 6,
+    "imports": [
+      "../../store/useCalendarStore",
+      "./CalendarApp.css"
+    ],
+    "exports": [
+      "CalendarApp"
+    ],
+    "usedBy": []
+  },
+  "apps/ControlPanelApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 222,
+    "functions": 8,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useWindowStore",
+      "useBackgroundServiceStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../../store/useWindowStore",
+      "../../store/useBackgroundServiceStore",
+      "./ControlPanelApp.css"
+    ],
+    "exports": [
+      "ControlPanelApp"
+    ],
+    "usedBy": []
+  },
+  "apps/DeveloperDashboardApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 147,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useWindowStore",
+      "useBackgroundServiceStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../../store/useWindowStore",
+      "../../store/useBackgroundServiceStore"
+    ],
+    "exports": [
+      "DeveloperDashboardApp"
+    ],
+    "usedBy": []
+  },
+  "apps/FileExplorerApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 363,
+    "functions": 19,
+    "hooks": [
+      "useState",
+      "useCallback",
+      "useEffect",
+      "useFileSystemStore",
+      "useWindowStore"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../../store/useFileSystemStore",
+      "../../store/useWindowStore",
+      "./PropertiesModal",
+      "./FileExplorerApp.css",
+      "../../assets/icons/system/driver-c.ico",
+      "../../assets/icons/system/driver-d.ico",
+      "../../assets/icons/system/Folder Open.ico"
+    ],
+    "exports": [
+      "FileExplorerApp"
+    ],
+    "usedBy": []
+  },
+  "apps/FileExplorerApp/PropertiesModal.jsx": {
+    "name": "PropertiesModal",
+    "category": "app",
+    "lines": 124,
+    "functions": 1,
+    "hooks": [
+      "useEffect",
+      "useState"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "./FileExplorerApp.css"
+    ],
+    "exports": [
+      "PropertiesModal"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MailApp/ComposeModal.jsx": {
+    "name": "ComposeModal",
+    "category": "app",
+    "lines": 102,
+    "functions": 4,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "ComposeModal"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MailApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 159,
+    "functions": 5,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./mockData",
+      "./ComposeModal",
+      "./MailApp.css"
+    ],
+    "exports": [
+      "MailApp"
+    ],
+    "usedBy": []
+  },
+  "apps/MailApp/mockData.js": {
+    "name": "mockData",
+    "category": "app",
+    "lines": 112,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "FOLDERS",
+      "MOCK_EMAILS"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/components/AIPanel.jsx": {
+    "name": "AIPanel",
+    "category": "app",
+    "lines": 100,
+    "functions": 2,
+    "hooks": [
+      "useMongoStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../hooks/useMongoStore"
+    ],
+    "exports": [
+      "AIPanel"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/components/DatabaseDashboard.jsx": {
+    "name": "DatabaseDashboard",
+    "category": "app",
+    "lines": 127,
+    "functions": 5,
+    "hooks": [
+      "useMemo",
+      "useCollections",
+      "useDatabaseQueries",
+      "useMongoStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../hooks/useDatabaseQueries",
+      "../hooks/useMongoStore"
+    ],
+    "exports": [
+      "DatabaseDashboard"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/components/DeveloperPanel.jsx": {
+    "name": "DeveloperPanel",
+    "category": "app",
+    "lines": 71,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "DeveloperPanel"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/components/DocumentViewer.jsx": {
+    "name": "DocumentViewer",
+    "category": "app",
+    "lines": 188,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "useMongoStore",
+      "useCollectionDocuments",
+      "useDatabaseQueries",
+      "useWindowStore"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../hooks/useMongoStore",
+      "../hooks/useDatabaseQueries",
+      "../../../store/useWindowStore",
+      "./Views/GridView",
+      "./Views/TableView",
+      "./Views/JsonView"
+    ],
+    "exports": [
+      "DocumentViewer"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/components/ErrorBoundary.jsx": {
+    "name": "ErrorBoundary",
+    "category": "app",
+    "lines": 66,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "ErrorBoundary"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/components/Inspectors/IndexExplorer.jsx": {
+    "name": "IndexExplorer",
+    "category": "app",
+    "lines": 72,
+    "functions": 1,
+    "hooks": [
+      "useCollectionIndexes",
+      "useDatabaseQueries"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../hooks/useDatabaseQueries"
+    ],
+    "exports": [
+      "IndexExplorer"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/components/Inspectors/QueryBuilder.jsx": {
+    "name": "QueryBuilder",
+    "category": "app",
+    "lines": 119,
+    "functions": 6,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "QueryBuilder"
+    ],
+    "usedBy": [
+      "TopNavigation"
+    ]
+  },
+  "apps/MongoDBExplorer/components/Inspectors/SchemaExplorer.jsx": {
+    "name": "SchemaExplorer",
+    "category": "app",
+    "lines": 78,
+    "functions": 1,
+    "hooks": [
+      "useCollectionSchema",
+      "useDatabaseQueries"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../hooks/useDatabaseQueries"
+    ],
+    "exports": [
+      "SchemaExplorer"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/components/Sidebar.jsx": {
+    "name": "Sidebar",
+    "category": "app",
+    "lines": 93,
+    "functions": 3,
+    "hooks": [
+      "useMongoStore",
+      "useCollections",
+      "useDatabaseQueries",
+      "useState"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../hooks/useMongoStore",
+      "../hooks/useDatabaseQueries"
+    ],
+    "exports": [
+      "Sidebar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/components/StatusBar.jsx": {
+    "name": "StatusBar",
+    "category": "app",
+    "lines": 63,
+    "functions": 2,
+    "hooks": [
+      "useMongoStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../hooks/useMongoStore"
+    ],
+    "exports": [
+      "StatusBar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/components/TopNavigation.jsx": {
+    "name": "TopNavigation",
+    "category": "app",
+    "lines": 168,
+    "functions": 7,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useMongoStore",
+      "useCollectionStatsData",
+      "useDatabaseQueries"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../hooks/useMongoStore",
+      "../hooks/useDatabaseQueries",
+      "./Inspectors/QueryBuilder"
+    ],
+    "exports": [
+      "TopNavigation"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/components/Views/GridView.jsx": {
+    "name": "GridView",
+    "category": "app",
+    "lines": 100,
+    "functions": 8,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "GridView"
+    ],
+    "usedBy": [
+      "DocumentViewer"
+    ]
+  },
+  "apps/MongoDBExplorer/components/Views/JsonView.jsx": {
+    "name": "JsonView",
+    "category": "app",
+    "lines": 39,
+    "functions": 2,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "JsonView"
+    ],
+    "usedBy": [
+      "VisualizationPanel",
+      "DocumentViewer",
+      "OutputViewer"
+    ]
+  },
+  "apps/MongoDBExplorer/components/Views/TableView.jsx": {
+    "name": "TableView",
+    "category": "app",
+    "lines": 81,
+    "functions": 4,
+    "hooks": [
+      "useMemo"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "TableView"
+    ],
+    "usedBy": [
+      "VisualizationPanel",
+      "DocumentViewer",
+      "OutputViewer"
+    ]
+  },
+  "apps/MongoDBExplorer/components/WelcomeScreen.jsx": {
+    "name": "WelcomeScreen",
+    "category": "app",
+    "lines": 50,
+    "functions": 1,
+    "hooks": [
+      "useMongoStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../hooks/useMongoStore"
+    ],
+    "exports": [
+      "WelcomeScreen"
+    ],
+    "usedBy": []
+  },
+  "apps/MongoDBExplorer/constants/mockData.js": {
+    "name": "mockData",
+    "category": "app",
+    "lines": 126,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "mockCollections"
+    ],
+    "usedBy": []
+  },
+  "apps/MongoDBExplorer/hooks/useDatabaseQueries.js": {
+    "name": "useDatabaseQueries",
+    "category": "app",
+    "lines": 95,
+    "functions": 9,
+    "hooks": [
+      "useQuery",
+      "useDatabaseStatus",
+      "useCollections",
+      "useDatabaseStats",
+      "useDatabaseHealth",
+      "useCollectionDocuments",
+      "useSingleDocument",
+      "useCollectionSchema",
+      "useCollectionStatsData",
+      "useCollectionIndexes"
+    ],
+    "hooksCount": 10,
+    "imports": [
+      "../../../services/api/databaseApi"
+    ],
+    "exports": [
+      "useDatabaseStatus",
+      "useCollections",
+      "useDatabaseStats",
+      "useDatabaseHealth",
+      "useCollectionDocuments",
+      "useSingleDocument",
+      "useCollectionSchema",
+      "useCollectionStatsData",
+      "useCollectionIndexes"
+    ],
+    "usedBy": [
+      "CopilotConversation",
+      "DatabaseDashboard",
+      "DocumentViewer",
+      "IndexExplorer",
+      "SchemaExplorer",
+      "Sidebar",
+      "TopNavigation",
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/hooks/useMongoStore.js": {
+    "name": "useMongoStore",
+    "category": "app",
+    "lines": 65,
+    "functions": 1,
+    "hooks": [
+      "useMongoStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useMongoStore"
+    ],
+    "usedBy": [
+      "AIPanel",
+      "DatabaseDashboard",
+      "DocumentViewer",
+      "Sidebar",
+      "StatusBar",
+      "TopNavigation",
+      "WelcomeScreen",
+      "index"
+    ]
+  },
+  "apps/MongoDBExplorer/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 97,
+    "functions": 4,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useMongoStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "./MongoDBExplorer.css",
+      "./components/Sidebar",
+      "./components/TopNavigation",
+      "./components/DocumentViewer",
+      "./components/StatusBar",
+      "./components/DatabaseDashboard",
+      "./components/AIPanel",
+      "./components/ErrorBoundary",
+      "./hooks/useMongoStore",
+      "./components/Inspectors/SchemaExplorer",
+      "./components/Inspectors/IndexExplorer",
+      "./components/DeveloperPanel"
+    ],
+    "exports": [
+      "MongoDBExplorerApp"
+    ],
+    "usedBy": []
+  },
+  "apps/MongoDocumentApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 162,
+    "functions": 5,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "MongoDocumentApp"
+    ],
+    "usedBy": []
+  },
+  "apps/MongoPlayground/api/databasePlaygroundApi.js": {
+    "name": "databasePlaygroundApi",
+    "category": "app",
+    "lines": 16,
+    "functions": 2,
+    "hooks": [
+      "useMutation",
+      "useExecuteQuery"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "executePlaygroundQuery",
+      "useExecuteQuery"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoPlayground/components/OutputViewer.jsx": {
+    "name": "OutputViewer",
+    "category": "app",
+    "lines": 92,
+    "functions": 2,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../MongoDBExplorer/components/Views/TableView",
+      "../../MongoDBExplorer/components/Views/JsonView"
+    ],
+    "exports": [
+      "OutputViewer"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoPlayground/components/PlaygroundEditor.jsx": {
+    "name": "PlaygroundEditor",
+    "category": "app",
+    "lines": 63,
+    "functions": 3,
+    "hooks": [
+      "useRef"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "PlaygroundEditor"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MongoPlayground/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 108,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "useCollections",
+      "useDatabaseQueries",
+      "useExecuteQuery"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../MongoDBExplorer/hooks/useDatabaseQueries",
+      "./components/PlaygroundEditor",
+      "./components/OutputViewer",
+      "./api/databasePlaygroundApi",
+      "../MongoDBExplorer/components/ErrorBoundary"
+    ],
+    "exports": [
+      "MongoPlaygroundApp"
+    ],
+    "usedBy": []
+  },
+  "apps/MusicApp/components/Controls.jsx": {
+    "name": "Controls",
+    "category": "app",
+    "lines": 177,
+    "functions": 7,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useMusicStore",
+      "useSystemAudioStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../../../store/useMusicStore",
+      "../../../store/useSystemAudioStore"
+    ],
+    "exports": [
+      "Controls"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MusicApp/components/MusicStats.jsx": {
+    "name": "MusicStats",
+    "category": "app",
+    "lines": 40,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "MusicStats"
+    ],
+    "usedBy": []
+  },
+  "apps/MusicApp/components/Player.jsx": {
+    "name": "Player",
+    "category": "app",
+    "lines": 32,
+    "functions": 1,
+    "hooks": [
+      "useMusicStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/useMusicStore",
+      "./Visualizer"
+    ],
+    "exports": [
+      "Player"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MusicApp/components/Playlist.jsx": {
+    "name": "Playlist",
+    "category": "app",
+    "lines": 121,
+    "functions": 4,
+    "hooks": [
+      "useMusicStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/useMusicStore"
+    ],
+    "exports": [
+      "Playlist"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MusicApp/components/Visualizer.jsx": {
+    "name": "Visualizer",
+    "category": "app",
+    "lines": 15,
+    "functions": 1,
+    "hooks": [
+      "useAudioVisualizer"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../hooks/useAudioVisualizer"
+    ],
+    "exports": [
+      "Visualizer"
+    ],
+    "usedBy": [
+      "Player"
+    ]
+  },
+  "apps/MusicApp/data/playlist.js": {
+    "name": "playlist",
+    "category": "app",
+    "lines": 22,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../../assets/sounds/song/Hannah & Clay - The Night We Met (13 Reasons Why).mp3",
+      "../../../assets/sounds/song/sapientdream - Pastlives (lyrics).mp3"
+    ],
+    "exports": [
+      "playlist"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/MusicApp/hooks/useAudioVisualizer.js": {
+    "name": "useAudioVisualizer",
+    "category": "app",
+    "lines": 101,
+    "functions": 7,
+    "hooks": [
+      "useEffect",
+      "useRef",
+      "useAudioVisualizer"
+    ],
+    "hooksCount": 3,
+    "imports": [],
+    "exports": [
+      "useAudioVisualizer"
+    ],
+    "usedBy": [
+      "Visualizer"
+    ]
+  },
+  "apps/MusicApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 180,
+    "functions": 10,
+    "hooks": [
+      "useEffect",
+      "useRef",
+      "useState",
+      "useMusicStore",
+      "useSystemAudioStore"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../../store/useMusicStore",
+      "./data/playlist",
+      "../../store/useSystemAudioStore",
+      "./components/Player",
+      "./components/Playlist",
+      "./components/Controls",
+      "./MusicApp.css"
+    ],
+    "exports": [
+      "MusicApp"
+    ],
+    "usedBy": []
+  },
+  "apps/NotepadApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 181,
+    "functions": 10,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useFileSystemStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../../store/useFileSystemStore",
+      "./NotepadApp.css"
+    ],
+    "exports": [
+      "NotepadApp"
+    ],
+    "usedBy": []
+  },
+  "apps/PaintApp/components/PaintCanvas.jsx": {
+    "name": "PaintCanvas",
+    "category": "app",
+    "lines": 403,
+    "functions": 15,
+    "hooks": [
+      "useRef",
+      "useEffect",
+      "useState",
+      "useCallback",
+      "usePaintStore"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../store/usePaintStore"
+    ],
+    "exports": [
+      "PaintCanvas"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PaintApp/components/PaintLayersPanel.jsx": {
+    "name": "PaintLayersPanel",
+    "category": "app",
+    "lines": 76,
+    "functions": 9,
+    "hooks": [
+      "usePaintStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../store/usePaintStore"
+    ],
+    "exports": [
+      "PaintLayersPanel"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PaintApp/components/PaintRibbon.jsx": {
+    "name": "PaintRibbon",
+    "category": "app",
+    "lines": 157,
+    "functions": 3,
+    "hooks": [
+      "usePaintStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../store/usePaintStore"
+    ],
+    "exports": [
+      "PaintRibbon"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PaintApp/components/PaintSidebar.jsx": {
+    "name": "PaintSidebar",
+    "category": "app",
+    "lines": 41,
+    "functions": 1,
+    "hooks": [
+      "usePaintStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../store/usePaintStore"
+    ],
+    "exports": [
+      "PaintSidebar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PaintApp/components/PaintStatusBar.jsx": {
+    "name": "PaintStatusBar",
+    "category": "app",
+    "lines": 33,
+    "functions": 1,
+    "hooks": [
+      "usePaintStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../store/usePaintStore"
+    ],
+    "exports": [
+      "PaintStatusBar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PaintApp/components/PaintTitleBar.jsx": {
+    "name": "PaintTitleBar",
+    "category": "app",
+    "lines": 230,
+    "functions": 10,
+    "hooks": [
+      "useState",
+      "usePaintStore",
+      "useFileSystemStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../store/usePaintStore",
+      "../../../store/useFileSystemStore"
+    ],
+    "exports": [
+      "PaintTitleBar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PaintApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 151,
+    "functions": 8,
+    "hooks": [
+      "useRef",
+      "useEffect",
+      "usePaintStore",
+      "useFileSystemStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "./PaintApp.css",
+      "./components/PaintTitleBar",
+      "./components/PaintRibbon",
+      "./components/PaintSidebar",
+      "./components/PaintCanvas",
+      "./components/PaintLayersPanel",
+      "./components/PaintStatusBar",
+      "./store/usePaintStore",
+      "../../store/useFileSystemStore"
+    ],
+    "exports": [
+      "PaintApp"
+    ],
+    "usedBy": []
+  },
+  "apps/PaintApp/store/usePaintStore.js": {
+    "name": "usePaintStore",
+    "category": "app",
+    "lines": 51,
+    "functions": 1,
+    "hooks": [
+      "usePaintStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "usePaintStore"
+    ],
+    "usedBy": [
+      "PaintCanvas",
+      "PaintLayersPanel",
+      "PaintRibbon",
+      "PaintSidebar",
+      "PaintStatusBar",
+      "PaintTitleBar",
+      "index"
+    ]
+  },
+  "apps/PhotosApp/imageData.js": {
+    "name": "imageData",
+    "category": "app",
+    "lines": 25,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../assets/images/profile.jpg",
+      "../../assets/images/profile 2.jpeg",
+      "../../assets/images/project 1.png",
+      "../../assets/images/project 2.png",
+      "../../assets/images/portfolio.png",
+      "../../assets/images/certificate.jpeg"
+    ],
+    "exports": [
+      "ALBUMS",
+      "IMAGES"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PhotosApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 74,
+    "functions": 1,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./imageData",
+      "./Lightbox",
+      "./PhotosApp.css"
+    ],
+    "exports": [
+      "PhotosApp"
+    ],
+    "usedBy": []
+  },
+  "apps/PhotosApp/Lightbox.jsx": {
+    "name": "Lightbox",
+    "category": "app",
+    "lines": 150,
+    "functions": 12,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef"
+    ],
+    "hooksCount": 3,
+    "imports": [],
+    "exports": [
+      "Lightbox"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/Achievements.jsx": {
+    "name": "Achievements",
+    "category": "app",
+    "lines": 50,
+    "functions": 2,
+    "hooks": [
+      "usePlacementStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/usePlacementStore"
+    ],
+    "exports": [
+      "Achievements"
+    ],
+    "usedBy": [
+      "Dashboard"
+    ]
+  },
+  "apps/PlacementPrepApp/components/ContestTracker.jsx": {
+    "name": "ContestTracker",
+    "category": "app",
+    "lines": 113,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "usePlacementStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../store/usePlacementStore"
+    ],
+    "exports": [
+      "ContestTracker"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/Dashboard.jsx": {
+    "name": "Dashboard",
+    "category": "app",
+    "lines": 107,
+    "functions": 3,
+    "hooks": [
+      "usePlacementStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/usePlacementStore",
+      "../engines/ReadinessEngine",
+      "./Heatmap",
+      "./Achievements",
+      "./TodaysMission"
+    ],
+    "exports": [
+      "Dashboard"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/DreamCompany.jsx": {
+    "name": "DreamCompany",
+    "category": "app",
+    "lines": 69,
+    "functions": 1,
+    "hooks": [
+      "usePlacementStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/usePlacementStore",
+      "../engines/DreamCompanyEngine"
+    ],
+    "exports": [
+      "DreamCompany"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/Heatmap.jsx": {
+    "name": "Heatmap",
+    "category": "app",
+    "lines": 68,
+    "functions": 4,
+    "hooks": [
+      "usePlacementStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/usePlacementStore"
+    ],
+    "exports": [
+      "Heatmap"
+    ],
+    "usedBy": [
+      "Dashboard"
+    ]
+  },
+  "apps/PlacementPrepApp/components/InterviewJournal.jsx": {
+    "name": "InterviewJournal",
+    "category": "app",
+    "lines": 130,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "usePlacementStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../store/usePlacementStore"
+    ],
+    "exports": [
+      "InterviewJournal"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/InterviewSimulator.jsx": {
+    "name": "InterviewSimulator",
+    "category": "app",
+    "lines": 48,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "usePlacementStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../store/usePlacementStore"
+    ],
+    "exports": [
+      "InterviewSimulator"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/KnowledgeVault.jsx": {
+    "name": "KnowledgeVault",
+    "category": "app",
+    "lines": 56,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "KnowledgeVault"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/PlacementCalendar.jsx": {
+    "name": "PlacementCalendar",
+    "category": "app",
+    "lines": 87,
+    "functions": 3,
+    "hooks": [
+      "usePlacementStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/usePlacementStore"
+    ],
+    "exports": [
+      "PlacementCalendar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/ProjectDefense.jsx": {
+    "name": "ProjectDefense",
+    "category": "app",
+    "lines": 104,
+    "functions": 2,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "ProjectDefense"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/ResumeAnalyzer.jsx": {
+    "name": "ResumeAnalyzer",
+    "category": "app",
+    "lines": 119,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "usePlacementStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../store/usePlacementStore"
+    ],
+    "exports": [
+      "ResumeAnalyzer"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/RevisionCenter.jsx": {
+    "name": "RevisionCenter",
+    "category": "app",
+    "lines": 47,
+    "functions": 1,
+    "hooks": [
+      "usePlacementStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/usePlacementStore"
+    ],
+    "exports": [
+      "RevisionCenter"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/Roadmap.jsx": {
+    "name": "Roadmap",
+    "category": "app",
+    "lines": 77,
+    "functions": 4,
+    "hooks": [
+      "useEffect",
+      "useState",
+      "usePlacementStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../../store/usePlacementStore",
+      "../engines/RuleEngine",
+      "../../../services/geminiPlacementService"
+    ],
+    "exports": [
+      "Roadmap"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/Settings.jsx": {
+    "name": "Settings",
+    "category": "app",
+    "lines": 128,
+    "functions": 2,
+    "hooks": [
+      "usePlacementStore",
+      "useState"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../store/usePlacementStore"
+    ],
+    "exports": [
+      "Settings"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/StudyCoach.jsx": {
+    "name": "StudyCoach",
+    "category": "app",
+    "lines": 71,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "usePlacementStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../store/usePlacementStore",
+      "../../../services/geminiPlacementService"
+    ],
+    "exports": [
+      "StudyCoach"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PlacementPrepApp/components/TodaysMission.jsx": {
+    "name": "TodaysMission",
+    "category": "app",
+    "lines": 81,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "usePlacementStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../store/usePlacementStore"
+    ],
+    "exports": [
+      "TodaysMission"
+    ],
+    "usedBy": [
+      "Dashboard"
+    ]
+  },
+  "apps/PlacementPrepApp/engines/DreamCompanyEngine.js": {
+    "name": "DreamCompanyEngine",
+    "category": "app",
+    "lines": 116,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "DREAM_COMPANIES",
+      "DreamCompanyEngine"
+    ],
+    "usedBy": [
+      "DreamCompany"
+    ]
+  },
+  "apps/PlacementPrepApp/engines/DSAPatternEngine.js": {
+    "name": "DSAPatternEngine",
+    "category": "app",
+    "lines": 24,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "calculatePatternMasteryUpdate"
+    ],
+    "usedBy": []
+  },
+  "apps/PlacementPrepApp/engines/ReadinessEngine.js": {
+    "name": "ReadinessEngine",
+    "category": "app",
+    "lines": 28,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "calculateReadinessScore"
+    ],
+    "usedBy": [
+      "Dashboard"
+    ]
+  },
+  "apps/PlacementPrepApp/engines/RevisionEngine.js": {
+    "name": "RevisionEngine",
+    "category": "app",
+    "lines": 23,
+    "functions": 4,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "calculateNextRevisionDates",
+      "getDueRevisions"
+    ],
+    "usedBy": []
+  },
+  "apps/PlacementPrepApp/engines/RuleEngine.js": {
+    "name": "RuleEngine",
+    "category": "app",
+    "lines": 73,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "generateBaseRoadmap"
+    ],
+    "usedBy": [
+      "Roadmap"
+    ]
+  },
+  "apps/PlacementPrepApp/engines/WeakTopicEngine.js": {
+    "name": "WeakTopicEngine",
+    "category": "app",
+    "lines": 22,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "evaluateTopicPerformance"
+    ],
+    "usedBy": []
+  },
+  "apps/PlacementPrepApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 109,
+    "functions": 2,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./PlacementPrepApp.css",
+      "./components/Dashboard",
+      "./components/Roadmap",
+      "./components/StudyCoach",
+      "./components/InterviewSimulator",
+      "./components/KnowledgeVault",
+      "./components/RevisionCenter",
+      "./components/ContestTracker",
+      "./components/InterviewJournal",
+      "./components/ProjectDefense",
+      "./components/DreamCompany",
+      "./components/ResumeAnalyzer",
+      "./components/PlacementCalendar",
+      "./components/Settings"
+    ],
+    "exports": [
+      "PlacementPrepApp"
+    ],
+    "usedBy": []
+  },
+  "apps/PortfolioHealthApp/components/HealthCategory.jsx": {
+    "name": "HealthCategory",
+    "category": "app",
+    "lines": 40,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "HealthCategory"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PortfolioHealthApp/components/ScoreDial.jsx": {
+    "name": "ScoreDial",
+    "category": "app",
+    "lines": 45,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "ScoreDial"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/PortfolioHealthApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 124,
+    "functions": 4,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useGitHubStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "./components/ScoreDial",
+      "./components/HealthCategory",
+      "../../store/useGitHubStore",
+      "../../ai/knowledge/projects.json",
+      "../../data/metrics.json"
+    ],
+    "exports": [
+      "PortfolioHealthApp"
+    ],
+    "usedBy": []
+  },
+  "apps/ProjectsApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 196,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useMemo",
+      "useQuery",
+      "useDebounce",
+      "useUIStore",
+      "useWindowStore",
+      "useAnalyticsStore",
+      "usePresentationStore"
+    ],
+    "hooksCount": 8,
+    "imports": [
+      "../../services/projectService",
+      "../../hooks/useDebounce",
+      "../../store/useUIStore",
+      "../../store/useWindowStore",
+      "../../store/useAnalyticsStore",
+      "../../store/usePresentationStore",
+      "../../components/app/AppShell",
+      "./ProjectsApp.css"
+    ],
+    "exports": [
+      "ProjectsApp"
+    ],
+    "usedBy": [
+      "BrowserContent"
+    ]
+  },
+  "apps/RecruiterApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 361,
+    "functions": 10,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useThemeStore",
+      "usePresentationStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "./RecruiterApp.css",
+      "../../store/useThemeStore",
+      "../../store/usePresentationStore"
+    ],
+    "exports": [
+      "RecruiterApp"
+    ],
+    "usedBy": []
+  },
+  "apps/RecycleBinApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 122,
+    "functions": 7,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useFileSystemStore",
+      "useWindowStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../../store/useFileSystemStore",
+      "../../store/useWindowStore",
+      "../FileExplorerApp/FileExplorerApp.css",
+      "../../assets/icons/system/Folder Open.ico"
+    ],
+    "exports": [
+      "RecycleBinApp"
+    ],
+    "usedBy": []
+  },
+  "apps/ResumeApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 106,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useAnalyticsStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../components/app/AppShell",
+      "../../store/useAnalyticsStore",
+      "./ResumeApp.css"
+    ],
+    "exports": [
+      "ResumeApp"
+    ],
+    "usedBy": [
+      "BrowserContent"
+    ]
+  },
+  "apps/SettingsApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 533,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useRef",
+      "useThemeStore",
+      "useDesktopStore",
+      "useSoundStore",
+      "useWidgetStore"
+    ],
+    "hooksCount": 6,
+    "imports": [
+      "../../store/useThemeStore",
+      "../../store/useDesktopStore",
+      "../../store/useSoundStore",
+      "../../store/useWidgetStore",
+      "../../constants",
+      "../../utils/imageUtils",
+      "../../utils/backupUtils",
+      "./SettingsApp.css"
+    ],
+    "exports": [
+      "SettingsApp"
+    ],
+    "usedBy": []
+  },
+  "apps/SkillsApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 129,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useQuery"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../../services/skillService",
+      "../../components/app/AppShell",
+      "./SkillsApp.css"
+    ],
+    "exports": [
+      "SkillsApp"
+    ],
+    "usedBy": [
+      "BrowserContent"
+    ]
+  },
+  "apps/SlidingPuzzleApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 259,
+    "functions": 11,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useCallback"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "./SlidingPuzzleApp.css"
+    ],
+    "exports": [
+      "SlidingPuzzleApp"
+    ],
+    "usedBy": []
+  },
+  "apps/TerminalApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 12,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../components/system/TerminalCore"
+    ],
+    "exports": [
+      "TerminalApp"
+    ],
+    "usedBy": []
+  },
+  "apps/VectorSearchStudio/api/vectorSearchApi.js": {
+    "name": "vectorSearchApi",
+    "category": "app",
+    "lines": 27,
+    "functions": 4,
+    "hooks": [
+      "useMutation",
+      "useQuery",
+      "useVectorSearch",
+      "useEmbeddingPipeline"
+    ],
+    "hooksCount": 4,
+    "imports": [],
+    "exports": [
+      "queryVectorSearch",
+      "runEmbeddingPipeline",
+      "useVectorSearch",
+      "useEmbeddingPipeline"
+    ],
+    "usedBy": [
+      "VectorSearchUI"
+    ]
+  },
+  "apps/VectorSearchStudio/components/VectorSearchUI.jsx": {
+    "name": "VectorSearchUI",
+    "category": "app",
+    "lines": 228,
+    "functions": 6,
+    "hooks": [
+      "useState",
+      "useVectorSearch"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../api/vectorSearchApi"
+    ],
+    "exports": [
+      "VectorSearchUI"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/VectorSearchStudio/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 13,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./components/VectorSearchUI"
+    ],
+    "exports": [
+      "VectorSearchStudioApp"
+    ],
+    "usedBy": []
+  },
+  "apps/VoiceCenterApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 70,
+    "functions": 1,
+    "hooks": [
+      "useState",
+      "useVoiceStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../store/useVoiceStore",
+      "./VoiceCenterApp.css"
+    ],
+    "exports": [
+      "VoiceCenterApp"
+    ],
+    "usedBy": []
+  },
+  "apps/VSCodeApp/components/ActivityBar.jsx": {
+    "name": "ActivityBar",
+    "category": "app",
+    "lines": 37,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "ActivityBar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/components/BottomPanel.jsx": {
+    "name": "BottomPanel",
+    "category": "app",
+    "lines": 99,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../../components/system/TerminalCore"
+    ],
+    "exports": [
+      "BottomPanel"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/components/CopilotPanel.jsx": {
+    "name": "CopilotPanel",
+    "category": "app",
+    "lines": 91,
+    "functions": 6,
+    "hooks": [
+      "useState",
+      "useRef",
+      "useEffect"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "./CopilotPanel.css"
+    ],
+    "exports": [
+      "CopilotPanel"
+    ],
+    "usedBy": [
+      "Sidebar"
+    ]
+  },
+  "apps/VSCodeApp/components/EditorArea.jsx": {
+    "name": "EditorArea",
+    "category": "app",
+    "lines": 195,
+    "functions": 6,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../config/iconMap"
+    ],
+    "exports": [
+      "EditorArea"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/components/ExplorerPanel.jsx": {
+    "name": "ExplorerPanel",
+    "category": "app",
+    "lines": 143,
+    "functions": 5,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../data/fileTree",
+      "../config/iconMap"
+    ],
+    "exports": [
+      "ExplorerPanel"
+    ],
+    "usedBy": [
+      "Sidebar"
+    ]
+  },
+  "apps/VSCodeApp/components/ExtensionsPanel.jsx": {
+    "name": "ExtensionsPanel",
+    "category": "app",
+    "lines": 31,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "ExtensionsPanel"
+    ],
+    "usedBy": [
+      "Sidebar"
+    ]
+  },
+  "apps/VSCodeApp/components/GitPanel.jsx": {
+    "name": "GitPanel",
+    "category": "app",
+    "lines": 129,
+    "functions": 2,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../config/iconMap"
+    ],
+    "exports": [
+      "GitPanel"
+    ],
+    "usedBy": [
+      "Sidebar"
+    ]
+  },
+  "apps/VSCodeApp/components/MockDBViewer.jsx": {
+    "name": "MockDBViewer",
+    "category": "app",
+    "lines": 103,
+    "functions": 4,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "./MockDBViewer.css"
+    ],
+    "exports": [
+      "MockDBViewer"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/components/ProfileSidebar.jsx": {
+    "name": "ProfileSidebar",
+    "category": "app",
+    "lines": 113,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "./ProfileSidebar.css",
+      "../../../assets/icons/logos/myPhoto.jpg"
+    ],
+    "exports": [
+      "ProfileSidebar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/components/ReadmeRenderer.jsx": {
+    "name": "ReadmeRenderer",
+    "category": "app",
+    "lines": 201,
+    "functions": 2,
+    "hooks": [
+      "useWindowStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/useWindowStore",
+      "./ReadmeRenderer.css"
+    ],
+    "exports": [
+      "ReadmeRenderer"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/components/RecruiterDashboard.jsx": {
+    "name": "RecruiterDashboard",
+    "category": "app",
+    "lines": 47,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./RecruiterDashboard.css"
+    ],
+    "exports": [
+      "RecruiterDashboard"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/components/SearchPanel.jsx": {
+    "name": "SearchPanel",
+    "category": "app",
+    "lines": 40,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../config/iconMap"
+    ],
+    "exports": [
+      "SearchPanel"
+    ],
+    "usedBy": [
+      "Sidebar"
+    ]
+  },
+  "apps/VSCodeApp/components/Sidebar.jsx": {
+    "name": "Sidebar",
+    "category": "app",
+    "lines": 61,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./ExplorerPanel",
+      "./SearchPanel",
+      "./GitPanel",
+      "./ExtensionsPanel",
+      "./CopilotPanel"
+    ],
+    "exports": [
+      "Sidebar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/components/StatusBar.jsx": {
+    "name": "StatusBar",
+    "category": "app",
+    "lines": 69,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "StatusBar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/components/TopMenu.jsx": {
+    "name": "TopMenu",
+    "category": "app",
+    "lines": 74,
+    "functions": 6,
+    "hooks": [
+      "useState",
+      "useRef",
+      "useEffect"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../config/menuItems",
+      "../../../assets/icons/apps/vscode.svg"
+    ],
+    "exports": [
+      "TopMenu"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/config/iconMap.jsx": {
+    "name": "iconMap",
+    "category": "app",
+    "lines": 69,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "getFolderIcon",
+      "getFileIcon"
+    ],
+    "usedBy": [
+      "EditorArea",
+      "ExplorerPanel",
+      "GitPanel",
+      "SearchPanel",
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/config/menuItems.js": {
+    "name": "menuItems",
+    "category": "app",
+    "lines": 76,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "MENU_ITEMS"
+    ],
+    "usedBy": [
+      "TopMenu"
+    ]
+  },
+  "apps/VSCodeApp/data/fileTree.js": {
+    "name": "fileTree",
+    "category": "app",
+    "lines": 77,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "fileTree"
+    ],
+    "usedBy": [
+      "ExplorerPanel",
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 1016,
+    "functions": 64,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useGitHubStore",
+      "usePresentationStore"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../../components/system/TerminalCore",
+      "./data/fileTree",
+      "./config/iconMap",
+      "./components/ReadmeRenderer",
+      "./components/RecruiterDashboard",
+      "./components/MockDBViewer",
+      "./components/ActivityBar",
+      "./components/Sidebar",
+      "./components/TopMenu",
+      "./components/EditorArea",
+      "./components/BottomPanel",
+      "./components/StatusBar",
+      "./components/ProfileSidebar",
+      "../../store/useGitHubStore",
+      "../../store/usePresentationStore",
+      "./VSCodeApp.css",
+      "../../assets/icons/apps/vscode.svg",
+      "./WindowManager"
+    ],
+    "exports": [
+      "Desktop",
+      "Taskbar",
+      "VSCodeApp",
+      "VSCodeApp"
+    ],
+    "usedBy": []
+  },
+  "apps/WeatherApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 196,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useWeatherStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../store/useWeatherStore",
+      "./WeatherApp.css"
+    ],
+    "exports": [
+      "WeatherApp"
+    ],
+    "usedBy": []
+  },
+  "apps/WhatsAppApp/components/ChatWindow.jsx": {
+    "name": "ChatWindow",
+    "category": "app",
+    "lines": 108,
+    "functions": 5,
+    "hooks": [
+      "useEffect",
+      "useState",
+      "useRef",
+      "useWhatsAppChatStore",
+      "useWhatsAppMessageStore",
+      "useWhatsAppAuthStore",
+      "useWhatsAppSocketStore"
+    ],
+    "hooksCount": 7,
+    "imports": [
+      "../../../store/useWhatsAppChatStore",
+      "../../../store/useWhatsAppMessageStore",
+      "../../../store/useWhatsAppAuthStore",
+      "../../../store/useWhatsAppSocketStore"
+    ],
+    "exports": [
+      "ChatWindow"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/WhatsAppApp/components/Login.jsx": {
+    "name": "Login",
+    "category": "app",
+    "lines": 51,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "useWhatsAppAuthStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../store/useWhatsAppAuthStore"
+    ],
+    "exports": [
+      "Login"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/WhatsAppApp/components/Sidebar.jsx": {
+    "name": "Sidebar",
+    "category": "app",
+    "lines": 79,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "useWhatsAppChatStore",
+      "useWhatsAppAuthStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../../store/useWhatsAppChatStore",
+      "../../../store/useWhatsAppAuthStore"
+    ],
+    "exports": [
+      "Sidebar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/WhatsAppApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 51,
+    "functions": 4,
+    "hooks": [
+      "useEffect",
+      "useWhatsAppAuthStore",
+      "useWhatsAppChatStore",
+      "useWhatsAppSocketStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "./WhatsAppApp.css",
+      "./components/Login",
+      "./components/Sidebar",
+      "./components/ChatWindow",
+      "../../store/useWhatsAppAuthStore",
+      "../../store/useWhatsAppChatStore",
+      "../../store/useWhatsAppSocketStore"
+    ],
+    "exports": [
+      "WhatsAppApp"
+    ],
+    "usedBy": []
+  },
+  "components/app/AppShell.jsx": {
+    "name": "AppShell",
+    "category": "component",
+    "lines": 60,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./AppShell.css"
+    ],
+    "exports": [
+      "AppShell"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "components/auth/LoginScreen.jsx": {
+    "name": "LoginScreen",
+    "category": "component",
+    "lines": 163,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "useAuthStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../store/useAuthStore",
+      "../../services/api"
+    ],
+    "exports": [
+      "LoginScreen"
+    ],
+    "usedBy": [
+      "AIAssistant"
+    ]
+  },
+  "components/common/ErrorBoundary.jsx": {
+    "name": "ErrorBoundary",
+    "category": "component",
+    "lines": 94,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "ErrorBoundary"
+    ],
+    "usedBy": [
+      "apps"
+    ]
+  },
+  "components/desktop/AIAssistant.jsx": {
+    "name": "AIAssistant",
+    "category": "component",
+    "lines": 499,
+    "functions": 17,
+    "hooks": [
+      "useState",
+      "useRef",
+      "useEffect",
+      "useDesktopStore",
+      "useWindowStore",
+      "useVoiceStore",
+      "useAuthStore"
+    ],
+    "hooksCount": 7,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useWindowStore",
+      "../../store/useVoiceStore",
+      "../../store/useAuthStore",
+      "../../ai/brain/aiBrain",
+      "../../ai/voice/voiceController",
+      "../auth/LoginScreen",
+      "../../services/api"
+    ],
+    "exports": [
+      "AIAssistant"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/desktop/AnimatedWallpaper.jsx": {
+    "name": "AnimatedWallpaper",
+    "category": "component",
+    "lines": 167,
+    "functions": 10,
+    "hooks": [
+      "useEffect",
+      "useRef"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "AnimatedWallpaper"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/desktop/Clock.jsx": {
+    "name": "Clock",
+    "category": "component",
+    "lines": 84,
+    "functions": 4,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "Clock"
+    ],
+    "usedBy": [
+      "Taskbar"
+    ]
+  },
+  "components/desktop/ContextMenu.jsx": {
+    "name": "ContextMenu",
+    "category": "component",
+    "lines": 144,
+    "functions": 11,
+    "hooks": [
+      "useDesktopStore",
+      "useEffect",
+      "useRef"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../store/useDesktopStore"
+    ],
+    "exports": [
+      "ContextMenu"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/desktop/DesktopIcon.jsx": {
+    "name": "DesktopIcon",
+    "category": "component",
+    "lines": 156,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useDesktopStore",
+      "useWindowStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useWindowStore"
+    ],
+    "exports": [
+      "memo"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/desktop/PresentationSystem.jsx": {
+    "name": "PresentationSystem",
+    "category": "component",
+    "lines": 226,
+    "functions": 8,
+    "hooks": [
+      "useEffect",
+      "useState",
+      "usePresentationStore",
+      "useWindowStore",
+      "usePresentationController"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../../store/usePresentationStore",
+      "../../store/useWindowStore",
+      "../../hooks/usePresentationController"
+    ],
+    "exports": [
+      "PresentationSystem"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/desktop/SnapLayoutsPopup.jsx": {
+    "name": "SnapLayoutsPopup",
+    "category": "component",
+    "lines": 103,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "SnapLayoutsPopup"
+    ],
+    "usedBy": [
+      "Window"
+    ]
+  },
+  "components/desktop/StartMenu.jsx": {
+    "name": "StartMenu",
+    "category": "component",
+    "lines": 621,
+    "functions": 15,
+    "hooks": [
+      "useDesktopStore",
+      "useWindowStore",
+      "useUIStore",
+      "useFileSystemStore",
+      "useDebounce",
+      "useState",
+      "useRef",
+      "useEffect"
+    ],
+    "hooksCount": 8,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useWindowStore",
+      "../../store/useUIStore",
+      "../../store/useFileSystemStore",
+      "../../constants",
+      "../../config/apps",
+      "../../hooks/useDebounce",
+      "../../constants"
+    ],
+    "exports": [
+      "StartMenu"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/desktop/StickyNotesLayer.jsx": {
+    "name": "StickyNotesLayer",
+    "category": "component",
+    "lines": 111,
+    "functions": 3,
+    "hooks": [
+      "useStickyNotesStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../store/useStickyNotesStore"
+    ],
+    "exports": [
+      "StickyNotesLayer"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/desktop/Taskbar.jsx": {
+    "name": "Taskbar",
+    "category": "component",
+    "lines": 460,
+    "functions": 18,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useDesktopStore",
+      "useThemeStore",
+      "useWindowStore",
+      "useMusicStore",
+      "useSystemAudioStore",
+      "useWeatherStore"
+    ],
+    "hooksCount": 8,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useThemeStore",
+      "../../store/useWindowStore",
+      "../../constants",
+      "./Clock",
+      "../../store/useMusicStore",
+      "../../store/useSystemAudioStore",
+      "../../store/useWeatherStore"
+    ],
+    "exports": [
+      "Taskbar"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/desktop/ToastContainer.jsx": {
+    "name": "ToastContainer",
+    "category": "component",
+    "lines": 48,
+    "functions": 1,
+    "hooks": [
+      "useNotificationStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../store/useNotificationStore",
+      "./ToastContainer.css"
+    ],
+    "exports": [
+      "ToastContainer"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/desktop/VoiceCopilotOrb.jsx": {
+    "name": "VoiceCopilotOrb",
+    "category": "component",
+    "lines": 137,
+    "functions": 5,
+    "hooks": [
+      "useEffect",
+      "useRef",
+      "useVoiceStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../store/useVoiceStore",
+      "../../ai/voice/voiceController"
+    ],
+    "exports": [
+      "VoiceCopilotOrb"
+    ],
+    "usedBy": []
+  },
+  "components/desktop/VoiceOverlay.jsx": {
+    "name": "VoiceOverlay",
+    "category": "component",
+    "lines": 141,
+    "functions": 4,
+    "hooks": [
+      "useEffect",
+      "useRef",
+      "useVoiceStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../store/useVoiceStore",
+      "../../ai/voice/voiceController"
+    ],
+    "exports": [
+      "VoiceOverlay"
+    ],
+    "usedBy": []
+  },
+  "components/desktop/Window.jsx": {
+    "name": "Window",
+    "category": "component",
+    "lines": 348,
+    "functions": 22,
+    "hooks": [
+      "useEffect",
+      "useRef",
+      "useState",
+      "useDragControls",
+      "useWindowStore"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../../store/useWindowStore",
+      "../../config/apps",
+      "./SnapLayoutsPopup"
+    ],
+    "exports": [
+      "Window"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/AltTabOverlay.jsx": {
+    "name": "AltTabOverlay",
+    "category": "component",
+    "lines": 135,
+    "functions": 7,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useWindowStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../store/useWindowStore"
+    ],
+    "exports": [
+      "AltTabOverlay"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/BackgroundServices.jsx": {
+    "name": "BackgroundServices",
+    "category": "component",
+    "lines": 83,
+    "functions": 8,
+    "hooks": [
+      "useEffect",
+      "useBackgroundServiceStore",
+      "useCalendarStore",
+      "useNotificationStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../../store/useBackgroundServiceStore",
+      "../../store/useCalendarStore",
+      "../../store/useNotificationStore"
+    ],
+    "exports": [
+      "BackgroundServices"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/calendar/CalendarPanel.jsx": {
+    "name": "CalendarPanel",
+    "category": "component",
+    "lines": 139,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "CalendarPanel"
+    ],
+    "usedBy": [
+      "NotificationCenter"
+    ]
+  },
+  "components/system/CommandPalette.jsx": {
+    "name": "CommandPalette",
+    "category": "component",
+    "lines": 168,
+    "functions": 7,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useDesktopStore",
+      "useWindowStore",
+      "useThemeStore",
+      "useMusicStore",
+      "useMobileStore"
+    ],
+    "hooksCount": 8,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useWindowStore",
+      "../../store/useThemeStore",
+      "../../store/useMusicStore",
+      "../../mobile/store/useMobileStore"
+    ],
+    "exports": [
+      "CommandPalette"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/DesktopSwitcherOverlay.jsx": {
+    "name": "DesktopSwitcherOverlay",
+    "category": "component",
+    "lines": 86,
+    "functions": 5,
+    "hooks": [
+      "useDesktopStore",
+      "useWindowStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useWindowStore"
+    ],
+    "exports": [
+      "DesktopSwitcherOverlay"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/GlobalSearch.jsx": {
+    "name": "GlobalSearch",
+    "category": "component",
+    "lines": 170,
+    "functions": 7,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useDesktopStore",
+      "useWindowStore"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useWindowStore",
+      "../../ai/brain/aiBrain",
+      "../../config/apps"
+    ],
+    "exports": [
+      "GlobalSearch"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/notification/NotificationCard.jsx": {
+    "name": "NotificationCard",
+    "category": "component",
+    "lines": 134,
+    "functions": 4,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "NotificationCard"
+    ],
+    "usedBy": [
+      "NotificationCenter"
+    ]
+  },
+  "components/system/notification/NotificationCenter.jsx": {
+    "name": "NotificationCenter",
+    "category": "component",
+    "lines": 245,
+    "functions": 9,
+    "hooks": [
+      "useDesktopStore",
+      "useNotificationStore",
+      "useMusicStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../../store/useDesktopStore",
+      "../../../store/useNotificationStore",
+      "../../../store/useMusicStore",
+      "./NotificationCard",
+      "../calendar/CalendarPanel"
+    ],
+    "exports": [
+      "NotificationCenter"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/osd/VolumeOSD.jsx": {
+    "name": "VolumeOSD",
+    "category": "component",
+    "lines": 51,
+    "functions": 1,
+    "hooks": [
+      "useSystemAudioStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/useSystemAudioStore"
+    ],
+    "exports": [
+      "VolumeOSD"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/PowerUserMenu.jsx": {
+    "name": "PowerUserMenu",
+    "category": "component",
+    "lines": 104,
+    "functions": 6,
+    "hooks": [
+      "useDesktopStore",
+      "useWindowStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useWindowStore"
+    ],
+    "exports": [
+      "PowerUserMenu"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/quicksettings/QuickSettings.jsx": {
+    "name": "QuickSettings",
+    "category": "component",
+    "lines": 225,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useDesktopStore",
+      "useThemeStore",
+      "useUIStore",
+      "useSystemAudioStore"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../../../store/useDesktopStore",
+      "../../../store/useThemeStore",
+      "../../../store/useUIStore",
+      "../../../store/useSystemAudioStore"
+    ],
+    "exports": [
+      "QuickSettings"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/RunDialog.jsx": {
+    "name": "RunDialog",
+    "category": "component",
+    "lines": 134,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "useRef",
+      "useEffect",
+      "useDesktopStore",
+      "useWindowStore"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useWindowStore",
+      "../../config/apps",
+      "../../assets/icons/system/Settings.ico"
+    ],
+    "exports": [
+      "RunDialog"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/SnippingToolLayer.jsx": {
+    "name": "SnippingToolLayer",
+    "category": "component",
+    "lines": 149,
+    "functions": 7,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useDesktopStore",
+      "useCORS"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../../store/useDesktopStore"
+    ],
+    "exports": [
+      "SnippingToolLayer"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/SpotlightSearch.jsx": {
+    "name": "SpotlightSearch",
+    "category": "component",
+    "lines": 221,
+    "functions": 12,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useDesktopStore",
+      "useWindowStore",
+      "useCalendarStore",
+      "useStickyNotesStore"
+    ],
+    "hooksCount": 7,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useWindowStore",
+      "../../constants",
+      "../../store/useCalendarStore",
+      "../../store/useStickyNotesStore"
+    ],
+    "exports": [
+      "SpotlightSearch"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/system/TerminalCore/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 260,
+    "functions": 13,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useCallback",
+      "useWindowStore",
+      "useThemeStore",
+      "useUIStore",
+      "useAchievementStore"
+    ],
+    "hooksCount": 8,
+    "imports": [
+      "../../../config/terminalCommands",
+      "../../../store/useWindowStore",
+      "../../../store/useThemeStore",
+      "../../../store/useUIStore",
+      "../../../config/systemInfo",
+      "./TerminalCore.css"
+    ],
+    "exports": [
+      "TerminalCore"
+    ],
+    "usedBy": [
+      "index",
+      "BottomPanel"
+    ]
+  },
+  "components/system/UniversalSpotlight.jsx": {
+    "name": "UniversalSpotlight",
+    "category": "component",
+    "lines": 170,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useDesktopStore",
+      "useWindowStore",
+      "useMusicStore"
+    ],
+    "hooksCount": 6,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useWindowStore",
+      "../../store/useMusicStore",
+      "../../ai/brain/aiBrain"
+    ],
+    "exports": [
+      "UniversalSpotlight"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "components/ui/glowing-ai-chat-assistant.jsx": {
+    "name": "glowing-ai-chat-assistant",
+    "category": "component",
+    "lines": 274,
+    "functions": 9,
+    "hooks": [
+      "useState",
+      "useRef",
+      "useEffect"
+    ],
+    "hooksCount": 3,
+    "imports": [],
+    "exports": [],
+    "usedBy": []
+  },
+  "components/widgets/ActivityWidget.jsx": {
+    "name": "ActivityWidget",
+    "category": "component",
+    "lines": 48,
+    "functions": 2,
+    "hooks": [
+      "useAchievementStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../store/useAchievementStore"
+    ],
+    "exports": [
+      "ActivityWidget"
+    ],
+    "usedBy": []
+  },
+  "components/widgets/GitHubWidget.jsx": {
+    "name": "GitHubWidget",
+    "category": "component",
+    "lines": 60,
+    "functions": 2,
+    "hooks": [
+      "useEffect",
+      "useGitHubStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../store/useGitHubStore"
+    ],
+    "exports": [
+      "GitHubWidget"
+    ],
+    "usedBy": []
+  },
+  "components/widgets/PlacementWidget.jsx": {
+    "name": "PlacementWidget",
+    "category": "component",
+    "lines": 45,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "PlacementWidget"
+    ],
+    "usedBy": []
+  },
+  "components/widgets/QuoteWidget.jsx": {
+    "name": "QuoteWidget",
+    "category": "component",
+    "lines": 45,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "QuoteWidget"
+    ],
+    "usedBy": []
+  },
+  "components/widgets/SystemInfoWidget.jsx": {
+    "name": "SystemInfoWidget",
+    "category": "component",
+    "lines": 101,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useDesktopStore",
+      "useWindowStore",
+      "useThemeStore"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../../store/useDesktopStore",
+      "../../store/useWindowStore",
+      "../../store/useThemeStore"
+    ],
+    "exports": [
+      "SystemInfoWidget"
+    ],
+    "usedBy": []
+  },
+  "components/widgets/WeatherWidget.jsx": {
+    "name": "WeatherWidget",
+    "category": "component",
+    "lines": 129,
+    "functions": 6,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "WeatherWidget"
+    ],
+    "usedBy": []
+  },
+  "components/widgets/WidgetsPanel.jsx": {
+    "name": "WidgetsPanel",
+    "category": "component",
+    "lines": 197,
+    "functions": 5,
+    "hooks": [
+      "useWidgetStore",
+      "useThemeStore",
+      "useEffect",
+      "useRef",
+      "useState"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../../store/useWidgetStore",
+      "../../store/useThemeStore",
+      "../../widgets/GitHubProWidget",
+      "../../widgets/MusicWidget",
+      "../../widgets/AIWidget",
+      "../../widgets/PlacementTrackerWidget",
+      "../../widgets/RecruiterWidget",
+      "../../widgets/WeatherProWidget",
+      "../../widgets/SystemMonitorWidget",
+      "../../widgets/AchievementProWidget",
+      "../../widgets/SmartClockWidget",
+      "../../widgets/AISuggestionsWidget",
+      "../../widgets/LearningProgressWidget",
+      "../../widgets/DailyFocusWidget",
+      "../../widgets/QuickActionsWidget",
+      "../../widgets/RecruiterReadyWidget"
+    ],
+    "exports": [
+      "WidgetsPanel"
+    ],
+    "usedBy": [
+      "Desktop"
+    ]
+  },
+  "config/apps.jsx": {
+    "name": "apps",
+    "category": "config",
+    "lines": 498,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../components/common/ErrorBoundary",
+      "../assets/icons/system/User.ico",
+      "../assets/icons/system/Briefcase.ico",
+      "../assets/icons/system/Windows_Terminal_logo.svg.ico",
+      "../assets/icons/system/Explorer.ico",
+      "../assets/icons/system/Settings.ico",
+      "../assets/icons/system/Info.ico",
+      "../assets/icons/system/Computer.ico",
+      "../assets/icons/system/Control Panel.ico",
+      "../assets/icons/apps/vscode.svg",
+      "../assets/icons/system/Folder Music.ico",
+      "../assets/icons/system/Trash Empty.ico",
+      "../assets/icons/apps/icons8-about-me-48.png",
+      "../assets/icons/apps/icons8-skill-48.png",
+      "../assets/icons/apps/icons8-resume-64.png",
+      "../assets/icons/apps/icons8-chrome-48.png",
+      "../assets/icons/apps/icons8-gmail-48.png",
+      "../assets/icons/apps/icons8-photos-48.png",
+      "../assets/icons/apps/icons8-calculator-94.png",
+      "../assets/icons/apps/icons8-notepad-48.png",
+      "../assets/icons/apps/icons8-google-calendar-100.png",
+      "../assets/icons/apps/icons8-paint-94.png",
+      "../assets/icons/apps/icons8-dashboard-60.png",
+      "../assets/icons/apps/icons8-gemini-ai-48.png",
+      "../assets/icons/apps/icons8-windows-defender-50.png",
+      "../assets/icons/apps/icons8-whatsapp-48.png",
+      "../assets/icons/apps/mongodb.svg"
+    ],
+    "exports": [
+      "APPS"
+    ],
+    "usedBy": [
+      "StartMenu",
+      "Window",
+      "GlobalSearch",
+      "RunDialog",
+      "MobileAppDrawer",
+      "MobileHomeScreen",
+      "useWindowStore"
+    ]
+  },
+  "config/systemInfo.js": {
+    "name": "systemInfo",
+    "category": "config",
+    "lines": 13,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "SYSTEM_INFO"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "config/terminalCommands.js": {
+    "name": "terminalCommands",
+    "category": "config",
+    "lines": 607,
+    "functions": 38,
+    "hooks": [
+      "useAchievementStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../services/terminalService",
+      "../constants",
+      "../data/fileSystem"
+    ],
+    "exports": [
+      "TERMINAL_COMMANDS"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "constants/index.js": {
+    "name": "index",
+    "category": "other",
+    "lines": 352,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../assets/icons/system/User.ico",
+      "../assets/icons/system/Briefcase.ico",
+      "../assets/icons/system/Windows_Terminal_logo.svg.ico",
+      "../assets/icons/system/Explorer.ico",
+      "../assets/icons/system/Settings.ico",
+      "../assets/icons/system/Info.ico",
+      "../assets/icons/system/Computer.ico",
+      "../assets/icons/system/Control Panel.ico",
+      "../assets/icons/system/Folder Downloads.ico",
+      "../assets/icons/system/Folder Music.ico",
+      "../assets/icons/system/Folder Videos.ico",
+      "../assets/icons/system/One Drive.ico",
+      "../assets/icons/system/Trash Empty.ico",
+      "../assets/icons/apps/vscode.svg",
+      "../assets/icons/system/Trash Empty.ico",
+      "../assets/icons/apps/icons8-about-me-48.png",
+      "../assets/icons/apps/icons8-skill-48.png",
+      "../assets/icons/apps/icons8-resume-64.png",
+      "../assets/icons/apps/icons8-chrome-48.png",
+      "../assets/icons/apps/icons8-gmail-48.png",
+      "../assets/icons/apps/icons8-photos-48.png",
+      "../assets/icons/apps/icons8-calculator-94.png",
+      "../assets/icons/apps/icons8-notepad-48.png",
+      "../assets/icons/apps/icons8-google-calendar-100.png",
+      "../assets/icons/apps/icons8-paint-94.png",
+      "../assets/icons/apps/icons8-dashboard-60.png",
+      "../assets/icons/apps/icons8-gemini-ai-48.png",
+      "../assets/icons/apps/icons8-windows-defender-50.png",
+      "../assets/icons/apps/icons8-whatsapp-48.png",
+      "../assets/icons/apps/mongodb.svg"
+    ],
+    "exports": [
+      "API_BASE_URL",
+      "APP_NAME",
+      "APP_VERSION",
+      "APP_AUTHOR",
+      "THEMES",
+      "WINDOW_STATES",
+      "ICON_SIZES",
+      "TASKBAR",
+      "ANIMATION",
+      "BREAKPOINTS",
+      "OS_STATES",
+      "DESKTOP_APPS",
+      "RECOMMENDED_ITEMS",
+      "QUICK_SETTINGS"
+    ],
+    "usedBy": [
+      "App",
+      "index",
+      "StartMenu",
+      "Taskbar",
+      "SpotlightSearch",
+      "terminalCommands",
+      "BootScreen",
+      "Desktop",
+      "LockScreen",
+      "useDesktopStore",
+      "useThemeStore"
+    ]
+  },
+  "data/fileSystem.js": {
+    "name": "fileSystem",
+    "category": "other",
+    "lines": 126,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "FILE_SYSTEM",
+      "resolveNode"
+    ],
+    "usedBy": [
+      "terminalCommands",
+      "useFileSystemStore"
+    ]
+  },
+  "hooks/useDebounce.js": {
+    "name": "useDebounce",
+    "category": "hook",
+    "lines": 33,
+    "functions": 3,
+    "hooks": [
+      "useDebounce",
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 3,
+    "imports": [],
+    "exports": [
+      "useDebounce"
+    ],
+    "usedBy": [
+      "index",
+      "StartMenu"
+    ]
+  },
+  "hooks/useKeyboardShortcuts.js": {
+    "name": "useKeyboardShortcuts",
+    "category": "hook",
+    "lines": 167,
+    "functions": 5,
+    "hooks": [
+      "useKeyboardShortcuts",
+      "useUIStore",
+      "useEffect",
+      "useWindowStore",
+      "useDesktopStore",
+      "useMusicStore",
+      "usePresentationController"
+    ],
+    "hooksCount": 7,
+    "imports": [
+      "../store/useWindowStore",
+      "../store/useDesktopStore",
+      "../store/useUIStore",
+      "../store/useMusicStore",
+      "./usePresentationController"
+    ],
+    "exports": [
+      "useKeyboardShortcuts"
+    ],
+    "usedBy": [
+      "App"
+    ]
+  },
+  "hooks/usePresentationController.js": {
+    "name": "usePresentationController",
+    "category": "hook",
+    "lines": 153,
+    "functions": 27,
+    "hooks": [
+      "useEffect",
+      "useRef",
+      "usePresentationStore",
+      "useWindowStore",
+      "useAnalyticsStore",
+      "usePresentationController",
+      "useDesktopStore"
+    ],
+    "hooksCount": 7,
+    "imports": [
+      "../store/usePresentationStore",
+      "../store/useWindowStore",
+      "../store/useAnalyticsStore"
+    ],
+    "exports": [
+      "usePresentationController"
+    ],
+    "usedBy": [
+      "PresentationSystem",
+      "useKeyboardShortcuts"
+    ]
+  },
+  "hooks/useWindowFocus.js": {
+    "name": "useWindowFocus",
+    "category": "hook",
+    "lines": 22,
+    "functions": 1,
+    "hooks": [
+      "useWindowFocus",
+      "useWindowStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../store/useWindowStore"
+    ],
+    "exports": [
+      "useWindowFocus"
+    ],
+    "usedBy": []
+  },
+  "main.jsx": {
+    "name": "main",
+    "category": "other",
+    "lines": 44,
+    "functions": 3,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./App.jsx",
+      "./index.css"
+    ],
+    "exports": [],
+    "usedBy": []
+  },
+  "mobile/apps/MobileAppSettings.jsx": {
+    "name": "MobileAppSettings",
+    "category": "other",
+    "lines": 64,
+    "functions": 1,
+    "hooks": [
+      "useMobileStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../store/useMobileStore"
+    ],
+    "exports": [
+      "MobileAppSettings"
+    ],
+    "usedBy": [
+      "MobileOS"
+    ]
+  },
+  "mobile/apps/MobileRecruiterDashboard.jsx": {
+    "name": "MobileRecruiterDashboard",
+    "category": "other",
+    "lines": 171,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useMobileStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../store/useMobileStore",
+      "../components/dashboard/OverviewTab",
+      "../components/dashboard/ProjectsTab",
+      "../components/dashboard/ResumeTab",
+      "../components/dashboard/AITab",
+      "../components/dashboard/ContactTab"
+    ],
+    "exports": [
+      "MobileRecruiterDashboard"
+    ],
+    "usedBy": [
+      "MobileOS"
+    ]
+  },
+  "mobile/apps/MobileWeatherApp.jsx": {
+    "name": "MobileWeatherApp",
+    "category": "other",
+    "lines": 126,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useWeatherStore",
+      "useMobileStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../store/useWeatherStore",
+      "../store/useMobileStore"
+    ],
+    "exports": [
+      "MobileWeatherApp"
+    ],
+    "usedBy": [
+      "MobileOS"
+    ]
+  },
+  "mobile/components/dashboard/AITab.jsx": {
+    "name": "AITab",
+    "category": "other",
+    "lines": 172,
+    "functions": 4,
+    "hooks": [
+      "useState",
+      "useRef",
+      "useEffect"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../../ai/brain/aiBrain"
+    ],
+    "exports": [
+      "AITab"
+    ],
+    "usedBy": [
+      "MobileRecruiterDashboard"
+    ]
+  },
+  "mobile/components/dashboard/ContactTab.jsx": {
+    "name": "ContactTab",
+    "category": "other",
+    "lines": 118,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useGitHubStore",
+      "useAnalyticsStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../../store/useGitHubStore",
+      "../../../store/useAnalyticsStore"
+    ],
+    "exports": [
+      "ContactTab"
+    ],
+    "usedBy": [
+      "MobileRecruiterDashboard"
+    ]
+  },
+  "mobile/components/dashboard/OverviewTab.jsx": {
+    "name": "OverviewTab",
+    "category": "other",
+    "lines": 83,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "OverviewTab"
+    ],
+    "usedBy": [
+      "MobileRecruiterDashboard"
+    ]
+  },
+  "mobile/components/dashboard/ProjectsTab.jsx": {
+    "name": "ProjectsTab",
+    "category": "other",
+    "lines": 247,
+    "functions": 3,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "ProjectsTab"
+    ],
+    "usedBy": [
+      "MobileRecruiterDashboard"
+    ]
+  },
+  "mobile/components/dashboard/ResumeTab.jsx": {
+    "name": "ResumeTab",
+    "category": "other",
+    "lines": 319,
+    "functions": 3,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "ResumeTab"
+    ],
+    "usedBy": [
+      "MobileRecruiterDashboard"
+    ]
+  },
+  "mobile/components/MobileAppDrawer.jsx": {
+    "name": "MobileAppDrawer",
+    "category": "other",
+    "lines": 56,
+    "functions": 2,
+    "hooks": [
+      "useMobileStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../store/useMobileStore",
+      "../../config/apps"
+    ],
+    "exports": [
+      "MobileAppDrawer"
+    ],
+    "usedBy": []
+  },
+  "mobile/components/MobileBottomNav.jsx": {
+    "name": "MobileBottomNav",
+    "category": "other",
+    "lines": 41,
+    "functions": 2,
+    "hooks": [
+      "useMobileStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../store/useMobileStore"
+    ],
+    "exports": [
+      "MobileBottomNav"
+    ],
+    "usedBy": [
+      "MobileOS"
+    ]
+  },
+  "mobile/components/MobileHomeScreen.jsx": {
+    "name": "MobileHomeScreen",
+    "category": "other",
+    "lines": 58,
+    "functions": 1,
+    "hooks": [
+      "useMobileStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../store/useMobileStore",
+      "../../config/apps",
+      "./MobileHomeScreen.css"
+    ],
+    "exports": [
+      "MobileHomeScreen"
+    ],
+    "usedBy": [
+      "MobileOS"
+    ]
+  },
+  "mobile/components/MobileLockScreen.jsx": {
+    "name": "MobileLockScreen",
+    "category": "other",
+    "lines": 77,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "useWeatherStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../store/useWeatherStore"
+    ],
+    "exports": [
+      "MobileLockScreen"
+    ],
+    "usedBy": [
+      "MobileOS"
+    ]
+  },
+  "mobile/components/MobileNotification.jsx": {
+    "name": "MobileNotification",
+    "category": "other",
+    "lines": 59,
+    "functions": 4,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "MobileNotification"
+    ],
+    "usedBy": [
+      "MobileOS"
+    ]
+  },
+  "mobile/components/MobileQuickSettings.jsx": {
+    "name": "MobileQuickSettings",
+    "category": "other",
+    "lines": 47,
+    "functions": 2,
+    "hooks": [
+      "useMobileStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../store/useMobileStore"
+    ],
+    "exports": [
+      "MobileQuickSettings"
+    ],
+    "usedBy": [
+      "MobileOS"
+    ]
+  },
+  "mobile/components/MobileSplashScreen.jsx": {
+    "name": "MobileSplashScreen",
+    "category": "other",
+    "lines": 69,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useState"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "MobileSplashScreen"
+    ],
+    "usedBy": [
+      "MobileOS"
+    ]
+  },
+  "mobile/components/MobileStatusBar.jsx": {
+    "name": "MobileStatusBar",
+    "category": "other",
+    "lines": 25,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "MobileStatusBar"
+    ],
+    "usedBy": [
+      "MobileOS"
+    ]
+  },
+  "mobile/components/ProfileTab.jsx": {
+    "name": "ProfileTab",
+    "category": "other",
+    "lines": 223,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useGitHubStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../store/useGitHubStore"
+    ],
+    "exports": [
+      "ProfileTab"
+    ],
+    "usedBy": [
+      "MobileOS"
+    ]
+  },
+  "mobile/components/PWAInstallPrompt.jsx": {
+    "name": "PWAInstallPrompt",
+    "category": "other",
+    "lines": 80,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "PWAInstallPrompt"
+    ],
+    "usedBy": [
+      "MobileOS"
+    ]
+  },
+  "mobile/MobileOS.jsx": {
+    "name": "MobileOS",
+    "category": "other",
+    "lines": 93,
+    "functions": 4,
+    "hooks": [
+      "useEffect",
+      "useState",
+      "useMobileStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "./store/useMobileStore",
+      "./components/MobileStatusBar",
+      "./components/MobileBottomNav",
+      "./components/MobileHomeScreen",
+      "./components/MobileQuickSettings",
+      "./components/MobileLockScreen",
+      "./components/MobileSplashScreen",
+      "./components/PWAInstallPrompt",
+      "./components/MobileNotification",
+      "./apps/MobileRecruiterDashboard",
+      "./apps/MobileAppSettings",
+      "./apps/MobileWeatherApp",
+      "./components/ProfileTab",
+      "./MobileOS.css"
+    ],
+    "exports": [
+      "MobileOS"
+    ],
+    "usedBy": [
+      "App"
+    ]
+  },
+  "mobile/store/useMobileStore.js": {
+    "name": "useMobileStore",
+    "category": "other",
+    "lines": 48,
+    "functions": 0,
+    "hooks": [
+      "useMobileStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useMobileStore"
+    ],
+    "usedBy": [
+      "CommandPalette",
+      "MobileAppSettings",
+      "MobileRecruiterDashboard",
+      "MobileWeatherApp",
+      "MobileAppDrawer",
+      "MobileBottomNav",
+      "MobileHomeScreen",
+      "MobileQuickSettings",
+      "MobileOS"
+    ]
+  },
+  "pages/BootScreen.jsx": {
+    "name": "BootScreen",
+    "category": "other",
+    "lines": 154,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useDesktopStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../store/useDesktopStore",
+      "../constants",
+      "../assets/icons/logos/StartIcon.ico"
+    ],
+    "exports": [
+      "BootScreen"
+    ],
+    "usedBy": [
+      "App"
+    ]
+  },
+  "pages/Desktop.jsx": {
+    "name": "Desktop",
+    "category": "other",
+    "lines": 449,
+    "functions": 23,
+    "hooks": [
+      "useEffect",
+      "useRef",
+      "useDesktopStore",
+      "useWindowStore",
+      "useFileSystemStore",
+      "useNotificationStore",
+      "useThemeStore",
+      "useWeatherStore",
+      "useWidgetStore",
+      "useStickyNotesStore",
+      "useCalendarStore"
+    ],
+    "hooksCount": 11,
+    "imports": [
+      "../store/useDesktopStore",
+      "../store/useWindowStore",
+      "../store/useFileSystemStore",
+      "../store/useNotificationStore",
+      "../store/useThemeStore",
+      "../store/useWeatherStore",
+      "../constants",
+      "../assets/icons/system/Trash Full.ico",
+      "../components/desktop/Taskbar",
+      "../components/desktop/StartMenu",
+      "../components/system/notification/NotificationCenter",
+      "../components/system/quicksettings/QuickSettings",
+      "../components/desktop/DesktopIcon",
+      "../components/desktop/ContextMenu",
+      "../components/desktop/ToastContainer",
+      "../components/desktop/Window",
+      "../components/widgets/WidgetsPanel",
+      "../components/desktop/AIAssistant",
+      "../components/system/GlobalSearch",
+      "../components/system/CommandPalette",
+      "../components/system/UniversalSpotlight",
+      "../components/desktop/PresentationSystem",
+      "../components/system/osd/VolumeOSD",
+      "../components/desktop/AnimatedWallpaper",
+      "../components/desktop/StickyNotesLayer",
+      "../components/system/SnippingToolLayer",
+      "../components/system/BackgroundServices",
+      "../components/system/SpotlightSearch",
+      "../components/system/RunDialog",
+      "../components/system/PowerUserMenu",
+      "../components/system/AltTabOverlay",
+      "../components/system/DesktopSwitcherOverlay",
+      "../store/useWidgetStore",
+      "../store/useStickyNotesStore",
+      "../store/useCalendarStore"
+    ],
+    "exports": [
+      "Desktop"
+    ],
+    "usedBy": [
+      "App"
+    ]
+  },
+  "pages/LockScreen.jsx": {
+    "name": "LockScreen",
+    "category": "other",
+    "lines": 337,
+    "functions": 11,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useCallback",
+      "useDesktopStore",
+      "useProfileStore",
+      "useWeatherStore"
+    ],
+    "hooksCount": 6,
+    "imports": [
+      "../store/useDesktopStore",
+      "../store/useProfileStore",
+      "../store/useWeatherStore",
+      "../constants"
+    ],
+    "exports": [
+      "LockScreen"
+    ],
+    "usedBy": [
+      "App"
+    ]
+  },
+  "pages/ShutdownScreen.jsx": {
+    "name": "ShutdownScreen",
+    "category": "other",
+    "lines": 54,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "ShutdownScreen"
+    ],
+    "usedBy": [
+      "App"
+    ]
+  },
+  "services/achievementService.js": {
+    "name": "achievementService",
+    "category": "service",
+    "lines": 9,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./api"
+    ],
+    "exports": [
+      "achievementService"
+    ],
+    "usedBy": []
+  },
+  "services/api/databaseApi.js": {
+    "name": "databaseApi",
+    "category": "service",
+    "lines": 57,
+    "functions": 9,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "databaseApi",
+      "getDatabaseStatus",
+      "getCollections",
+      "getDatabaseStats",
+      "getDatabaseHealth",
+      "getCollectionDocuments",
+      "getSingleDocument",
+      "getCollectionSchema",
+      "getCollectionStats",
+      "getCollectionIndexes"
+    ],
+    "usedBy": [
+      "useDatabaseQueries"
+    ]
+  },
+  "services/api.js": {
+    "name": "api",
+    "category": "service",
+    "lines": 36,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "api"
+    ],
+    "usedBy": [
+      "LoginScreen",
+      "AIAssistant",
+      "achievementService",
+      "profileService",
+      "projectService",
+      "skillService",
+      "terminalService",
+      "timelineService",
+      "useWhatsAppAuthStore",
+      "useWhatsAppChatStore",
+      "useWhatsAppMessageStore"
+    ]
+  },
+  "services/geminiPlacementService.js": {
+    "name": "geminiPlacementService",
+    "category": "service",
+    "lines": 92,
+    "functions": 3,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [],
+    "usedBy": [
+      "Roadmap",
+      "StudyCoach"
+    ]
+  },
+  "services/githubService.js": {
+    "name": "githubService",
+    "category": "service",
+    "lines": 49,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "githubService"
+    ],
+    "usedBy": [
+      "useGitHubStore"
+    ]
+  },
+  "services/profileService.js": {
+    "name": "profileService",
+    "category": "service",
+    "lines": 9,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./api"
+    ],
+    "exports": [
+      "profileService"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "services/projectService.js": {
+    "name": "projectService",
+    "category": "service",
+    "lines": 13,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./api"
+    ],
+    "exports": [
+      "projectService"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "services/skillService.js": {
+    "name": "skillService",
+    "category": "service",
+    "lines": 9,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./api"
+    ],
+    "exports": [
+      "skillService"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "services/socketService.js": {
+    "name": "socketService",
+    "category": "service",
+    "lines": 160,
+    "functions": 15,
+    "hooks": [
+      "useWhatsAppStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../store/useWhatsAppStore"
+    ],
+    "exports": [
+      "connectSocket",
+      "disconnectSocket",
+      "getSocket",
+      "joinRoom",
+      "leaveRoom",
+      "emitMessage",
+      "emitTyping",
+      "isSocketConnected"
+    ],
+    "usedBy": []
+  },
+  "services/terminalService.js": {
+    "name": "terminalService",
+    "category": "service",
+    "lines": 12,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./api"
+    ],
+    "exports": [
+      "fetchHelpCommands"
+    ],
+    "usedBy": [
+      "terminalCommands"
+    ]
+  },
+  "services/timelineService.js": {
+    "name": "timelineService",
+    "category": "service",
+    "lines": 9,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./api"
+    ],
+    "exports": [
+      "timelineService"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "services/weatherService.js": {
+    "name": "weatherService",
+    "category": "service",
+    "lines": 170,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "weatherService"
+    ],
+    "usedBy": [
+      "useWeatherStore"
+    ]
+  },
+  "store/useAchievementStore.js": {
+    "name": "useAchievementStore",
+    "category": "store",
+    "lines": 199,
+    "functions": 5,
+    "hooks": [
+      "useNotificationStore",
+      "useAchievementStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "./useNotificationStore"
+    ],
+    "exports": [
+      "ACHIEVEMENTS",
+      "useAchievementStore"
+    ],
+    "usedBy": [
+      "ActivityWidget"
+    ]
+  },
+  "store/useAIAnalyticsStore.js": {
+    "name": "useAIAnalyticsStore",
+    "category": "store",
+    "lines": 102,
+    "functions": 5,
+    "hooks": [
+      "useAIAnalyticsStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useAIAnalyticsStore"
+    ],
+    "usedBy": [
+      "aiBrain",
+      "actionExecutor",
+      "responseGenerator",
+      "index"
+    ]
+  },
+  "store/useAnalyticsStore.js": {
+    "name": "useAnalyticsStore",
+    "category": "store",
+    "lines": 83,
+    "functions": 0,
+    "hooks": [
+      "useAnalyticsStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useAnalyticsStore"
+    ],
+    "usedBy": [
+      "aiBrain",
+      "index",
+      "usePresentationController",
+      "ContactTab",
+      "useWindowStore"
+    ]
+  },
+  "store/useAuthStore.js": {
+    "name": "useAuthStore",
+    "category": "store",
+    "lines": 20,
+    "functions": 2,
+    "hooks": [
+      "useAuthStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useAuthStore"
+    ],
+    "usedBy": [
+      "LoginScreen",
+      "AIAssistant"
+    ]
+  },
+  "store/useBackgroundServiceStore.js": {
+    "name": "useBackgroundServiceStore",
+    "category": "store",
+    "lines": 20,
+    "functions": 0,
+    "hooks": [
+      "useBackgroundServiceStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useBackgroundServiceStore"
+    ],
+    "usedBy": [
+      "index",
+      "BackgroundServices"
+    ]
+  },
+  "store/useBrowserStore.js": {
+    "name": "useBrowserStore",
+    "category": "store",
+    "lines": 106,
+    "functions": 5,
+    "hooks": [
+      "useBrowserStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useBrowserStore"
+    ],
+    "usedBy": [
+      "BrowserBookmarksBar",
+      "BrowserContent",
+      "BrowserDevTools",
+      "BrowserDownloads",
+      "BrowserHistory",
+      "BrowserNewTab",
+      "BrowserTabs",
+      "BrowserToolbar",
+      "index"
+    ]
+  },
+  "store/useCalendarStore.js": {
+    "name": "useCalendarStore",
+    "category": "store",
+    "lines": 146,
+    "functions": 1,
+    "hooks": [
+      "useCalendarStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useCalendarStore"
+    ],
+    "usedBy": [
+      "index",
+      "BackgroundServices",
+      "SpotlightSearch",
+      "Desktop"
+    ]
+  },
+  "store/useDesktopStore.js": {
+    "name": "useDesktopStore",
+    "category": "store",
+    "lines": 337,
+    "functions": 11,
+    "hooks": [
+      "useWidgetStore",
+      "useDesktopStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../constants",
+      "./useWidgetStore"
+    ],
+    "exports": [
+      "useDesktopStore"
+    ],
+    "usedBy": [
+      "actionRegistry",
+      "voiceCommands",
+      "App",
+      "index",
+      "AIAssistant",
+      "ContextMenu",
+      "DesktopIcon",
+      "StartMenu",
+      "Taskbar",
+      "CommandPalette",
+      "DesktopSwitcherOverlay",
+      "GlobalSearch",
+      "NotificationCenter",
+      "PowerUserMenu",
+      "QuickSettings",
+      "RunDialog",
+      "SnippingToolLayer",
+      "SpotlightSearch",
+      "UniversalSpotlight",
+      "SystemInfoWidget",
+      "useKeyboardShortcuts",
+      "BootScreen",
+      "Desktop",
+      "LockScreen",
+      "AIWidget",
+      "GitHubProWidget",
+      "RecruiterWidget"
+    ]
+  },
+  "store/useFileSystemStore.js": {
+    "name": "useFileSystemStore",
+    "category": "store",
+    "lines": 258,
+    "functions": 22,
+    "hooks": [
+      "useFileSystemStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../data/fileSystem"
+    ],
+    "exports": [
+      "useFileSystemStore"
+    ],
+    "usedBy": [
+      "index",
+      "PaintTitleBar",
+      "StartMenu",
+      "Desktop"
+    ]
+  },
+  "store/useGitHubStore.js": {
+    "name": "useGitHubStore",
+    "category": "store",
+    "lines": 52,
+    "functions": 1,
+    "hooks": [
+      "useGitHubStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../services/githubService"
+    ],
+    "exports": [
+      "useGitHubStore"
+    ],
+    "usedBy": [
+      "BrowserToolbar",
+      "index",
+      "GitHubWidget",
+      "ContactTab",
+      "ProfileTab"
+    ]
+  },
+  "store/useLearningStore.js": {
+    "name": "useLearningStore",
+    "category": "store",
+    "lines": 26,
+    "functions": 0,
+    "hooks": [
+      "useLearningStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useLearningStore"
+    ],
+    "usedBy": [
+      "LearningProgressWidget"
+    ]
+  },
+  "store/useMusicStore.js": {
+    "name": "useMusicStore",
+    "category": "store",
+    "lines": 110,
+    "functions": 6,
+    "hooks": [
+      "useMusicStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useMusicStore"
+    ],
+    "usedBy": [
+      "voiceCommands",
+      "Controls",
+      "Player",
+      "Playlist",
+      "index",
+      "Taskbar",
+      "CommandPalette",
+      "NotificationCenter",
+      "UniversalSpotlight",
+      "useKeyboardShortcuts"
+    ]
+  },
+  "store/useNotificationStore.js": {
+    "name": "useNotificationStore",
+    "category": "store",
+    "lines": 106,
+    "functions": 8,
+    "hooks": [
+      "useNotificationStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useNotificationStore"
+    ],
+    "usedBy": [
+      "ToastContainer",
+      "BackgroundServices",
+      "NotificationCenter",
+      "Desktop",
+      "useAchievementStore"
+    ]
+  },
+  "store/usePlacementStore.js": {
+    "name": "usePlacementStore",
+    "category": "store",
+    "lines": 178,
+    "functions": 5,
+    "hooks": [
+      "usePlacementStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "usePlacementStore"
+    ],
+    "usedBy": [
+      "Achievements",
+      "ContestTracker",
+      "Dashboard",
+      "DreamCompany",
+      "Heatmap",
+      "InterviewJournal",
+      "InterviewSimulator",
+      "PlacementCalendar",
+      "ResumeAnalyzer",
+      "RevisionCenter",
+      "Roadmap",
+      "Settings",
+      "StudyCoach",
+      "TodaysMission"
+    ]
+  },
+  "store/usePresentationStore.js": {
+    "name": "usePresentationStore",
+    "category": "store",
+    "lines": 55,
+    "functions": 5,
+    "hooks": [
+      "usePresentationStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "MODE_NONE",
+      "MODE_F9_PRESENTATION",
+      "MODE_F10_DEMO",
+      "usePresentationStore"
+    ],
+    "usedBy": [
+      "index",
+      "PresentationSystem",
+      "usePresentationController"
+    ]
+  },
+  "store/useProfileStore.js": {
+    "name": "useProfileStore",
+    "category": "store",
+    "lines": 70,
+    "functions": 3,
+    "hooks": [
+      "useProfileStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../utils/backupUtils"
+    ],
+    "exports": [
+      "useProfileStore"
+    ],
+    "usedBy": [
+      "BrowserToolbar",
+      "LockScreen"
+    ]
+  },
+  "store/useSoundStore.js": {
+    "name": "useSoundStore",
+    "category": "store",
+    "lines": 32,
+    "functions": 1,
+    "hooks": [
+      "useSoundStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useSoundStore"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "store/useStickyNotesStore.js": {
+    "name": "useStickyNotesStore",
+    "category": "store",
+    "lines": 43,
+    "functions": 2,
+    "hooks": [
+      "useStickyNotesStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useStickyNotesStore"
+    ],
+    "usedBy": [
+      "StickyNotesLayer",
+      "SpotlightSearch",
+      "Desktop"
+    ]
+  },
+  "store/useSystemAudioStore.js": {
+    "name": "useSystemAudioStore",
+    "category": "store",
+    "lines": 48,
+    "functions": 4,
+    "hooks": [
+      "useSystemAudioStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useSystemAudioStore"
+    ],
+    "usedBy": [
+      "voiceCommands",
+      "Controls",
+      "index",
+      "Taskbar",
+      "VolumeOSD",
+      "QuickSettings"
+    ]
+  },
+  "store/useThemeStore.js": {
+    "name": "useThemeStore",
+    "category": "store",
+    "lines": 103,
+    "functions": 6,
+    "hooks": [
+      "useThemeStore",
+      "useAchievementStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../constants"
+    ],
+    "exports": [
+      "useThemeStore"
+    ],
+    "usedBy": [
+      "voiceCommands",
+      "App",
+      "index",
+      "Taskbar",
+      "CommandPalette",
+      "QuickSettings",
+      "SystemInfoWidget",
+      "WidgetsPanel",
+      "Desktop",
+      "AchievementProWidget",
+      "AISuggestionsWidget",
+      "AIWidget",
+      "DailyFocusWidget",
+      "GitHubProWidget",
+      "LearningProgressWidget",
+      "MusicWidget",
+      "PlacementTrackerWidget",
+      "QuickActionsWidget",
+      "RecruiterReadyWidget",
+      "RecruiterWidget",
+      "SmartClockWidget",
+      "SystemMonitorWidget",
+      "WeatherProWidget"
+    ]
+  },
+  "store/useUIStore.js": {
+    "name": "useUIStore",
+    "category": "store",
+    "lines": 46,
+    "functions": 1,
+    "hooks": [
+      "useKeyboardShortcuts",
+      "useUIStore"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "useUIStore"
+    ],
+    "usedBy": [
+      "index",
+      "StartMenu",
+      "QuickSettings",
+      "useKeyboardShortcuts"
+    ]
+  },
+  "store/useVoiceStore.js": {
+    "name": "useVoiceStore",
+    "category": "store",
+    "lines": 68,
+    "functions": 1,
+    "hooks": [
+      "useVoiceStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useVoiceStore"
+    ],
+    "usedBy": [
+      "speechRecognition",
+      "speechSynthesis",
+      "voiceController",
+      "index",
+      "AIAssistant",
+      "VoiceCopilotOrb",
+      "VoiceOverlay"
+    ]
+  },
+  "store/useWeatherStore.js": {
+    "name": "useWeatherStore",
+    "category": "store",
+    "lines": 42,
+    "functions": 1,
+    "hooks": [
+      "useWeatherStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../services/weatherService"
+    ],
+    "exports": [
+      "useWeatherStore"
+    ],
+    "usedBy": [
+      "responseEngine",
+      "index",
+      "Taskbar",
+      "MobileWeatherApp",
+      "MobileLockScreen",
+      "Desktop",
+      "LockScreen",
+      "WeatherProWidget"
+    ]
+  },
+  "store/useWhatsAppAuthStore.js": {
+    "name": "useWhatsAppAuthStore",
+    "category": "store",
+    "lines": 51,
+    "functions": 3,
+    "hooks": [
+      "useWhatsAppAuthStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../services/api"
+    ],
+    "exports": [
+      "useWhatsAppAuthStore"
+    ],
+    "usedBy": [
+      "ChatWindow",
+      "Login",
+      "Sidebar",
+      "index",
+      "useWhatsAppSocketStore"
+    ]
+  },
+  "store/useWhatsAppChatStore.js": {
+    "name": "useWhatsAppChatStore",
+    "category": "store",
+    "lines": 58,
+    "functions": 5,
+    "hooks": [
+      "useWhatsAppChatStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../services/api"
+    ],
+    "exports": [
+      "useWhatsAppChatStore"
+    ],
+    "usedBy": [
+      "ChatWindow",
+      "Sidebar",
+      "index",
+      "useWhatsAppSocketStore"
+    ]
+  },
+  "store/useWhatsAppMessageStore.js": {
+    "name": "useWhatsAppMessageStore",
+    "category": "store",
+    "lines": 40,
+    "functions": 3,
+    "hooks": [
+      "useWhatsAppMessageStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../services/api"
+    ],
+    "exports": [
+      "useWhatsAppMessageStore"
+    ],
+    "usedBy": [
+      "ChatWindow",
+      "useWhatsAppSocketStore"
+    ]
+  },
+  "store/useWhatsAppSocketStore.js": {
+    "name": "useWhatsAppSocketStore",
+    "category": "store",
+    "lines": 74,
+    "functions": 10,
+    "hooks": [
+      "useWhatsAppAuthStore",
+      "useWhatsAppMessageStore",
+      "useWhatsAppChatStore",
+      "useWhatsAppSocketStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "./useWhatsAppAuthStore",
+      "./useWhatsAppMessageStore",
+      "./useWhatsAppChatStore"
+    ],
+    "exports": [
+      "useWhatsAppSocketStore"
+    ],
+    "usedBy": [
+      "ChatWindow",
+      "index"
+    ]
+  },
+  "store/useWhatsAppStore.js": {
+    "name": "useWhatsAppStore",
+    "category": "store",
+    "lines": 289,
+    "functions": 12,
+    "hooks": [
+      "useWhatsAppStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useWhatsAppStore"
+    ],
+    "usedBy": [
+      "socketService"
+    ]
+  },
+  "store/useWidgetStore.js": {
+    "name": "useWidgetStore",
+    "category": "store",
+    "lines": 60,
+    "functions": 7,
+    "hooks": [
+      "useWidgetStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useWidgetStore"
+    ],
+    "usedBy": [
+      "index",
+      "WidgetsPanel",
+      "Desktop",
+      "useDesktopStore"
+    ]
+  },
+  "store/useWindowStore.js": {
+    "name": "useWindowStore",
+    "category": "store",
+    "lines": 274,
+    "functions": 16,
+    "hooks": [
+      "useAnalyticsStore",
+      "useWindowStore",
+      "useAchievementStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../config/apps",
+      "./useAnalyticsStore"
+    ],
+    "exports": [
+      "useWindowStore"
+    ],
+    "usedBy": [
+      "actionRegistry",
+      "voiceCommands",
+      "index",
+      "DetailsPanel",
+      "DocumentViewer",
+      "ReadmeRenderer",
+      "AIAssistant",
+      "DesktopIcon",
+      "PresentationSystem",
+      "StartMenu",
+      "Taskbar",
+      "Window",
+      "AltTabOverlay",
+      "CommandPalette",
+      "DesktopSwitcherOverlay",
+      "GlobalSearch",
+      "PowerUserMenu",
+      "RunDialog",
+      "SpotlightSearch",
+      "UniversalSpotlight",
+      "SystemInfoWidget",
+      "useKeyboardShortcuts",
+      "usePresentationController",
+      "useWindowFocus",
+      "Desktop",
+      "QuickActionsWidget",
+      "RecruiterReadyWidget",
+      "RecruiterWidget",
+      "WeatherProWidget"
+    ]
+  },
+  "utils/backupUtils.js": {
+    "name": "backupUtils",
+    "category": "other",
+    "lines": 59,
+    "functions": 6,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "STORE_KEYS",
+      "exportSettings",
+      "importSettings"
+    ],
+    "usedBy": [
+      "index",
+      "useProfileStore"
+    ]
+  },
+  "utils/imageUtils.js": {
+    "name": "imageUtils",
+    "category": "other",
+    "lines": 48,
+    "functions": 4,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "compressImage"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "widgets/AchievementProWidget.jsx": {
+    "name": "AchievementProWidget",
+    "category": "widget",
+    "lines": 78,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useThemeStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../store/useThemeStore"
+    ],
+    "exports": [
+      "AchievementProWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/AISuggestionsWidget.jsx": {
+    "name": "AISuggestionsWidget",
+    "category": "widget",
+    "lines": 68,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useThemeStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../store/useThemeStore",
+      "../ai/brain/aiBrain"
+    ],
+    "exports": [
+      "AISuggestionsWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/AIWidget.jsx": {
+    "name": "AIWidget",
+    "category": "widget",
+    "lines": 109,
+    "functions": 2,
+    "hooks": [
+      "useThemeStore",
+      "useDesktopStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../store/useThemeStore",
+      "../store/useDesktopStore"
+    ],
+    "exports": [
+      "AIWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/DailyFocusWidget.jsx": {
+    "name": "DailyFocusWidget",
+    "category": "widget",
+    "lines": 108,
+    "functions": 2,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useThemeStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../store/useThemeStore"
+    ],
+    "exports": [
+      "DailyFocusWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/GitHubProWidget.jsx": {
+    "name": "GitHubProWidget",
+    "category": "widget",
+    "lines": 90,
+    "functions": 1,
+    "hooks": [
+      "useThemeStore",
+      "useDesktopStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../store/useThemeStore",
+      "../store/useDesktopStore"
+    ],
+    "exports": [
+      "GitHubProWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/LearningProgressWidget.jsx": {
+    "name": "LearningProgressWidget",
+    "category": "widget",
+    "lines": 88,
+    "functions": 1,
+    "hooks": [
+      "useThemeStore",
+      "useLearningStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../store/useThemeStore",
+      "../store/useLearningStore"
+    ],
+    "exports": [
+      "LearningProgressWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/MusicWidget.jsx": {
+    "name": "MusicWidget",
+    "category": "widget",
+    "lines": 73,
+    "functions": 1,
+    "hooks": [
+      "useThemeStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../store/useThemeStore"
+    ],
+    "exports": [
+      "MusicWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/PlacementTrackerWidget.jsx": {
+    "name": "PlacementTrackerWidget",
+    "category": "widget",
+    "lines": 87,
+    "functions": 1,
+    "hooks": [
+      "useThemeStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../store/useThemeStore"
+    ],
+    "exports": [
+      "PlacementTrackerWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/QuickActionsWidget.jsx": {
+    "name": "QuickActionsWidget",
+    "category": "widget",
+    "lines": 93,
+    "functions": 2,
+    "hooks": [
+      "useThemeStore",
+      "useWindowStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../store/useThemeStore",
+      "../store/useWindowStore"
+    ],
+    "exports": [
+      "QuickActionsWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/RecruiterReadyWidget.jsx": {
+    "name": "RecruiterReadyWidget",
+    "category": "widget",
+    "lines": 82,
+    "functions": 1,
+    "hooks": [
+      "useThemeStore",
+      "useWindowStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../store/useThemeStore",
+      "../store/useWindowStore"
+    ],
+    "exports": [
+      "RecruiterReadyWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/RecruiterWidget.jsx": {
+    "name": "RecruiterWidget",
+    "category": "widget",
+    "lines": 90,
+    "functions": 2,
+    "hooks": [
+      "useThemeStore",
+      "useWindowStore",
+      "useDesktopStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../store/useThemeStore",
+      "../store/useWindowStore",
+      "../store/useDesktopStore"
+    ],
+    "exports": [
+      "RecruiterWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/SmartClockWidget.jsx": {
+    "name": "SmartClockWidget",
+    "category": "widget",
+    "lines": 118,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useThemeStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../store/useThemeStore"
+    ],
+    "exports": [
+      "SmartClockWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/SystemMonitorWidget.jsx": {
+    "name": "SystemMonitorWidget",
+    "category": "widget",
+    "lines": 126,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useThemeStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../store/useThemeStore"
+    ],
+    "exports": [
+      "SystemMonitorWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  },
+  "widgets/WeatherProWidget.jsx": {
+    "name": "WeatherProWidget",
+    "category": "widget",
+    "lines": 160,
+    "functions": 6,
+    "hooks": [
+      "useEffect",
+      "useThemeStore",
+      "useWeatherStore",
+      "useWindowStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../store/useThemeStore",
+      "../store/useWeatherStore",
+      "../store/useWindowStore"
+    ],
+    "exports": [
+      "WeatherProWidget"
+    ],
+    "usedBy": [
+      "WidgetsPanel"
+    ]
+  }
+}

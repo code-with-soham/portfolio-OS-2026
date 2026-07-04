@@ -1,4 +1,10 @@
 {
+  "aiExplanation": {
+    "summary": "The Runtime Engine is the execution pipeline that converts user inputs (keyboard, mouse, voice) into concrete OS actions through a chain of specialized handlers.",
+    "beginner": "When you press a keyboard shortcut, the system needs to figure out what you want and do it. The Runtime Engine is like a relay race — each step passes the baton to the next until the action is complete.",
+    "technical": "The pipeline follows a unidirectional flow: DOM keyboard events are captured by a global event listener, routed through a shortcut registry (Map<keybind, action>), resolved to Zustand store mutations, which trigger React reconciliation and Framer Motion mount animations. The entire flow executes synchronously within a single event loop tick, with animation scheduling deferred to requestAnimationFrame.",
+    "recruiter": "This demonstrates event-driven architecture design. Rather than hardcoding behaviors, the developer built a modular pipeline where keyboard inputs flow through a registry, resolve to actions, and trigger UI updates — similar to how real operating systems handle input events."
+  },
   "flows": [
     {
       "id": "keyboard_shortcut",

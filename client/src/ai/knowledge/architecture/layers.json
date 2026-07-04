@@ -1,4 +1,10 @@
 {
+  "aiExplanation": {
+    "summary": "Portfolio OS is built on 7 architectural layers, from user-facing Presentation down to Infrastructure. Each layer is independently testable and loosely coupled.",
+    "beginner": "Think of the OS like a 7-layer cake. The top layer is what you see (buttons, windows). Each layer below handles different jobs — managing apps, understanding your voice, storing data, and connecting to the internet.",
+    "technical": "The architecture follows a strict layered dependency graph: Presentation → Application → OS Core → Intelligence → State → Backend → Infrastructure. Cross-layer communication is exclusively through Zustand stores (State layer), ensuring no circular dependencies and O(1) state subscriptions via selector-based rendering.",
+    "recruiter": "This 7-layer architecture mirrors enterprise software design patterns. It demonstrates the developer's ability to think in systems, separate concerns cleanly, and build software that scales — the same skills used at companies like Google, Meta, and Netflix."
+  },
   "layers": [
     {
       "id": "presentation",

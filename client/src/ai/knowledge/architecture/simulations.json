@@ -1,0 +1,538 @@
+{
+  "simulations": [
+    {
+      "id": "open_browser",
+      "title": "Open Browser",
+      "icon": "🖥",
+      "description": "How a keyboard shortcut launches the Browser application.",
+      "nodes": [
+        {
+          "id": "s1",
+          "label": "Desktop",
+          "description": "User is on the desktop",
+          "icon": "🖥",
+          "duration": 400
+        },
+        {
+          "id": "s2",
+          "label": "Keyboard Event",
+          "description": "User presses keyboard shortcut or clicks icon",
+          "icon": "⌨️",
+          "duration": 300
+        },
+        {
+          "id": "s3",
+          "label": "Shortcut Engine",
+          "description": "useKeyboardShortcuts.js captures and parses the keypress",
+          "icon": "⚡",
+          "duration": 500
+        },
+        {
+          "id": "s4",
+          "label": "Window Store",
+          "description": "useWindowStore.openWindow(\"browser\") is called",
+          "icon": "🪟",
+          "duration": 400
+        },
+        {
+          "id": "s5",
+          "label": "React Reconciliation",
+          "description": "React detects state change and mounts BrowserApp component",
+          "icon": "⚛️",
+          "duration": 600
+        },
+        {
+          "id": "s6",
+          "label": "Framer Motion",
+          "description": "Window animates in with scale + opacity transition",
+          "icon": "🎬",
+          "duration": 500
+        },
+        {
+          "id": "s7",
+          "label": "Browser Window",
+          "description": "Browser is now live and interactive on the desktop",
+          "icon": "✅",
+          "duration": 300
+        }
+      ],
+      "edges": [
+        {
+          "from": "s1",
+          "to": "s2",
+          "label": "User Action"
+        },
+        {
+          "from": "s2",
+          "to": "s3",
+          "label": "Key Event"
+        },
+        {
+          "from": "s3",
+          "to": "s4",
+          "label": "openWindow()"
+        },
+        {
+          "from": "s4",
+          "to": "s5",
+          "label": "State Update"
+        },
+        {
+          "from": "s5",
+          "to": "s6",
+          "label": "Mount Node"
+        },
+        {
+          "from": "s6",
+          "to": "s7",
+          "label": "Animation Complete"
+        }
+      ]
+    },
+    {
+      "id": "ask_ai",
+      "title": "Ask AI",
+      "icon": "🤖",
+      "description": "How a natural language query flows through the AI Brain pipeline.",
+      "nodes": [
+        {
+          "id": "a1",
+          "label": "User Input",
+          "description": "User types \"open weather\" in the AI assistant",
+          "icon": "💬",
+          "duration": 300
+        },
+        {
+          "id": "a2",
+          "label": "Speech Recognition",
+          "description": "Raw text captured from input field or microphone",
+          "icon": "🎤",
+          "duration": 400
+        },
+        {
+          "id": "a3",
+          "label": "Intent Engine",
+          "description": "Regex + fuzzy matching determines intent: OPEN_APP",
+          "icon": "🧠",
+          "duration": 600
+        },
+        {
+          "id": "a4",
+          "label": "Entity Extraction",
+          "description": "Identifies entity: appName = \"weather\"",
+          "icon": "🔍",
+          "duration": 500
+        },
+        {
+          "id": "a5",
+          "label": "Context Manager",
+          "description": "Checks conversation history and current OS state",
+          "icon": "📋",
+          "duration": 400
+        },
+        {
+          "id": "a6",
+          "label": "Knowledge Graph",
+          "description": "Queries local JSON knowledge base for app metadata",
+          "icon": "📚",
+          "duration": 500
+        },
+        {
+          "id": "a7",
+          "label": "Action Dispatcher",
+          "description": "Fires useWindowStore.openWindow(\"weather\")",
+          "icon": "⚡",
+          "duration": 400
+        },
+        {
+          "id": "a8",
+          "label": "Response Generator",
+          "description": "Crafts: \"Opening Weather for you!\"",
+          "icon": "💬",
+          "duration": 300
+        },
+        {
+          "id": "a9",
+          "label": "Desktop",
+          "description": "Weather app opens, AI confirms action",
+          "icon": "✅",
+          "duration": 300
+        }
+      ],
+      "edges": [
+        {
+          "from": "a1",
+          "to": "a2",
+          "label": "Raw Text"
+        },
+        {
+          "from": "a2",
+          "to": "a3",
+          "label": "Cleaned Input"
+        },
+        {
+          "from": "a3",
+          "to": "a4",
+          "label": "Intent: OPEN_APP"
+        },
+        {
+          "from": "a4",
+          "to": "a5",
+          "label": "Entity: weather"
+        },
+        {
+          "from": "a5",
+          "to": "a6",
+          "label": "Context Check"
+        },
+        {
+          "from": "a6",
+          "to": "a7",
+          "label": "Resolve Action"
+        },
+        {
+          "from": "a7",
+          "to": "a8",
+          "label": "Action Complete"
+        },
+        {
+          "from": "a8",
+          "to": "a9",
+          "label": "UI Update"
+        }
+      ]
+    },
+    {
+      "id": "weather_fetch",
+      "title": "Weather Fetch",
+      "icon": "🌦",
+      "description": "How weather data flows from the API to the desktop widget.",
+      "nodes": [
+        {
+          "id": "w1",
+          "label": "Widget Mount",
+          "description": "Weather Widget component mounts on the desktop",
+          "icon": "🖥",
+          "duration": 300
+        },
+        {
+          "id": "w2",
+          "label": "Weather Store",
+          "description": "useWeatherStore.fetchWeather() dispatched",
+          "icon": "🗃",
+          "duration": 400
+        },
+        {
+          "id": "w3",
+          "label": "Weather Service",
+          "description": "weatherService.js prepares the API request",
+          "icon": "🔧",
+          "duration": 400
+        },
+        {
+          "id": "w4",
+          "label": "OpenWeather API",
+          "description": "External HTTP request to api.openweathermap.org",
+          "icon": "🌐",
+          "duration": 800
+        },
+        {
+          "id": "w5",
+          "label": "JSON Response",
+          "description": "API returns temperature, humidity, conditions",
+          "icon": "📦",
+          "duration": 300
+        },
+        {
+          "id": "w6",
+          "label": "Zustand Update",
+          "description": "Store state updated with parsed weather data",
+          "icon": "⚡",
+          "duration": 300
+        },
+        {
+          "id": "w7",
+          "label": "React Re-render",
+          "description": "Widget re-renders with live weather data",
+          "icon": "✅",
+          "duration": 400
+        }
+      ],
+      "edges": [
+        {
+          "from": "w1",
+          "to": "w2",
+          "label": "useEffect"
+        },
+        {
+          "from": "w2",
+          "to": "w3",
+          "label": "Service Call"
+        },
+        {
+          "from": "w3",
+          "to": "w4",
+          "label": "HTTP GET"
+        },
+        {
+          "from": "w4",
+          "to": "w5",
+          "label": "Response"
+        },
+        {
+          "from": "w5",
+          "to": "w6",
+          "label": "setState"
+        },
+        {
+          "from": "w6",
+          "to": "w7",
+          "label": "Re-render"
+        }
+      ]
+    },
+    {
+      "id": "file_explorer",
+      "title": "Open File Explorer",
+      "icon": "📁",
+      "description": "How the virtual file system initializes when File Explorer opens.",
+      "nodes": [
+        {
+          "id": "f1",
+          "label": "Desktop Icon",
+          "description": "User double-clicks the File Explorer icon",
+          "icon": "🖱",
+          "duration": 300
+        },
+        {
+          "id": "f2",
+          "label": "Click Handler",
+          "description": "Desktop Store processes the icon click event",
+          "icon": "🎯",
+          "duration": 300
+        },
+        {
+          "id": "f3",
+          "label": "Window Store",
+          "description": "openWindow(\"fileexplorer\") creates window entry",
+          "icon": "🪟",
+          "duration": 400
+        },
+        {
+          "id": "f4",
+          "label": "FileSystem Store",
+          "description": "useFileSystemStore initializes virtual directory tree",
+          "icon": "🗂",
+          "duration": 500
+        },
+        {
+          "id": "f5",
+          "label": "Explorer Render",
+          "description": "FileExplorerApp renders with sidebar + file grid",
+          "icon": "📂",
+          "duration": 600
+        },
+        {
+          "id": "f6",
+          "label": "Window Animation",
+          "description": "Framer Motion pop-in animation completes",
+          "icon": "✅",
+          "duration": 400
+        }
+      ],
+      "edges": [
+        {
+          "from": "f1",
+          "to": "f2",
+          "label": "dblclick"
+        },
+        {
+          "from": "f2",
+          "to": "f3",
+          "label": "openWindow()"
+        },
+        {
+          "from": "f3",
+          "to": "f4",
+          "label": "Init FS"
+        },
+        {
+          "from": "f4",
+          "to": "f5",
+          "label": "Mount"
+        },
+        {
+          "from": "f5",
+          "to": "f6",
+          "label": "Animate"
+        }
+      ]
+    },
+    {
+      "id": "voice_command",
+      "title": "Voice Command",
+      "icon": "🎤",
+      "description": "How a spoken voice command is processed end-to-end.",
+      "nodes": [
+        {
+          "id": "v1",
+          "label": "Microphone",
+          "description": "Web Speech API starts recording",
+          "icon": "🎤",
+          "duration": 300
+        },
+        {
+          "id": "v2",
+          "label": "Speech Recognition",
+          "description": "Browser SpeechRecognition converts audio to text",
+          "icon": "🔊",
+          "duration": 800
+        },
+        {
+          "id": "v3",
+          "label": "Voice Store",
+          "description": "useVoiceStore receives transcript",
+          "icon": "🗃",
+          "duration": 300
+        },
+        {
+          "id": "v4",
+          "label": "Intent Engine",
+          "description": "AI Brain parses the transcript for intent",
+          "icon": "🧠",
+          "duration": 600
+        },
+        {
+          "id": "v5",
+          "label": "Action Executor",
+          "description": "Maps intent to a concrete OS action",
+          "icon": "⚡",
+          "duration": 400
+        },
+        {
+          "id": "v6",
+          "label": "Window Store",
+          "description": "Executes the action (e.g., open app)",
+          "icon": "🪟",
+          "duration": 400
+        },
+        {
+          "id": "v7",
+          "label": "Desktop Update",
+          "description": "UI updates to reflect the voice command result",
+          "icon": "✅",
+          "duration": 300
+        }
+      ],
+      "edges": [
+        {
+          "from": "v1",
+          "to": "v2",
+          "label": "Audio Stream"
+        },
+        {
+          "from": "v2",
+          "to": "v3",
+          "label": "Transcript"
+        },
+        {
+          "from": "v3",
+          "to": "v4",
+          "label": "Process"
+        },
+        {
+          "from": "v4",
+          "to": "v5",
+          "label": "Intent Resolved"
+        },
+        {
+          "from": "v5",
+          "to": "v6",
+          "label": "Execute"
+        },
+        {
+          "from": "v6",
+          "to": "v7",
+          "label": "State Change"
+        }
+      ]
+    },
+    {
+      "id": "f10_demo",
+      "title": "F10 Presentation",
+      "icon": "🎬",
+      "description": "How the F10 key triggers the immersive presentation mode.",
+      "nodes": [
+        {
+          "id": "d1",
+          "label": "Keyboard",
+          "description": "User presses F10 key",
+          "icon": "⌨️",
+          "duration": 300
+        },
+        {
+          "id": "d2",
+          "label": "Shortcut Engine",
+          "description": "Captures F10 and maps to PRESENTATION action",
+          "icon": "⚡",
+          "duration": 400
+        },
+        {
+          "id": "d3",
+          "label": "Presentation Store",
+          "description": "usePresentationStore.startPresentation() called",
+          "icon": "🗃",
+          "duration": 400
+        },
+        {
+          "id": "d4",
+          "label": "Fullscreen API",
+          "description": "Browser enters fullscreen mode",
+          "icon": "🖥",
+          "duration": 500
+        },
+        {
+          "id": "d5",
+          "label": "Journey Mode",
+          "description": "Cinematic presentation sequence begins",
+          "icon": "🎬",
+          "duration": 600
+        },
+        {
+          "id": "d6",
+          "label": "Auto-Advance",
+          "description": "Slides transition with scale + blur effects",
+          "icon": "✅",
+          "duration": 400
+        }
+      ],
+      "edges": [
+        {
+          "from": "d1",
+          "to": "d2",
+          "label": "F10 Key"
+        },
+        {
+          "from": "d2",
+          "to": "d3",
+          "label": "startPresentation()"
+        },
+        {
+          "from": "d3",
+          "to": "d4",
+          "label": "Fullscreen"
+        },
+        {
+          "from": "d4",
+          "to": "d5",
+          "label": "Mount Journey"
+        },
+        {
+          "from": "d5",
+          "to": "d6",
+          "label": "Auto-play"
+        }
+      ]
+    }
+  ]
+}

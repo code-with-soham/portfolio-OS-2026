@@ -8,10 +8,18 @@ import {
   FolderRegular, 
   ArrowFlowUpRightRegular, 
   DataPieRegular, 
-  SearchRegular 
+  SearchRegular,
+  TopSpeedRegular,
+  TimelineRegular,
+  LinkRegular,
+  ShieldCheckmarkRegular,
+  DocumentSearchRegular,
+  MapRegular,
+  RocketRegular
 } from '@fluentui/react-icons';
 import Sidebar from './components/Sidebar';
 import StatusBar from './components/StatusBar';
+import AIExplainButton from './components/AIExplainButton';
 
 // Lazy load heavy components for performance
 const Hero = lazy(() => import('./components/Hero'));
@@ -23,22 +31,55 @@ const DataFlow = lazy(() => import('./components/DataFlow'));
 const MetricsDashboard = lazy(() => import('./components/MetricsDashboard'));
 const JourneyMode = lazy(() => import('./components/JourneyMode'));
 const SearchBar = lazy(() => import('./components/SearchBar'));
+const SimulationMode = lazy(() => import('./components/SimulationMode'));
+const SystemMap = lazy(() => import('./components/SystemMap'));
+const DependencyGraph = lazy(() => import('./components/DependencyGraph'));
+const PerformanceMonitor = lazy(() => import('./components/PerformanceMonitor'));
+const EventTimeline = lazy(() => import('./components/EventTimeline'));
+const ComponentInspector = lazy(() => import('./components/ComponentInspector'));
+const ArchitectureHealth = lazy(() => import('./components/ArchitectureHealth'));
+
+const SECTIONS = [
+  {
+    label: 'Explore',
+    items: [
+      { id: 'overview', label: 'Overview', icon: <BuildingRegular /> },
+      { id: 'architecture', label: 'Architecture', icon: <AppsListRegular /> },
+      { id: 'ai', label: 'AI Brain', icon: <BrainCircuitRegular /> },
+      { id: 'project_tree', label: 'Project Tree', icon: <FolderRegular /> },
+    ]
+  },
+  {
+    label: 'Visualize',
+    items: [
+      { id: 'runtime', label: 'Runtime Engine', icon: <PlayCircleRegular /> },
+      { id: 'data_flow', label: 'Data Flow', icon: <ArrowFlowUpRightRegular /> },
+      { id: 'system_map', label: 'System Map', icon: <MapRegular /> },
+      { id: 'dependency_graph', label: 'Dependencies', icon: <LinkRegular /> },
+      { id: 'simulation', label: 'Simulation', icon: <RocketRegular /> },
+    ]
+  },
+  {
+    label: 'Monitor',
+    items: [
+      { id: 'metrics', label: 'Metrics', icon: <DataPieRegular /> },
+      { id: 'performance', label: 'Performance', icon: <TopSpeedRegular /> },
+      { id: 'timeline', label: 'Event Timeline', icon: <TimelineRegular /> },
+      { id: 'health', label: 'Arch Health', icon: <ShieldCheckmarkRegular /> },
+    ]
+  },
+  {
+    label: 'Tools',
+    items: [
+      { id: 'inspector', label: 'Inspector', icon: <DocumentSearchRegular /> },
+      { id: 'journey', label: 'Journey Mode', icon: <PlayCircleRegular /> },
+    ]
+  }
+];
 
 export default function ArchitectureApp() {
   const [activeTab, setActiveTab] = useState('overview');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isJourneyActive, setIsJourneyActive] = useState(false);
-
-  const TABS = [
-    { id: 'overview', label: 'Overview', icon: <BuildingRegular /> },
-    { id: 'architecture', label: 'Architecture', icon: <AppsListRegular /> },
-    { id: 'runtime', label: 'Runtime Engine', icon: <PlayCircleRegular /> },
-    { id: 'ai', label: 'AI Brain', icon: <BrainCircuitRegular /> },
-    { id: 'project_tree', label: 'Project Tree', icon: <FolderRegular /> },
-    { id: 'data_flow', label: 'Data Flow', icon: <ArrowFlowUpRightRegular /> },
-    { id: 'metrics', label: 'Metrics', icon: <DataPieRegular /> },
-    { id: 'journey', label: 'Journey Mode', icon: <PlayCircleRegular /> }
-  ];
 
   const renderContent = () => {
     switch (activeTab) {
@@ -50,6 +91,13 @@ export default function ArchitectureApp() {
       case 'data_flow': return <DataFlow />;
       case 'metrics': return <MetricsDashboard />;
       case 'journey': return <JourneyMode onClose={() => setActiveTab('overview')} />;
+      case 'simulation': return <SimulationMode />;
+      case 'system_map': return <SystemMap />;
+      case 'dependency_graph': return <DependencyGraph />;
+      case 'performance': return <PerformanceMonitor />;
+      case 'timeline': return <EventTimeline />;
+      case 'inspector': return <ComponentInspector />;
+      case 'health': return <ArchitectureHealth />;
       default: return <Hero onNavigate={setActiveTab} />;
     }
   };
@@ -62,6 +110,7 @@ export default function ArchitectureApp() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#888' }}>
           <BuildingRegular fontSize={20} />
           <span style={{ fontWeight: 600, color: '#fff', fontSize: '13px' }}>Architecture Explorer</span>
+          <span style={{ fontSize: '10px', color: '#555', background: '#1a1a1a', padding: '2px 6px', borderRadius: '4px' }}>v2.1</span>
         </div>
         <div style={{ flex: 1 }} />
         <button 
@@ -74,10 +123,10 @@ export default function ArchitectureApp() {
 
       <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
         {/* Sidebar Navigation */}
-        <Sidebar tabs={TABS} activeTab={activeTab} onSelectTab={setActiveTab} />
+        <Sidebar sections={SECTIONS} activeTab={activeTab} onSelectTab={setActiveTab} />
 
         {/* Main Content Area */}
-        <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: '#0a0a0a' }}>
+        <div data-arch-content style={{ flex: 1, position: 'relative', overflow: 'hidden', background: '#0a0a0a' }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -93,6 +142,9 @@ export default function ArchitectureApp() {
               </Suspense>
             </motion.div>
           </AnimatePresence>
+
+          {/* AI Explain Floating Button */}
+          <AIExplainButton activeTab={activeTab} />
         </div>
       </div>
 

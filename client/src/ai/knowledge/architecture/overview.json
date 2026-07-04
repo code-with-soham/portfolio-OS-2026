@@ -2,5 +2,11 @@
   "title": "Portfolio OS 2026",
   "subtitle": "Modern AI Powered Operating System",
   "features": ["React", "Node", "MongoDB", "AI", "PWA"],
-  "description": "A sophisticated software platform masquerading as an operating system, designed to showcase engineering scale, performance, and architecture."
+  "description": "A sophisticated software platform masquerading as an operating system, designed to showcase engineering scale, performance, and architecture.",
+  "aiExplanation": {
+    "summary": "Portfolio OS is a full-scale operating system simulation built entirely in React. It features 35+ windowed applications, 30 Zustand stores, a local AI brain, and real backend integrations.",
+    "beginner": "Imagine a website that looks and works like Windows 11. You can open apps, drag windows, use an AI assistant, check weather, browse files — all inside a web browser. It's a creative way to show off programming skills.",
+    "technical": "The system implements a multi-layered architecture: a Presentation layer (React + Framer Motion), OS Core (window lifecycle, z-index management, keyboard shortcuts), State layer (30 independent Zustand stores with persistence), AI layer (local NLP with intent classification, entity extraction, and action dispatch), and a Backend layer (Express.js + MongoDB). All apps are lazy-loaded via React.lazy() with code splitting to keep the initial bundle minimal.",
+    "recruiter": "This project demonstrates full-stack engineering at scale. The developer built a complete operating system simulation with 35+ applications, AI integration, real-time analytics, and production-grade architecture — all from scratch. It showcases React mastery, state management design, API integration, and system-level thinking."
+  }
 }

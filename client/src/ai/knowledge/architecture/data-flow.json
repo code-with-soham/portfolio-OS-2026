@@ -1,8 +1,15 @@
 {
+  "aiExplanation": {
+    "summary": "Data Flow diagrams map how information moves between external APIs, Zustand stores, and React components for 8 key subsystems in Portfolio OS.",
+    "beginner": "Each feature in the OS needs data from somewhere. These diagrams show exactly how data travels — like tracking a package from the warehouse to your door.",
+    "technical": "All flows follow a unidirectional pattern: Trigger → Store Action → Service Layer → External API (if applicable) → Response Parsing → State Hydration → React Re-render. Caching is implemented at the store level using TTL-based staleness checks to minimize redundant network requests.",
+    "recruiter": "These data flow diagrams demonstrate the developer's ability to design clean, predictable data architectures. Each subsystem follows consistent patterns, making the codebase maintainable and scalable."
+  },
   "flows": [
     {
       "id": "weather",
       "title": "Weather Data Flow",
+      "icon": "🌦",
       "steps": [
         "User opens Widget",
         "Weather Widget mounts",
@@ -18,6 +25,7 @@
     {
       "id": "github",
       "title": "GitHub Analytics Flow",
+      "icon": "🐙",
       "steps": [
         "User opens ResumeApp",
         "GitHub Store checks cache",
@@ -31,6 +39,7 @@
     {
       "id": "analytics",
       "title": "Telemetry Data Flow",
+      "icon": "📊",
       "steps": [
         "User clicks App Icon",
         "Analytics Store tracks event",
@@ -39,6 +48,81 @@
         "POST /api/telemetry",
         "Express Controller receives",
         "MongoDB inserts records"
+      ]
+    },
+    {
+      "id": "voice",
+      "title": "Voice Command Flow",
+      "icon": "🎤",
+      "steps": [
+        "Microphone activated",
+        "Web Speech API captures audio",
+        "SpeechRecognition returns transcript",
+        "Voice Store receives text",
+        "Intent Engine parses command",
+        "Entity Extraction identifies targets",
+        "Action Dispatcher executes",
+        "Response Generator confirms",
+        "TTS speaks response"
+      ]
+    },
+    {
+      "id": "browser",
+      "title": "Browser Navigation Flow",
+      "icon": "🌐",
+      "steps": [
+        "User enters URL in address bar",
+        "Browser Store updates current URL",
+        "URL validation and sanitization",
+        "iframe src updated",
+        "History Stack pushed",
+        "Tab title updated from page",
+        "Analytics tracks navigation"
+      ]
+    },
+    {
+      "id": "presentation",
+      "title": "Presentation Mode Flow",
+      "icon": "🎬",
+      "steps": [
+        "F10 key pressed",
+        "Shortcut Engine captures event",
+        "Presentation Store activates",
+        "Browser enters Fullscreen API",
+        "Journey Mode component mounts",
+        "Auto-advance timer starts",
+        "Slides transition with blur effects",
+        "ESC exits to desktop"
+      ]
+    },
+    {
+      "id": "widgets",
+      "title": "Widget Lifecycle Flow",
+      "icon": "🧩",
+      "steps": [
+        "Desktop mounts Widget Panel",
+        "Widget Store loads saved preferences",
+        "Each widget component lazy-loads",
+        "Weather widget fetches data",
+        "Quote widget selects random quote",
+        "System Info reads OS state",
+        "Widgets render in grid layout",
+        "Collapse/expand state persisted"
+      ]
+    },
+    {
+      "id": "recruiter",
+      "title": "Recruiter Pipeline Flow",
+      "icon": "💼",
+      "steps": [
+        "Recruiter opens Portfolio OS",
+        "Analytics tracks session start",
+        "Recruiter App detects context",
+        "Portfolio data loaded from JSON",
+        "Skills visualization renders",
+        "Project cards populate",
+        "Contact form ready",
+        "Session recorded for analytics"
       ]
     }
   ]

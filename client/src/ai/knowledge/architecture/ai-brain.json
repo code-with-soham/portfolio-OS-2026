@@ -1,9 +1,20 @@
 {
+  "aiExplanation": {
+    "summary": "The AI Brain is a local NLP pipeline that processes natural language input, determines user intent, extracts entities, and dispatches OS actions — all without any external LLM.",
+    "beginner": "When you type 'open weather' to the AI assistant, it needs to understand what you mean. The AI Brain breaks your sentence apart, figures out you want to open the Weather app, and then actually opens it. It does all this right in your browser — no internet AI needed.",
+    "technical": "The pipeline consists of 7 stages: Speech Recognition (Web Speech API) → Intent Engine (regex + fuzzy matching against intent patterns) → Entity Extraction (NER via pattern matching for app names, cities, dates) → Context Manager (conversation state, pronoun resolution, recent actions) → Knowledge Graph (JSON document queries) → Response Generator (template-based NLG) → Action Dispatcher (Zustand store mutations). The entire pipeline runs client-side with O(n) complexity per query.",
+    "recruiter": "The developer built a complete AI assistant that runs entirely in the browser — no API calls, no OpenAI, no external dependencies. It understands natural language commands, maintains conversation context, and can control the entire OS. This demonstrates NLP engineering, system design, and creative problem-solving."
+  },
   "pipeline": [
     {
       "id": "speech",
       "label": "Speech Recognition",
-      "description": "Captures raw audio and converts it to text strings."
+      "description": "Captures raw audio and converts it to text strings.",
+      "expandable": true,
+      "details": {
+        "title": "Speech Components",
+        "items": ["Web Speech API", "SpeechRecognition", "Transcript Buffer", "Confidence Scoring"]
+      }
     },
     {
       "id": "intent_engine",
@@ -12,35 +23,58 @@
       "expandable": true,
       "details": {
         "title": "Supported Intents",
-        "items": [
-          "OPEN_APP", "SEARCH", "PROJECT", "WEATHER", "SYSTEM", "AI", "VOICE", "INTERVIEW", "RECRUITER"
-        ]
+        "items": ["OPEN_APP", "SEARCH", "PROJECT", "WEATHER", "SYSTEM", "AI", "VOICE", "INTERVIEW", "RECRUITER", "NAVIGATE", "THEME", "HELP"]
       }
     },
     {
       "id": "entity_extraction",
       "label": "Entity Extraction",
-      "description": "Identifies specific nouns like app names, dates, or cities from the query."
+      "description": "Identifies specific nouns like app names, dates, or cities from the query.",
+      "expandable": true,
+      "details": {
+        "title": "Entity Types",
+        "items": ["App Names", "City Names", "Date/Time", "Project Names", "Skill Keywords", "File Paths"]
+      }
     },
     {
       "id": "context",
       "label": "Context Manager",
-      "description": "Maintains conversation history and current OS state."
+      "description": "Maintains conversation history and current OS state.",
+      "expandable": true,
+      "details": {
+        "title": "Context Data",
+        "items": ["Memory Buffer", "Pronoun Resolution", "Recent Apps", "Recent Projects", "Conversation History", "Active Entities", "OS State Snapshot"]
+      }
     },
     {
       "id": "knowledge",
       "label": "Knowledge Graph",
-      "description": "Queries static JSON documents for facts, projects, and skills."
+      "description": "Queries static JSON documents for facts, projects, and skills.",
+      "expandable": true,
+      "details": {
+        "title": "Knowledge Sources",
+        "items": ["Skills Database", "Projects Index", "Resume Data", "Architecture Docs", "FAQ Responses", "Command Reference"]
+      }
     },
     {
       "id": "response",
       "label": "Response Generator",
-      "description": "Crafts human-readable responses based on the executed intent."
+      "description": "Crafts human-readable responses based on the executed intent.",
+      "expandable": true,
+      "details": {
+        "title": "Response Types",
+        "items": ["Action Confirmation", "Information Display", "Error Messages", "Suggestions", "Follow-up Prompts"]
+      }
     },
     {
       "id": "action",
       "label": "Action Dispatcher",
-      "description": "Fires Zustand state updates to open apps or change OS settings."
+      "description": "Fires Zustand state updates to open apps or change OS settings.",
+      "expandable": true,
+      "details": {
+        "title": "Action Categories",
+        "items": ["Window Management", "Theme Changes", "Navigation", "App Launch", "Settings Update", "Data Fetch", "Notification Trigger"]
+      }
     }
   ]
 }

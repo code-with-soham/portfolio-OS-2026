@@ -1,0 +1,1662 @@
+{
+  "nodes": [
+    {
+      "id": "node_0",
+      "label": "actionRegistry",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/actions/actionRegistry.js",
+      "lines": 35,
+      "functions": 5,
+      "hooks": 2
+    },
+    {
+      "id": "node_1",
+      "label": "aiBrain",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/aiBrain.js",
+      "lines": 77,
+      "functions": 0,
+      "hooks": 1
+    },
+    {
+      "id": "node_2",
+      "label": "actionExecutor",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/brain/actionExecutor.js",
+      "lines": 64,
+      "functions": 1,
+      "hooks": 1
+    },
+    {
+      "id": "node_3",
+      "label": "aiBrain",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/brain/aiBrain.js",
+      "lines": 112,
+      "functions": 2,
+      "hooks": 2
+    },
+    {
+      "id": "node_4",
+      "label": "contextManager",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/brain/contextManager.js",
+      "lines": 69,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_5",
+      "label": "entityExtractor",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/brain/entityExtractor.js",
+      "lines": 68,
+      "functions": 1,
+      "hooks": 0
+    },
+    {
+      "id": "node_6",
+      "label": "intentEngine",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/brain/intentEngine.js",
+      "lines": 105,
+      "functions": 1,
+      "hooks": 0
+    },
+    {
+      "id": "node_7",
+      "label": "responseGenerator",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/brain/responseGenerator.js",
+      "lines": 171,
+      "functions": 2,
+      "hooks": 1
+    },
+    {
+      "id": "node_8",
+      "label": "contextManager",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/contextManager.js",
+      "lines": 38,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_9",
+      "label": "entityExtractor",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/entityExtractor.js",
+      "lines": 48,
+      "functions": 1,
+      "hooks": 0
+    },
+    {
+      "id": "node_10",
+      "label": "fuzzyMatcher",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/fuzzyMatcher.js",
+      "lines": 78,
+      "functions": 2,
+      "hooks": 0
+    },
+    {
+      "id": "node_11",
+      "label": "intents",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/intents.js",
+      "lines": 27,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_12",
+      "label": "knowledgeBase",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/knowledgeBase.js",
+      "lines": 27,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_13",
+      "label": "knowledgeGraph",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/knowledgeGraph.js",
+      "lines": 61,
+      "functions": 2,
+      "hooks": 0
+    },
+    {
+      "id": "node_14",
+      "label": "recruiterQuestions",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/recruiterQuestions.js",
+      "lines": 12,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_15",
+      "label": "responseEngine",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/responseEngine.js",
+      "lines": 139,
+      "functions": 1,
+      "hooks": 1
+    },
+    {
+      "id": "node_16",
+      "label": "testBrain",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/testBrain.js",
+      "lines": 13,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_17",
+      "label": "intents",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/training/intents.js",
+      "lines": 37,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_18",
+      "label": "recruiterQuestions",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/training/recruiterQuestions.js",
+      "lines": 12,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_19",
+      "label": "synonyms",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/training/synonyms.js",
+      "lines": 26,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_20",
+      "label": "trainingData",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/trainingData.js",
+      "lines": 249,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_21",
+      "label": "speechRecognition",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/voice/speechRecognition.js",
+      "lines": 119,
+      "functions": 4,
+      "hooks": 1
+    },
+    {
+      "id": "node_22",
+      "label": "speechSynthesis",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/voice/speechSynthesis.js",
+      "lines": 79,
+      "functions": 4,
+      "hooks": 1
+    },
+    {
+      "id": "node_23",
+      "label": "voiceCommands",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/voice/voiceCommands.js",
+      "lines": 157,
+      "functions": 2,
+      "hooks": 6
+    },
+    {
+      "id": "node_24",
+      "label": "voiceController",
+      "category": "ai",
+      "color": "#e040fb",
+      "path": "ai/voice/voiceController.js",
+      "lines": 87,
+      "functions": 1,
+      "hooks": 1
+    },
+    {
+      "id": "node_25",
+      "label": "AboutApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/AboutApp/index.jsx",
+      "lines": 171,
+      "functions": 1,
+      "hooks": 1
+    },
+    {
+      "id": "node_26",
+      "label": "AboutOSApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/AboutOSApp/index.jsx",
+      "lines": 83,
+      "functions": 4,
+      "hooks": 5
+    },
+    {
+      "id": "node_27",
+      "label": "AICopilot",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/AICopilot/index.jsx",
+      "lines": 34,
+      "functions": 1,
+      "hooks": 1
+    },
+    {
+      "id": "node_28",
+      "label": "AIDashboardApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/AIDashboardApp/index.jsx",
+      "lines": 113,
+      "functions": 2,
+      "hooks": 3
+    },
+    {
+      "id": "node_29",
+      "label": "AnalyticsCenterApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/AnalyticsCenterApp/index.jsx",
+      "lines": 215,
+      "functions": 6,
+      "hooks": 3
+    },
+    {
+      "id": "node_30",
+      "label": "ArchitectureApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/ArchitectureApp/index.jsx",
+      "lines": 163,
+      "functions": 2,
+      "hooks": 1
+    },
+    {
+      "id": "node_31",
+      "label": "BrowserApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/BrowserApp/index.jsx",
+      "lines": 90,
+      "functions": 3,
+      "hooks": 4
+    },
+    {
+      "id": "node_32",
+      "label": "CalculatorApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/CalculatorApp/index.jsx",
+      "lines": 347,
+      "functions": 26,
+      "hooks": 2
+    },
+    {
+      "id": "node_33",
+      "label": "CalendarApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/CalendarApp/index.jsx",
+      "lines": 1038,
+      "functions": 58,
+      "hooks": 6
+    },
+    {
+      "id": "node_34",
+      "label": "ControlPanelApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/ControlPanelApp/index.jsx",
+      "lines": 222,
+      "functions": 8,
+      "hooks": 4
+    },
+    {
+      "id": "node_35",
+      "label": "DeveloperDashboardApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/DeveloperDashboardApp/index.jsx",
+      "lines": 147,
+      "functions": 5,
+      "hooks": 4
+    },
+    {
+      "id": "node_36",
+      "label": "FileExplorerApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/FileExplorerApp/index.jsx",
+      "lines": 363,
+      "functions": 19,
+      "hooks": 5
+    },
+    {
+      "id": "node_37",
+      "label": "PropertiesModal",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/FileExplorerApp/PropertiesModal.jsx",
+      "lines": 124,
+      "functions": 1,
+      "hooks": 2
+    },
+    {
+      "id": "node_38",
+      "label": "ComposeModal",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/MailApp/ComposeModal.jsx",
+      "lines": 102,
+      "functions": 4,
+      "hooks": 1
+    },
+    {
+      "id": "node_39",
+      "label": "MailApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/MailApp/index.jsx",
+      "lines": 159,
+      "functions": 5,
+      "hooks": 1
+    },
+    {
+      "id": "node_40",
+      "label": "mockData",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/MailApp/mockData.js",
+      "lines": 112,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_41",
+      "label": "MongoDBExplorer",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/MongoDBExplorer/index.jsx",
+      "lines": 97,
+      "functions": 4,
+      "hooks": 3
+    },
+    {
+      "id": "node_42",
+      "label": "MongoDocumentApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/MongoDocumentApp/index.jsx",
+      "lines": 162,
+      "functions": 5,
+      "hooks": 1
+    },
+    {
+      "id": "node_43",
+      "label": "MongoPlayground",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/MongoPlayground/index.jsx",
+      "lines": 108,
+      "functions": 3,
+      "hooks": 4
+    },
+    {
+      "id": "node_44",
+      "label": "MusicApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/MusicApp/index.jsx",
+      "lines": 180,
+      "functions": 10,
+      "hooks": 5
+    },
+    {
+      "id": "node_45",
+      "label": "NotepadApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/NotepadApp/index.jsx",
+      "lines": 181,
+      "functions": 10,
+      "hooks": 4
+    },
+    {
+      "id": "node_46",
+      "label": "PaintApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/PaintApp/index.jsx",
+      "lines": 151,
+      "functions": 8,
+      "hooks": 4
+    },
+    {
+      "id": "node_47",
+      "label": "imageData",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/PhotosApp/imageData.js",
+      "lines": 25,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_48",
+      "label": "PhotosApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/PhotosApp/index.jsx",
+      "lines": 74,
+      "functions": 1,
+      "hooks": 1
+    },
+    {
+      "id": "node_49",
+      "label": "Lightbox",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/PhotosApp/Lightbox.jsx",
+      "lines": 150,
+      "functions": 12,
+      "hooks": 3
+    },
+    {
+      "id": "node_50",
+      "label": "PlacementPrepApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/PlacementPrepApp/index.jsx",
+      "lines": 109,
+      "functions": 2,
+      "hooks": 1
+    },
+    {
+      "id": "node_51",
+      "label": "PortfolioHealthApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/PortfolioHealthApp/index.jsx",
+      "lines": 124,
+      "functions": 4,
+      "hooks": 3
+    },
+    {
+      "id": "node_52",
+      "label": "ProjectsApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/ProjectsApp/index.jsx",
+      "lines": 196,
+      "functions": 5,
+      "hooks": 8
+    },
+    {
+      "id": "node_53",
+      "label": "RecruiterApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/RecruiterApp/index.jsx",
+      "lines": 361,
+      "functions": 10,
+      "hooks": 4
+    },
+    {
+      "id": "node_54",
+      "label": "RecycleBinApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/RecycleBinApp/index.jsx",
+      "lines": 122,
+      "functions": 7,
+      "hooks": 4
+    },
+    {
+      "id": "node_55",
+      "label": "ResumeApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/ResumeApp/index.jsx",
+      "lines": 106,
+      "functions": 5,
+      "hooks": 2
+    },
+    {
+      "id": "node_56",
+      "label": "SettingsApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/SettingsApp/index.jsx",
+      "lines": 533,
+      "functions": 5,
+      "hooks": 6
+    },
+    {
+      "id": "node_57",
+      "label": "SkillsApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/SkillsApp/index.jsx",
+      "lines": 129,
+      "functions": 5,
+      "hooks": 4
+    },
+    {
+      "id": "node_58",
+      "label": "SlidingPuzzleApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/SlidingPuzzleApp/index.jsx",
+      "lines": 259,
+      "functions": 11,
+      "hooks": 3
+    },
+    {
+      "id": "node_59",
+      "label": "TerminalApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/TerminalApp/index.jsx",
+      "lines": 12,
+      "functions": 1,
+      "hooks": 0
+    },
+    {
+      "id": "node_60",
+      "label": "VectorSearchStudio",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/VectorSearchStudio/index.jsx",
+      "lines": 13,
+      "functions": 1,
+      "hooks": 0
+    },
+    {
+      "id": "node_61",
+      "label": "VoiceCenterApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/VoiceCenterApp/index.jsx",
+      "lines": 70,
+      "functions": 1,
+      "hooks": 2
+    },
+    {
+      "id": "node_62",
+      "label": "VSCodeApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/VSCodeApp/index.jsx",
+      "lines": 1016,
+      "functions": 64,
+      "hooks": 5
+    },
+    {
+      "id": "node_63",
+      "label": "WeatherApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/WeatherApp/index.jsx",
+      "lines": 196,
+      "functions": 3,
+      "hooks": 2
+    },
+    {
+      "id": "node_64",
+      "label": "WhatsAppApp",
+      "category": "app",
+      "color": "#61dafb",
+      "path": "apps/WhatsAppApp/index.jsx",
+      "lines": 51,
+      "functions": 4,
+      "hooks": 4
+    },
+    {
+      "id": "node_65",
+      "label": "useDebounce",
+      "category": "hook",
+      "color": "#00bcd4",
+      "path": "hooks/useDebounce.js",
+      "lines": 33,
+      "functions": 3,
+      "hooks": 3
+    },
+    {
+      "id": "node_66",
+      "label": "useKeyboardShortcuts",
+      "category": "hook",
+      "color": "#00bcd4",
+      "path": "hooks/useKeyboardShortcuts.js",
+      "lines": 167,
+      "functions": 5,
+      "hooks": 7
+    },
+    {
+      "id": "node_67",
+      "label": "usePresentationController",
+      "category": "hook",
+      "color": "#00bcd4",
+      "path": "hooks/usePresentationController.js",
+      "lines": 153,
+      "functions": 27,
+      "hooks": 7
+    },
+    {
+      "id": "node_68",
+      "label": "useWindowFocus",
+      "category": "hook",
+      "color": "#00bcd4",
+      "path": "hooks/useWindowFocus.js",
+      "lines": 22,
+      "functions": 1,
+      "hooks": 2
+    },
+    {
+      "id": "node_69",
+      "label": "achievementService",
+      "category": "service",
+      "color": "#ff9800",
+      "path": "services/achievementService.js",
+      "lines": 9,
+      "functions": 1,
+      "hooks": 0
+    },
+    {
+      "id": "node_70",
+      "label": "databaseApi",
+      "category": "service",
+      "color": "#ff9800",
+      "path": "services/api/databaseApi.js",
+      "lines": 57,
+      "functions": 9,
+      "hooks": 0
+    },
+    {
+      "id": "node_71",
+      "label": "api",
+      "category": "service",
+      "color": "#ff9800",
+      "path": "services/api.js",
+      "lines": 36,
+      "functions": 1,
+      "hooks": 0
+    },
+    {
+      "id": "node_72",
+      "label": "geminiPlacementService",
+      "category": "service",
+      "color": "#ff9800",
+      "path": "services/geminiPlacementService.js",
+      "lines": 92,
+      "functions": 3,
+      "hooks": 0
+    },
+    {
+      "id": "node_73",
+      "label": "githubService",
+      "category": "service",
+      "color": "#ff9800",
+      "path": "services/githubService.js",
+      "lines": 49,
+      "functions": 0,
+      "hooks": 0
+    },
+    {
+      "id": "node_74",
+      "label": "profileService",
+      "category": "service",
+      "color": "#ff9800",
+      "path": "services/profileService.js",
+      "lines": 9,
+      "functions": 1,
+      "hooks": 0
+    },
+    {
+      "id": "node_75",
+      "label": "projectService",
+      "category": "service",
+      "color": "#ff9800",
+      "path": "services/projectService.js",
+      "lines": 13,
+      "functions": 2,
+      "hooks": 0
+    },
+    {
+      "id": "node_76",
+      "label": "skillService",
+      "category": "service",
+      "color": "#ff9800",
+      "path": "services/skillService.js",
+      "lines": 9,
+      "functions": 1,
+      "hooks": 0
+    },
+    {
+      "id": "node_77",
+      "label": "socketService",
+      "category": "service",
+      "color": "#ff9800",
+      "path": "services/socketService.js",
+      "lines": 160,
+      "functions": 15,
+      "hooks": 1
+    },
+    {
+      "id": "node_78",
+      "label": "terminalService",
+      "category": "service",
+      "color": "#ff9800",
+      "path": "services/terminalService.js",
+      "lines": 12,
+      "functions": 1,
+      "hooks": 0
+    },
+    {
+      "id": "node_79",
+      "label": "timelineService",
+      "category": "service",
+      "color": "#ff9800",
+      "path": "services/timelineService.js",
+      "lines": 9,
+      "functions": 1,
+      "hooks": 0
+    },
+    {
+      "id": "node_80",
+      "label": "weatherService",
+      "category": "service",
+      "color": "#ff9800",
+      "path": "services/weatherService.js",
+      "lines": 170,
+      "functions": 2,
+      "hooks": 0
+    },
+    {
+      "id": "node_81",
+      "label": "useAchievementStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useAchievementStore.js",
+      "lines": 199,
+      "functions": 5,
+      "hooks": 2
+    },
+    {
+      "id": "node_82",
+      "label": "useAIAnalyticsStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useAIAnalyticsStore.js",
+      "lines": 102,
+      "functions": 5,
+      "hooks": 1
+    },
+    {
+      "id": "node_83",
+      "label": "useAnalyticsStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useAnalyticsStore.js",
+      "lines": 83,
+      "functions": 0,
+      "hooks": 1
+    },
+    {
+      "id": "node_84",
+      "label": "useAuthStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useAuthStore.js",
+      "lines": 20,
+      "functions": 2,
+      "hooks": 1
+    },
+    {
+      "id": "node_85",
+      "label": "useBackgroundServiceStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useBackgroundServiceStore.js",
+      "lines": 20,
+      "functions": 0,
+      "hooks": 1
+    },
+    {
+      "id": "node_86",
+      "label": "useBrowserStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useBrowserStore.js",
+      "lines": 106,
+      "functions": 5,
+      "hooks": 1
+    },
+    {
+      "id": "node_87",
+      "label": "useCalendarStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useCalendarStore.js",
+      "lines": 146,
+      "functions": 1,
+      "hooks": 1
+    },
+    {
+      "id": "node_88",
+      "label": "useDesktopStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useDesktopStore.js",
+      "lines": 337,
+      "functions": 11,
+      "hooks": 2
+    },
+    {
+      "id": "node_89",
+      "label": "useFileSystemStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useFileSystemStore.js",
+      "lines": 258,
+      "functions": 22,
+      "hooks": 1
+    },
+    {
+      "id": "node_90",
+      "label": "useGitHubStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useGitHubStore.js",
+      "lines": 52,
+      "functions": 1,
+      "hooks": 1
+    },
+    {
+      "id": "node_91",
+      "label": "useLearningStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useLearningStore.js",
+      "lines": 26,
+      "functions": 0,
+      "hooks": 1
+    },
+    {
+      "id": "node_92",
+      "label": "useMusicStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useMusicStore.js",
+      "lines": 110,
+      "functions": 6,
+      "hooks": 1
+    },
+    {
+      "id": "node_93",
+      "label": "useNotificationStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useNotificationStore.js",
+      "lines": 106,
+      "functions": 8,
+      "hooks": 1
+    },
+    {
+      "id": "node_94",
+      "label": "usePlacementStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/usePlacementStore.js",
+      "lines": 178,
+      "functions": 5,
+      "hooks": 1
+    },
+    {
+      "id": "node_95",
+      "label": "usePresentationStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/usePresentationStore.js",
+      "lines": 55,
+      "functions": 5,
+      "hooks": 1
+    },
+    {
+      "id": "node_96",
+      "label": "useProfileStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useProfileStore.js",
+      "lines": 70,
+      "functions": 3,
+      "hooks": 1
+    },
+    {
+      "id": "node_97",
+      "label": "useSoundStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useSoundStore.js",
+      "lines": 32,
+      "functions": 1,
+      "hooks": 1
+    },
+    {
+      "id": "node_98",
+      "label": "useStickyNotesStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useStickyNotesStore.js",
+      "lines": 43,
+      "functions": 2,
+      "hooks": 1
+    },
+    {
+      "id": "node_99",
+      "label": "useSystemAudioStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useSystemAudioStore.js",
+      "lines": 48,
+      "functions": 4,
+      "hooks": 1
+    },
+    {
+      "id": "node_100",
+      "label": "useThemeStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useThemeStore.js",
+      "lines": 103,
+      "functions": 6,
+      "hooks": 2
+    },
+    {
+      "id": "node_101",
+      "label": "useUIStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useUIStore.js",
+      "lines": 46,
+      "functions": 1,
+      "hooks": 2
+    },
+    {
+      "id": "node_102",
+      "label": "useVoiceStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useVoiceStore.js",
+      "lines": 68,
+      "functions": 1,
+      "hooks": 1
+    },
+    {
+      "id": "node_103",
+      "label": "useWeatherStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useWeatherStore.js",
+      "lines": 42,
+      "functions": 1,
+      "hooks": 1
+    },
+    {
+      "id": "node_104",
+      "label": "useWhatsAppAuthStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useWhatsAppAuthStore.js",
+      "lines": 51,
+      "functions": 3,
+      "hooks": 1
+    },
+    {
+      "id": "node_105",
+      "label": "useWhatsAppChatStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useWhatsAppChatStore.js",
+      "lines": 58,
+      "functions": 5,
+      "hooks": 1
+    },
+    {
+      "id": "node_106",
+      "label": "useWhatsAppMessageStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useWhatsAppMessageStore.js",
+      "lines": 40,
+      "functions": 3,
+      "hooks": 1
+    },
+    {
+      "id": "node_107",
+      "label": "useWhatsAppSocketStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useWhatsAppSocketStore.js",
+      "lines": 74,
+      "functions": 10,
+      "hooks": 4
+    },
+    {
+      "id": "node_108",
+      "label": "useWhatsAppStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useWhatsAppStore.js",
+      "lines": 289,
+      "functions": 12,
+      "hooks": 1
+    },
+    {
+      "id": "node_109",
+      "label": "useWidgetStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useWidgetStore.js",
+      "lines": 60,
+      "functions": 7,
+      "hooks": 1
+    },
+    {
+      "id": "node_110",
+      "label": "useWindowStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useWindowStore.js",
+      "lines": 274,
+      "functions": 16,
+      "hooks": 3
+    }
+  ],
+  "edges": [
+    {
+      "source": "node_0",
+      "target": "node_110"
+    },
+    {
+      "source": "node_0",
+      "target": "node_88"
+    },
+    {
+      "source": "node_1",
+      "target": "node_10"
+    },
+    {
+      "source": "node_1",
+      "target": "node_8"
+    },
+    {
+      "source": "node_1",
+      "target": "node_15"
+    },
+    {
+      "source": "node_1",
+      "target": "node_11"
+    },
+    {
+      "source": "node_1",
+      "target": "node_82"
+    },
+    {
+      "source": "node_2",
+      "target": "node_0"
+    },
+    {
+      "source": "node_2",
+      "target": "node_17"
+    },
+    {
+      "source": "node_2",
+      "target": "node_82"
+    },
+    {
+      "source": "node_3",
+      "target": "node_6"
+    },
+    {
+      "source": "node_3",
+      "target": "node_5"
+    },
+    {
+      "source": "node_3",
+      "target": "node_4"
+    },
+    {
+      "source": "node_3",
+      "target": "node_2"
+    },
+    {
+      "source": "node_3",
+      "target": "node_7"
+    },
+    {
+      "source": "node_3",
+      "target": "node_17"
+    },
+    {
+      "source": "node_3",
+      "target": "node_82"
+    },
+    {
+      "source": "node_3",
+      "target": "node_83"
+    },
+    {
+      "source": "node_6",
+      "target": "node_17"
+    },
+    {
+      "source": "node_6",
+      "target": "node_19"
+    },
+    {
+      "source": "node_7",
+      "target": "node_17"
+    },
+    {
+      "source": "node_7",
+      "target": "node_18"
+    },
+    {
+      "source": "node_7",
+      "target": "node_82"
+    },
+    {
+      "source": "node_10",
+      "target": "node_20"
+    },
+    {
+      "source": "node_10",
+      "target": "node_11"
+    },
+    {
+      "source": "node_10",
+      "target": "node_12"
+    },
+    {
+      "source": "node_10",
+      "target": "node_9"
+    },
+    {
+      "source": "node_15",
+      "target": "node_11"
+    },
+    {
+      "source": "node_15",
+      "target": "node_12"
+    },
+    {
+      "source": "node_15",
+      "target": "node_13"
+    },
+    {
+      "source": "node_15",
+      "target": "node_10"
+    },
+    {
+      "source": "node_15",
+      "target": "node_14"
+    },
+    {
+      "source": "node_15",
+      "target": "node_103"
+    },
+    {
+      "source": "node_16",
+      "target": "node_6"
+    },
+    {
+      "source": "node_16",
+      "target": "node_5"
+    },
+    {
+      "source": "node_16",
+      "target": "node_3"
+    },
+    {
+      "source": "node_20",
+      "target": "node_11"
+    },
+    {
+      "source": "node_21",
+      "target": "node_102"
+    },
+    {
+      "source": "node_22",
+      "target": "node_102"
+    },
+    {
+      "source": "node_23",
+      "target": "node_88"
+    },
+    {
+      "source": "node_23",
+      "target": "node_110"
+    },
+    {
+      "source": "node_23",
+      "target": "node_100"
+    },
+    {
+      "source": "node_23",
+      "target": "node_99"
+    },
+    {
+      "source": "node_23",
+      "target": "node_92"
+    },
+    {
+      "source": "node_23",
+      "target": "node_1"
+    },
+    {
+      "source": "node_24",
+      "target": "node_21"
+    },
+    {
+      "source": "node_24",
+      "target": "node_22"
+    },
+    {
+      "source": "node_24",
+      "target": "node_23"
+    },
+    {
+      "source": "node_24",
+      "target": "node_102"
+    },
+    {
+      "source": "node_25",
+      "target": "node_74"
+    },
+    {
+      "source": "node_25",
+      "target": "node_79"
+    },
+    {
+      "source": "node_26",
+      "target": "node_110"
+    },
+    {
+      "source": "node_26",
+      "target": "node_88"
+    },
+    {
+      "source": "node_28",
+      "target": "node_82"
+    },
+    {
+      "source": "node_29",
+      "target": "node_83"
+    },
+    {
+      "source": "node_31",
+      "target": "node_86"
+    },
+    {
+      "source": "node_31",
+      "target": "node_110"
+    },
+    {
+      "source": "node_33",
+      "target": "node_87"
+    },
+    {
+      "source": "node_34",
+      "target": "node_110"
+    },
+    {
+      "source": "node_34",
+      "target": "node_85"
+    },
+    {
+      "source": "node_35",
+      "target": "node_110"
+    },
+    {
+      "source": "node_35",
+      "target": "node_85"
+    },
+    {
+      "source": "node_36",
+      "target": "node_89"
+    },
+    {
+      "source": "node_36",
+      "target": "node_110"
+    },
+    {
+      "source": "node_36",
+      "target": "node_37"
+    },
+    {
+      "source": "node_39",
+      "target": "node_40"
+    },
+    {
+      "source": "node_39",
+      "target": "node_38"
+    },
+    {
+      "source": "node_44",
+      "target": "node_92"
+    },
+    {
+      "source": "node_44",
+      "target": "node_99"
+    },
+    {
+      "source": "node_45",
+      "target": "node_89"
+    },
+    {
+      "source": "node_46",
+      "target": "node_89"
+    },
+    {
+      "source": "node_48",
+      "target": "node_47"
+    },
+    {
+      "source": "node_48",
+      "target": "node_49"
+    },
+    {
+      "source": "node_51",
+      "target": "node_90"
+    },
+    {
+      "source": "node_52",
+      "target": "node_75"
+    },
+    {
+      "source": "node_52",
+      "target": "node_65"
+    },
+    {
+      "source": "node_52",
+      "target": "node_101"
+    },
+    {
+      "source": "node_52",
+      "target": "node_110"
+    },
+    {
+      "source": "node_52",
+      "target": "node_83"
+    },
+    {
+      "source": "node_52",
+      "target": "node_95"
+    },
+    {
+      "source": "node_53",
+      "target": "node_100"
+    },
+    {
+      "source": "node_53",
+      "target": "node_95"
+    },
+    {
+      "source": "node_54",
+      "target": "node_89"
+    },
+    {
+      "source": "node_54",
+      "target": "node_110"
+    },
+    {
+      "source": "node_55",
+      "target": "node_83"
+    },
+    {
+      "source": "node_56",
+      "target": "node_100"
+    },
+    {
+      "source": "node_56",
+      "target": "node_88"
+    },
+    {
+      "source": "node_56",
+      "target": "node_97"
+    },
+    {
+      "source": "node_56",
+      "target": "node_109"
+    },
+    {
+      "source": "node_57",
+      "target": "node_76"
+    },
+    {
+      "source": "node_61",
+      "target": "node_102"
+    },
+    {
+      "source": "node_62",
+      "target": "node_90"
+    },
+    {
+      "source": "node_62",
+      "target": "node_95"
+    },
+    {
+      "source": "node_63",
+      "target": "node_103"
+    },
+    {
+      "source": "node_64",
+      "target": "node_104"
+    },
+    {
+      "source": "node_64",
+      "target": "node_105"
+    },
+    {
+      "source": "node_64",
+      "target": "node_107"
+    },
+    {
+      "source": "node_66",
+      "target": "node_110"
+    },
+    {
+      "source": "node_66",
+      "target": "node_88"
+    },
+    {
+      "source": "node_66",
+      "target": "node_101"
+    },
+    {
+      "source": "node_66",
+      "target": "node_92"
+    },
+    {
+      "source": "node_66",
+      "target": "node_67"
+    },
+    {
+      "source": "node_67",
+      "target": "node_95"
+    },
+    {
+      "source": "node_67",
+      "target": "node_110"
+    },
+    {
+      "source": "node_67",
+      "target": "node_83"
+    },
+    {
+      "source": "node_68",
+      "target": "node_110"
+    },
+    {
+      "source": "node_69",
+      "target": "node_71"
+    },
+    {
+      "source": "node_74",
+      "target": "node_71"
+    },
+    {
+      "source": "node_75",
+      "target": "node_71"
+    },
+    {
+      "source": "node_76",
+      "target": "node_71"
+    },
+    {
+      "source": "node_77",
+      "target": "node_108"
+    },
+    {
+      "source": "node_78",
+      "target": "node_71"
+    },
+    {
+      "source": "node_79",
+      "target": "node_71"
+    },
+    {
+      "source": "node_81",
+      "target": "node_93"
+    },
+    {
+      "source": "node_88",
+      "target": "node_109"
+    },
+    {
+      "source": "node_90",
+      "target": "node_73"
+    },
+    {
+      "source": "node_103",
+      "target": "node_80"
+    },
+    {
+      "source": "node_104",
+      "target": "node_71"
+    },
+    {
+      "source": "node_105",
+      "target": "node_71"
+    },
+    {
+      "source": "node_106",
+      "target": "node_71"
+    },
+    {
+      "source": "node_107",
+      "target": "node_104"
+    },
+    {
+      "source": "node_107",
+      "target": "node_106"
+    },
+    {
+      "source": "node_107",
+      "target": "node_105"
+    },
+    {
+      "source": "node_110",
+      "target": "node_83"
+    }
+  ],
+  "categories": [
+    {
+      "id": "app",
+      "label": "Applications",
+      "color": "#61dafb",
+      "count": 40
+    },
+    {
+      "id": "store",
+      "label": "Stores",
+      "color": "#f0db4f",
+      "count": 30
+    },
+    {
+      "id": "component",
+      "label": "Components",
+      "color": "#4CAF50",
+      "count": 0
+    },
+    {
+      "id": "ai",
+      "label": "AI Brain",
+      "color": "#e040fb",
+      "count": 25
+    },
+    {
+      "id": "service",
+      "label": "Services",
+      "color": "#ff9800",
+      "count": 12
+    },
+    {
+      "id": "hook",
+      "label": "Hooks",
+      "color": "#00bcd4",
+      "count": 4
+    },
+    {
+      "id": "widget",
+      "label": "Widgets",
+      "color": "#8bc34a",
+      "count": 0
+    },
+    {
+      "id": "config",
+      "label": "Config",
+      "color": "#9e9e9e",
+      "count": 0
+    }
+  ]
+}
