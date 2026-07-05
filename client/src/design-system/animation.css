@@ -1,0 +1,34 @@
+/*
+  animation.css
+  OS-Wide Animation Timing Tokens
+*/
+
+:root {
+  /* Timing Standards (ms) */
+  --ds-duration-hover: 120ms;
+  --ds-duration-btn: 150ms;
+  --ds-duration-card: 180ms;
+  --ds-duration-address: 180ms;
+  --ds-duration-tab: 220ms;
+  --ds-duration-window: 320ms;
+  --ds-duration-journey: 500ms;
+  
+  /* Easing Curves */
+  --ds-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ds-ease-decelerate: cubic-bezier(0.0, 0, 0.2, 1);
+  --ds-ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --ds-ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Base Transitions */
+.ds-transition-hover {
+  transition: all var(--ds-duration-hover) var(--ds-ease-standard);
+}
+
+.ds-transition-btn {
+  transition: all var(--ds-duration-btn) var(--ds-ease-standard);
+}
+
+.ds-transition-card {
+  transition: all var(--ds-duration-card) var(--ds-ease-standard);
+}

@@ -4,34 +4,82 @@
 */
 
 :root {
-  /* Glassmorphism Variables */
+  /* Glassmorphism Blurs */
   --ds-blur-sm: blur(4px);
   --ds-blur-md: blur(8px);
   --ds-blur-lg: blur(16px);
   --ds-blur-xl: blur(24px);
+  --ds-blur-2xl: blur(32px);
   
-  --ds-glass-bg: rgba(10, 10, 10, 0.6);
-  --ds-glass-bg-light: rgba(255, 255, 255, 0.6);
+  /* Glass Level Backgrounds (Dark/OLED Theme Defaults) */
+  --ds-glass-0-bg: rgba(10, 10, 10, 0.3);  /* Mica / Deepest layer */
+  --ds-glass-1-bg: rgba(18, 18, 18, 0.55); /* Window backgrounds */
+  --ds-glass-2-bg: rgba(28, 28, 28, 0.75); /* Toolbars / Panels */
+  --ds-glass-3-bg: rgba(40, 40, 40, 0.85); /* Cards / Floating elements */
   
+  /* Glass Level Backgrounds (Light Theme) */
+  --ds-glass-0-bg-light: rgba(245, 245, 245, 0.3);
+  --ds-glass-1-bg-light: rgba(255, 255, 255, 0.55);
+  --ds-glass-2-bg-light: rgba(255, 255, 255, 0.75);
+  --ds-glass-3-bg-light: rgba(255, 255, 255, 0.9);
+  
+  /* Shared Borders */
   --ds-glass-border: 1px solid rgba(255, 255, 255, 0.08);
   --ds-glass-border-light: 1px solid rgba(0, 0, 0, 0.08);
+  --ds-glass-border-highlight: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .theme-light {
-  --ds-glass-bg: var(--ds-glass-bg-light);
+  --ds-glass-0-bg: var(--ds-glass-0-bg-light);
+  --ds-glass-1-bg: var(--ds-glass-1-bg-light);
+  --ds-glass-2-bg: var(--ds-glass-2-bg-light);
+  --ds-glass-3-bg: var(--ds-glass-3-bg-light);
   --ds-glass-border: var(--ds-glass-border-light);
+  --ds-glass-border-highlight: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-/* Glassmorphism utility classes */
+/* Glass Level 0: Deepest layer (Mica over desktop) */
+.ds-glass-0 {
+  background: var(--ds-glass-0-bg);
+  backdrop-filter: var(--ds-blur-2xl);
+  -webkit-backdrop-filter: var(--ds-blur-2xl);
+}
+
+/* Glass Level 1: App Windows */
+.ds-glass-1 {
+  background: var(--ds-glass-1-bg);
+  backdrop-filter: var(--ds-blur-xl);
+  -webkit-backdrop-filter: var(--ds-blur-xl);
+  border: var(--ds-glass-border);
+}
+
+/* Glass Level 2: Toolbars, sidebars, panes */
+.ds-glass-2 {
+  background: var(--ds-glass-2-bg);
+  backdrop-filter: var(--ds-blur-lg);
+  -webkit-backdrop-filter: var(--ds-blur-lg);
+  border: var(--ds-glass-border);
+}
+
+/* Glass Level 3: Elevated cards, context menus, widgets */
+.ds-glass-3 {
+  background: var(--ds-glass-3-bg);
+  backdrop-filter: var(--ds-blur-md);
+  -webkit-backdrop-filter: var(--ds-blur-md);
+  border: var(--ds-glass-border-highlight);
+  box-shadow: var(--ds-shadow-lg);
+}
+
+/* Legacy utilities for backwards compatibility */
 .ds-glass {
-  background: var(--ds-glass-bg);
+  background: var(--ds-glass-1-bg);
   backdrop-filter: var(--ds-blur-lg);
   -webkit-backdrop-filter: var(--ds-blur-lg);
   border: var(--ds-glass-border);
 }
 
 .ds-glass-panel {
-  background: var(--ds-panel);
+  background: var(--ds-glass-2-bg);
   backdrop-filter: var(--ds-blur-xl);
   -webkit-backdrop-filter: var(--ds-blur-xl);
   border: var(--ds-glass-border);

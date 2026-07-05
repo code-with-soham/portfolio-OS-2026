@@ -13,6 +13,7 @@
 @import './icons.css';
 @import './scrollbars.css';
 @import './focus.css';
+@import './animation.css';
 
 /* Global Reset & Base Styles enforcing the Design System */
 * {

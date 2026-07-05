@@ -1,4 +1,5 @@
 import React, { useRef, useState, lazy, Suspense } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useBrowserStore } from '../../../store/useBrowserStore';
 import { GlobeRegular, DocumentErrorRegular, SparkleRegular } from '@fluentui/react-icons';
 import { EmptyLayout } from '../../../components/ui/Layout';
@@ -16,19 +17,42 @@ import ProjectsApp from '../../ProjectsApp';
 import SkillsApp from '../../SkillsApp';
 import AboutApp from '../../AboutApp';
 
-export default function BrowserContent() {
-  const { tabs, activeTabId } = useBrowserStore();
-  const activeTab = tabs.find(t => t.id === activeTabId);
-  const [iframeError, setIframeError] = useState(false);
+function BrowserSkeleton() {
+  return (
+    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px', width: '100%', height: '100%', backgroundColor: 'var(--ds-bg-primary)' }}>
+      {/* Title skeleton */}
+      <div style={{ width: '40%', height: '32px', backgroundColor: 'var(--ds-surface)', borderRadius: 'var(--ds-radius-md)' }} className="skeleton-shimmer" />
+      
+      {/* Content skeleton blocks */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ width: '90%', height: '16px', backgroundColor: 'var(--ds-surface)', borderRadius: 'var(--ds-radius-sm)' }} className="skeleton-shimmer" />
+        <div style={{ width: '85%', height: '16px', backgroundColor: 'var(--ds-surface)', borderRadius: 'var(--ds-radius-sm)' }} className="skeleton-shimmer" />
+        <div style={{ width: '95%', height: '16px', backgroundColor: 'var(--ds-surface)', borderRadius: 'var(--ds-radius-sm)' }} className="skeleton-shimmer" />
+      </div>
 
-  if (!activeTab) return null;
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginTop: '16px' }}>
+        <div style={{ height: '120px', backgroundColor: 'var(--ds-surface)', borderRadius: 'var(--ds-radius-lg)' }} className="skeleton-shimmer" />
+        <div style={{ height: '120px', backgroundColor: 'var(--ds-surface)', borderRadius: 'var(--ds-radius-lg)' }} className="skeleton-shimmer" />
+        <div style={{ height: '120px', backgroundColor: 'var(--ds-surface)', borderRadius: 'var(--ds-radius-lg)' }} className="skeleton-shimmer" />
+      </div>
 
-  const url = activeTab.url;
+      <style>{`
+        @keyframes shimmer {
+          0% { opacity: 0.5; }
+          50% { opacity: 0.8; }
+          100% { opacity: 0.5; }
+        }
+        .skeleton-shimmer {
+          animation: shimmer 1.5s infinite;
+        }
+      `}</style>
+    </div>
+  );
+}
 
+function renderContent(url, iframeError, setIframeError) {
   // Render New Tab
-  if (!url || url === 'chrome://newtab') {
-    return <BrowserNewTab />;
-  }
+  if (!url || url === 'chrome://newtab') return <BrowserNewTab />;
 
   // AI Mode
   if (url.startsWith('ai://')) {
@@ -50,47 +74,8 @@ export default function BrowserContent() {
             <li>Key skills include React, Node.js, Next.js.</li>
             <li>Projects: CampusHub, Portfolio OS.</li>
           </ul>
-          <p style={{ marginTop: 'var(--ds-space-md)', color: 'var(--ds-accent)' }}>
-            [Live AI Integration with VS-30 AI Brain will be mapped here.]
-          </p>
         </div>
       </div>
-    );
-  }
-
-  // Render History
-  if (url === 'chrome://history') {
-    return (
-      <Suspense fallback={<div style={{ padding: '16px', color: 'var(--ds-text-secondary)' }}>Loading history...</div>}>
-        <BrowserHistory />
-      </Suspense>
-    );
-  }
-
-  // Render Settings
-  if (url === 'chrome://settings') {
-    return (
-      <Suspense fallback={<div style={{ padding: '16px', color: 'var(--ds-text-secondary)' }}>Loading settings...</div>}>
-        <BrowserSettings />
-      </Suspense>
-    );
-  }
-
-  // Render Downloads
-  if (url === 'chrome://downloads') {
-    return (
-      <Suspense fallback={<div style={{ padding: '16px', color: 'var(--ds-text-secondary)' }}>Loading downloads...</div>}>
-        <BrowserDownloads />
-      </Suspense>
-    );
-  }
-
-  // Render Deployment
-  if (url === 'portfolio://deployment') {
-    return (
-      <Suspense fallback={<div style={{ padding: '16px', color: 'var(--ds-text-secondary)' }}>Loading dashboard...</div>}>
-        <BrowserDeploymentDashboard />
-      </Suspense>
     );
   }
 
@@ -100,7 +85,13 @@ export default function BrowserContent() {
   if (url === 'portfolio://skills') return <SkillsApp id="browser-internal" isMaximized={true} />;
   if (url === 'portfolio://about') return <AboutApp id="browser-internal" isMaximized={true} />;
 
-  // Render Real Web View (iframe)
+  // Lazy components
+  if (url === 'chrome://history') return <Suspense fallback={<BrowserSkeleton />}><BrowserHistory /></Suspense>;
+  if (url === 'chrome://settings') return <Suspense fallback={<BrowserSkeleton />}><BrowserSettings /></Suspense>;
+  if (url === 'chrome://downloads') return <Suspense fallback={<BrowserSkeleton />}><BrowserDownloads /></Suspense>;
+  if (url === 'portfolio://deployment') return <Suspense fallback={<BrowserSkeleton />}><BrowserDeploymentDashboard /></Suspense>;
+
+  // External Iframe
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
       {iframeError && (
@@ -121,6 +112,44 @@ export default function BrowserContent() {
         sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
         onError={() => setIframeError(true)}
       />
+    </div>
+  );
+}
+
+export default function BrowserContent() {
+  const { tabs, activeTabId } = useBrowserStore();
+  const activeTab = tabs.find(t => t.id === activeTabId);
+  const [iframeError, setIframeError] = useState(false);
+
+  if (!activeTab) return null;
+
+  return (
+    <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative', backgroundColor: 'var(--ds-bg-primary)' }}>
+      <AnimatePresence mode="wait">
+        {activeTab.isLoading ? (
+          <motion.div
+            key="loading-skeleton"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+          >
+            <BrowserSkeleton />
+          </motion.div>
+        ) : (
+          <motion.div
+            key={activeTab.url}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+          >
+            {renderContent(activeTab.url, iframeError, setIframeError)}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

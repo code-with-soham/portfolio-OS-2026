@@ -13,14 +13,16 @@ import {
   BuildingRegular,
   TrophyRegular,
   FolderRegular,
-  CodeRegular
+  CodeRegular,
+  LockClosedRegular,
+  BriefcaseRegular
 } from '@fluentui/react-icons';
 import { useBrowserStore } from '../../../store/useBrowserStore';
 import { useProfileStore } from '../../../store/useProfileStore';
 import { useGitHubStore } from '../../../store/useGitHubStore';
 import { Avatar } from '../../../components/ui/Avatar';
-import { Toolbar, ToolbarButton } from '../../../components/ui/Toolbar';
-import { AddressBar } from '../../../components/ui/AddressBar';
+import { Toolbar, ToolbarButton, ToolbarGroup, ToolbarDivider } from '../../../components/ui/Toolbar';
+import { SearchField } from '../../../components/ui/SearchField';
 
 export default function BrowserToolbar() {
   const { tabs, activeTabId, navigateTo, theme, toggleTheme } = useBrowserStore();
@@ -71,25 +73,34 @@ export default function BrowserToolbar() {
     s.title.toLowerCase().includes(urlInput.toLowerCase()) && urlInput.length > 0
   );
 
+  const getAddressIcon = () => {
+    if (activeTab?.url.startsWith('https')) return <LockClosedRegular fontSize={14} />;
+    if (activeTab?.url.startsWith('portfolio://')) return <BriefcaseRegular fontSize={14} />;
+    return <SearchRegular fontSize={14} />;
+  };
+
   return (
     <Toolbar>
-      <ToolbarButton icon={<ArrowLeftRegular />} disabled />
-      <ToolbarButton icon={<ArrowRightRegular />} disabled />
-      <ToolbarButton icon={<ArrowClockwiseRegular />} onClick={() => navigateTo(activeTab?.url)} title="Reload" />
-      <ToolbarButton icon={<HomeRegular />} onClick={() => navigateTo('chrome://newtab')} title="Home" />
+      <ToolbarGroup>
+        <ToolbarButton icon={<ArrowLeftRegular />} disabled />
+        <ToolbarButton icon={<ArrowRightRegular />} disabled />
+        <ToolbarButton icon={<ArrowClockwiseRegular />} onClick={() => navigateTo(activeTab?.url)} title="Reload" />
+        <ToolbarButton icon={<HomeRegular />} onClick={() => navigateTo('chrome://newtab')} title="Home" />
+      </ToolbarGroup>
 
-      <AddressBar 
+      <SearchField 
+        variant="address"
         value={urlInput}
         onChange={(e) => setUrlInput(e.target.value)}
         onSubmit={handleUrlSubmit}
         placeholder="Search Google or type a URL"
-        iconLeft={activeTab?.url.startsWith('https') ? '🔒' : activeTab?.url.startsWith('portfolio://') ? '💼' : <SearchRegular />}
-        iconRight={<StarRegular />}
+        iconLeft={getAddressIcon()}
+        iconRight={<StarRegular fontSize={14} />}
         suggestions={suggestions}
         onSelectSuggestion={(s) => navigateTo(s.url)}
       />
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }} ref={menuRef}>
+      <ToolbarGroup ref={menuRef}>
         <ToolbarButton 
           icon={theme === 'dark' ? <WeatherSunnyRegular /> : <WeatherMoonRegular />}
           onClick={toggleTheme} 
@@ -101,7 +112,8 @@ export default function BrowserToolbar() {
             e.stopPropagation();
             setIsMenuOpen(!isMenuOpen);
           }}
-          style={{ cursor: 'pointer', padding: '4px', borderRadius: '50%', margin: '0 4px', display: 'flex', alignItems: 'center', transition: 'background-color 0.15s' }}
+          style={{ cursor: 'pointer', padding: '2px', borderRadius: '50%', margin: '0 4px', display: 'flex', alignItems: 'center', transition: 'background-color 0.15s' }}
+          className="ds-transition-hover"
           onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--ds-surface)'}
           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
         >
@@ -115,11 +127,11 @@ export default function BrowserToolbar() {
         />
 
         {isMenuOpen && (
-          <div style={{
+          <div className="ds-glass-3" style={{
             position: 'absolute', top: '40px', right: '8px', 
-            backgroundColor: 'var(--ds-bg-primary)', borderRadius: 'var(--ds-radius-lg)', 
-            boxShadow: 'var(--ds-shadow-2xl)', padding: '8px 0', 
-            minWidth: '260px', zIndex: 1000, border: '1px solid var(--ds-border)'
+            borderRadius: 'var(--ds-radius-lg)', 
+            padding: '8px 0', 
+            minWidth: '260px', zIndex: 1000
           }} onClick={(e) => e.stopPropagation()}>
             {githubProfile && (
               <div style={{ padding: '8px 16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -140,7 +152,7 @@ export default function BrowserToolbar() {
             <div className="ds-menu-item" onClick={() => { navigateTo('portfolio://deployment'); setIsMenuOpen(false); }}>Deployment Dashboard</div>
           </div>
         )}
-      </div>
+      </ToolbarGroup>
     </Toolbar>
   );
 }

@@ -7,6 +7,7 @@ import BrowserDevTools from './components/BrowserDevTools';
 import { useBrowserStore } from '../../store/useBrowserStore';
 import { useWindowStore } from '../../store/useWindowStore';
 import { AppShell, AppBody, SplitView, SplitPane, InspectorPanel, StatusBar } from '../../components/ui/Layout';
+import { WindowChrome } from '../../components/system/WindowChrome';
 import { Badge } from '../../components/ui/Badge';
 import { ProgressBar } from '../../components/ui/ProgressBar';
 
@@ -85,15 +86,17 @@ export default function BrowserApp({ id, dragControls, onClose, onMinimize, onMa
   }, [isFocused, activeTabId, tabs, addTab, closeTab, setActiveTab]);
 
   return (
-    <AppShell className={`theme-${theme}`} style={{ background: 'var(--ds-bg-primary)' }}>
-      <div style={{ background: 'var(--ds-panel)', display: 'flex', flexDirection: 'column' }}>
-        <BrowserTabs 
-          dragControls={dragControls}
-          onClose={onClose}
-          onMinimize={onMinimize}
-          onMaximize={onMaximize}
-          isMaximized={isMaximized}
-        />
+    <WindowChrome
+      title=""
+      dragControls={dragControls}
+      onClose={onClose}
+      onMinimize={onMinimize}
+      onMaximize={onMaximize}
+      isMaximized={isMaximized}
+      className={`theme-${theme}`}
+      headerContent={<BrowserTabs />}
+    >
+      <div style={{ background: 'var(--ds-panel)', display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 100 }}>
         <BrowserToolbar />
         <BrowserBookmarksBar />
         <ProgressBar isLoading={activeTab?.isLoading} />
@@ -118,6 +121,6 @@ export default function BrowserApp({ id, dragControls, onClose, onMinimize, onMa
           Online
         </Badge>
       </StatusBar>
-    </AppShell>
+    </WindowChrome>
   );
 }

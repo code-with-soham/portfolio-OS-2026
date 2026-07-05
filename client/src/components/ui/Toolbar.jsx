@@ -1,25 +1,47 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-// Immutable Standard: Toolbar Height = 44px
-export const Toolbar = ({ children, style, ...props }) => {
+// Immutable Standard: Toolbar Height = 38px
+export const Toolbar = ({ children, style, className = '', ...props }) => {
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      height: '44px',
-      padding: '0 8px',
-      gap: '4px',
-      backgroundColor: 'var(--ds-bg-primary)',
-      borderBottom: '1px solid var(--ds-border)',
-      ...style
-    }} {...props}>
+    <div 
+      className={`os-toolbar ds-glass-2 ${className}`}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        height: '38px',
+        padding: '0 8px',
+        gap: '4px',
+        borderBottom: '1px solid var(--ds-border)',
+        ...style
+      }} 
+      {...props}
+    >
       {children}
     </div>
   );
 };
 
-// Immutable Standard: 32x32 Container, 16x16 Icon
+export const ToolbarGroup = ({ children, style, ...props }) => {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '2px', ...style }} {...props}>
+      {children}
+    </div>
+  );
+};
+
+export const ToolbarDivider = () => {
+  return (
+    <div style={{ 
+      width: '1px', 
+      height: '16px', 
+      backgroundColor: 'var(--ds-border)', 
+      margin: '0 4px' 
+    }} />
+  );
+};
+
+// Immutable Standard: 28x28 Container, 14x14 Icon
 export const ToolbarButton = ({ icon, onClick, disabled, title, active }) => {
   return (
     <motion.button
@@ -28,9 +50,10 @@ export const ToolbarButton = ({ icon, onClick, disabled, title, active }) => {
       onClick={onClick}
       disabled={disabled}
       title={title}
+      className="ds-transition-btn"
       style={{
-        width: '32px',
-        height: '32px',
+        width: '28px',
+        height: '28px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -39,11 +62,10 @@ export const ToolbarButton = ({ icon, onClick, disabled, title, active }) => {
         background: active ? 'var(--ds-surface)' : 'transparent',
         cursor: disabled ? 'default' : 'pointer',
         opacity: disabled ? 0.4 : 1,
-        color: active ? 'var(--ds-accent)' : 'var(--ds-text-primary)',
-        transition: 'background-color 0.15s ease'
+        color: active ? 'var(--ds-accent)' : 'var(--ds-text-primary)'
       }}
     >
-      <div style={{ width: '16px', height: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ width: '14px', height: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         {icon}
       </div>
     </motion.button>
