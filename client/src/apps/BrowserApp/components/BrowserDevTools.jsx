@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { DismissRegular, DeveloperBoardRegular } from '@fluentui/react-icons';
 import { useBrowserStore } from '../../../store/useBrowserStore';
+import { Button } from '../../../components/ui/Button';
+import { EmptyLayout } from '../../../components/ui/Layout';
 
 export default function BrowserDevTools({ onClose }) {
   const [activeTab, setActiveTab] = useState('Console');
@@ -52,64 +54,78 @@ export default function BrowserDevTools({ onClose }) {
   };
 
   return (
-    <div className="chrome-devtools">
-      <div className="devtools-header">
-        <div className="devtools-tabs">
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: 'var(--ds-bg-primary)', borderLeft: '1px solid var(--ds-border)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--ds-border)', paddingRight: 'var(--ds-space-sm)', backgroundColor: 'var(--ds-surface)' }}>
+        <div style={{ display: 'flex', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
           {tabs.map(t => (
             <div 
               key={t} 
-              className={`devtools-tab ${activeTab === t ? 'active' : ''}`}
+              style={{
+                padding: 'var(--ds-space-sm) var(--ds-space-md)',
+                fontSize: 'var(--ds-text-xs)',
+                fontWeight: activeTab === t ? '500' : '400',
+                color: activeTab === t ? 'var(--ds-accent)' : 'var(--ds-text-secondary)',
+                borderBottom: activeTab === t ? '2px solid var(--ds-accent)' : '2px solid transparent',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                transition: 'color var(--ds-duration-fast), border-bottom var(--ds-duration-fast)'
+              }}
+              onMouseEnter={(e) => { if (activeTab !== t) e.currentTarget.style.color = 'var(--ds-text-primary)' }}
+              onMouseLeave={(e) => { if (activeTab !== t) e.currentTarget.style.color = 'var(--ds-text-secondary)' }}
               onClick={() => setActiveTab(t)}
             >
               {t}
             </div>
           ))}
         </div>
-        <div className="devtools-actions">
-          <button onClick={onClose}><DismissRegular /></button>
+        <div>
+          <Button variant="ghost" size="icon" onClick={onClose}><DismissRegular fontSize={14} /></Button>
         </div>
       </div>
-      <div className="devtools-content">
+      <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
         {activeTab === 'Elements' && (
-          <div className="devtools-panel elements-panel">
-            <pre><code>
+          <div style={{ padding: 'var(--ds-space-md)', height: '100%', overflow: 'auto', fontFamily: 'Consolas, monospace', fontSize: 'var(--ds-text-xs)', color: 'var(--ds-text-primary)' }}>
+            <pre style={{ margin: 0 }}><code>
 {'<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <title>Portfolio OS 2026</title>\n  </head>\n  <body>\n    <div id="root">\n      <!-- App rendered here -->\n    </div>\n  </body>\n</html>'}
             </code></pre>
           </div>
         )}
         {activeTab === 'Console' && (
-          <div className="devtools-panel console-panel" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '8px 0' }}>
-            <div style={{ flex: 1, overflow: 'auto', padding: '0 8px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <div style={{ flex: 1, overflow: 'auto', padding: '0 var(--ds-space-sm)' }}>
               {consoleHistory.map((msg, idx) => (
-                <div key={idx} className={`console-msg ${msg.type}`} style={{
-                  padding: '4px 0', borderBottom: '1px solid var(--chrome-border)',
-                  color: msg.type === 'error' ? '#d93025' : (msg.type === 'input' ? '#5f6368' : 'inherit'),
-                  backgroundColor: msg.type === 'error' ? '#fce8e6' : (msg.type === 'warn' ? '#fffbe5' : 'transparent'),
+                <div key={idx} style={{
+                  padding: 'var(--ds-space-xs) 0',
+                  borderBottom: '1px solid var(--ds-border)',
+                  fontFamily: 'Consolas, monospace',
+                  fontSize: 'var(--ds-text-xs)',
+                  color: msg.type === 'error' ? 'var(--ds-error)' : (msg.type === 'input' ? 'var(--ds-text-secondary)' : 'var(--ds-text-primary)'),
+                  backgroundColor: msg.type === 'error' ? 'rgba(217, 48, 37, 0.1)' : (msg.type === 'warn' ? 'rgba(249, 171, 0, 0.1)' : 'transparent'),
                 }}>
                   {msg.text}
                 </div>
               ))}
               <div ref={bottomRef} />
             </div>
-            <form onSubmit={handleConsoleSubmit} style={{ display: 'flex', padding: '8px', borderTop: '1px solid var(--chrome-border)' }}>
-              <span style={{ color: '#1a73e8', marginRight: '8px' }}>&gt;</span>
+            <form onSubmit={handleConsoleSubmit} style={{ display: 'flex', padding: 'var(--ds-space-sm)', borderTop: '1px solid var(--ds-border)' }}>
+              <span style={{ color: 'var(--ds-accent)', marginRight: 'var(--ds-space-sm)' }}>&gt;</span>
               <input 
                 autoFocus
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                style={{ flex: 1, border: 'none', outline: 'none', background: 'transparent', fontFamily: 'Consolas, monospace', fontSize: '12px', color: 'var(--chrome-text)' }}
+                style={{ flex: 1, border: 'none', outline: 'none', background: 'transparent', fontFamily: 'Consolas, monospace', fontSize: 'var(--ds-text-xs)', color: 'var(--ds-text-primary)' }}
                 spellCheck={false}
               />
             </form>
           </div>
         )}
         {activeTab === 'Network' && (
-          <div className="devtools-panel network-panel">
-            <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
+          <div style={{ padding: 'var(--ds-space-md)', height: '100%', overflow: 'auto' }}>
+            <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse', fontSize: 'var(--ds-text-xs)' }}>
               <thead>
-                <tr><th style={{ padding: 4 }}>Name</th><th>Status</th><th>Type</th><th>Size</th><th>Time</th></tr>
+                <tr><th style={{ padding: 4, borderBottom: '1px solid var(--ds-border)' }}>Name</th><th style={{ borderBottom: '1px solid var(--ds-border)' }}>Status</th><th style={{ borderBottom: '1px solid var(--ds-border)' }}>Type</th><th style={{ borderBottom: '1px solid var(--ds-border)' }}>Size</th><th style={{ borderBottom: '1px solid var(--ds-border)' }}>Time</th></tr>
               </thead>
-              <tbody>
+              <tbody style={{ color: 'var(--ds-text-secondary)' }}>
                 <tr><td style={{ padding: 4 }}>index.html</td><td>200</td><td>document</td><td>1.2 kB</td><td>12 ms</td></tr>
                 <tr><td style={{ padding: 4 }}>main.jsx</td><td>200</td><td>script</td><td>4.5 MB</td><td>150 ms</td></tr>
                 <tr><td style={{ padding: 4 }}>portfolio-api</td><td>200</td><td>fetch</td><td>245 B</td><td>45 ms</td></tr>
@@ -118,18 +134,18 @@ export default function BrowserDevTools({ onClose }) {
           </div>
         )}
         {activeTab === 'Application' && (
-          <div className="devtools-panel application-panel" style={{ display: 'flex' }}>
-            <div className="app-sidebar" style={{ width: 150, borderRight: '1px solid var(--chrome-border)', paddingRight: 8 }}>
-              <div style={{ fontWeight: 500, marginBottom: 8 }}>Storage</div>
-              <div className="app-sidebar-item" style={{ padding: '4px 8px', background: 'var(--chrome-surface)' }}>Local Storage</div>
-              <div className="app-sidebar-item" style={{ padding: '4px 8px' }}>Session Storage</div>
-              <div className="app-sidebar-item" style={{ padding: '4px 8px' }}>IndexedDB</div>
+          <div style={{ display: 'flex', height: '100%' }}>
+            <div style={{ width: 150, borderRight: '1px solid var(--ds-border)', padding: 'var(--ds-space-md)', fontSize: 'var(--ds-text-xs)' }}>
+              <div style={{ fontWeight: 500, marginBottom: 'var(--ds-space-sm)', color: 'var(--ds-text-primary)' }}>Storage</div>
+              <div style={{ padding: 'var(--ds-space-xs)', backgroundColor: 'var(--ds-surface)', borderRadius: 'var(--ds-radius-sm)', color: 'var(--ds-text-primary)', cursor: 'pointer' }}>Local Storage</div>
+              <div style={{ padding: 'var(--ds-space-xs)', color: 'var(--ds-text-secondary)', cursor: 'pointer' }}>Session Storage</div>
+              <div style={{ padding: 'var(--ds-space-xs)', color: 'var(--ds-text-secondary)', cursor: 'pointer' }}>IndexedDB</div>
             </div>
-            <div className="app-content" style={{ padding: '0 16px', flex: 1 }}>
+            <div style={{ padding: 'var(--ds-space-md)', flex: 1, overflow: 'auto', fontSize: 'var(--ds-text-xs)' }}>
               <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
-                <thead><tr><th style={{ borderBottom: '1px solid var(--chrome-border)', paddingBottom: 4 }}>Key</th><th style={{ borderBottom: '1px solid var(--chrome-border)' }}>Value</th></tr></thead>
-                <tbody>
-                  <tr><td style={{ paddingTop: 4 }}>portfolio-os-state</td><td style={{ paddingTop: 4 }}>{`{"theme":"chrome-dark"}`}</td></tr>
+                <thead><tr><th style={{ borderBottom: '1px solid var(--ds-border)', paddingBottom: 4, color: 'var(--ds-text-primary)' }}>Key</th><th style={{ borderBottom: '1px solid var(--ds-border)', color: 'var(--ds-text-primary)' }}>Value</th></tr></thead>
+                <tbody style={{ color: 'var(--ds-text-secondary)', fontFamily: 'Consolas, monospace' }}>
+                  <tr><td style={{ paddingTop: 8 }}>portfolio-os-state</td><td style={{ paddingTop: 8 }}>{`{"theme":"dark"}`}</td></tr>
                   <tr><td style={{ paddingTop: 4 }}>zustand-store</td><td style={{ paddingTop: 4 }}>[Object object]</td></tr>
                 </tbody>
               </table>
@@ -137,10 +153,10 @@ export default function BrowserDevTools({ onClose }) {
           </div>
         )}
         {!['Elements', 'Console', 'Network', 'Application'].includes(activeTab) && (
-          <div className="devtools-panel empty-panel" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-            <DeveloperBoardRegular fontSize={48} color="var(--chrome-text-secondary)" />
-            <p style={{ color: 'var(--chrome-text-secondary)' }}>{activeTab} panel is not fully mocked.</p>
-          </div>
+          <EmptyLayout style={{ flexDirection: 'column', gap: 'var(--ds-space-md)' }}>
+            <DeveloperBoardRegular fontSize={48} color="var(--ds-text-secondary)" />
+            <p style={{ color: 'var(--ds-text-secondary)' }}>{activeTab} panel is not fully mocked.</p>
+          </EmptyLayout>
         )}
       </div>
     </div>

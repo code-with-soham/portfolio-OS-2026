@@ -1,0 +1,131 @@
+.ds-app-shell {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--ds-bg-primary);
+  color: var(--ds-text-primary);
+  flex-direction: column;
+}
+
+.ds-app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.ds-sidebar {
+  width: 250px;
+  background: var(--ds-panel);
+  border-right: 1px solid var(--ds-border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.ds-topbar {
+  height: 56px;
+  background: var(--ds-panel);
+  border-bottom: 1px solid var(--ds-border);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--ds-space-xl);
+  flex-shrink: 0;
+}
+
+.ds-statusbar {
+  height: 32px;
+  background: var(--ds-panel);
+  border-top: 1px solid var(--ds-border);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--ds-space-lg);
+  font-size: var(--ds-text-xs);
+  color: var(--ds-text-secondary);
+  flex-shrink: 0;
+}
+
+.ds-content-area {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Grids */
+.ds-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--ds-space-xl);
+  padding: var(--ds-space-xl);
+}
+
+.ds-responsive-grid {
+  display: grid;
+  gap: var(--ds-space-xl);
+}
+@media (min-width: 768px) {
+  .ds-responsive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .ds-responsive-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1280px) {
+  .ds-responsive-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Split View */
+.ds-split-view {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+.ds-split-view-pane {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+.ds-split-view-pane:not(:last-child) {
+  border-right: 1px solid var(--ds-border);
+}
+
+/* Inspector Panel */
+.ds-inspector-panel {
+  width: 320px;
+  background: var(--ds-surface);
+  border-left: 1px solid var(--ds-border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+/* Empty Layout */
+.ds-empty-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* Menu Dropdown */
+.ds-menu-item {
+  padding: var(--ds-space-sm) var(--ds-space-lg);
+  font-size: var(--ds-text-sm);
+  color: var(--ds-text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-md);
+  transition: background-color var(--ds-duration-fast) ease;
+}
+
+.ds-menu-item:hover {
+  background-color: var(--ds-surface);
+}

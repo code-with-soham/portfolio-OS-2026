@@ -567,6 +567,19 @@
     ],
     "usedBy": []
   },
+  "animations/Timing.js": {
+    "name": "Timing",
+    "category": "other",
+    "lines": 20,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "Timing"
+    ],
+    "usedBy": []
+  },
   "animations/TooltipMotion.js": {
     "name": "TooltipMotion",
     "category": "other",
@@ -585,7 +598,7 @@
   "animations/WindowMotion.js": {
     "name": "WindowMotion",
     "category": "other",
-    "lines": 35,
+    "lines": 43,
     "functions": 0,
     "hooks": [],
     "hooksCount": 0,
@@ -1257,14 +1270,15 @@
   "apps/BrowserApp/components/BrowserBookmarksBar.jsx": {
     "name": "BrowserBookmarksBar",
     "category": "app",
-    "lines": 23,
+    "lines": 38,
     "functions": 1,
     "hooks": [
       "useBrowserStore"
     ],
     "hooksCount": 1,
     "imports": [
-      "../../../store/useBrowserStore"
+      "../../../store/useBrowserStore",
+      "../../../components/ui/BookmarkBar"
     ],
     "exports": [
       "BrowserBookmarksBar"
@@ -1276,7 +1290,7 @@
   "apps/BrowserApp/components/BrowserContent.jsx": {
     "name": "BrowserContent",
     "category": "app",
-    "lines": 125,
+    "lines": 127,
     "functions": 1,
     "hooks": [
       "useRef",
@@ -1286,6 +1300,7 @@
     "hooksCount": 3,
     "imports": [
       "../../../store/useBrowserStore",
+      "../../../components/ui/Layout",
       "./BrowserNewTab",
       "../../ResumeApp",
       "../../ProjectsApp",
@@ -1302,11 +1317,13 @@
   "apps/BrowserApp/components/BrowserDeploymentDashboard.jsx": {
     "name": "BrowserDeploymentDashboard",
     "category": "app",
-    "lines": 78,
-    "functions": 1,
+    "lines": 64,
+    "functions": 2,
     "hooks": [],
     "hooksCount": 0,
-    "imports": [],
+    "imports": [
+      "../../../components/ui/Card"
+    ],
     "exports": [
       "BrowserDeploymentDashboard"
     ],
@@ -1315,8 +1332,8 @@
   "apps/BrowserApp/components/BrowserDevTools.jsx": {
     "name": "BrowserDevTools",
     "category": "app",
-    "lines": 149,
-    "functions": 3,
+    "lines": 165,
+    "functions": 5,
     "hooks": [
       "useState",
       "useRef",
@@ -1325,7 +1342,9 @@
     ],
     "hooksCount": 4,
     "imports": [
-      "../../../store/useBrowserStore"
+      "../../../store/useBrowserStore",
+      "../../../components/ui/Button",
+      "../../../components/ui/Layout"
     ],
     "exports": [
       "BrowserDevTools"
@@ -1337,7 +1356,7 @@
   "apps/BrowserApp/components/BrowserDownloads.jsx": {
     "name": "BrowserDownloads",
     "category": "app",
-    "lines": 62,
+    "lines": 65,
     "functions": 3,
     "hooks": [
       "useState",
@@ -1345,7 +1364,10 @@
     ],
     "hooksCount": 2,
     "imports": [
-      "../../../store/useBrowserStore"
+      "../../../store/useBrowserStore",
+      "../../../components/ui/Input",
+      "../../../components/ui/Button",
+      "../../../components/ui/Layout"
     ],
     "exports": [
       "BrowserDownloads"
@@ -1355,7 +1377,7 @@
   "apps/BrowserApp/components/BrowserHistory.jsx": {
     "name": "BrowserHistory",
     "category": "app",
-    "lines": 85,
+    "lines": 104,
     "functions": 3,
     "hooks": [
       "useState",
@@ -1364,7 +1386,9 @@
     "hooksCount": 2,
     "imports": [
       "../../../store/useBrowserStore",
-      "../BrowserHistory.css"
+      "../../../components/ui/Layout",
+      "../../../components/ui/Input",
+      "../../../components/ui/Button"
     ],
     "exports": [
       "BrowserHistory"
@@ -1374,14 +1398,19 @@
   "apps/BrowserApp/components/BrowserNewTab.jsx": {
     "name": "BrowserNewTab",
     "category": "app",
-    "lines": 78,
-    "functions": 3,
+    "lines": 136,
+    "functions": 4,
     "hooks": [
-      "useBrowserStore"
+      "useState",
+      "useBrowserStore",
+      "useGitHubStore"
     ],
-    "hooksCount": 1,
+    "hooksCount": 3,
     "imports": [
-      "../../../store/useBrowserStore"
+      "../../../store/useBrowserStore",
+      "../../../store/useGitHubStore",
+      "../../../components/ui/Input",
+      "../../../components/ui/Button"
     ],
     "exports": [
       "BrowserNewTab"
@@ -1393,11 +1422,16 @@
   "apps/BrowserApp/components/BrowserSettings.jsx": {
     "name": "BrowserSettings",
     "category": "app",
-    "lines": 56,
-    "functions": 1,
+    "lines": 77,
+    "functions": 2,
     "hooks": [],
     "hooksCount": 0,
-    "imports": [],
+    "imports": [
+      "../../../components/ui/Layout",
+      "../../../components/ui/Card",
+      "../../../components/ui/Toggle",
+      "../../../components/ui/Select"
+    ],
     "exports": [
       "BrowserSettings"
     ],
@@ -1406,14 +1440,16 @@
   "apps/BrowserApp/components/BrowserTabs.jsx": {
     "name": "BrowserTabs",
     "category": "app",
-    "lines": 101,
-    "functions": 6,
+    "lines": 75,
+    "functions": 7,
     "hooks": [
       "useBrowserStore"
     ],
     "hooksCount": 1,
     "imports": [
-      "../../../store/useBrowserStore"
+      "../../../store/useBrowserStore",
+      "../../../components/ui/TabBar",
+      "../../../components/ui/Toolbar"
     ],
     "exports": [
       "BrowserTabs"
@@ -1425,8 +1461,8 @@
   "apps/BrowserApp/components/BrowserToolbar.jsx": {
     "name": "BrowserToolbar",
     "category": "app",
-    "lines": 167,
-    "functions": 8,
+    "lines": 147,
+    "functions": 13,
     "hooks": [
       "useState",
       "useEffect",
@@ -1439,7 +1475,10 @@
     "imports": [
       "../../../store/useBrowserStore",
       "../../../store/useProfileStore",
-      "../../../store/useGitHubStore"
+      "../../../store/useGitHubStore",
+      "../../../components/ui/Avatar",
+      "../../../components/ui/Toolbar",
+      "../../../components/ui/AddressBar"
     ],
     "exports": [
       "BrowserToolbar"
@@ -1451,7 +1490,7 @@
   "apps/BrowserApp/index.jsx": {
     "name": "index",
     "category": "app",
-    "lines": 90,
+    "lines": 124,
     "functions": 3,
     "hooks": [
       "useEffect",
@@ -1461,14 +1500,16 @@
     ],
     "hooksCount": 4,
     "imports": [
-      "./BrowserApp.css",
       "./components/BrowserTabs",
       "./components/BrowserToolbar",
       "./components/BrowserBookmarksBar",
       "./components/BrowserContent",
       "./components/BrowserDevTools",
       "../../store/useBrowserStore",
-      "../../store/useWindowStore"
+      "../../store/useWindowStore",
+      "../../components/ui/Layout",
+      "../../components/ui/Badge",
+      "../../components/ui/ProgressBar"
     ],
     "exports": [
       "BrowserApp"
@@ -4561,6 +4602,25 @@
       "Desktop"
     ]
   },
+  "components/ui/AddressBar.jsx": {
+    "name": "AddressBar",
+    "category": "component",
+    "lines": 129,
+    "functions": 5,
+    "hooks": [
+      "useState",
+      "useRef",
+      "useEffect"
+    ],
+    "hooksCount": 3,
+    "imports": [],
+    "exports": [
+      "AddressBar"
+    ],
+    "usedBy": [
+      "BrowserToolbar"
+    ]
+  },
   "components/ui/Avatar/index.jsx": {
     "name": "index",
     "category": "component",
@@ -4576,7 +4636,9 @@
     "exports": [
       "Avatar"
     ],
-    "usedBy": []
+    "usedBy": [
+      "BrowserToolbar"
+    ]
   },
   "components/ui/Badge/index.jsx": {
     "name": "index",
@@ -4591,7 +4653,25 @@
     "exports": [
       "Badge"
     ],
-    "usedBy": []
+    "usedBy": [
+      "index"
+    ]
+  },
+  "components/ui/BookmarkBar.jsx": {
+    "name": "BookmarkBar",
+    "category": "component",
+    "lines": 52,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "BookmarkBar",
+      "BookmarkItem"
+    ],
+    "usedBy": [
+      "BrowserBookmarksBar"
+    ]
   },
   "components/ui/Button/index.jsx": {
     "name": "index",
@@ -4607,7 +4687,12 @@
     "exports": [
       "Button"
     ],
-    "usedBy": []
+    "usedBy": [
+      "BrowserDevTools",
+      "BrowserDownloads",
+      "BrowserHistory",
+      "BrowserNewTab"
+    ]
   },
   "components/ui/Card/index.jsx": {
     "name": "index",
@@ -4627,8 +4712,28 @@
       "CardFooter"
     ],
     "usedBy": [
+      "BrowserDeploymentDashboard",
+      "BrowserSettings",
       "index"
     ]
+  },
+  "components/ui/ContextMenu.jsx": {
+    "name": "ContextMenu",
+    "category": "component",
+    "lines": 98,
+    "functions": 9,
+    "hooks": [
+      "useEffect",
+      "useRef"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "ContextMenu",
+      "ContextMenuItem",
+      "ContextMenuDivider"
+    ],
+    "usedBy": []
   },
   "components/ui/Drawer/index.jsx": {
     "name": "index",
@@ -4705,7 +4810,44 @@
     "exports": [
       "Input"
     ],
-    "usedBy": []
+    "usedBy": [
+      "BrowserDownloads",
+      "BrowserHistory",
+      "BrowserNewTab"
+    ]
+  },
+  "components/ui/Layout/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 61,
+    "functions": 10,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./Layout.css"
+    ],
+    "exports": [
+      "AppShell",
+      "AppBody",
+      "Sidebar",
+      "TopBar",
+      "StatusBar",
+      "ContentArea",
+      "CardGrid",
+      "ResponsiveGrid",
+      "SplitView",
+      "SplitPane",
+      "InspectorPanel",
+      "EmptyLayout"
+    ],
+    "usedBy": [
+      "BrowserContent",
+      "BrowserDevTools",
+      "BrowserDownloads",
+      "BrowserHistory",
+      "BrowserSettings",
+      "index"
+    ]
   },
   "components/ui/LoadingSpinner/index.jsx": {
     "name": "index",
@@ -4772,6 +4914,24 @@
     ],
     "usedBy": []
   },
+  "components/ui/ProgressBar.jsx": {
+    "name": "ProgressBar",
+    "category": "component",
+    "lines": 50,
+    "functions": 5,
+    "hooks": [
+      "useEffect",
+      "useState"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "ProgressBar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
   "components/ui/Section/index.jsx": {
     "name": "index",
     "category": "component",
@@ -4800,7 +4960,9 @@
     "exports": [
       "Select"
     ],
-    "usedBy": []
+    "usedBy": [
+      "BrowserSettings"
+    ]
   },
   "components/ui/Skeleton/index.jsx": {
     "name": "index",
@@ -4832,6 +4994,22 @@
       "StatCard"
     ],
     "usedBy": []
+  },
+  "components/ui/TabBar.jsx": {
+    "name": "TabBar",
+    "category": "component",
+    "lines": 94,
+    "functions": 5,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "TabBar",
+      "TabItem"
+    ],
+    "usedBy": [
+      "BrowserTabs"
+    ]
   },
   "components/ui/Tabs/index.jsx": {
     "name": "index",
@@ -4881,7 +5059,26 @@
     "exports": [
       "Toggle"
     ],
-    "usedBy": []
+    "usedBy": [
+      "BrowserSettings"
+    ]
+  },
+  "components/ui/Toolbar.jsx": {
+    "name": "Toolbar",
+    "category": "component",
+    "lines": 52,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "Toolbar",
+      "ToolbarButton"
+    ],
+    "usedBy": [
+      "BrowserTabs",
+      "BrowserToolbar"
+    ]
   },
   "components/ui/Tooltip/index.jsx": {
     "name": "index",
@@ -6301,6 +6498,7 @@
       "useGitHubStore"
     ],
     "usedBy": [
+      "BrowserNewTab",
       "BrowserToolbar",
       "index",
       "GitHubWidget",

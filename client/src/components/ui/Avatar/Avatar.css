@@ -24,6 +24,12 @@
 }
 
 /* Sizes */
+.ds-avatar-xs {
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+}
+
 .ds-avatar-sm {
   width: 24px;
   height: 24px;

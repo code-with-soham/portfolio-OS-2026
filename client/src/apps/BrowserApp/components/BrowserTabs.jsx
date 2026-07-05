@@ -1,13 +1,15 @@
 import React from 'react';
-import { AddRegular, DismissRegular } from '@fluentui/react-icons';
+import { AddRegular } from '@fluentui/react-icons';
 import { useBrowserStore } from '../../../store/useBrowserStore';
+import { TabBar, TabItem } from '../../../components/ui/TabBar';
+import { ToolbarButton } from '../../../components/ui/Toolbar';
 
 export default function BrowserTabs({ dragControls, onClose, onMinimize, onMaximize, isMaximized }) {
   const { tabs, activeTabId, setActiveTab, closeTab, addTab } = useBrowserStore();
 
   const handlePointerDown = (e) => {
     // Only start dragging if not clicking a tab or button
-    if (e.target.closest('.chrome-tab') || e.target.closest('.chrome-new-tab-btn') || e.target.closest('.window-controls')) {
+    if (e.target.closest('.browser-tab') || e.target.closest('button') || e.target.closest('.tab-close-btn')) {
       return;
     }
     if (dragControls && !isMaximized) {
@@ -16,67 +18,35 @@ export default function BrowserTabs({ dragControls, onClose, onMinimize, onMaxim
   };
 
   return (
-    <div 
-      className="chrome-tabs-container"
-      onPointerDown={handlePointerDown}
-      onDoubleClick={() => onMaximize && onMaximize()}
-      style={{ cursor: isMaximized ? 'default' : 'grab', userSelect: 'none', touchAction: 'none' }}
-    >
+    <TabBar onPointerDown={handlePointerDown} onDoubleClick={() => onMaximize && onMaximize()}>
       {tabs.map(tab => (
-        <div 
-          key={tab.id}
-          className={`chrome-tab ${tab.id === activeTabId ? 'active' : ''}`}
-          onClick={() => setActiveTab(tab.id)}
-        >
-          <div className="chrome-tab-background">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <symbol id="chrome-tab-geometry-left" viewBox="0 0 214 36">
-                  <path d="M17 0h197v36H0v-2c4.5 0 9-3.5 9-8V8c0-4.5 3.5-8 8-8z"/>
-                </symbol>
-                <symbol id="chrome-tab-geometry-right" viewBox="0 0 214 36">
-                  <use xlinkHref="#chrome-tab-geometry-left"/>
-                </symbol>
-                <clipPath id="crop">
-                  <rect className="mask" width="100%" height="100%" x="0"/>
-                </clipPath>
-              </defs>
-              <svg width="52%" height="100%">
-                <use xlinkHref="#chrome-tab-geometry-left" width="214" height="36" className="chrome-tab-geometry"/>
-              </svg>
-              <g transform="scale(-1, 1)">
-                <svg width="52%" height="100%" x="-100%" y="0">
-                  <use xlinkHref="#chrome-tab-geometry-right" width="214" height="36" className="chrome-tab-geometry"/>
-                </svg>
-              </g>
-            </svg>
-          </div>
-          <div className="chrome-tab-content">
-            <div className="chrome-tab-icon">{tab.icon}</div>
-            <div className="chrome-tab-title">{tab.title}</div>
-            <div 
-              className="chrome-tab-close"
-              onClick={(e) => {
-                e.stopPropagation();
-                closeTab(tab.id);
-              }}
-            >
-              <DismissRegular fontSize={12} />
-            </div>
-          </div>
+        <div key={tab.id} className="browser-tab">
+          <TabItem 
+            active={tab.id === activeTabId}
+            icon={tab.icon}
+            title={tab.title}
+            onClick={() => setActiveTab(tab.id)}
+            onClose={() => closeTab(tab.id)}
+          />
         </div>
       ))}
-      <div className="chrome-new-tab-btn" onClick={() => addTab()}>
-        <AddRegular fontSize={16} />
+      
+      <div style={{ marginLeft: '4px', marginBottom: '2px' }}>
+        <ToolbarButton 
+          icon={<AddRegular fontSize={16} />} 
+          onClick={() => addTab()} 
+          title="New Tab"
+        />
       </div>
 
       <div style={{ flex: 1 }} />
 
-      <div className="window-controls chrome-window-controls">
+      <div style={{ display: 'flex', height: '100%', alignSelf: 'flex-start', marginTop: '-4px', marginRight: '-8px' }}>
         <button
           onPointerDown={(e) => { e.stopPropagation(); onMinimize && onMinimize(e); }}
           className="window-control-btn"
           title="Minimize"
+          style={{ width: '46px', height: '32px', background: 'transparent', border: 'none', color: 'var(--ds-text-primary)' }}
         >
           ─
         </button>
@@ -84,6 +54,7 @@ export default function BrowserTabs({ dragControls, onClose, onMinimize, onMaxim
           onPointerDown={(e) => { e.stopPropagation(); onMaximize && onMaximize(e); }}
           className="window-control-btn"
           title="Maximize"
+          style={{ width: '46px', height: '32px', background: 'transparent', border: 'none', color: 'var(--ds-text-primary)' }}
         >
           {isMaximized ? '❐' : '□'}
         </button>
@@ -91,10 +62,13 @@ export default function BrowserTabs({ dragControls, onClose, onMinimize, onMaxim
           onPointerDown={(e) => { e.stopPropagation(); onClose && onClose(e); }}
           className="window-control-btn close"
           title="Close"
+          style={{ width: '46px', height: '32px', background: 'transparent', border: 'none', color: 'var(--ds-text-primary)' }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = '#e81123'; e.currentTarget.style.color = '#fff'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--ds-text-primary)'; }}
         >
           ✕
         </button>
       </div>
-    </div>
+    </TabBar>
   );
 }

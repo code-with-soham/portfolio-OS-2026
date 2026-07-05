@@ -36,3 +36,8 @@ coverage/
 
 # Windows-11-UI
 docs/Windows-11-UI-Architecture.pdf 
+browser_audit_report.md
+
+# Database
+.db
+

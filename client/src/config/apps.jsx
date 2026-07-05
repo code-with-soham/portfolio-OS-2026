@@ -231,7 +231,7 @@ export const APPS = {
     title: 'Web Browser',
     icon: browserIco,
     component: withErrorBoundary(BrowserApp, 'Web Browser'),
-    defaultWidth: 900,
+    defaultWidth: 1050,
     defaultHeight: 650,
     category: 'Internet',
     version: '1.0.0',
