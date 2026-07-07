@@ -1,0 +1,31 @@
+[
+  {
+    "id": "defaultEngine",
+    "title": "Default search engine",
+    "description": "Search engine used in the address bar.",
+    "type": "select",
+    "section": "Search Engine",
+    "group": "Search",
+    "options": [
+      { "label": "Google", "value": "google" },
+      { "label": "Portfolio AI", "value": "portfolio" },
+      { "label": "Bing", "value": "bing" },
+      { "label": "DuckDuckGo", "value": "duckduckgo" }
+    ],
+    "default": "portfolio",
+    "icon": "SearchRegular",
+    "searchKeywords": ["search", "engine", "google", "bing", "default"]
+  },
+  {
+    "id": "aiSearch",
+    "title": "Enable AI Search Summaries",
+    "description": "Use Portfolio AI to summarize search results directly in the browser.",
+    "type": "toggle",
+    "section": "Search Engine",
+    "group": "AI Features",
+    "default": true,
+    "icon": "SparkleRegular",
+    "enterprise": true,
+    "searchKeywords": ["ai", "summary", "gpt", "intelligent"]
+  }
+]

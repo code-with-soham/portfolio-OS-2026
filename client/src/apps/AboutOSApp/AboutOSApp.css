@@ -1,109 +1,229 @@
 /* ============================================
-   Portfolio OS 2026 — About OS Styles
+   Portfolio OS 2026 — About OS Styles v3.0
    ============================================ */
 
 .about-os-app {
   width: 100%;
   height: 100%;
-  background: var(--color-bg-base);
+  background: var(--os-bg-primary, #1e1e1e);
+  color: var(--os-text-primary, #ffffff);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
 }
 
-.about-os-banner {
+/* Scrollbar styling for smooth scrolling */
+.about-os-app::-webkit-scrollbar {
+  width: 8px;
+}
+.about-os-app::-webkit-scrollbar-thumb {
+  background: var(--os-border, #333333);
+  border-radius: 4px;
+}
+
+.about-os-hero {
+  padding: 40px 32px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border-bottom: 1px solid var(--os-border, rgba(255,255,255,0.1));
+}
+
+.about-os-logo-container {
+  width: 80px;
   height: 80px;
-  background: var(--color-accent);
+  background: linear-gradient(135deg, #0078D4, #00B4F0);
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  box-shadow: 0 8px 16px rgba(0, 120, 212, 0.2);
 }
 
-.about-os-logo {
-  font-family: 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 300;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.about-os-icon {
+.about-os-title h1 {
   font-size: 2rem;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.5px;
 }
 
-.about-os-content {
-  flex: 1;
-  padding: 24px 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  overflow-y: auto;
+.about-os-title p {
+  margin: 0;
+  color: var(--os-text-secondary, #cccccc);
+  font-size: 0.9rem;
 }
 
-.about-os-header h2 {
-  font-size: 1.25rem;
-  font-weight: 400;
-  color: var(--color-text-primary);
-  margin-bottom: 4px;
-}
-
-.about-os-header p {
-  font-size: 0.8125rem;
-  color: var(--color-text-secondary);
-}
-
-.about-os-divider {
-  height: 1px;
-  background: var(--color-border);
-  width: 100%;
-}
-
-.about-os-details {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 8px 16px;
-  font-size: 0.8125rem;
-}
-
-.about-os-details dt {
-  color: var(--color-text-tertiary);
+.about-os-title .release-channel {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 2px 8px;
+  background: rgba(46, 204, 113, 0.1);
+  color: #2ECC71;
+  border: 1px solid rgba(46, 204, 113, 0.2);
+  border-radius: 4px;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 
-.about-os-details dd {
-  color: var(--color-text-primary);
-  margin: 0;
-}
-
-.about-os-legal {
-  font-size: 0.75rem;
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-  margin-top: 8px;
-}
-
-.about-os-footer {
-  padding: 16px 32px;
-  background: var(--color-bg-surface);
-  border-top: 1px solid var(--color-border);
+/* Sections */
+.about-os-content {
+  padding: 32px;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  gap: 32px;
 }
 
-.about-os-button {
-  padding: 6px 32px;
-  background: var(--color-accent);
-  color: white;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: all var(--transition-fast);
+.os-section-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--os-text-secondary, #cccccc);
+  margin: 0 0 16px 0;
+  font-weight: 600;
 }
 
-.about-os-button:hover {
-  filter: brightness(1.1);
+/* Acrylic Cards */
+.os-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.os-card {
+  background: rgba(37, 37, 38, 0.6);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--os-border, rgba(255,255,255,0.08));
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.os-card:hover {
+  background: rgba(45, 45, 46, 0.8);
+  border-color: rgba(255,255,255,0.15);
+}
+
+.os-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--os-text-secondary, #cccccc);
+  font-size: 0.9rem;
+}
+
+.os-card-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--os-text-primary, #ffffff);
+}
+
+.os-card-subtext {
+  font-size: 0.8rem;
+  color: var(--color-accent, #0078D4);
+}
+
+/* Badges for Tech Stack */
+.os-badge-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.os-tech-badge {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: default;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.os-tech-badge:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Status dots */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.status-dot.online {
+  background: #2ECC71;
+  box-shadow: 0 0 8px rgba(46, 204, 113, 0.6);
+}
+
+/* Profile Card */
+.os-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(37, 37, 38, 0.6);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--os-border, rgba(255,255,255,0.08));
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.os-profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-accent, #0078D4);
+}
+
+.os-profile-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.os-profile-info p {
+  margin: 0 0 12px 0;
+  color: var(--os-text-secondary, #cccccc);
+  font-size: 0.9rem;
+}
+
+.os-profile-links {
+  display: flex;
+  gap: 16px;
+}
+
+.os-profile-link {
+  color: var(--color-accent, #0078D4);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+
+.os-profile-link:hover {
+  color: #3399FF;
+  text-decoration: underline;
+}
+
+/* Footer */
+.about-os-footer {
+  margin-top: auto;
+  padding: 24px 32px;
+  text-align: center;
+  color: var(--os-text-secondary, #cccccc);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--os-border, rgba(255,255,255,0.1));
 }

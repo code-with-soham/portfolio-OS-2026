@@ -241,6 +241,12 @@ export const DESKTOP_APPS = [
     description: 'Web Browser',
   },
   {
+    id: 'weather',
+    label: 'Weather',
+    icon: '🌤️',
+    description: 'Weather Pro',
+  },
+  {
     id: 'mail',
     label: 'Mail',
     icon: mailIco,

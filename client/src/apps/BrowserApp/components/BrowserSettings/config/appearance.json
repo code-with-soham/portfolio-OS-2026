@@ -1,0 +1,52 @@
+[
+  {
+    "id": "theme",
+    "title": "Theme",
+    "description": "Select the browser's visual theme.",
+    "type": "select",
+    "section": "Appearance",
+    "group": "General",
+    "options": [
+      { "label": "Light", "value": "light" },
+      { "label": "Dark", "value": "dark" },
+      { "label": "System Auto", "value": "auto" }
+    ],
+    "default": "dark",
+    "icon": "WeatherMoonRegular",
+    "searchKeywords": ["theme", "dark", "light", "color", "appearance"]
+  },
+  {
+    "id": "showBookmarks",
+    "title": "Show bookmarks bar",
+    "description": "Always display the bookmarks bar below the address bar.",
+    "type": "toggle",
+    "section": "Appearance",
+    "group": "Toolbars",
+    "default": true,
+    "icon": "StarRegular",
+    "searchKeywords": ["bookmark", "bar", "favorite", "show"]
+  },
+  {
+    "id": "compactMode",
+    "title": "Compact Mode",
+    "description": "Reduce spacing to fit more content on screen.",
+    "type": "toggle",
+    "section": "Appearance",
+    "group": "General",
+    "default": false,
+    "icon": "AppsListRegular",
+    "searchKeywords": ["compact", "dense", "spacing", "size"]
+  },
+  {
+    "id": "roundedTabs",
+    "title": "Rounded Tabs",
+    "description": "Use Arc-style rounded tabs instead of connected tabs.",
+    "type": "toggle",
+    "section": "Appearance",
+    "group": "Tabs",
+    "default": true,
+    "icon": "TabDesktopNewPageRegular",
+    "experimental": true,
+    "searchKeywords": ["tabs", "rounded", "arc", "chrome", "style"]
+  }
+]

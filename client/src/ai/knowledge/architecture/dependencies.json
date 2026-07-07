@@ -641,19 +641,169 @@
       "main"
     ]
   },
+  "apps/AboutApp/components/AboutContent.jsx": {
+    "name": "AboutContent",
+    "category": "app",
+    "lines": 37,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./HeroCard",
+      "./TabOverview",
+      "./TabSkills",
+      "./TabExperience",
+      "./TabContact"
+    ],
+    "exports": [
+      "AboutContent"
+    ],
+    "usedBy": [
+      "AboutShell"
+    ]
+  },
+  "apps/AboutApp/components/AboutShell.jsx": {
+    "name": "AboutShell",
+    "category": "app",
+    "lines": 28,
+    "functions": 1,
+    "hooks": [
+      "useState",
+      "useQuery"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../../services/profileService",
+      "../../../services/timelineService",
+      "../../../services/skillService",
+      "./AboutSidebar",
+      "./AboutContent",
+      "./AboutStatusBar",
+      "../AboutApp.css"
+    ],
+    "exports": [
+      "AboutShell"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/AboutApp/components/AboutSidebar.jsx": {
+    "name": "AboutSidebar",
+    "category": "app",
+    "lines": 57,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "AboutSidebar"
+    ],
+    "usedBy": [
+      "AboutShell"
+    ]
+  },
+  "apps/AboutApp/components/AboutStatusBar.jsx": {
+    "name": "AboutStatusBar",
+    "category": "app",
+    "lines": 19,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "AboutStatusBar"
+    ],
+    "usedBy": [
+      "AboutShell"
+    ]
+  },
+  "apps/AboutApp/components/HeroCard.jsx": {
+    "name": "HeroCard",
+    "category": "app",
+    "lines": 58,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "HeroCard"
+    ],
+    "usedBy": [
+      "AboutContent"
+    ]
+  },
+  "apps/AboutApp/components/TabContact.jsx": {
+    "name": "TabContact",
+    "category": "app",
+    "lines": 68,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "TabContact"
+    ],
+    "usedBy": [
+      "AboutContent"
+    ]
+  },
+  "apps/AboutApp/components/TabExperience.jsx": {
+    "name": "TabExperience",
+    "category": "app",
+    "lines": 58,
+    "functions": 1,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "TabExperience"
+    ],
+    "usedBy": [
+      "AboutContent"
+    ]
+  },
+  "apps/AboutApp/components/TabOverview.jsx": {
+    "name": "TabOverview",
+    "category": "app",
+    "lines": 98,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "TabOverview"
+    ],
+    "usedBy": [
+      "AboutContent"
+    ]
+  },
+  "apps/AboutApp/components/TabSkills.jsx": {
+    "name": "TabSkills",
+    "category": "app",
+    "lines": 28,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "TabSkills"
+    ],
+    "usedBy": [
+      "AboutContent"
+    ]
+  },
   "apps/AboutApp/index.jsx": {
     "name": "index",
     "category": "app",
-    "lines": 171,
+    "lines": 11,
     "functions": 1,
-    "hooks": [
-      "useQuery"
-    ],
-    "hooksCount": 1,
+    "hooks": [],
+    "hooksCount": 0,
     "imports": [
-      "../../services/profileService",
-      "../../services/timelineService",
-      "../../components/app/AppShell",
+      "./components/AboutShell",
       "./AboutApp.css"
     ],
     "exports": [
@@ -1270,7 +1420,7 @@
   "apps/BrowserApp/components/BrowserBookmarksBar.jsx": {
     "name": "BrowserBookmarksBar",
     "category": "app",
-    "lines": 38,
+    "lines": 43,
     "functions": 1,
     "hooks": [
       "useBrowserStore"
@@ -1421,18 +1571,40 @@
       "BrowserContent"
     ]
   },
-  "apps/BrowserApp/components/BrowserSettings.jsx": {
-    "name": "BrowserSettings",
+  "apps/BrowserApp/components/BrowserSettings/config/index.js": {
+    "name": "index",
     "category": "app",
-    "lines": 77,
-    "functions": 2,
+    "lines": 9,
+    "functions": 0,
     "hooks": [],
     "hooksCount": 0,
     "imports": [
-      "../../../components/ui/Layout",
-      "../../../components/ui/Card",
-      "../../../components/ui/Toggle",
-      "../../../components/ui/Select"
+      "./appearance.json",
+      "./search.json"
+    ],
+    "exports": [
+      "browserSettingsJSON"
+    ],
+    "usedBy": [
+      "BrowserSettings"
+    ]
+  },
+  "apps/BrowserApp/components/BrowserSettings.jsx": {
+    "name": "BrowserSettings",
+    "category": "app",
+    "lines": 48,
+    "functions": 2,
+    "hooks": [
+      "useEffect",
+      "useState",
+      "useBrowserStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../../components/settings/SettingsEngine",
+      "../../../components/settings/SettingsEngine/utils/registry",
+      "./BrowserSettings/config",
+      "../../../store/useBrowserStore"
     ],
     "exports": [
       "BrowserSettings"
@@ -1603,11 +1775,82 @@
     ],
     "usedBy": []
   },
-  "apps/FileExplorerApp/index.jsx": {
-    "name": "index",
+  "apps/FileExplorerApp/components/ExplorerBreadcrumb.jsx": {
+    "name": "ExplorerBreadcrumb",
     "category": "app",
-    "lines": 363,
-    "functions": 19,
+    "lines": 31,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "ExplorerBreadcrumb"
+    ],
+    "usedBy": [
+      "ExplorerToolbar"
+    ]
+  },
+  "apps/FileExplorerApp/components/ExplorerContent.jsx": {
+    "name": "ExplorerContent",
+    "category": "app",
+    "lines": 86,
+    "functions": 1,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "./ExplorerGrid",
+      "./ExplorerList",
+      "./PreviewPane"
+    ],
+    "exports": [
+      "ExplorerContent"
+    ],
+    "usedBy": [
+      "ExplorerShell"
+    ]
+  },
+  "apps/FileExplorerApp/components/ExplorerGrid.jsx": {
+    "name": "ExplorerGrid",
+    "category": "app",
+    "lines": 85,
+    "functions": 5,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./FileIcon"
+    ],
+    "exports": [
+      "ExplorerGrid"
+    ],
+    "usedBy": [
+      "ExplorerContent"
+    ]
+  },
+  "apps/FileExplorerApp/components/ExplorerList.jsx": {
+    "name": "ExplorerList",
+    "category": "app",
+    "lines": 62,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./FileIcon"
+    ],
+    "exports": [
+      "ExplorerList"
+    ],
+    "usedBy": [
+      "ExplorerContent"
+    ]
+  },
+  "apps/FileExplorerApp/components/ExplorerShell.jsx": {
+    "name": "ExplorerShell",
+    "category": "app",
+    "lines": 143,
+    "functions": 9,
     "hooks": [
       "useState",
       "useCallback",
@@ -1617,13 +1860,116 @@
     ],
     "hooksCount": 5,
     "imports": [
-      "../../store/useFileSystemStore",
-      "../../store/useWindowStore",
-      "./PropertiesModal",
-      "./FileExplorerApp.css",
-      "../../assets/icons/system/driver-c.ico",
-      "../../assets/icons/system/driver-d.ico",
-      "../../assets/icons/system/Folder Open.ico"
+      "./ExplorerSidebar",
+      "./ExplorerToolbar",
+      "./ExplorerContent",
+      "./StatusBar",
+      "../../../store/useFileSystemStore",
+      "../../../store/useWindowStore",
+      "../FileExplorerApp.css"
+    ],
+    "exports": [
+      "ExplorerShell"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/FileExplorerApp/components/ExplorerSidebar.jsx": {
+    "name": "ExplorerSidebar",
+    "category": "app",
+    "lines": 102,
+    "functions": 3,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "ExplorerSidebar"
+    ],
+    "usedBy": [
+      "ExplorerShell"
+    ]
+  },
+  "apps/FileExplorerApp/components/ExplorerToolbar.jsx": {
+    "name": "ExplorerToolbar",
+    "category": "app",
+    "lines": 101,
+    "functions": 2,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./ExplorerBreadcrumb"
+    ],
+    "exports": [
+      "ExplorerToolbar"
+    ],
+    "usedBy": [
+      "ExplorerShell"
+    ]
+  },
+  "apps/FileExplorerApp/components/FileIcon.jsx": {
+    "name": "FileIcon",
+    "category": "app",
+    "lines": 32,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "FileIcon"
+    ],
+    "usedBy": [
+      "ExplorerGrid",
+      "ExplorerList",
+      "PreviewPane"
+    ]
+  },
+  "apps/FileExplorerApp/components/PreviewPane.jsx": {
+    "name": "PreviewPane",
+    "category": "app",
+    "lines": 62,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./FileIcon"
+    ],
+    "exports": [
+      "PreviewPane"
+    ],
+    "usedBy": [
+      "ExplorerContent"
+    ]
+  },
+  "apps/FileExplorerApp/components/StatusBar.jsx": {
+    "name": "StatusBar",
+    "category": "app",
+    "lines": 26,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "StatusBar"
+    ],
+    "usedBy": [
+      "ExplorerShell"
+    ]
+  },
+  "apps/FileExplorerApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 13,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./components/ExplorerShell",
+      "./FileExplorerApp.css"
     ],
     "exports": [
       "FileExplorerApp"
@@ -1646,9 +1992,7 @@
     "exports": [
       "PropertiesModal"
     ],
-    "usedBy": [
-      "index"
-    ]
+    "usedBy": []
   },
   "apps/MailApp/ComposeModal.jsx": {
     "name": "ComposeModal",
@@ -3733,11 +4077,98 @@
     ],
     "usedBy": []
   },
+  "apps/WeatherApp/components/AIWeatherInsight.jsx": {
+    "name": "AIWeatherInsight",
+    "category": "app",
+    "lines": 47,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../../components/ui/GlassPanel"
+    ],
+    "exports": [
+      "AIWeatherInsight"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/WeatherApp/components/AmbientBackground.jsx": {
+    "name": "AmbientBackground",
+    "category": "app",
+    "lines": 150,
+    "functions": 6,
+    "hooks": [
+      "useMemo"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./AmbientBackground.css"
+    ],
+    "exports": [
+      "AmbientBackground"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/WeatherApp/components/HourlyForecastChart.jsx": {
+    "name": "HourlyForecastChart",
+    "category": "app",
+    "lines": 74,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../../components/ui/GlassPanel"
+    ],
+    "exports": [
+      "HourlyForecastChart"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/WeatherApp/components/TenDayForecast.jsx": {
+    "name": "TenDayForecast",
+    "category": "app",
+    "lines": 90,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../../components/ui/GlassPanel"
+    ],
+    "exports": [
+      "TenDayForecast"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/WeatherApp/components/WeatherMetricCard.jsx": {
+    "name": "WeatherMetricCard",
+    "category": "app",
+    "lines": 28,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../../components/ui/GlassPanel"
+    ],
+    "exports": [
+      "WeatherMetricCard"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
   "apps/WeatherApp/index.jsx": {
     "name": "index",
     "category": "app",
-    "lines": 196,
-    "functions": 3,
+    "lines": 149,
+    "functions": 2,
     "hooks": [
       "useEffect",
       "useWeatherStore"
@@ -3745,6 +4176,11 @@
     "hooksCount": 2,
     "imports": [
       "../../store/useWeatherStore",
+      "./components/AmbientBackground",
+      "./components/HourlyForecastChart",
+      "./components/TenDayForecast",
+      "./components/AIWeatherInsight",
+      "./components/WeatherMetricCard",
       "./WeatherApp.css"
     ],
     "exports": [
@@ -4221,6 +4657,299 @@
     ],
     "usedBy": [
       "Desktop"
+    ]
+  },
+  "components/settings/SettingsEngine/index.jsx": {
+    "name": "index",
+    "category": "component",
+    "lines": 155,
+    "functions": 4,
+    "hooks": [
+      "useState",
+      "useMemo"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "./utils/registry",
+      "./utils/searchSettings",
+      "./utils/eventBus",
+      "./utils/validation",
+      "./SettingsLayout",
+      "./SettingsCategory",
+      "./SettingsSearchResults",
+      "./SettingsBreadcrumb",
+      "./SettingsToast",
+      "../../ui/Select"
+    ],
+    "exports": [
+      "SettingsEngine"
+    ],
+    "usedBy": [
+      "BrowserSettings"
+    ]
+  },
+  "components/settings/SettingsEngine/SettingsBreadcrumb.jsx": {
+    "name": "SettingsBreadcrumb",
+    "category": "component",
+    "lines": 32,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "SettingsBreadcrumb"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "components/settings/SettingsEngine/SettingsCard.jsx": {
+    "name": "SettingsCard",
+    "category": "component",
+    "lines": 45,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../ui/Card"
+    ],
+    "exports": [
+      "SettingsCard"
+    ],
+    "usedBy": [
+      "SettingsCategory",
+      "SettingsSearchResults"
+    ]
+  },
+  "components/settings/SettingsEngine/SettingsCategory.jsx": {
+    "name": "SettingsCategory",
+    "category": "component",
+    "lines": 55,
+    "functions": 3,
+    "hooks": [
+      "useMemo"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./SettingsSection",
+      "./SettingsCard",
+      "./SettingsRow",
+      "./utils/dependencies"
+    ],
+    "exports": [
+      "SettingsCategory"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "components/settings/SettingsEngine/SettingsControl.jsx": {
+    "name": "SettingsControl",
+    "category": "component",
+    "lines": 148,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../ui/Toggle",
+      "../../ui/Select",
+      "../../ui/Input",
+      "../../ui/Button"
+    ],
+    "exports": [
+      "SettingsControl"
+    ],
+    "usedBy": [
+      "SettingsRow"
+    ]
+  },
+  "components/settings/SettingsEngine/SettingsLayout.jsx": {
+    "name": "SettingsLayout",
+    "category": "component",
+    "lines": 39,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../ui/Layout",
+      "./SettingsSidebar"
+    ],
+    "exports": [
+      "SettingsLayout"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "components/settings/SettingsEngine/SettingsRow.jsx": {
+    "name": "SettingsRow",
+    "category": "component",
+    "lines": 79,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./SettingsControl"
+    ],
+    "exports": [
+      "SettingsRow"
+    ],
+    "usedBy": [
+      "SettingsCategory",
+      "SettingsSearchResults"
+    ]
+  },
+  "components/settings/SettingsEngine/SettingsSearchResults.jsx": {
+    "name": "SettingsSearchResults",
+    "category": "component",
+    "lines": 53,
+    "functions": 3,
+    "hooks": [
+      "useMemo"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./SettingsSection",
+      "./SettingsCard",
+      "./SettingsRow",
+      "../../ui/EmptyState"
+    ],
+    "exports": [
+      "SettingsSearchResults"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "components/settings/SettingsEngine/SettingsSection.jsx": {
+    "name": "SettingsSection",
+    "category": "component",
+    "lines": 27,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "SettingsSection"
+    ],
+    "usedBy": [
+      "SettingsCategory",
+      "SettingsSearchResults"
+    ]
+  },
+  "components/settings/SettingsEngine/SettingsSidebar.jsx": {
+    "name": "SettingsSidebar",
+    "category": "component",
+    "lines": 108,
+    "functions": 5,
+    "hooks": [
+      "useRef",
+      "useEffect"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../ui/SearchField"
+    ],
+    "exports": [
+      "SettingsSidebar"
+    ],
+    "usedBy": [
+      "SettingsLayout"
+    ]
+  },
+  "components/settings/SettingsEngine/SettingsToast.jsx": {
+    "name": "SettingsToast",
+    "category": "component",
+    "lines": 62,
+    "functions": 3,
+    "hooks": [
+      "useEffect"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../ui/Button"
+    ],
+    "exports": [
+      "SettingsToast"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "components/settings/SettingsEngine/utils/dependencies.js": {
+    "name": "dependencies",
+    "category": "component",
+    "lines": 20,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "evaluateDependencies"
+    ],
+    "usedBy": [
+      "SettingsCategory"
+    ]
+  },
+  "components/settings/SettingsEngine/utils/eventBus.js": {
+    "name": "eventBus",
+    "category": "component",
+    "lines": 58,
+    "functions": 3,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "settingsEventBus"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "components/settings/SettingsEngine/utils/registry.js": {
+    "name": "registry",
+    "category": "component",
+    "lines": 58,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "settingsRegistry"
+    ],
+    "usedBy": [
+      "BrowserSettings",
+      "index"
+    ]
+  },
+  "components/settings/SettingsEngine/utils/searchSettings.js": {
+    "name": "searchSettings",
+    "category": "component",
+    "lines": 64,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "scoreSettings"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "components/settings/SettingsEngine/utils/validation.js": {
+    "name": "validation",
+    "category": "component",
+    "lines": 39,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "validateSetting"
+    ],
+    "usedBy": [
+      "index"
     ]
   },
   "components/system/AltTabOverlay.jsx": {
@@ -4737,7 +5466,9 @@
       "BrowserDevTools",
       "BrowserDownloads",
       "BrowserHistory",
-      "BrowserNewTab"
+      "BrowserNewTab",
+      "SettingsControl",
+      "SettingsToast"
     ]
   },
   "components/ui/Card/index.jsx": {
@@ -4759,7 +5490,7 @@
     ],
     "usedBy": [
       "BrowserDeploymentDashboard",
-      "BrowserSettings",
+      "SettingsCard",
       "index"
     ]
   },
@@ -4813,7 +5544,9 @@
     "exports": [
       "EmptyState"
     ],
-    "usedBy": []
+    "usedBy": [
+      "SettingsSearchResults"
+    ]
   },
   "components/ui/GlassPanel/index.jsx": {
     "name": "index",
@@ -4826,7 +5559,12 @@
     "exports": [
       "GlassPanel"
     ],
-    "usedBy": []
+    "usedBy": [
+      "AIWeatherInsight",
+      "HourlyForecastChart",
+      "TenDayForecast",
+      "WeatherMetricCard"
+    ]
   },
   "components/ui/glowing-ai-chat-assistant.jsx": {
     "name": "glowing-ai-chat-assistant",
@@ -4859,7 +5597,8 @@
     "usedBy": [
       "BrowserDownloads",
       "BrowserHistory",
-      "BrowserNewTab"
+      "BrowserNewTab",
+      "SettingsControl"
     ]
   },
   "components/ui/Layout/index.jsx": {
@@ -4891,8 +5630,8 @@
       "BrowserDevTools",
       "BrowserDownloads",
       "BrowserHistory",
-      "BrowserSettings",
-      "index"
+      "index",
+      "SettingsLayout"
     ]
   },
   "components/ui/LoadingSpinner/index.jsx": {
@@ -4994,7 +5733,8 @@
       "SearchField"
     ],
     "usedBy": [
-      "BrowserToolbar"
+      "BrowserToolbar",
+      "SettingsSidebar"
     ]
   },
   "components/ui/Section/index.jsx": {
@@ -5026,7 +5766,8 @@
       "Select"
     ],
     "usedBy": [
-      "BrowserSettings"
+      "index",
+      "SettingsControl"
     ]
   },
   "components/ui/Skeleton/index.jsx": {
@@ -5125,7 +5866,7 @@
       "Toggle"
     ],
     "usedBy": [
-      "BrowserSettings"
+      "SettingsControl"
     ]
   },
   "components/ui/Toolbar.jsx": {
@@ -5256,14 +5997,18 @@
   "components/widgets/WeatherWidget.jsx": {
     "name": "WeatherWidget",
     "category": "component",
-    "lines": 129,
-    "functions": 6,
+    "lines": 91,
+    "functions": 2,
     "hooks": [
-      "useState",
-      "useEffect"
+      "useEffect",
+      "useWeatherStore",
+      "useWindowStore"
     ],
-    "hooksCount": 2,
-    "imports": [],
+    "hooksCount": 3,
+    "imports": [
+      "../../store/useWeatherStore",
+      "../../store/useWindowStore"
+    ],
     "exports": [
       "WeatherWidget"
     ],
@@ -5395,7 +6140,7 @@
   "constants/index.js": {
     "name": "index",
     "category": "other",
-    "lines": 352,
+    "lines": 358,
     "functions": 0,
     "hooks": [],
     "hooksCount": 0,
@@ -5464,7 +6209,7 @@
   "data/fileSystem.js": {
     "name": "fileSystem",
     "category": "other",
-    "lines": 126,
+    "lines": 146,
     "functions": 1,
     "hooks": [],
     "hooksCount": 0,
@@ -6227,7 +6972,7 @@
       "profileService"
     ],
     "usedBy": [
-      "index"
+      "AboutShell"
     ]
   },
   "services/projectService.js": {
@@ -6261,6 +7006,7 @@
       "skillService"
     ],
     "usedBy": [
+      "AboutShell",
       "index"
     ]
   },
@@ -6319,7 +7065,7 @@
       "timelineService"
     ],
     "usedBy": [
-      "index"
+      "AboutShell"
     ]
   },
   "services/weatherService.js": {
@@ -6455,6 +7201,7 @@
       "BrowserDownloads",
       "BrowserHistory",
       "BrowserNewTab",
+      "BrowserSettings",
       "BrowserTabs",
       "BrowserToolbar",
       "index"
@@ -6543,6 +7290,7 @@
       "useFileSystemStore"
     ],
     "usedBy": [
+      "ExplorerShell",
       "index",
       "PaintTitleBar",
       "StartMenu",
@@ -6872,6 +7620,7 @@
       "responseEngine",
       "index",
       "Taskbar",
+      "WeatherWidget",
       "MobileWeatherApp",
       "MobileLockScreen",
       "Desktop",
@@ -7029,6 +7778,7 @@
       "voiceCommands",
       "index",
       "DetailsPanel",
+      "ExplorerShell",
       "DocumentViewer",
       "ReadmeRenderer",
       "AIAssistant",
@@ -7046,6 +7796,7 @@
       "SpotlightSearch",
       "UniversalSpotlight",
       "SystemInfoWidget",
+      "WeatherWidget",
       "useKeyboardShortcuts",
       "usePresentationController",
       "useWindowFocus",

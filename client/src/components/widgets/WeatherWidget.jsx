@@ -1,128 +1,90 @@
-import { useState, useEffect } from 'react';
-import { 
-  WeatherSunnyRegular, 
-  WeatherMoonRegular, 
-  WeatherCloudyRegular, 
-  WeatherRainRegular, 
-  WeatherSnowRegular, 
-  WeatherThunderstormRegular,
-  WeatherFogRegular
-} from '@fluentui/react-icons';
+import { useEffect } from 'react';
+import { useWeatherStore } from '../../store/useWeatherStore';
+import { useWindowStore } from '../../store/useWindowStore';
+import { motion } from 'framer-motion';
 
 export default function WeatherWidget() {
-  const [weatherData, setWeatherData] = useState({
-    city: 'Kolkata',
-    temp: '--',
-    condition: 'Loading...',
-    isDay: 1,
-    weatherCode: 0,
-  });
+  const { currentWeather, dailyForecast, loading, fetchWeather } = useWeatherStore();
+  const { openWindow } = useWindowStore();
 
   useEffect(() => {
-    let isMounted = true;
-
-    const fetchWeather = async () => {
-      try {
-        const lat = 22.5726;
-        const lon = 88.3639;
-        const city = 'Kolkata';
-
-        // Fetch weather for Kolkata directly
-        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-        if (weatherRes.ok) {
-          const wData = await weatherRes.json();
-          const current = wData.current_weather;
-          
-          if (isMounted) {
-            setWeatherData({
-              city,
-              temp: Math.round(current.temperature),
-              condition: getWeatherCondition(current.weathercode),
-              isDay: current.is_day,
-              weatherCode: current.weathercode,
-            });
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching weather:', error);
-        if (isMounted) {
-          setWeatherData(prev => ({ ...prev, condition: 'Unavailable' }));
-        }
-      }
-    };
-
     fetchWeather();
-    
-    // Refresh weather every 15 minutes
-    const interval = setInterval(fetchWeather, 15 * 60 * 1000);
-    
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
-  }, []);
+  }, [fetchWeather]);
 
-  const getWeatherCondition = (code) => {
-    if (code === 0) return 'Clear';
-    if (code >= 1 && code <= 3) return 'Cloudy';
-    if (code === 45 || code === 48) return 'Fog';
-    if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return 'Rain';
-    if ((code >= 71 && code <= 77) || (code >= 85 && code <= 86)) return 'Snow';
-    if (code >= 95 && code <= 99) return 'Storm';
-    return 'Unknown';
-  };
+  if (loading && !currentWeather) {
+    return (
+      <div className="glass-heavy" style={{ width: '100%', padding: '16px', borderRadius: 'var(--radius-md)' }}>
+        <p style={{ color: 'var(--color-text-secondary)' }}>Loading weather...</p>
+      </div>
+    );
+  }
 
-  const getWeatherIcon = () => {
-    const { weatherCode, isDay } = weatherData;
-    const size = { fontSize: '3rem', color: '#FFD700' }; // default sunny
-    
-    if (weatherCode === 0) {
-      return isDay ? <WeatherSunnyRegular style={size} /> : <WeatherMoonRegular style={{...size, color: '#E0E0E0'}} />;
-    }
-    if (weatherCode >= 1 && weatherCode <= 3) {
-      return <WeatherCloudyRegular style={{...size, color: '#A0A0A0'}} />;
-    }
-    if (weatherCode === 45 || weatherCode === 48) {
-      return <WeatherFogRegular style={{...size, color: '#A0A0A0'}} />;
-    }
-    if ((weatherCode >= 51 && weatherCode <= 67) || (weatherCode >= 80 && weatherCode <= 82)) {
-      return <WeatherRainRegular style={{...size, color: '#4A90E2'}} />;
-    }
-    if ((weatherCode >= 71 && weatherCode <= 77) || (weatherCode >= 85 && weatherCode <= 86)) {
-      return <WeatherSnowRegular style={{...size, color: '#E0E0E0'}} />;
-    }
-    if (weatherCode >= 95 && weatherCode <= 99) {
-      return <WeatherThunderstormRegular style={{...size, color: '#6A4A82'}} />;
-    }
-    // Default fallback
-    return isDay ? <WeatherSunnyRegular style={size} /> : <WeatherMoonRegular style={{...size, color: '#E0E0E0'}} />;
-  };
+  if (!currentWeather) return null;
+
+  const isDay = !currentWeather.icon.includes('n');
+  const bgGradient = isDay 
+    ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(96, 165, 250, 0.2))' 
+    : 'linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.4))';
 
   return (
-    <div
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      onClick={() => openWindow('weather')}
       className="glass-heavy"
       style={{
         width: '100%',
         padding: '16px',
         borderRadius: 'var(--radius-md)',
-        border: '1px solid var(--color-border)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
         boxShadow: 'var(--shadow-panel)',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        background: 'linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(0, 191, 255, 0.05))',
+        flexDirection: 'column',
+        gap: '12px',
+        background: bgGradient,
+        cursor: 'pointer',
+        color: 'white',
+        textShadow: '0 1px 2px rgba(0,0,0,0.3)'
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)' }}>{weatherData.city}</span>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-          <span style={{ fontSize: '2rem', fontWeight: 'bold' }}>{weatherData.temp}°</span>
-          <span style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)' }}>{weatherData.condition}</span>
+      {/* Current Weather Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <span style={{ fontSize: '14px', fontWeight: '500', opacity: 0.9 }}>{currentWeather.city}</span>
+          <span style={{ fontSize: '32px', fontWeight: '300', lineHeight: '1.2' }}>{currentWeather.temp}°</span>
         </div>
+        <img 
+          src={`https://openweathermap.org/img/wn/${currentWeather.icon}@2x.png`} 
+          alt={currentWeather.condition}
+          style={{ width: '48px', height: '48px', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}
+        />
       </div>
-      <div>
-        {getWeatherIcon()}
+
+      <div style={{ fontSize: '13px', fontWeight: '500', opacity: 0.9 }}>
+        {currentWeather.condition}
+        <span style={{ marginLeft: '8px', opacity: 0.8 }}>H:{dailyForecast[0]?.high}° L:{dailyForecast[0]?.low}°</span>
       </div>
-    </div>
+
+      {/* Separator */}
+      <div style={{ height: '1px', background: 'rgba(255,255,255,0.15)', margin: '4px 0' }} />
+
+      {/* 3-Day Forecast mini view */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        {dailyForecast.slice(1, 4).map((day, idx) => (
+          <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px' }}>
+            <span style={{ width: '40px', fontWeight: '500' }}>{day.day.substring(0, 3)}</span>
+            <img 
+              src={`https://openweathermap.org/img/wn/${day.icon}.png`} 
+              alt="icon" 
+              style={{ width: '24px', height: '24px' }}
+            />
+            <div style={{ display: 'flex', gap: '8px', width: '60px', justifyContent: 'flex-end' }}>
+              <span style={{ opacity: 0.7 }}>{day.low}°</span>
+              <span style={{ fontWeight: '500' }}>{day.high}°</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </motion.div>
   );
 }

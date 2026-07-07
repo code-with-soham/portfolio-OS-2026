@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useWeatherStore } from '../../store/useWeatherStore';
-import { 
-  WeatherSunnyRegular, WeatherMoonRegular, WeatherRainShowersDayRegular, 
-  WeatherSnowRegular, WeatherCloudyRegular,
-  LocationRegular, WeatherFogRegular,
-  EyeRegular, ArrowClockwiseRegular, InfoRegular
-} from '@fluentui/react-icons';
+import { LocationRegular, ArrowClockwiseRegular } from '@fluentui/react-icons';
+import { AmbientBackground } from './components/AmbientBackground';
+import { HourlyForecastChart } from './components/HourlyForecastChart';
+import { TenDayForecast } from './components/TenDayForecast';
+import { AIWeatherInsight } from './components/AIWeatherInsight';
+import { WeatherMetricCard } from './components/WeatherMetricCard';
 import './WeatherApp.css';
 
 export default function WeatherApp() {
@@ -16,178 +16,131 @@ export default function WeatherApp() {
   } = useWeatherStore();
 
   useEffect(() => {
-    fetchWeather(); // Fetch weather on mount
+    fetchWeather();
   }, [fetchWeather]);
 
   if (loading && !currentWeather) {
     return (
-      <div className="weather-app-container loading-container">
-        <div className="loading-spinner"></div>
-        <p>Fetching satellite data...</p>
+      <div className="weather-app-container loading-container" style={{ background: '#0f172a' }}>
+        <div className="loading-spinner" style={{ borderTopColor: '#3b82f6' }}></div>
+        <p style={{ color: 'white', opacity: 0.7 }}>Loading meteorological data...</p>
       </div>
     );
   }
 
   if (error && !currentWeather) {
     return (
-      <div className="weather-app-container error-container">
+      <div className="weather-app-container error-container" style={{ background: '#0f172a', color: 'white' }}>
         <p>Error loading weather data: {error}</p>
-        <button onClick={() => fetchWeather()}>Retry</button>
+        <button onClick={() => fetchWeather()} style={{ padding: '8px 16px', background: '#3b82f6', color: 'white', borderRadius: '4px', border: 'none', cursor: 'pointer', marginTop: '16px' }}>Retry</button>
       </div>
     );
   }
 
   if (!currentWeather) return null;
 
-  // Determine dynamic background class based on weather condition
-  const condition = currentWeather.condition.toLowerCase();
-  let bgClass = 'bg-clear-day';
-  if (condition.includes('rain') || condition.includes('drizzle')) bgClass = 'bg-rainy';
-  else if (condition.includes('cloud')) bgClass = 'bg-cloudy';
-  else if (condition.includes('snow')) bgClass = 'bg-snowy';
-  else if (condition.includes('thunderstorm')) bgClass = 'bg-stormy';
-  else if (currentWeather.icon.includes('n')) bgClass = 'bg-clear-night';
-
-  const formatTime = (timestamp) => {
-    return new Date(timestamp).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-  };
+  const isNight = currentWeather.icon.includes('n');
 
   return (
-    <div className={`weather-app-container ${bgClass} custom-scrollbar`}>
-      {/* Dynamic Background Overlays (CSS handled) */}
-      <div className="weather-bg-overlay"></div>
+    <div className="weather-app-container custom-scrollbar" style={{ position: 'relative', color: 'white', textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>
+      {/* 1. Dynamic Ambient Background layer */}
+      <AmbientBackground condition={currentWeather.condition} isNight={isNight} />
       
-      <div className="weather-content">
-        {/* Top Header */}
-        <header className="weather-header">
-          <div className="location">
-            <LocationRegular fontSize={20} />
-            <h2>{currentWeather.city}, {currentWeather.country}</h2>
+      {/* 2. Content Layer */}
+      <div className="weather-content" style={{ position: 'relative', zIndex: 10 }}>
+        
+        {/* Header */}
+        <header className="weather-header" style={{ padding: '24px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <LocationRegular fontSize={24} />
+            <h2 style={{ fontSize: '24px', fontWeight: '500' }}>{currentWeather.city}, {currentWeather.country}</h2>
           </div>
-          <div className="last-updated" onClick={() => fetchWeather()} title="Click to refresh">
+          <div onClick={() => fetchWeather()} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', opacity: 0.8, fontSize: '12px' }} title="Click to refresh">
             <ArrowClockwiseRegular fontSize={14} className={loading ? "spin" : ""} />
             <span>Updated {new Date(lastUpdated).toLocaleTimeString()}</span>
           </div>
         </header>
 
-        <div className="weather-grid">
-          {/* Main Hero Section */}
-          <section className="weather-hero glass-panel">
-            <div className="temp-main">
-              <img src={`https://openweathermap.org/img/wn/${currentWeather.icon}@4x.png`} alt={currentWeather.description} className="hero-icon" />
-              <h1>{currentWeather.temp}°</h1>
+        {/* Main Grid Layout */}
+        <div style={{ padding: '0 32px 32px 32px', display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+          
+          {/* Top Hero Row */}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '40px 0', flexDirection: 'column' }}>
+            <motion.h1 
+              initial={{ opacity: 0, scale: 0.9 }} 
+              animate={{ opacity: 1, scale: 1 }} 
+              style={{ fontSize: '96px', fontWeight: '200', lineHeight: '1', margin: 0, letterSpacing: '-2px' }}
+            >
+              {currentWeather.temp}°
+            </motion.h1>
+            <h3 style={{ fontSize: '24px', fontWeight: '400', opacity: 0.9, marginTop: '8px' }}>{currentWeather.condition}</h3>
+            <div style={{ display: 'flex', gap: '16px', opacity: 0.8, marginTop: '8px', fontSize: '16px' }}>
+              <span>H: {dailyForecast[0]?.high}°</span>
+              <span>L: {dailyForecast[0]?.low}°</span>
             </div>
-            <div className="temp-desc">
-              <h3>{currentWeather.condition}</h3>
-              <p>Feels like {currentWeather.feelsLike}°C</p>
-              <p className="capitalize">{currentWeather.description}</p>
-            </div>
-          </section>
+          </div>
 
-          {/* Hourly Forecast */}
-          <section className="weather-hourly glass-panel">
-            <h3>Today</h3>
-            <div className="hourly-scroll custom-scrollbar">
-              {hourlyForecast.map((hour, idx) => (
-                <div key={idx} className="hourly-item">
-                  <span className="time">{idx === 0 ? 'Now' : formatTime(hour.dt).replace(':00', '')}</span>
-                  <img src={`https://openweathermap.org/img/wn/${hour.icon}.png`} alt="icon" />
-                  <span className="temp">{hour.temp}°</span>
-                  {hour.rainChance > 0 && <span className="rain"><InfoRegular fontSize={10}/> {hour.rainChance}%</span>}
-                </div>
-              ))}
-            </div>
-          </section>
+          {/* AI Insight */}
+          <AIWeatherInsight currentWeather={currentWeather} dailyForecast={dailyForecast} />
 
-          {/* 5-Day Forecast */}
-          <section className="weather-daily glass-panel">
-            <h3>5-Day Forecast</h3>
-            <div className="daily-list">
-              {dailyForecast.map((day, idx) => (
-                <div key={idx} className="daily-item">
-                  <span className="day">{idx === 0 ? 'Today' : day.day}</span>
-                  <div className="icon-group">
-                    <img src={`https://openweathermap.org/img/wn/${day.icon}.png`} alt="icon" />
-                    {day.rainChance > 0 && <span className="rain">{day.rainChance}%</span>}
-                  </div>
-                    <div className="temp-bar-container">
-                      <span className="low">{day.low}°</span>
-                      <div className="temp-bar">
-                        <div className="temp-bar-fill" style={{ width: `${Math.min(100, (day.high - day.low) * 5)}%`, marginLeft: `${Math.max(0, day.low)}%` }}></div>
-                      </div>
-                      <span className="high">{day.high}°</span>
-                    </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Details Grid */}
-          <section className="weather-details">
-            <div className="detail-card glass-panel">
-              <div className="detail-header"><InfoRegular /> Humidity</div>
-              <div className="detail-value">{currentWeather.humidity}%</div>
-              <div className="detail-desc">Dew point is {currentWeather.temp - 2}°C right now.</div>
-            </div>
-            <div className="detail-card glass-panel">
-              <div className="detail-header"><WeatherFogRegular /> Wind</div>
-              <div className="detail-value">{currentWeather.windSpeed} <span className="unit">km/h</span></div>
-            </div>
-            <div className="detail-card glass-panel">
-              <div className="detail-header"><InfoRegular /> Pressure</div>
-              <div className="detail-value">{currentWeather.pressure} <span className="unit">hPa</span></div>
-            </div>
-            <div className="detail-card glass-panel">
-              <div className="detail-header"><EyeRegular /> Visibility</div>
-              <div className="detail-value">{currentWeather.visibility} <span className="unit">km</span></div>
-            </div>
-            <div className="detail-card glass-panel">
-              <div className="detail-header"><WeatherSunnyRegular /> UV Index</div>
-              <div className="detail-value">Moderate</div>
-              <div className="detail-desc">Use sun protection until 4 PM.</div>
-            </div>
-            <div className="detail-card glass-panel">
-              <div className="detail-header"><InfoRegular /> Air Quality</div>
-              <div className="detail-value">{airQuality ? airQuality.label : 'Good'}</div>
-              <div className="detail-desc">AQI: {airQuality ? airQuality.index : 1} - Perfect for outdoor activities.</div>
-            </div>
+          {/* Two-Column Main Layout */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: '24px' }}>
             
-            {/* Sunrise / Sunset */}
-            <div className="detail-card glass-panel astro-card full-width">
-              <div className="detail-header"><WeatherSunnyRegular /> Sunrise & Sunset</div>
-              <div className="astro-info">
-                <div>
-                  <span className="label">Sunrise</span>
-                  <span className="time">{formatTime(currentWeather.sunrise)}</span>
-                </div>
-                <div>
-                  <span className="label">Sunset</span>
-                  <span className="time">{formatTime(currentWeather.sunset)}</span>
-                </div>
+            {/* Left Column (Charts & Metrics) */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              
+              <HourlyForecastChart hourlyData={hourlyForecast} />
+              
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '24px' }}>
+                <WeatherMetricCard 
+                  icon="InfoRegular" 
+                  title="Humidity" 
+                  value={currentWeather.humidity} 
+                  unit="%" 
+                  description={`Dew point is ${currentWeather.temp - 2}°C right now.`} 
+                />
+                <WeatherMetricCard 
+                  icon="WeatherFogRegular" 
+                  title="Wind" 
+                  value={currentWeather.windSpeed} 
+                  unit="km/h" 
+                  description="Direction: NE"
+                />
+                <WeatherMetricCard 
+                  icon="WeatherSunnyRegular" 
+                  title="UV Index" 
+                  value="4" 
+                  unit="Mod" 
+                  description="Use sun protection until 4 PM." 
+                />
+                <WeatherMetricCard 
+                  icon="EyeRegular" 
+                  title="Visibility" 
+                  value={currentWeather.visibility} 
+                  unit="km" 
+                />
+                <WeatherMetricCard 
+                  icon="WeatherSunnyRegular" 
+                  title="Sunrise" 
+                  value={new Date(currentWeather.sunrise).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} 
+                  description={`Sunset: ${new Date(currentWeather.sunset).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`}
+                />
+                <WeatherMetricCard 
+                  icon="InfoRegular" 
+                  title="Air Quality" 
+                  value={airQuality ? airQuality.index : 1} 
+                  unit="AQI" 
+                  description={airQuality ? airQuality.label : 'Good condition.'}
+                />
               </div>
             </div>
 
-            {/* Simulated Radar */}
-            <div className="detail-card glass-panel radar-card">
-              <div className="detail-header">Weather Radar (Simulated)</div>
-              <div className="radar-mockup">
-                <div className="radar-sweep"></div>
-                <div className="radar-cloud" style={{ top: '20%', left: '30%', opacity: currentWeather.condition.includes('Cloud') ? 0.8 : 0.2 }}></div>
-                <div className="radar-rain" style={{ top: '40%', left: '50%', opacity: currentWeather.condition.includes('Rain') ? 0.9 : 0 }}></div>
-              </div>
+            {/* Right Column (10-Day Forecast) */}
+            <div>
+              <TenDayForecast dailyData={dailyForecast} />
             </div>
-          </section>
 
-          {/* AI Insights */}
-          <section className="weather-ai-insight glass-panel">
-            <div className="ai-header">
-              <span className="ai-badge">AI INSIGHT</span>
-            </div>
-            <p className="ai-text">
-              Based on today's forecast, it will be mostly {currentWeather.description} with a high of {dailyForecast[0]?.high}°. 
-              {currentWeather.condition.includes('Rain') ? ' Make sure to carry an umbrella!' : ' Great day for outdoor activities!'}
-            </p>
-          </section>
+          </div>
         </div>
       </div>
     </div>
