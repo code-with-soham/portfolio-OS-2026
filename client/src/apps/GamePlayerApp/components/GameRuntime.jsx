@@ -9,11 +9,38 @@ export default function GameRuntime({ game, refreshKey }) {
   const startTimeRef = useRef(Date.now());
   const recordPlayTime = useGameStore(s => s.recordPlayTime);
 
-  // Record Play Time on unmount
+  // Record Play Time on unmount and listen for Game Events
   useEffect(() => {
     startTimeRef.current = Date.now();
     
+    const handleMessage = (event) => {
+      // Security check: ensure message is from our own origin or a trusted source
+      // For now, games are hosted on the same origin
+      if (event.origin !== window.location.origin) return;
+      
+      const { type, payload } = event.data;
+      
+      if (type === 'OS_GAME_EVENT') {
+        if (payload.action === 'ADD_XP') {
+          useGameStore.getState().addXP(payload.amount);
+        } else if (payload.action === 'UNLOCK_ACHIEVEMENT') {
+          useGameStore.getState().unlockAchievement(payload.achievementId);
+          // Optional: push a notification specific to the achievement
+          import('../../../store/useNotificationStore').then(({ useNotificationStore }) => {
+            useNotificationStore.getState().addNotification(
+              'Achievement Unlocked 🏆',
+              payload.title || 'You unlocked a new achievement!',
+              'achievement'
+            );
+          });
+        }
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    
     return () => {
+      window.removeEventListener('message', handleMessage);
       const sessionTime = Math.floor((Date.now() - startTimeRef.current) / 1000);
       if (sessionTime > 5 && !hasError) { // Don't record tiny sessions or errors
         recordPlayTime(game.id, sessionTime);

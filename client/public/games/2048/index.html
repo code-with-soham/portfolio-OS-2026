@@ -1,23 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>2048 Local Runtime</title>
-    <style>
-        body { background: #faf8ef; color: #776e65; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .grid { width: 400px; height: 400px; background: #bbada0; border-radius: 6px; padding: 10px; display: grid; grid-template: repeat(4, 1fr) / repeat(4, 1fr); gap: 10px; }
-        .cell { background: rgba(238, 228, 218, 0.35); border-radius: 3px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>2048 - Portfolio OS Edition</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div style="text-align: center;">
-        <h1>2048 <small>(Local Mock)</small></h1>
-        <div class="grid">
-            <div class="cell" style="background:#eee4da"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-            <div class="cell"></div><div class="cell" style="background:#ede0c8"></div><div class="cell"></div><div class="cell"></div>
-            <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-            <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+  <div class="game-container">
+    <div class="header">
+      <div class="header-left">
+        <h1 class="title">2048</h1>
+        <p class="subtitle">Portfolio OS Edition</p>
+      </div>
+      <div class="scores-container">
+        <div class="score-box">
+          <div class="score-label">SCORE</div>
+          <div class="score-value" id="score">0</div>
+          <div class="score-addition" id="score-addition"></div>
         </div>
-        <p>This is a local hosted offline wrapper. Drop real 2048 source code here.</p>
+        <div class="score-box">
+          <div class="score-label">BEST</div>
+          <div class="score-value" id="best-score">0</div>
+        </div>
+      </div>
     </div>
+
+    <div class="controls">
+      <button class="btn" id="new-game-btn">New Game</button>
+      <button class="btn icon-btn" id="sound-toggle-btn">🔊</button>
+    </div>
+
+    <div class="grid-container" id="grid-container">
+      <div class="grid-background">
+        <!-- 16 empty cells -->
+        <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+        <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+        <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+        <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+      </div>
+      <div class="tile-container" id="tile-container">
+        <!-- Tiles will be dynamically injected here -->
+      </div>
+      
+      <!-- Overlay for Game Over / Win -->
+      <div class="game-message" id="game-message">
+        <h2 id="message-text">Game Over!</h2>
+        <div class="message-buttons">
+          <button class="btn primary-btn" id="retry-btn">Try Again</button>
+          <button class="btn" id="keep-playing-btn" style="display: none;">Keep Playing</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="instructions">
+      <p><strong>HOW TO PLAY:</strong> Use your <strong>arrow keys</strong>, <strong>WASD</strong>, or <strong>swipe</strong> to move the tiles. Tiles with the same number merge into one when they touch. Add them up to reach <strong>2048!</strong></p>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
 </body>
 </html>
