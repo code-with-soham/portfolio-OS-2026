@@ -1,13 +1,13 @@
 <div align="center">
 
 <!-- Animated Typing Header -->
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=32&pause=1000&color=2563EB&center=true&vCenter=true&width=800&lines=🖥️+Portfolio+OS+2026;A+Windows+11+Experience+in+the+Browser;Built+with+MERN,+Zustand,+and+AI;By+Soham+Kundu" alt="Typing SVG" />
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&width=435&lines=🖥️+Portfolio+OS+2026;A+Windows+11+Experience+in+the+Browser;Built+with+MERN,+Zustand,+and+AI;By+Soham+Kundu" alt="Typing SVG" /></a>
 
 <br/><br/>
 
 <!-- Hero Screenshot -->
 <a href="https://portfolio-os-2026.vercel.app/">
-  <img src="https://via.placeholder.com/900x500?text=🚀+Replace+with+Full+Desktop+Screenshot" alt="Portfolio OS Desktop" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <img src="assests/OsDeskktop.png" alt="Portfolio OS Desktop" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
 </a>
 
 <br/><br/>
