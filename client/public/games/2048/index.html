@@ -28,6 +28,7 @@
 
     <div class="controls">
       <button class="btn" id="new-game-btn">New Game</button>
+      <button class="btn" id="tutorial-btn" style="background: #0078D4;">Tutorial</button>
       <button class="btn icon-btn" id="sound-toggle-btn">🔊</button>
     </div>
 
@@ -55,6 +56,74 @@
     
     <div class="instructions">
       <p><strong>HOW TO PLAY:</strong> Use your <strong>arrow keys</strong>, <strong>WASD</strong>, or <strong>swipe</strong> to move the tiles. Tiles with the same number merge into one when they touch. Add them up to reach <strong>2048!</strong></p>
+    </div>
+
+    <!-- Tutorial Modal -->
+    <div class="tutorial-overlay" id="tutorial-overlay">
+      <div class="tutorial-modal">
+        <button class="tutorial-close" id="tutorial-close">×</button>
+        <h2 style="margin-bottom: 16px;">How to Play 2048</h2>
+        
+        <div class="tutorial-steps">
+          <!-- Step 1 -->
+          <div class="tutorial-step active" id="tut-step-1">
+            <h3>Step 1: Move Tiles</h3>
+            <p>Swipe or use arrow keys to move all tiles on the board in that direction.</p>
+            <div class="tut-visual">
+              <div class="tut-grid">
+                <div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div>
+                <div class="tut-cell"></div><div class="tut-tile tut-tile-2" style="top: 25%; left: 25%;">2</div><div class="tut-cell"></div><div class="tut-cell"></div>
+                <div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div>
+                <div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div>
+                <div class="tut-arrow">➡</div>
+              </div>
+            </div>
+            <p style="font-size: 0.8rem; color: #aaa; margin-top: 8px;">A new tile (2 or 4) spawns after every move.</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="tutorial-step" id="tut-step-2">
+            <h3>Step 2: Merge Tiles</h3>
+            <p>When two tiles with the same number touch, they merge into one!</p>
+            <div class="tut-visual">
+              <div class="tut-grid">
+                <div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div>
+                <div class="tut-cell"></div><div class="tut-tile tut-tile-2" style="top: 25%; left: 25%; animation: tutMoveRight 1.5s infinite;">2</div>
+                <div class="tut-tile tut-tile-2" style="top: 25%; left: 50%;">2</div><div class="tut-cell"></div>
+                <div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div>
+                <div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div>
+              </div>
+            </div>
+            <p style="font-size: 0.8rem; color: #aaa; margin-top: 8px;">2 + 2 = 4, 4 + 4 = 8, and so on.</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="tutorial-step" id="tut-step-3">
+            <h3>Step 3: Reach 2048!</h3>
+            <p>Keep merging tiles until you create a tile with the number <strong>2048</strong>.</p>
+            <div class="tut-visual">
+              <div class="tut-grid">
+                <div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div>
+                <div class="tut-cell"></div><div class="tut-tile tut-tile-1024" style="top: 25%; left: 25%; animation: tutMoveRight 1.5s infinite;">1024</div>
+                <div class="tut-tile tut-tile-1024" style="top: 25%; left: 50%;">1024</div><div class="tut-cell"></div>
+                <div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div>
+                <div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div><div class="tut-cell"></div>
+              </div>
+            </div>
+            <p style="font-size: 0.8rem; color: #aaa; margin-top: 8px;">If the board fills up and you can't make a move, you lose.</p>
+          </div>
+        </div>
+        
+        <div class="tutorial-nav">
+          <button class="btn" id="tut-prev-btn" disabled>Back</button>
+          <div class="tut-dots">
+            <span class="tut-dot active" id="tut-dot-1"></span>
+            <span class="tut-dot" id="tut-dot-2"></span>
+            <span class="tut-dot" id="tut-dot-3"></span>
+          </div>
+          <button class="btn primary-btn" id="tut-next-btn">Next</button>
+        </div>
+      </div>
     </div>
   </div>
 

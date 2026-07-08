@@ -311,6 +311,51 @@ class Game2048 {
       this.keepPlaying = true;
       this.hideMessage();
     });
+
+    // Tutorial Modal Logic
+    const tutOverlay = document.getElementById('tutorial-overlay');
+    const tutClose = document.getElementById('tutorial-close');
+    const tutBtn = document.getElementById('tutorial-btn');
+    const tutNext = document.getElementById('tut-next-btn');
+    const tutPrev = document.getElementById('tut-prev-btn');
+    
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    const updateTutState = () => {
+      for (let i = 1; i <= totalSteps; i++) {
+        document.getElementById(`tut-step-${i}`).classList.toggle('active', i === currentStep);
+        document.getElementById(`tut-dot-${i}`).classList.toggle('active', i === currentStep);
+      }
+      tutPrev.disabled = currentStep === 1;
+      tutNext.textContent = currentStep === totalSteps ? 'Play' : 'Next';
+    };
+
+    tutBtn.addEventListener('click', () => {
+      currentStep = 1;
+      updateTutState();
+      tutOverlay.classList.add('active');
+    });
+
+    tutClose.addEventListener('click', () => {
+      tutOverlay.classList.remove('active');
+    });
+
+    tutNext.addEventListener('click', () => {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateTutState();
+      } else {
+        tutOverlay.classList.remove('active');
+      }
+    });
+
+    tutPrev.addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateTutState();
+      }
+    });
   }
 
   // --- OS Integration ---

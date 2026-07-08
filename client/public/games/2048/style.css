@@ -377,3 +377,143 @@ body {
 .instructions strong {
   color: #ddd;
 }
+
+/* Tutorial Overlay & Modal */
+.tutorial-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.tutorial-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tutorial-modal {
+  background: var(--grid-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+}
+
+.tutorial-close {
+  position: absolute;
+  top: 12px; right: 12px;
+  background: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.tutorial-close:hover { color: #fff; }
+
+.tutorial-steps {
+  position: relative;
+  min-height: 250px;
+  overflow: hidden;
+}
+
+.tutorial-step {
+  position: absolute;
+  top: 0; left: 0; width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translateX(20px);
+}
+
+.tutorial-step.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.tut-visual {
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.tut-grid {
+  width: 160px; height: 160px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 4px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 4px;
+  position: relative;
+}
+
+.tut-cell {
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+}
+
+.tut-tile {
+  position: absolute;
+  width: calc(25% - 4px);
+  height: calc(25% - 4px);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #fff;
+  z-index: 10;
+}
+
+.tut-tile-2 { background: var(--tile-2); color: var(--tile-2-text); }
+.tut-tile-1024 { background: var(--tile-1024); box-shadow: var(--tile-1024-shadow); font-size: 0.9rem;}
+
+.tut-arrow {
+  position: absolute;
+  top: 28%; left: 60%;
+  font-size: 1.5rem;
+  animation: tutMoveRight 1.5s infinite;
+}
+
+@keyframes tutMoveRight {
+  0% { transform: translateX(0); opacity: 1; }
+  70% { transform: translateX(30px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 0; }
+}
+
+.tutorial-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.tut-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.tut-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transition: background 0.3s;
+}
+.tut-dot.active { background: var(--primary-color); }
