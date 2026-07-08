@@ -109,9 +109,23 @@ graph TD
 
 | 🖥️ Desktop Environment | 💻 Terminal CLI | 📁 File Explorer |
 | :---: | :---: | :---: |
-| <img src="https://via.placeholder.com/300x200?text=Desktop+Screenshot" /> | <img src="https://via.placeholder.com/300x200?text=Terminal+Screenshot" /> | <img src="https://via.placeholder.com/300x200?text=Explorer+Screenshot" /> |
-| **VS Code Emulator** | **AI Assistant** | **Settings Panel** |
-| <img src="https://via.placeholder.com/300x200?text=VS+Code+Screenshot" /> | <img src="https://via.placeholder.com/300x200?text=AI+Screenshot" /> | <img src="https://via.placeholder.com/300x200?text=Settings+Screenshot" /> |
+| <img src="assests\Desktop.png" /> | <img src="assests\CMD.png" /> | <img src="assests\FileExplorer.png" /> |
+| **VS Code Emulator** | **Setting Pannel** | **ArchitectureExplorer** |
+| <img src="assests\VSCode.png" /> | <img src="assests\Settings.png" /> | <img src="assests\ArchitectureExplorer.png" /> |
+
+
+| ❤️ Boot Screen | 🌐 Browser |  Calender |
+| :---: | :---: | :---: |
+| <img src="assests\BootScreen.png" /> | <img src="assests\Browser.png" /> | <img src="assests\Calender.png" /> |
+| **Lock Screen** | **Email** | **MongoDB Explorer** |
+| <img src="assests\LockScreen.png" /> | <img src="assests\Mail.png" /> | <img src="assests\MongoDB.png" /> |
+
+
+| Weather App | Task Manager | Settings Pannel |
+| :---: | :---: | :---: |
+| <img src="assests\Weather.png" /> | <img src="assests\TaskManager.png" /> | <img src="assests\Settings.png" /> |
+| **Paint** | **OsDesktop** | **Music Player** |
+| <img src="assests\Paint.png" /> | <img src="assests\OsDeskktop.png" /> | <img src="assests\Music.png" /> |
 
 ---
 
