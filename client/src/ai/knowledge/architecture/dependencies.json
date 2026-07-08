@@ -665,7 +665,7 @@
   "apps/AboutApp/components/AboutShell.jsx": {
     "name": "AboutShell",
     "category": "app",
-    "lines": 28,
+    "lines": 29,
     "functions": 1,
     "hooks": [
       "useState",
@@ -816,19 +816,20 @@
   "apps/AboutOSApp/index.jsx": {
     "name": "index",
     "category": "app",
-    "lines": 83,
-    "functions": 4,
+    "lines": 236,
+    "functions": 7,
     "hooks": [
       "useState",
       "useEffect",
-      "useWindowStore",
+      "useQuery",
       "useDesktopStore",
       "useUptime"
     ],
     "hooksCount": 5,
     "imports": [
+      "../../services/profileService",
       "../../config/systemInfo",
-      "../../store/useWindowStore",
+      "../../data/metrics.json",
       "../../store/useDesktopStore",
       "./AboutOSApp.css"
     ],
@@ -1991,6 +1992,213 @@
     ],
     "exports": [
       "PropertiesModal"
+    ],
+    "usedBy": []
+  },
+  "apps/GameCenter/components/GameCard.jsx": {
+    "name": "GameCard",
+    "category": "app",
+    "lines": 35,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "GameCard"
+    ],
+    "usedBy": [
+      "HorizontalScrollRow",
+      "Library"
+    ]
+  },
+  "apps/GameCenter/components/HorizontalScrollRow.jsx": {
+    "name": "HorizontalScrollRow",
+    "category": "app",
+    "lines": 17,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./GameCard"
+    ],
+    "exports": [
+      "HorizontalScrollRow"
+    ],
+    "usedBy": [
+      "Home"
+    ]
+  },
+  "apps/GameCenter/components/Sidebar.jsx": {
+    "name": "Sidebar",
+    "category": "app",
+    "lines": 50,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../data/games.json"
+    ],
+    "exports": [
+      "Sidebar"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/GameCenter/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 87,
+    "functions": 3,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./components/Sidebar",
+      "./pages/Home",
+      "./pages/Library",
+      "./pages/Stats",
+      "./pages/GameDetails",
+      "./GameCenter.css"
+    ],
+    "exports": [
+      "GameCenterApp"
+    ],
+    "usedBy": []
+  },
+  "apps/GameCenter/pages/GameDetails.jsx": {
+    "name": "GameDetails",
+    "category": "app",
+    "lines": 144,
+    "functions": 2,
+    "hooks": [
+      "useWindowStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../store/useWindowStore"
+    ],
+    "exports": [
+      "GameDetails"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/GameCenter/pages/Home.jsx": {
+    "name": "Home",
+    "category": "app",
+    "lines": 187,
+    "functions": 6,
+    "hooks": [
+      "useMemo",
+      "useState",
+      "useEffect",
+      "useGameStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../components/HorizontalScrollRow",
+      "../data/games.json",
+      "../../../store/useGameStore"
+    ],
+    "exports": [
+      "Home"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/GameCenter/pages/Library.jsx": {
+    "name": "Library",
+    "category": "app",
+    "lines": 83,
+    "functions": 2,
+    "hooks": [
+      "useMemo",
+      "useState",
+      "useGameStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../components/GameCard",
+      "../../../store/useGameStore",
+      "../data/games.json"
+    ],
+    "exports": [
+      "Library"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/GameCenter/pages/Stats.jsx": {
+    "name": "Stats",
+    "category": "app",
+    "lines": 98,
+    "functions": 5,
+    "hooks": [
+      "useGameStore",
+      "useEffect",
+      "useState"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../../store/useGameStore"
+    ],
+    "exports": [
+      "Stats"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/GamePlayerApp/components/GameRuntime.jsx": {
+    "name": "GameRuntime",
+    "category": "app",
+    "lines": 70,
+    "functions": 6,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useGameStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../../../store/useGameStore"
+    ],
+    "exports": [
+      "GameRuntime"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/GamePlayerApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 110,
+    "functions": 8,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useWindowStore",
+      "useGameStore",
+      "useNotificationStore"
+    ],
+    "hooksCount": 6,
+    "imports": [
+      "../../store/useWindowStore",
+      "../../store/useGameStore",
+      "../../store/useNotificationStore",
+      "./components/GameRuntime",
+      "./GamePlayer.css"
+    ],
+    "exports": [
+      "GamePlayerApp"
     ],
     "usedBy": []
   },
@@ -4491,7 +4699,7 @@
   "components/desktop/StartMenu.jsx": {
     "name": "StartMenu",
     "category": "component",
-    "lines": 621,
+    "lines": 646,
     "functions": 15,
     "hooks": [
       "useDesktopStore",
@@ -4501,9 +4709,10 @@
       "useDebounce",
       "useState",
       "useRef",
-      "useEffect"
+      "useEffect",
+      "useGameStore"
     ],
-    "hooksCount": 8,
+    "hooksCount": 9,
     "imports": [
       "../../store/useDesktopStore",
       "../../store/useWindowStore",
@@ -4512,7 +4721,9 @@
       "../../constants",
       "../../config/apps",
       "../../hooks/useDebounce",
-      "../../constants"
+      "../../constants",
+      "../../store/useGameStore",
+      "../../apps/GameCenter/data/games.json"
     ],
     "exports": [
       "StartMenu"
@@ -6055,7 +6266,7 @@
   "config/apps.jsx": {
     "name": "apps",
     "category": "config",
-    "lines": 498,
+    "lines": 523,
     "functions": 2,
     "hooks": [],
     "hooksCount": 0,
@@ -6140,7 +6351,7 @@
   "constants/index.js": {
     "name": "index",
     "category": "other",
-    "lines": 358,
+    "lines": 365,
     "functions": 0,
     "hooks": [],
     "hooksCount": 0,
@@ -6972,7 +7183,8 @@
       "profileService"
     ],
     "usedBy": [
-      "AboutShell"
+      "AboutShell",
+      "index"
     ]
   },
   "services/projectService.js": {
@@ -7297,6 +7509,31 @@
       "Desktop"
     ]
   },
+  "store/useGameStore.js": {
+    "name": "useGameStore",
+    "category": "store",
+    "lines": 120,
+    "functions": 12,
+    "hooks": [
+      "useNotificationStore",
+      "useGameStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "./useNotificationStore"
+    ],
+    "exports": [
+      "useGameStore"
+    ],
+    "usedBy": [
+      "Home",
+      "Library",
+      "Stats",
+      "GameRuntime",
+      "index",
+      "StartMenu"
+    ]
+  },
   "store/useGitHubStore.js": {
     "name": "useGitHubStore",
     "category": "store",
@@ -7378,11 +7615,13 @@
       "useNotificationStore"
     ],
     "usedBy": [
+      "index",
       "ToastContainer",
       "BackgroundServices",
       "NotificationCenter",
       "Desktop",
-      "useAchievementStore"
+      "useAchievementStore",
+      "useGameStore"
     ]
   },
   "store/usePlacementStore.js": {
@@ -7776,9 +8015,10 @@
     "usedBy": [
       "actionRegistry",
       "voiceCommands",
-      "index",
       "DetailsPanel",
+      "index",
       "ExplorerShell",
+      "GameDetails",
       "DocumentViewer",
       "ReadmeRenderer",
       "AIAssistant",

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a0a;
+      color: #ffffff;
+      font-family: 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      padding: 40px;
+    }
+    .icon {
+      font-size: 5rem;
+      margin-bottom: 24px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #107c10, #60cdff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      color: #888;
+      font-size: 1rem;
+      margin-bottom: 32px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      background: rgba(16, 124, 16, 0.2);
+      border: 1px solid rgba(16, 124, 16, 0.4);
+      color: #4caf50;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 60px);
+      gap: 8px;
+      margin: 32px auto 0;
+      width: fit-content;
+    }
+    .cell {
+      width: 60px;
+      height: 60px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .cell:nth-child(odd) { animation-delay: 0.5s; }
+    .cell:nth-child(3n) { animation-delay: 1s; }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon" id="gameIcon">🎮</div>
+    <h1 id="gameTitle">Game</h1>
+    <p class="subtitle">Portfolio OS Game Center</p>
+    <span class="badge">Coming Soon</span>
+    <div class="grid">
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+    </div>
+  </div>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const title = params.get('title') || 'Game';
+    const icon = params.get('icon') || '🎮';
+    document.getElementById('gameTitle').textContent = title;
+    document.getElementById('gameIcon').textContent = icon;
+    document.title = title;
+  </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+/* ============================================
+   Portfolio OS 2026 — Game Center Styles
+   ============================================ */
+
+.game-center-app {
+  width: 100%;
+  height: 100%;
+  background: var(--os-bg-primary, #111111);
+  color: #ffffff;
+  display: flex;
+  font-family: 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.gc-sidebar {
+  width: 260px;
+  background: rgba(25, 25, 28, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  gap: 32px;
+  z-index: 10;
+}
+
+.gc-logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  letter-spacing: 0.5px;
+}
+
+.gc-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gc-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: #aaaaaa;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.gc-nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.gc-nav-item.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-left: 3px solid #107c10; /* Xbox Green */
+  border-radius: 0 6px 6px 0;
+}
+
+/* Main Content Area */
+.gc-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.gc-main::-webkit-scrollbar {
+  width: 8px;
+}
+
+.gc-main::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+/* Header & Search */
+.gc-header {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(to bottom, rgba(17,17,17,0.95) 0%, rgba(17,17,17,0) 100%);
+  padding: 24px 40px;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 20;
+}
+
+.gc-search {
+  position: relative;
+  width: 300px;
+}
+
+.gc-search input {
+  width: 100%;
+  padding: 10px 16px 10px 40px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: white;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.gc-search input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 2px rgba(16, 124, 16, 0.5); /* Xbox green glow */
+}
+
+.gc-search svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaaaaa;
+}
+
+/* Content Pages */
+.gc-page {
+  padding: 0 40px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Hero Banner */
+.gc-hero-container {
+  width: 100%;
+  height: 360px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.gc-hero-bg {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: transform 6s ease-out;
+}
+
+.gc-hero-container:hover .gc-hero-bg {
+  transform: scale(1.05);
+}
+
+.gc-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 40px;
+}
+
+.gc-hero-overlay h2 {
+  font-size: 3rem;
+  margin: 0 0 10px 0;
+  font-weight: 800;
+}
+
+.gc-hero-overlay p {
+  font-size: 1.1rem;
+  color: #cccccc;
+  margin: 0 0 24px 0;
+  max-width: 500px;
+}
+
+.gc-btn {
+  padding: 12px 32px;
+  background: #107c10;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gc-btn:hover {
+  background: #128c12;
+  box-shadow: 0 0 20px rgba(16, 124, 16, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Horizontal Scroll Row */
+.gc-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gc-row h3 {
+  font-size: 1.25rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.gc-row-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 24px;
+  margin-bottom: -24px; /* Hide scrollbar spacing */
+  scroll-snap-type: x mandatory;
+}
+
+.gc-row-scroll::-webkit-scrollbar {
+  height: 8px;
+  display: none;
+}
+.gc-row:hover .gc-row-scroll::-webkit-scrollbar {
+  display: block;
+}
+.gc-row-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+}
+
+/* Game Card */
+.gc-card {
+  min-width: 180px;
+  max-width: 260px;
+  flex: 1;
+  background: rgba(30, 30, 32, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  scroll-snap-align: start;
+}
+
+.gc-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.05);
+  background: rgba(40, 40, 42, 0.9);
+}
+
+.gc-card-thumb {
+  width: 100%;
+  height: 120px;
+  background: #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  background-size: cover;
+  background-position: center;
+}
+
+.gc-card-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gc-card-title {
+  font-weight: 600;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gc-card-genre {
+  font-size: 0.8rem;
+  color: #aaaaaa;
+}
+
+.gc-card-rating {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #F1C40F;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

@@ -43,6 +43,8 @@ const MongoDBExplorerApp = lazy(() => import('../apps/MongoDBExplorer/index'));
 const MongoPlaygroundApp = lazy(() => import('../apps/MongoPlayground/index'));
 const AICopilotApp = lazy(() => import('../apps/AICopilot/index'));
 const VectorSearchStudioApp = lazy(() => import('../apps/VectorSearchStudio/index'));
+const GameCenterApp = lazy(() => import('../apps/GameCenter/index'));
+const GamePlayerApp = lazy(() => import('../apps/GamePlayerApp/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -493,5 +495,28 @@ export const APPS = {
     category: 'Development',
     version: '1.0.0',
     description: 'Semantic vector search and embeddings',
+  },
+  gamecenter: {
+    id: 'gamecenter',
+    title: 'Game Center',
+    icon: '🎮',
+    component: withErrorBoundary(GameCenterApp, 'Game Center'),
+    defaultWidth: 1000,
+    defaultHeight: 700,
+    category: 'Entertainment',
+    version: '1.0.0',
+    description: 'Play HTML5 Games',
+  },
+  gameplayer: {
+    id: 'gameplayer',
+    title: 'Game Player',
+    icon: '🕹️',
+    component: withErrorBoundary(GamePlayerApp, 'Game Player'),
+    defaultWidth: 900,
+    defaultHeight: 700,
+    category: 'Entertainment',
+    version: '1.0.0',
+    description: 'Playing a game',
+    hideTitleBar: true, // We will use custom Edge-like toolbar
   },
 };

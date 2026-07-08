@@ -22,6 +22,8 @@ import { APPS } from '../../config/apps';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useState, useRef, useEffect } from 'react';
 import { OS_STATES } from '../../constants';
+import { useGameStore } from '../../store/useGameStore';
+import gamesData from '../../apps/GameCenter/data/games.json';
 
 /**
  * Pinned app icon in the start menu grid
@@ -143,6 +145,7 @@ export default function StartMenu() {
   const { isStartMenuOpen, closeStartMenu } = useDesktopStore();
   const openWindow = useWindowStore((s) => s.openWindow);
   const recentApps = useWindowStore((s) => s.recentApps);
+  const recentlyPlayedIds = useGameStore((s) => s.recentlyPlayed);
   const { setStartMenuSearchFocused } = useUIStore();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -251,6 +254,13 @@ export default function StartMenu() {
     .map((id) => APPS[id])
     .filter(Boolean)
     .slice(0, 3);
+
+  const recentGameItems = recentlyPlayedIds
+    .map(id => gamesData.find(g => g.id === id))
+    .filter(Boolean)
+    .slice(0, 2); // Show up to 2 games in start menu
+
+  const hasRecentItems = recentAppItems.length > 0 || recentGameItems.length > 0;
 
   return (
     <AnimatePresence>
@@ -400,7 +410,7 @@ export default function StartMenu() {
                     fontFamily: 'var(--font-family)',
                   }}
                 >
-                  {recentAppItems.length > 0 ? 'Recent' : 'Recommended'}
+                  {hasRecentItems ? 'Recent' : 'Recommended'}
                 </span>
                 <button
                   style={{
@@ -418,18 +428,33 @@ export default function StartMenu() {
                 </button>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                {recentAppItems.length > 0
-                  ? recentAppItems.map((app) => (
-                      <RecommendedItem
-                        key={app.id}
-                        item={{
-                          id: app.id,
-                          label: app.title,
-                          detail: 'Recently opened',
-                          icon: app.icon,
-                        }}
-                      />
-                    ))
+                {hasRecentItems
+                  ? (
+                    <>
+                      {recentGameItems.map((game) => (
+                        <RecommendedItem
+                          key={game.id}
+                          item={{
+                            id: game.id,
+                            label: game.title,
+                            detail: 'Recently Played',
+                            icon: game.icon,
+                          }}
+                        />
+                      ))}
+                      {recentAppItems.map((app) => (
+                        <RecommendedItem
+                          key={app.id}
+                          item={{
+                            id: app.id,
+                            label: app.title,
+                            detail: 'Recently opened',
+                            icon: app.icon,
+                          }}
+                        />
+                      ))}
+                    </>
+                  )
                   : RECOMMENDED_ITEMS.map((item) => (
                       <RecommendedItem key={item.id} item={item} />
                     ))}

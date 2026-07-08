@@ -318,6 +318,12 @@ export const DESKTOP_APPS = [
     icon: mongodbIco,
     description: 'AI Database Client',
   },
+  {
+    id: 'gamecenter',
+    label: 'Game Center',
+    icon: '🎮',
+    description: 'Xbox Style Game Hub',
+  },
 ];
 
 /**
@@ -355,3 +361,4 @@ export const QUICK_SETTINGS = [
   { id: 'focus', label: 'Focus', icon: '🎯', active: false },
   { id: 'accessibility', label: 'Accessible', icon: '♿', active: false },
 ];
+
