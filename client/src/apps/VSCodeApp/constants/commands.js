@@ -1,0 +1,20 @@
+// VS Code Command Palette Commands
+export const COMMANDS = [
+  { id: 'about', label: 'Open About', category: 'General' },
+  { id: 'projects', label: 'Open Projects', category: 'General' },
+  { id: 'resume', label: 'Open Resume', category: 'General' },
+  { id: 'github', label: 'Open GitHub Profile', category: 'General' },
+  { id: 'linkedin', label: 'Open LinkedIn', category: 'General' },
+  { id: 'skills', label: 'Open Skills', category: 'General' },
+  { id: 'achievements', label: 'Open Achievements', category: 'General' },
+  { id: 'theme', label: 'UI: Toggle Theme', category: 'UI' },
+  { id: 'terminal', label: 'UI: Toggle Terminal', category: 'UI' },
+  { id: 'file-readme', label: 'File: Open README.md', category: 'File' },
+  { id: 'file-skills', label: 'File: Open skills.yml', category: 'File' },
+  { id: 'focus-explorer', label: 'Window: Focus Explorer', category: 'Window' },
+  { id: 'theme-dracula', label: 'Theme: Dracula', category: 'Theme' },
+  { id: 'theme-onedark', label: 'Theme: One Dark Pro', category: 'Theme' },
+  { id: 'theme-monokai', label: 'Theme: Monokai', category: 'Theme' },
+  { id: 'theme-github', label: 'Theme: Github Dark', category: 'Theme' },
+  { id: 'theme-vsdark', label: 'Theme: Dark+', category: 'Theme' },
+];

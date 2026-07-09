@@ -33,6 +33,7 @@ const FILE_ICONS = {
 const EXACT_FILE_ICONS = {
   '.gitignore': 'vscode-icons:file-type-git',
   'LICENSE.txt': 'vscode-icons:file-type-license',
+  'Welcome': 'vscode-icons:default-file',
 };
 
 export const getFolderIcon = (folderName, isOpen) => {

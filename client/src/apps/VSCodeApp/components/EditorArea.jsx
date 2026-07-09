@@ -20,101 +20,116 @@ export default function EditorArea({
 }) {
   const getFileName = (path) => path.split('/').pop() || path;
 
-  const renderWelcome = () => (
-    <div className="vscode-new-welcome" style={{ padding: '40px', overflowY: 'auto', height: '100%', boxSizing: 'border-box' }}>
-      <div className="vscode-new-welcome-content" style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '30px' }}>
-        
-        <div className="vscode-welcome-hero" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <div style={{ flex: 1 }}>
-            <h1 style={{ fontSize: '32px', margin: '0 0 10px 0', fontWeight: '300', color: '#ffffff' }}>SOHAM KUNDU</h1>
-            <p style={{ fontSize: '16px', color: '#858585', margin: 0 }}>Full Stack + AI Developer • Portfolio OS Workspace</p>
-          </div>
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <button className="vscode-btn vscode-btn-primary" onClick={() => handleFileClick('about/README.md')}>View README</button>
-            <button className="vscode-btn vscode-btn-secondary" onClick={() => setPanelVisible(true)}>Open Terminal</button>
-          </div>
-        </div>
+  const renderWelcome = () => {
+    // Collect recent files from open files, filter out Welcome
+    const recentFiles = openFiles.filter(f => f !== 'Welcome');
+    if (recentFiles.length === 0) {
+      recentFiles.push('about/README.md', 'skills/skills.yml', 'projects/portfolio.db');
+    }
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+    return (
+      <div className="vscode-welcome-screen" style={{
+        height: '100%',
+        backgroundColor: 'var(--vscode-editor-background)',
+        color: 'var(--vscode-editor-foreground)',
+        padding: '40px 60px',
+        overflowY: 'auto',
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', width: '100%' }}>
+          <h1 style={{ fontSize: '32px', color: 'var(--vscode-editor-foreground)', marginBottom: '5px', fontWeight: '400' }}>Visual Studio Code</h1>
+          <h3 style={{ fontSize: '18px', color: 'var(--vscode-descriptionForeground)', marginBottom: '40px', fontWeight: '400' }}>Editing evolved</h3>
           
-          {/* Recent Activity / Contribution */}
-          <div className="vscode-welcome-card" style={{ backgroundColor: '#252526', border: '1px solid #3c3c3c', borderRadius: '6px', padding: '20px' }}>
-            <h3 style={{ margin: '0 0 15px 0', fontSize: '13px', color: '#cccccc', textTransform: 'uppercase', letterSpacing: '1px' }}>Recent Contributions</h3>
-            <div style={{ display: 'flex', gap: '3px', flexWrap: 'wrap' }}>
-              {Array.from({ length: 140 }).map((_, i) => {
-                const levels = ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'];
-                const rand = Math.random();
-                let color = levels[0];
-                if (rand > 0.6) color = levels[1];
-                if (rand > 0.8) color = levels[2];
-                if (rand > 0.9) color = levels[3];
-                if (rand > 0.95) color = levels[4];
-                return <div key={i} style={{ width: '10px', height: '10px', backgroundColor: color, borderRadius: '2px' }}></div>
-              })}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px' }}>
+            <div className="vscode-welcome-column">
+              <div className="vscode-welcome-section" style={{ marginBottom: '30px' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: '400', marginBottom: '15px' }}>Start</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div className="vscode-welcome-link" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', color: 'var(--vscode-textLink-foreground)' }}>
+                    <span style={{ fontSize: '16px' }}>📝</span> New File...
+                  </div>
+                  <div className="vscode-welcome-link" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', color: 'var(--vscode-textLink-foreground)' }}>
+                    <span style={{ fontSize: '16px' }}>📂</span> Open File...
+                  </div>
+                  <div className="vscode-welcome-link" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', color: 'var(--vscode-textLink-foreground)' }}>
+                    <span style={{ fontSize: '16px' }}>📁</span> Open Folder...
+                  </div>
+                  <div className="vscode-welcome-link" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', color: 'var(--vscode-textLink-foreground)' }}>
+                    <span style={{ fontSize: '16px' }}>🐙</span> Clone Git Repository...
+                  </div>
+                </div>
+              </div>
+
+              <div className="vscode-welcome-section">
+                <h2 style={{ fontSize: '18px', fontWeight: '400', marginBottom: '15px' }}>Recent</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  {recentFiles.slice(0, 5).map(file => (
+                    <div 
+                      key={file} 
+                      onClick={() => handleFileClick(file)}
+                      style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+                      onMouseEnter={e => e.currentTarget.style.backgroundColor = 'var(--vscode-list-hoverBackground)'}
+                      onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+                    >
+                      <span style={{ marginRight: '10px', display: 'flex', alignItems: 'center' }}>
+                        {getFileIcon(getFileName(file))}
+                      </span>
+                      <div>
+                        <div style={{ fontSize: '13px', color: 'var(--vscode-textLink-foreground)' }}>{getFileName(file)}</div>
+                        <div style={{ fontSize: '12px', color: 'var(--vscode-descriptionForeground)' }}>{file.split('/')[0]}</div>
+                      </div>
+                    </div>
+                  ))}
+                  <div style={{ marginTop: '5px', fontSize: '13px', color: 'var(--vscode-textLink-foreground)', cursor: 'pointer' }}>
+                    More...
+                  </div>
+                </div>
+              </div>
             </div>
-            <div style={{ marginTop: '15px', fontSize: '12px', color: '#858585', display: 'flex', justifyContent: 'space-between' }}>
-              <span>284 contributions in the last year</span>
-              <span style={{ color: '#3794ff', cursor: 'pointer' }} onClick={() => handleFileClick('.github/profile.yml')}>View GitHub Profile</span>
+
+            <div className="vscode-welcome-column">
+              <div className="vscode-welcome-section">
+                <h2 style={{ fontSize: '18px', fontWeight: '400', marginBottom: '15px' }}>Walkthroughs</h2>
+                
+                <div className="vscode-walkthrough-card" style={{ backgroundColor: 'var(--vscode-editorWidget-background)', padding: '16px', borderRadius: '6px', border: '1px solid var(--vscode-widget-border)', marginBottom: '16px', cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                    <div style={{ fontSize: '24px' }}>🚀</div>
+                    <div>
+                      <h4 style={{ margin: '0 0 6px 0', fontSize: '14px', fontWeight: '600' }}>Get Started with VS Code</h4>
+                      <p style={{ margin: 0, fontSize: '13px', color: 'var(--vscode-descriptionForeground)' }}>Discover the best customizations to make VS Code yours.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="vscode-walkthrough-card" style={{ backgroundColor: 'var(--vscode-editorWidget-background)', padding: '16px', borderRadius: '6px', border: '1px solid var(--vscode-widget-border)', marginBottom: '16px', cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                    <div style={{ fontSize: '24px' }}>🐍</div>
+                    <div>
+                      <h4 style={{ margin: '0 0 6px 0', fontSize: '14px', fontWeight: '600' }}>Learn Python Fundamentals</h4>
+                      <p style={{ margin: 0, fontSize: '13px', color: 'var(--vscode-descriptionForeground)' }}>Set up your Python environment and start coding.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="vscode-walkthrough-card" style={{ backgroundColor: 'var(--vscode-editorWidget-background)', padding: '16px', borderRadius: '6px', border: '1px solid var(--vscode-widget-border)', cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                    <div style={{ fontSize: '24px' }}>✨</div>
+                    <div>
+                      <h4 style={{ margin: '0 0 6px 0', fontSize: '14px', fontWeight: '600' }}>Explore Portfolio OS</h4>
+                      <p style={{ margin: 0, fontSize: '13px', color: 'var(--vscode-descriptionForeground)' }}>See how this VS Code clone was built with React.</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
-
-          {/* Latest Deployment */}
-          <div className="vscode-welcome-card" style={{ backgroundColor: '#252526', border: '1px solid #3c3c3c', borderRadius: '6px', padding: '20px' }}>
-            <h3 style={{ margin: '0 0 15px 0', fontSize: '13px', color: '#cccccc', textTransform: 'uppercase', letterSpacing: '1px' }}>Latest Deployment</h3>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#89d185', boxShadow: '0 0 8px #89d185' }}></div>
-              <span style={{ fontSize: '16px', color: '#ffffff' }}>Portfolio OS 2026</span>
-            </div>
-            <p style={{ margin: '0 0 15px 0', fontSize: '13px', color: '#858585' }}>Production environment is actively running. Branch <span style={{color:'#ffffff'}}>main</span> deployed successfully.</p>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #3c3c3c', paddingTop: '15px' }}>
-              <span style={{ fontSize: '12px', color: '#cccccc' }}>https://portfolio.sohamkundu.dev</span>
-              <span style={{ color: '#3794ff', cursor: 'pointer', fontSize: '12px' }} onClick={() => handleFileClick('system/deployments.log')}>View Logs</span>
-            </div>
-          </div>
-
         </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px' }}>
-          
-          {/* Tech Stack */}
-          <div className="vscode-welcome-card" style={{ backgroundColor: '#252526', border: '1px solid #3c3c3c', borderRadius: '6px', padding: '20px' }}>
-            <h3 style={{ margin: '0 0 15px 0', fontSize: '13px', color: '#cccccc', textTransform: 'uppercase', letterSpacing: '1px' }}>Tech Stack</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ color: '#61dafb' }}>⚛️</span> React / Next.js</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ color: '#89d185' }}>🟢</span> Node.js / Express</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ color: '#cca700' }}>🐍</span> Python / LangChain</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ color: '#3794ff' }}>📘</span> TypeScript</div>
-            </div>
-          </div>
-
-          {/* Current Focus */}
-          <div className="vscode-welcome-card" style={{ backgroundColor: '#252526', border: '1px solid #3c3c3c', borderRadius: '6px', padding: '20px' }}>
-            <h3 style={{ margin: '0 0 15px 0', fontSize: '13px', color: '#cccccc', textTransform: 'uppercase', letterSpacing: '1px' }}>Current Focus</h3>
-            <div className="vscode-focus-item" style={{ marginBottom: '15px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
-                <span style={{ color: '#ffffff', fontSize: '14px' }}>AI Mock Interview Platform</span>
-                <span style={{ color: '#89d185', fontSize: '12px' }}>In Progress</span>
-              </div>
-              <div style={{ width: '100%', height: '4px', backgroundColor: '#3c3c3c', borderRadius: '2px' }}>
-                <div style={{ width: '75%', height: '100%', backgroundColor: '#007acc', borderRadius: '2px' }}></div>
-              </div>
-            </div>
-            <div className="vscode-focus-item">
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
-                <span style={{ color: '#ffffff', fontSize: '14px' }}>Portfolio OS 2026</span>
-                <span style={{ color: '#cca700', fontSize: '12px' }}>Review</span>
-              </div>
-              <div style={{ width: '100%', height: '4px', backgroundColor: '#3c3c3c', borderRadius: '2px' }}>
-                <div style={{ width: '95%', height: '100%', backgroundColor: '#cca700', borderRadius: '2px' }}></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="vscode-editor-area" style={{ display: 'flex', flexDirection: 'row', flex: 1, minHeight: 0, width: '100%' }}>
@@ -123,15 +138,20 @@ export default function EditorArea({
         {activeFile ? (
           <div className={`vscode-editor-group ${activeEditorGroup === 1 ? 'active-group' : ''}`} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div className="vscode-tabs">
-              {openFiles.map(path => (
-                <div key={path} className={`vscode-tab ${activeFile === path ? 'active' : ''}`} onClick={() => { setActiveEditorGroup(1); setActiveFile(path); }}>
-                  <span className="vscode-tab-icon">{getFileIcon(getFileName(path))}</span>
-                  {getFileName(path)}
-                  <span className="vscode-tab-close" onClick={(e) => closeFile(e, path, 1)}>
-                    {dirtyFiles.includes(path) ? <span style={{ fontSize: 10, color: '#ffffff' }}>●</span> : <DismissRegular fontSize={12} />}
-                  </span>
-                </div>
-              ))}
+              {openFiles.map(path => {
+                const isDirty = dirtyFiles.includes(path);
+                const isActive = activeFile === path;
+                return (
+                  <div key={path} className={`vscode-tab ${isActive ? 'active' : ''} ${isDirty ? 'dirty' : ''}`} onClick={() => { setActiveEditorGroup(1); setActiveFile(path); }}>
+                    <span className="vscode-tab-icon">{getFileIcon(getFileName(path))}</span>
+                    {getFileName(path)}
+                    <span className="vscode-tab-close" onClick={(e) => closeFile(e, path, 1)}>
+                      <DismissRegular fontSize={12} className="close-icon" />
+                      <span className="dirty-icon" style={{ fontSize: 10, padding: 2 }}>●</span>
+                    </span>
+                  </div>
+                );
+              })}
             </div>
             {activeFile !== 'Welcome' && (
               <div className="vscode-breadcrumbs">
@@ -159,15 +179,20 @@ export default function EditorArea({
           {splitActiveFile ? (
             <div className={`vscode-editor-group ${activeEditorGroup === 2 ? 'active-group' : ''}`} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
               <div className="vscode-tabs">
-                {splitOpenFiles.map(path => (
-                  <div key={path} className={`vscode-tab ${splitActiveFile === path ? 'active' : ''}`} onClick={() => { setActiveEditorGroup(2); setSplitActiveFile(path); }}>
-                    <span className="vscode-tab-icon">{getFileIcon(getFileName(path))}</span>
-                    {getFileName(path)}
-                    <span className="vscode-tab-close" onClick={(e) => closeFile(e, path, 2)}>
-                      {dirtyFiles.includes(path) ? <span style={{ fontSize: 10, color: '#ffffff' }}>●</span> : <DismissRegular fontSize={12} />}
-                    </span>
-                  </div>
-                ))}
+                {splitOpenFiles.map(path => {
+                  const isDirty = dirtyFiles.includes(path);
+                  const isActive = splitActiveFile === path;
+                  return (
+                    <div key={path} className={`vscode-tab ${isActive ? 'active' : ''} ${isDirty ? 'dirty' : ''}`} onClick={() => { setActiveEditorGroup(2); setSplitActiveFile(path); }}>
+                      <span className="vscode-tab-icon">{getFileIcon(getFileName(path))}</span>
+                      {getFileName(path)}
+                      <span className="vscode-tab-close" onClick={(e) => closeFile(e, path, 2)}>
+                        <DismissRegular fontSize={12} className="close-icon" />
+                        <span className="dirty-icon" style={{ fontSize: 10, padding: 2 }}>●</span>
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
               {splitActiveFile !== 'Welcome' && (
                 <div className="vscode-breadcrumbs">

@@ -2157,15 +2157,16 @@
   "apps/GamePlayerApp/components/GameRuntime.jsx": {
     "name": "GameRuntime",
     "category": "app",
-    "lines": 70,
-    "functions": 6,
+    "lines": 97,
+    "functions": 8,
     "hooks": [
       "useState",
       "useEffect",
       "useRef",
-      "useGameStore"
+      "useGameStore",
+      "useNotificationStore"
     ],
-    "hooksCount": 4,
+    "hooksCount": 5,
     "imports": [
       "../../../store/useGameStore"
     ],
@@ -3919,10 +3920,13 @@
   "apps/VSCodeApp/components/ActivityBar.jsx": {
     "name": "ActivityBar",
     "category": "app",
-    "lines": 37,
-    "functions": 1,
-    "hooks": [],
-    "hooksCount": 0,
+    "lines": 63,
+    "functions": 3,
+    "hooks": [
+      "useState",
+      "useEffect"
+    ],
+    "hooksCount": 2,
     "imports": [],
     "exports": [
       "ActivityBar"
@@ -3934,10 +3938,12 @@
   "apps/VSCodeApp/components/BottomPanel.jsx": {
     "name": "BottomPanel",
     "category": "app",
-    "lines": 99,
-    "functions": 1,
-    "hooks": [],
-    "hooksCount": 0,
+    "lines": 163,
+    "functions": 4,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
     "imports": [
       "../../../components/system/TerminalCore"
     ],
@@ -3972,8 +3978,8 @@
   "apps/VSCodeApp/components/EditorArea.jsx": {
     "name": "EditorArea",
     "category": "app",
-    "lines": 195,
-    "functions": 6,
+    "lines": 220,
+    "functions": 7,
     "hooks": [],
     "hooksCount": 0,
     "imports": [
@@ -3989,8 +3995,8 @@
   "apps/VSCodeApp/components/ExplorerPanel.jsx": {
     "name": "ExplorerPanel",
     "category": "app",
-    "lines": 143,
-    "functions": 5,
+    "lines": 160,
+    "functions": 6,
     "hooks": [
       "useState"
     ],
@@ -4121,10 +4127,12 @@
   "apps/VSCodeApp/components/SearchPanel.jsx": {
     "name": "SearchPanel",
     "category": "app",
-    "lines": 40,
-    "functions": 2,
-    "hooks": [],
-    "hooksCount": 0,
+    "lines": 115,
+    "functions": 5,
+    "hooks": [
+      "useMemo"
+    ],
+    "hooksCount": 1,
     "imports": [
       "../config/iconMap"
     ],
@@ -4159,7 +4167,7 @@
   "apps/VSCodeApp/components/StatusBar.jsx": {
     "name": "StatusBar",
     "category": "app",
-    "lines": 69,
+    "lines": 77,
     "functions": 1,
     "hooks": [],
     "hooksCount": 0,
@@ -4196,7 +4204,7 @@
   "apps/VSCodeApp/config/iconMap.jsx": {
     "name": "iconMap",
     "category": "app",
-    "lines": 69,
+    "lines": 70,
     "functions": 2,
     "hooks": [],
     "hooksCount": 0,
@@ -4228,6 +4236,42 @@
       "TopMenu"
     ]
   },
+  "apps/VSCodeApp/constants/commands.js": {
+    "name": "commands",
+    "category": "app",
+    "lines": 21,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "COMMANDS"
+    ],
+    "usedBy": [
+      "useWorkbench"
+    ]
+  },
+  "apps/VSCodeApp/constants/fileContents.js": {
+    "name": "fileContents",
+    "category": "app",
+    "lines": 68,
+    "functions": 3,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./WindowManager"
+    ],
+    "exports": [
+      "Desktop",
+      "Taskbar",
+      "VSCodeApp",
+      "fileContents"
+    ],
+    "usedBy": [
+      "useWorkbench",
+      "index"
+    ]
+  },
   "apps/VSCodeApp/data/fileTree.js": {
     "name": "fileTree",
     "category": "app",
@@ -4244,16 +4288,42 @@
       "index"
     ]
   },
-  "apps/VSCodeApp/index.jsx": {
-    "name": "index",
+  "apps/VSCodeApp/hooks/useWorkbench.js": {
+    "name": "useWorkbench",
     "category": "app",
-    "lines": 1016,
-    "functions": 64,
+    "lines": 477,
+    "functions": 46,
     "hooks": [
       "useState",
       "useEffect",
       "useRef",
+      "useCallback",
       "useGitHubStore",
+      "useWorkbench"
+    ],
+    "hooksCount": 6,
+    "imports": [
+      "../../../store/useGitHubStore",
+      "../constants/fileContents",
+      "../constants/commands"
+    ],
+    "exports": [
+      "useWorkbench"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/VSCodeApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 418,
+    "functions": 9,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useRef",
+      "useWorkbench",
       "usePresentationStore"
     ],
     "hooksCount": 5,
@@ -4261,6 +4331,7 @@
       "../../components/system/TerminalCore",
       "./data/fileTree",
       "./config/iconMap",
+      "./constants/fileContents",
       "./components/ReadmeRenderer",
       "./components/RecruiterDashboard",
       "./components/MockDBViewer",
@@ -4271,16 +4342,13 @@
       "./components/BottomPanel",
       "./components/StatusBar",
       "./components/ProfileSidebar",
-      "../../store/useGitHubStore",
+      "./hooks/useWorkbench",
       "../../store/usePresentationStore",
+      "./styles/tokens.css",
       "./VSCodeApp.css",
-      "../../assets/icons/apps/vscode.svg",
-      "./WindowManager"
+      "../../assets/icons/apps/vscode.svg"
     ],
     "exports": [
-      "Desktop",
-      "Taskbar",
-      "VSCodeApp",
       "VSCodeApp"
     ],
     "usedBy": []
@@ -5489,8 +5557,8 @@
   "components/system/TerminalCore/index.jsx": {
     "name": "index",
     "category": "component",
-    "lines": 260,
-    "functions": 13,
+    "lines": 277,
+    "functions": 15,
     "hooks": [
       "useState",
       "useEffect",
@@ -7512,8 +7580,8 @@
   "store/useGameStore.js": {
     "name": "useGameStore",
     "category": "store",
-    "lines": 120,
-    "functions": 12,
+    "lines": 118,
+    "functions": 10,
     "hooks": [
       "useNotificationStore",
       "useGameStore"
@@ -7553,6 +7621,7 @@
       "BrowserNewTab",
       "BrowserToolbar",
       "index",
+      "useWorkbench",
       "GitHubWidget",
       "ContactTab",
       "ProfileTab"

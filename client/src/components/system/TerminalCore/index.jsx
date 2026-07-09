@@ -23,6 +23,7 @@ const BOOT_LINES = [
 export default function TerminalCore({ hideHeader = false, style = {}, customPrompt, skipBoot = false, onCommand, externalCommand, onExternalCommandExecuted }) {
   const [output, setOutput] = useState([]);
   const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [booted, setBooted] = useState(false);
@@ -64,9 +65,24 @@ export default function TerminalCore({ hideHeader = false, style = {}, customPro
   }, [skipBoot]);
 
   useEffect(() => {
-    if (externalCommand && booted) {
-      handleCommand(externalCommand);
-      if (onExternalCommandExecuted) onExternalCommandExecuted();
+    if (externalCommand && booted && !isTyping) {
+      setIsTyping(true);
+      let i = 0;
+      setInput('');
+      const typingInterval = setInterval(() => {
+        if (i < externalCommand.length) {
+          setInput(externalCommand.substring(0, i + 1));
+          i++;
+        } else {
+          clearInterval(typingInterval);
+          setTimeout(() => {
+            handleSubmit(null, externalCommand);
+            setIsTyping(false);
+            if (onExternalCommandExecuted) onExternalCommandExecuted();
+          }, 300);
+        }
+      }, 50);
+      return () => clearInterval(typingInterval);
     }
   }, [externalCommand, booted]);
 
@@ -95,10 +111,11 @@ export default function TerminalCore({ hideHeader = false, style = {}, customPro
     setOutput([]);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, forcedCommand = null) => {
     if (e) e.preventDefault();
 
-    const trimmed = input.trim();
+    const cmdToRun = forcedCommand !== null ? forcedCommand : input;
+    const trimmed = cmdToRun.trim();
     if (!trimmed) return;
 
     // Echo the command

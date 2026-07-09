@@ -1,17 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Snake Local Runtime</title>
-    <style>
-        body { background: #111; color: #fff; font-family: monospace; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        canvas { border: 2px solid #333; background: #000; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Retro Snake - Portfolio OS Edition</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div style="text-align: center;">
-        <h1>SNAKE <small>(Local Mock)</small></h1>
-        <canvas width="400" height="400"></canvas>
-        <p>This is a local hosted offline wrapper.</p>
+  <div class="game-container">
+    <div class="header">
+      <div class="header-left">
+        <h1 class="title">SNAKE</h1>
+        <p class="subtitle">Retro Arcade Edition</p>
+      </div>
+      <div class="scores-container">
+        <div class="score-box">
+          <div class="score-label">SCORE</div>
+          <div class="score-value" id="score">0</div>
+        </div>
+        <div class="score-box">
+          <div class="score-label">BEST</div>
+          <div class="score-value" id="best-score">0</div>
+        </div>
+      </div>
     </div>
+
+    <div class="controls">
+      <button class="btn" id="new-game-btn">New Game</button>
+      <button class="btn" id="tutorial-btn" style="background: #0078D4;">How to Play</button>
+    </div>
+
+    <div class="canvas-wrapper">
+      <canvas id="gameCanvas" width="400" height="400"></canvas>
+      
+      <!-- Overlay for Game Over -->
+      <div class="game-message" id="game-message">
+        <h2 id="message-text">Game Over!</h2>
+        <p id="final-score" style="margin-bottom: 24px; font-size: 1.2rem; color: #ccc;">Score: 0</p>
+        <div class="message-buttons">
+          <button class="btn primary-btn" id="retry-btn">Try Again</button>
+        </div>
+      </div>
+
+      <!-- Paused Overlay -->
+      <div class="game-message" id="pause-message">
+        <h2 style="color: #60cdff;">Paused</h2>
+        <p style="margin-bottom: 24px; color: #aaa;">Press Space to Resume</p>
+        <button class="btn" id="resume-btn">Resume</button>
+      </div>
+    </div>
+    
+    <div class="instructions">
+      <p><strong>CONTROLS:</strong> Use <strong>Arrow Keys</strong> or <strong>WASD</strong> to move. Press <strong>Space</strong> to pause.</p>
+    </div>
+
+    <!-- Tutorial Modal -->
+    <div class="tutorial-overlay" id="tutorial-overlay">
+      <div class="tutorial-modal">
+        <button class="tutorial-close" id="tutorial-close">×</button>
+        <h2 style="margin-bottom: 16px;">How to Play Snake</h2>
+        
+        <div class="tutorial-steps">
+          <div class="tutorial-step active" id="tut-step-1">
+            <h3>Eat Apples</h3>
+            <p>Guide your snake to eat the glowing apples to gain points.</p>
+            <div class="tut-visual">
+              <div style="width: 160px; height: 160px; background: rgba(0,0,0,0.5); border: 2px solid #333; position: relative;">
+                <!-- Snake Head -->
+                <div style="position: absolute; width: 20px; height: 20px; background: #39ff14; top: 70px; left: 40px; box-shadow: 0 0 10px #39ff14;"></div>
+                <!-- Apple -->
+                <div style="position: absolute; width: 20px; height: 20px; background: #ff073a; top: 70px; left: 100px; border-radius: 50%; box-shadow: 0 0 15px #ff073a; animation: pulse 1s infinite;"></div>
+              </div>
+            </div>
+            <p style="font-size: 0.8rem; color: #aaa; margin-top: 8px;">Each apple makes your snake grow longer!</p>
+          </div>
+
+          <div class="tutorial-step" id="tut-step-2">
+            <h3>Don't Crash!</h3>
+            <p>If you crash into the walls or your own tail, it's game over.</p>
+            <div class="tut-visual">
+              <div style="width: 160px; height: 160px; background: rgba(0,0,0,0.5); border: 2px solid #ff073a; position: relative; box-shadow: inset 0 0 20px rgba(255, 7, 58, 0.5);">
+                <!-- Snake Head crashing -->
+                <div style="position: absolute; width: 20px; height: 20px; background: #39ff14; top: 70px; right: 0;"></div>
+                <!-- Explosion effect -->
+                <div style="position: absolute; font-size: 24px; top: 60px; right: -10px;">💥</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tutorial-nav">
+          <button class="btn" id="tut-prev-btn" disabled>Back</button>
+          <div class="tut-dots">
+            <span class="tut-dot active" id="tut-dot-1"></span>
+            <span class="tut-dot" id="tut-dot-2"></span>
+          </div>
+          <button class="btn primary-btn" id="tut-next-btn">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
 </body>
 </html>

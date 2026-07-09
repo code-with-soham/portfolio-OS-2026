@@ -1,0 +1,185 @@
+/* ================================================
+   VS Code Design System Tokens — Portfolio OS 2026
+   Pixel-perfect match to VS Code Dark+ (Modern)
+   ================================================ */
+
+:root {
+  /* ─── Layout Dimensions ─── */
+  --vscode-titleBar-height: 35px;
+  --vscode-menuBar-height: 35px;
+  --vscode-activityBar-width: 48px;
+  --vscode-sideBar-width: 300px;
+  --vscode-tab-height: 35px;
+  --vscode-breadcrumb-height: 22px;
+  --vscode-statusBar-height: 22px;
+  --vscode-panelHeader-height: 35px;
+  --vscode-editorLineHeight: 22px;
+
+  /* ─── Spacing (8px Grid) ─── */
+  --vscode-spacing-xs: 2px;
+  --vscode-spacing-sm: 4px;
+  --vscode-spacing-md: 8px;
+  --vscode-spacing-lg: 12px;
+  --vscode-spacing-xl: 16px;
+  --vscode-spacing-2xl: 20px;
+  --vscode-spacing-3xl: 24px;
+
+  /* ─── Typography ─── */
+  --vscode-font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+  --vscode-editor-font-family: 'Cascadia Code', 'Fira Code', Menlo, Monaco, 'Courier New', monospace;
+  --vscode-font-size: 13px;
+  --vscode-font-size-sm: 11px;
+  --vscode-font-size-xs: 10px;
+  --vscode-editor-font-size: 14px;
+  --vscode-font-weight-normal: 400;
+  --vscode-font-weight-semibold: 600;
+  --vscode-font-weight-bold: 700;
+
+  /* ─── Core Surface Colors (Dark+ Modern) ─── */
+  --vscode-editor-background: #1e1e1e;
+  --vscode-editor-foreground: #d4d4d4;
+  --vscode-sideBar-background: #181818;
+  --vscode-sideBar-foreground: #cccccc;
+  --vscode-sideBar-border: #2b2b2b;
+  --vscode-activityBar-background: #181818;
+  --vscode-activityBar-foreground: #ffffff;
+  --vscode-activityBar-inactiveForeground: #858585;
+  --vscode-activityBar-border: #2b2b2b;
+  --vscode-activityBar-activeBorder: #ffffff;
+  --vscode-activityBarBadge-background: #007fd4;
+  --vscode-activityBarBadge-foreground: #ffffff;
+  --vscode-titleBar-background: #181818;
+  --vscode-titleBar-foreground: #cccccc;
+  --vscode-titleBar-border: #2b2b2b;
+  --vscode-menuBar-background: #181818;
+  --vscode-menuBar-foreground: #cccccc;
+  --vscode-menu-background: #252526;
+  --vscode-menu-foreground: #cccccc;
+  --vscode-menu-border: #454545;
+  --vscode-menu-selectionBackground: #04395e;
+  --vscode-menu-selectionForeground: #ffffff;
+  --vscode-menu-separatorBackground: #454545;
+
+  /* ─── Tab Colors ─── */
+  --vscode-tab-activeBackground: #1e1e1e;
+  --vscode-tab-activeForeground: #ffffff;
+  --vscode-tab-inactiveBackground: #2d2d2d;
+  --vscode-tab-inactiveForeground: #969696;
+  --vscode-tab-border: #2b2b2b;
+  --vscode-tab-activeBorderTop: #007acc;
+  --vscode-tab-unfocusedActiveBorderTop: transparent;
+  --vscode-editorGroupHeader-tabsBackground: #181818;
+
+  /* ─── Status Bar ─── */
+  --vscode-statusBar-background: #007acc;
+  --vscode-statusBar-foreground: #ffffff;
+  --vscode-statusBar-border: transparent;
+  --vscode-statusBar-hoverBackground: rgba(255, 255, 255, 0.12);
+  --vscode-statusBar-remoteBackground: #16825d;
+  --vscode-statusBar-remoteForeground: #ffffff;
+  --vscode-statusBarItem-errorBackground: #c72e42;
+  --vscode-statusBarItem-warningBackground: #7a6400;
+
+  /* ─── Breadcrumbs ─── */
+  --vscode-breadcrumb-background: #1e1e1e;
+  --vscode-breadcrumb-foreground: #969696;
+  --vscode-breadcrumb-focusForeground: #cccccc;
+  --vscode-breadcrumbPicker-background: #252526;
+
+  /* ─── Panel ─── */
+  --vscode-panel-background: #1e1e1e;
+  --vscode-panel-border: #2b2b2b;
+  --vscode-panelTitle-activeForeground: #e7e7e7;
+  --vscode-panelTitle-activeBorder: #e7e7e7;
+  --vscode-panelTitle-inactiveForeground: #858585;
+
+  /* ─── Input ─── */
+  --vscode-input-background: #313131;
+  --vscode-input-foreground: #cccccc;
+  --vscode-input-border: #3c3c3c;
+  --vscode-input-focusBorder: #007fd4;
+  --vscode-input-placeholderForeground: #858585;
+
+  /* ─── Focus ─── */
+  --vscode-focusBorder: #007fd4;
+
+  /* ─── List/Tree ─── */
+  --vscode-list-activeSelectionBackground: #04395e;
+  --vscode-list-activeSelectionForeground: #ffffff;
+  --vscode-list-hoverBackground: #2a2d2e;
+  --vscode-list-hoverForeground: #cccccc;
+  --vscode-list-inactiveSelectionBackground: #37373d;
+  --vscode-list-focusOutline: #007fd4;
+  --vscode-tree-indentGuidesStroke: #585858;
+
+  /* ─── Scrollbar ─── */
+  --vscode-scrollbar-shadow: #000000;
+  --vscode-scrollbarSlider-background: rgba(121, 121, 121, 0.4);
+  --vscode-scrollbarSlider-hoverBackground: rgba(100, 100, 100, 0.7);
+  --vscode-scrollbarSlider-activeBackground: rgba(191, 191, 191, 0.4);
+
+  /* ─── Notifications ─── */
+  --vscode-notifications-background: #252526;
+  --vscode-notifications-foreground: #cccccc;
+  --vscode-notifications-border: #454545;
+
+  /* ─── Context Menu / Command Palette ─── */
+  --vscode-quickInput-background: #252526;
+  --vscode-quickInput-foreground: #cccccc;
+  --vscode-quickInputList-focusBackground: #04395e;
+  --vscode-commandCenter-background: #2b2b2b;
+  --vscode-commandCenter-border: #3c3c3c;
+  --vscode-commandCenter-foreground: #cccccc;
+
+  /* ─── Editor Tokens ─── */
+  --vscode-editorLineNumber-foreground: #858585;
+  --vscode-editorLineNumber-activeForeground: #c6c6c6;
+  --vscode-editorCursor-foreground: #aeafad;
+  --vscode-editor-lineHighlightBackground: rgba(255, 255, 255, 0.04);
+  --vscode-editor-selectionBackground: #264f78;
+  --vscode-editorIndentGuide-background: #404040;
+  --vscode-editorIndentGuide-activeBackground: #707070;
+  --vscode-editorBracketMatch-background: rgba(0, 100, 0, 0.1);
+  --vscode-editorBracketMatch-border: #888888;
+
+  /* ─── Diff / Git ─── */
+  --vscode-gitDecoration-modifiedResourceForeground: #e2c08d;
+  --vscode-gitDecoration-untrackedResourceForeground: #73c991;
+  --vscode-gitDecoration-deletedResourceForeground: #c74e39;
+  --vscode-gitDecoration-addedResourceForeground: #81b88b;
+  --vscode-gitDecoration-conflictingResourceForeground: #e4676b;
+
+  /* ─── Buttons ─── */
+  --vscode-button-background: #0e639c;
+  --vscode-button-foreground: #ffffff;
+  --vscode-button-hoverBackground: #1177bb;
+  --vscode-button-secondaryBackground: #3a3d41;
+  --vscode-button-secondaryForeground: #ffffff;
+  --vscode-button-secondaryHoverBackground: #45494e;
+
+  /* ─── Badge ─── */
+  --vscode-badge-background: #4d4d4d;
+  --vscode-badge-foreground: #ffffff;
+
+  /* ─── Animation Timing (Restrained, VS Code-authentic) ─── */
+  --vscode-transition-hover: 120ms ease;
+  --vscode-transition-fade: 150ms ease;
+  --vscode-transition-slide: 200ms ease;
+  --vscode-transition-expand: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ─── Shadows ─── */
+  --vscode-widget-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.36);
+  --vscode-dropdown-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+  /* ─── Border Radius ─── */
+  --vscode-border-radius-sm: 2px;
+  --vscode-border-radius-md: 4px;
+  --vscode-border-radius-lg: 6px;
+
+  /* ─── Icon Sizing ─── */
+  --vscode-icon-size-sm: 14px;
+  --vscode-icon-size-md: 16px;
+  --vscode-icon-size-lg: 20px;
+  --vscode-icon-size-xl: 24px;
+  --vscode-activityBar-iconSize: 24px;
+}

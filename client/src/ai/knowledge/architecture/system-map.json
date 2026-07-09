@@ -656,8 +656,8 @@
       "category": "app",
       "color": "#61dafb",
       "path": "apps/VSCodeApp/index.jsx",
-      "lines": 1016,
-      "functions": 64,
+      "lines": 418,
+      "functions": 9,
       "hooks": 5
     },
     {
@@ -986,8 +986,8 @@
       "category": "store",
       "color": "#f0db4f",
       "path": "store/useGameStore.js",
-      "lines": 120,
-      "functions": 12,
+      "lines": 118,
+      "functions": 10,
       "hooks": 2
     },
     {
@@ -1561,10 +1561,6 @@
     {
       "source": "node_64",
       "target": "node_111"
-    },
-    {
-      "source": "node_65",
-      "target": "node_99"
     },
     {
       "source": "node_65",

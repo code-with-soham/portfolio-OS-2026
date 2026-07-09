@@ -35,11 +35,20 @@ export default function ExplorerPanel({
     }));
   };
 
+  const getGitDecoration = (fileName) => {
+    if (fileName === 'README.md') return { color: 'var(--vscode-gitDecoration-modifiedResourceForeground)', letter: 'M' };
+    if (fileName === 'profile.yml') return { color: 'var(--vscode-gitDecoration-addedResourceForeground)', letter: 'A' };
+    if (fileName === 'skills.yml') return { color: 'var(--vscode-gitDecoration-untrackedResourceForeground)', letter: 'U' };
+    if (fileName === 'research.ipynb') return { color: 'var(--vscode-gitDecoration-modifiedResourceForeground)', letter: 'M' };
+    return null;
+  };
+
   const renderFileTree = (nodes, padding = 10, parentPath = '') => {
     return nodes.map((node) => {
       const isFolder = node.type === 'folder';
       const isOpen = expandedFolders[node.name];
       const isSelected = activeFile === node.path;
+      const gitInfo = getGitDecoration(node.name);
       
       return (
         <div key={`${parentPath}-${node.name}`}>
@@ -49,24 +58,28 @@ export default function ExplorerPanel({
             onClick={(e) => isFolder ? toggleFolder(node.name, e) : handleFileClick(node.path)}
             onContextMenu={(e) => !isFolder ? handleContextMenu(e, node.path) : null}
           >
-            <span className="vscode-chevron">
-              {isFolder ? (isOpen ? <ChevronDownRegular fontSize={12} /> : <ChevronRightRegular fontSize={12} />) : <span style={{ width: 12, display: 'inline-block' }}></span>}
+            <span className={`vscode-chevron ${isFolder && isOpen ? 'expanded' : ''}`}>
+              {isFolder ? <ChevronRightRegular fontSize={12} /> : <span style={{ width: 12, display: 'inline-block' }}></span>}
             </span>
             <span className="vscode-tree-icon">
               {isFolder ? getFolderIcon(node.name, isOpen) : getFileIcon(node.name)}
             </span>
-            <span className="vscode-tree-name" style={{ 
-              color: node.name === 'README.md' || node.name === 'research.ipynb' ? '#cca700' : 
-                     node.name === 'skills.yml' || node.name === 'profile.yml' ? '#89d185' : 'inherit'
-            }}>{node.name}</span>
-            {!isFolder && dirtyFiles.includes(node.path) && <span style={{ marginLeft: '6px', fontSize: 10, color: '#ffffff' }}>●</span>}
-            {node.name === 'README.md' && <span style={{ marginLeft: 'auto', fontSize: 10, color: '#cca700', paddingRight: 4 }}>M</span>}
-            {node.name === 'profile.yml' && <span style={{ marginLeft: 'auto', fontSize: 10, color: '#89d185', paddingRight: 4 }}>A</span>}
-            {node.name === 'skills.yml' && <span style={{ marginLeft: 'auto', fontSize: 10, color: '#89d185', paddingRight: 4 }}>U</span>}
-            {node.name === 'research.ipynb' && <span style={{ marginLeft: 'auto', fontSize: 10, color: '#cca700', paddingRight: 4 }}>U</span>}
+            <span className="vscode-tree-name" style={{ color: gitInfo ? gitInfo.color : 'inherit' }}>
+              {node.name}
+            </span>
+            
+            {/* Right side icons & git status */}
+            <div style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
+              {!isFolder && dirtyFiles.includes(node.path) && (
+                <span style={{ fontSize: 10, color: 'var(--vscode-editor-foreground)', marginRight: 4 }}>●</span>
+              )}
+              {gitInfo && (
+                <span style={{ fontSize: 10, color: gitInfo.color, fontWeight: 'bold' }}>{gitInfo.letter}</span>
+              )}
+            </div>
           </div>
           {isFolder && isOpen && node.children && (
-            <div className="vscode-tree-children">
+            <div className="vscode-tree-children" style={{ marginLeft: `${padding + 6}px` }}>
               {renderFileTree(node.children, padding + 12, `${parentPath}/${node.name}`)}
             </div>
           )}
@@ -90,7 +103,7 @@ export default function ExplorerPanel({
       </div>
       
       <div className="vscode-workspace-badges">
-        <div className="vscode-workspace-badge" style={{ fontWeight: 600, color: '#fff', fontSize: 11, marginBottom: 4 }}>SOHAM-KUNDU [Portfolio Workspace]</div>
+        <div className="vscode-workspace-badge" style={{ fontWeight: 600, color: 'var(--vscode-sideBar-foreground)', fontSize: 11, marginBottom: 4 }}>SOHAM-KUNDU [Portfolio Workspace]</div>
         <div className="vscode-workspace-badge"><span>🟢</span> GitHub Connected</div>
         <div className="vscode-workspace-badge"><span>⚡</span> React + Node</div>
         <div className="vscode-workspace-badge"><span>🤖</span> AI/ML Projects</div>
@@ -99,7 +112,9 @@ export default function ExplorerPanel({
       <div style={{ overflowY: 'auto', overflowX: 'hidden', flex: 1 }}>
         <div className="vscode-sidebar-section">
           <div className="vscode-section-header" onClick={() => setOpenEditorsExpanded(!openEditorsExpanded)}>
-            {openEditorsExpanded ? <ChevronDownRegular fontSize={12} /> : <ChevronRightRegular fontSize={12} />}
+            <span className={`vscode-chevron ${openEditorsExpanded ? 'expanded' : ''}`} style={{ marginRight: 4, width: 12, height: 12, display: 'inline-flex', alignItems: 'center', transition: 'transform 0.15s ease' }}>
+              <ChevronRightRegular fontSize={12} />
+            </span>
             <span style={{ fontWeight: 600 }}>OPEN EDITORS</span>
           </div>
           {openEditorsExpanded && (
@@ -111,7 +126,7 @@ export default function ExplorerPanel({
                   </div>
                   <span className="vscode-opened-icon">{getFileIcon(getFileName(path))}</span>
                   <span className="vscode-opened-name">{getFileName(path)}</span>
-                  {dirtyFiles.includes(path) && <span style={{ marginLeft: '6px', fontSize: 10, color: '#ffffff' }}>●</span>}
+                  {dirtyFiles.includes(path) && <span style={{ marginLeft: '6px', fontSize: 10, color: 'var(--vscode-editor-foreground)' }}>●</span>}
                   <span className="vscode-opened-dir">{path.split('/')[0]}</span>
                 </div>
               ))}
@@ -121,7 +136,9 @@ export default function ExplorerPanel({
 
         <div className="vscode-sidebar-section">
           <div className="vscode-section-header" onClick={() => setWorkspaceExpanded(!workspaceExpanded)}>
-            {workspaceExpanded ? <ChevronDownRegular fontSize={12} /> : <ChevronRightRegular fontSize={12} />}
+            <span className={`vscode-chevron ${workspaceExpanded ? 'expanded' : ''}`} style={{ marginRight: 4, width: 12, height: 12, display: 'inline-flex', alignItems: 'center', transition: 'transform 0.15s ease' }}>
+              <ChevronRightRegular fontSize={12} />
+            </span>
             <span style={{ fontWeight: 600 }}>SOHAM-KUNDU</span>
             <div className="vscode-section-actions">
               <DocumentAddRegular fontSize={14} />

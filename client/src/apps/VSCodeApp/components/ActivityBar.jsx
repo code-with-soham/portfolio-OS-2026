@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   DocumentMultipleRegular,
   SearchRegular,
@@ -11,25 +11,51 @@ import {
 } from '@fluentui/react-icons';
 
 export default function ActivityBar({ sidebarView, setSidebarView }) {
+  const [pulsing, setPulsing] = useState(true);
+
+  // Pulse badge on first render to draw attention
+  useEffect(() => {
+    const timer = setTimeout(() => setPulsing(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const topItems = [
+    { id: 'explorer', icon: <DocumentMultipleRegular />, label: 'Explorer (Ctrl+Shift+E)' },
+    { id: 'search', icon: <SearchRegular />, label: 'Search (Ctrl+Shift+F)' },
+    { id: 'copilot', icon: <BotRegular />, label: 'GitHub Copilot' },
+    { id: 'git', icon: <BranchRegular />, label: 'Source Control (Ctrl+Shift+G)', badge: 3 },
+    { id: 'debug', icon: <PlayRegular />, label: 'Run and Debug (Ctrl+Shift+D)' },
+    { id: 'extensions', icon: <PuzzlePieceRegular />, label: 'Extensions (Ctrl+Shift+X)', badge: 1 },
+  ];
+
+  const bottomItems = [
+    { id: 'accounts', icon: <PersonRegular />, label: 'Accounts' },
+    { id: 'settings', icon: <SettingsRegular />, label: 'Manage' },
+  ];
+
+  const renderItem = (item) => (
+    <div 
+      key={item.id}
+      className={`vscode-activity-icon ${sidebarView === item.id ? 'active' : ''}`}
+      data-tooltip={item.label}
+      onClick={() => setSidebarView(item.id)}
+    >
+      {item.icon}
+      {item.badge && (
+        <div className={`vscode-activity-badge ${pulsing ? 'pulse-anim' : ''}`}>
+          {item.badge}
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <div className="vscode-activity-bar">
       <div className="vscode-activity-top">
-        <div className={`vscode-activity-icon ${sidebarView === 'explorer' ? 'active' : ''}`} title="Explorer (Ctrl+Shift+E)" onClick={() => setSidebarView('explorer')}><DocumentMultipleRegular /></div>
-        <div className={`vscode-activity-icon ${sidebarView === 'search' ? 'active' : ''}`} title="Search (Ctrl+Shift+F)" onClick={() => setSidebarView('search')}><SearchRegular /></div>
-        <div className={`vscode-activity-icon ${sidebarView === 'copilot' ? 'active' : ''}`} title="GitHub Copilot" onClick={() => setSidebarView('copilot')}><BotRegular /></div>
-        <div className={`vscode-activity-icon ${sidebarView === 'git' ? 'active' : ''}`} title="Source Control (Ctrl+Shift+G)" onClick={() => setSidebarView('git')} style={{ position: 'relative' }}>
-          <BranchRegular />
-          <div style={{ position: 'absolute', bottom: 8, right: 8, background: '#007fd4', color: 'white', fontSize: 9, borderRadius: 10, width: 14, height: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>3</div>
-        </div>
-        <div className={`vscode-activity-icon ${sidebarView === 'debug' ? 'active' : ''}`} title="Run and Debug (Ctrl+Shift+D)" onClick={() => setSidebarView('debug')}><PlayRegular /></div>
-        <div className={`vscode-activity-icon ${sidebarView === 'extensions' ? 'active' : ''}`} title="Extensions (Ctrl+Shift+X)" onClick={() => setSidebarView('extensions')} style={{ position: 'relative' }}>
-          <PuzzlePieceRegular />
-          <div style={{ position: 'absolute', bottom: 8, right: 8, background: '#007fd4', color: 'white', fontSize: 9, borderRadius: 10, width: 14, height: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>1</div>
-        </div>
+        {topItems.map(renderItem)}
       </div>
       <div className="vscode-activity-bottom">
-        <div className={`vscode-activity-icon ${sidebarView === 'accounts' ? 'active' : ''}`} title="Accounts" onClick={() => setSidebarView('accounts')}><PersonRegular /></div>
-        <div className={`vscode-activity-icon ${sidebarView === 'settings' ? 'active' : ''}`} title="Manage" onClick={() => setSidebarView('settings')}><SettingsRegular /></div>
+        {bottomItems.map(renderItem)}
       </div>
     </div>
   );
