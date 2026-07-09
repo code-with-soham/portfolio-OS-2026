@@ -83,23 +83,10 @@ export default function VSCodeApp({ project, initialFile }) {
 
     // README with Profile Sidebar
     if (fileToRender === 'about/README.md') {
-      const isHighlight = usePresentationStore.getState().activeMode === 'PRESENTATION'
-        && usePresentationStore.getState().currentStep === 4;
       return (
-        <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%', height: '100%', overflowY: 'auto', backgroundColor: '#0d1117', color: '#c9d1d9' }}>
-          <div
-            className="vscode-markdown github-style"
-            style={{
-              flex: 1, minWidth: '350px', padding: '20px',
-              ...(isHighlight ? { boxShadow: 'inset 0 0 0 4px var(--color-accent)' } : {})
-            }}
-          >
-            {isHighlight && (
-              <div style={{ padding: '12px', background: 'rgba(80, 227, 194, 0.1)', color: 'var(--color-accent)', borderBottom: '1px solid var(--color-accent)', fontWeight: 600, marginBottom: '16px' }}>
-                Highlighting: Architecture, Features, Tech Stack (Mocked view)
-              </div>
-            )}
-            <ReactMarkdown rehypePlugins={[rehypeRaw]}>{finalContent}</ReactMarkdown>
+        <div style={{ display: 'flex', flexWrap: 'nowrap', width: '100%', height: '100%', backgroundColor: '#0d1117', color: '#c9d1d9', overflowX: 'hidden' }}>
+          <div style={{ flex: 1, minWidth: '0', overflowY: 'auto' }}>
+            <ReadmeRenderer />
           </div>
           <ProfileSidebar />
         </div>
@@ -201,6 +188,9 @@ export default function VSCodeApp({ project, initialFile }) {
 
     // Markdown
     if (fileToRender.endsWith('.md')) {
+      if (fileToRender === 'about/README.md') {
+        return <ReadmeRenderer />;
+      }
       return (
         <div className="vscode-markdown github-style" style={{ padding: '20px', backgroundColor: '#0d1117', color: '#c9d1d9', overflowY: 'auto', height: '100%' }}>
           <ReactMarkdown rehypePlugins={[rehypeRaw]}>{finalContent}</ReactMarkdown>

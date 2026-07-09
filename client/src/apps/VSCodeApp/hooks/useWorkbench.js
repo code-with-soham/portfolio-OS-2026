@@ -9,10 +9,18 @@ import { COMMANDS } from '../constants/commands';
  */
 export default function useWorkbench({ project, initialFile }) {
   // ─── Editor State ───
-  const [activeFile, setActiveFile] = useState(() => localStorage.getItem('vscode.activeFile') || 'Welcome');
+  const [activeFile, setActiveFile] = useState(() => {
+    const saved = localStorage.getItem('vscode.activeFile');
+    return (saved && saved !== 'Welcome') ? saved : 'about/README.md';
+  });
   const [openFiles, setOpenFiles] = useState(() => {
     const saved = localStorage.getItem('vscode.openFiles');
-    return saved ? JSON.parse(saved) : ['Welcome'];
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      const filtered = parsed.filter(f => f !== 'Welcome');
+      return filtered.length > 0 ? filtered : ['about/README.md'];
+    }
+    return ['about/README.md'];
   });
   const [splitMode, setSplitMode] = useState(() => localStorage.getItem('vscode.splitMode') === 'true');
   const [splitActiveFile, setSplitActiveFile] = useState(() => localStorage.getItem('vscode.splitActiveFile') || null);

@@ -656,7 +656,7 @@
       "category": "app",
       "color": "#61dafb",
       "path": "apps/VSCodeApp/index.jsx",
-      "lines": 418,
+      "lines": 401,
       "functions": 9,
       "hooks": 5
     },

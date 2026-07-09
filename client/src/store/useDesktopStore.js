@@ -301,7 +301,7 @@ export const useDesktopStore = create(
   // ========================
   // VS-22: Startup Apps
   // ========================
-  startupApps: ['aiassistant'], // IDs of apps to launch on boot
+  startupApps: ['vscode'], // IDs of apps to launch on boot
   
   toggleStartupApp: (appId) => set((state) => {
     if (state.startupApps.includes(appId)) {

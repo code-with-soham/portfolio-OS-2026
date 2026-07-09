@@ -4090,14 +4090,16 @@
   "apps/VSCodeApp/components/ReadmeRenderer.jsx": {
     "name": "ReadmeRenderer",
     "category": "app",
-    "lines": 201,
+    "lines": 198,
     "functions": 2,
     "hooks": [
-      "useWindowStore"
+      "useWindowStore",
+      "useDesktopStore"
     ],
-    "hooksCount": 1,
+    "hooksCount": 2,
     "imports": [
       "../../../store/useWindowStore",
+      "../../../store/useDesktopStore",
       "./ReadmeRenderer.css"
     ],
     "exports": [
@@ -4291,8 +4293,8 @@
   "apps/VSCodeApp/hooks/useWorkbench.js": {
     "name": "useWorkbench",
     "category": "app",
-    "lines": 477,
-    "functions": 46,
+    "lines": 485,
+    "functions": 47,
     "hooks": [
       "useState",
       "useEffect",
@@ -4317,7 +4319,7 @@
   "apps/VSCodeApp/index.jsx": {
     "name": "index",
     "category": "app",
-    "lines": 418,
+    "lines": 401,
     "functions": 9,
     "hooks": [
       "useState",
@@ -7529,6 +7531,7 @@
       "voiceCommands",
       "App",
       "index",
+      "ReadmeRenderer",
       "AIAssistant",
       "ContextMenu",
       "DesktopIcon",

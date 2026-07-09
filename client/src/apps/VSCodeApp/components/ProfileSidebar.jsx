@@ -53,6 +53,12 @@ export default function ProfileSidebar() {
           <a href="https://smart-mock-interview-prep.vercel.app/" target="_blank" rel="noreferrer" className="profile-link">
             <span>🎤</span> Mock Interview Platform
           </a>
+          <a href="https://campus-hub-mocha.vercel.app/" target="_blank" rel="noreferrer" className="profile-link">
+            <span>🎓</span> CampusHub
+          </a>
+          <a href="https://code-with-soham.github.io/Student-Placement-Predictor/" target="_blank" rel="noreferrer" className="profile-link">
+            <span>📈</span> Student Placement Predictor
+          </a>
           <a href="https://github.com/code-with-soham" target="_blank" rel="noreferrer" className="profile-link">
             <span>🐙</span> GitHub
           </a>
