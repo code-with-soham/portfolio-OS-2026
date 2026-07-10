@@ -45,6 +45,7 @@ const AICopilotApp = lazy(() => import('../apps/AICopilot/index'));
 const VectorSearchStudioApp = lazy(() => import('../apps/VectorSearchStudio/index'));
 const GameCenterApp = lazy(() => import('../apps/GameCenter/index'));
 const GamePlayerApp = lazy(() => import('../apps/GamePlayerApp/index'));
+const ChessArenaApp = lazy(() => import('../apps/GameCenter/pages/ChessArena/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -510,13 +511,24 @@ export const APPS = {
   gameplayer: {
     id: 'gameplayer',
     title: 'Game Player',
-    icon: '🕹️',
+    icon: '🎮', // Should be dynamic based on game
     component: withErrorBoundary(GamePlayerApp, 'Game Player'),
-    defaultWidth: 900,
+    defaultWidth: 1000,
     defaultHeight: 700,
     category: 'Entertainment',
     version: '1.0.0',
-    description: 'Playing a game',
+    description: 'Game Player Interface',
     hideTitleBar: true, // We will use custom Edge-like toolbar
+  },
+  chessarena: {
+    id: 'chessarena',
+    title: 'Chess Arena Pro',
+    icon: '♟️',
+    component: withErrorBoundary(ChessArenaApp, 'Chess Arena Pro'),
+    defaultWidth: 1100,
+    defaultHeight: 800,
+    category: 'Entertainment',
+    version: '1.0.0',
+    description: 'Premium Chess Application',
   },
 };

@@ -1,115 +1,150 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './ProfileSidebar.css';
 import myPhoto from '../../../assets/icons/logos/myPhoto.jpg';
+import { MailRegular, LinkRegular, CheckmarkCircleRegular, ClockRegular } from '@fluentui/react-icons';
+import { useDataStore } from '../../../store/useDataStore';
 
 export default function ProfileSidebar() {
-  const [time, setTime] = useState(new Date());
+  const parsedProfile = useDataStore(s => s.getParsedProfile());
 
-  useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 60000);
-    return () => clearInterval(timer);
-  }, []);
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('sohamkundu84@gmail.com');
+    alert('Email copied to clipboard!');
+  };
 
-  const formatTime = (date) => {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+  const handleOpenLink = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
     <div className="profile-sidebar">
-      <div className="profile-card">
+      <div className="profile-sidebar-inner">
         
-        {/* Avatar Section */}
-        <div className="profile-avatar-container">
-          <img src={myPhoto} alt="Soham Kundu" className="profile-avatar" />
-          <div className="profile-status-badge" title="Open to Work">🟢</div>
-        </div>
-
-        {/* Profile Info */}
-        <h2 className="profile-name">Soham Kundu</h2>
-        <div className="profile-username">code-with-soham</div>
-        
-        <p className="profile-bio">
-          🚀 Future Software Engineer | 💻 MERN Stack Developer | 🤖 AI/ML Enthusiast
-        </p>
-
-        {/* Meta Info */}
-        <div className="profile-meta">
-          <div className="meta-item">
-            <span>👥</span> 3 Followers • 1 Following
-          </div>
-          <div className="meta-item">
-            <span>📍</span> Jhargram, West Bengal
-          </div>
-          <div className="meta-item">
-            <span>🕒</span> {formatTime(time)} (Local Time)
+        {/* Profile Dashboard Panel */}
+        <div className="telemetry-panel">
+          <div className="telemetry-panel-header">Profile Dashboard</div>
+          <div className="telemetry-panel-content">
+            <div className="telemetry-profile">
+              <img src={myPhoto} alt="Soham Kundu" className="telemetry-avatar" />
+              <div className="telemetry-identity">
+                <h2>{parsedProfile.name}</h2>
+                <p>{parsedProfile.role}</p>
+                <div className="telemetry-availability">{parsedProfile.status}</div>
+              </div>
+            </div>
+            <div className="telemetry-actions">
+              <button className="telemetry-btn" onClick={handleCopyEmail}>
+                <MailRegular fontSize={14} /> Copy Email
+              </button>
+              <button className="telemetry-btn" onClick={() => handleOpenLink('https://linkedin.com/in/sohamkundu')}>
+                <LinkRegular fontSize={14} /> LinkedIn
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Links */}
-        <div className="profile-links">
-          <a href="https://soham-kundu-portfolio.vercel.app/" target="_blank" rel="noreferrer" className="profile-link">
-            <span>🌐</span> Portfolio
-          </a>
-          <a href="https://smart-mock-interview-prep.vercel.app/" target="_blank" rel="noreferrer" className="profile-link">
-            <span>🎤</span> Mock Interview Platform
-          </a>
-          <a href="https://campus-hub-mocha.vercel.app/" target="_blank" rel="noreferrer" className="profile-link">
-            <span>🎓</span> CampusHub
-          </a>
-          <a href="https://code-with-soham.github.io/Student-Placement-Predictor/" target="_blank" rel="noreferrer" className="profile-link">
-            <span>📈</span> Student Placement Predictor
-          </a>
-          <a href="https://github.com/code-with-soham" target="_blank" rel="noreferrer" className="profile-link">
-            <span>🐙</span> GitHub
-          </a>
-          <a href="https://linkedin.com/in/soham-kundu-b5a9a0250" target="_blank" rel="noreferrer" className="profile-link">
-            <span>💼</span> LinkedIn
-          </a>
-          <a href="https://instagram.com/soham.kundu.737" target="_blank" rel="noreferrer" className="profile-link">
-            <span>📸</span> Instagram
-          </a>
+        {/* System Status */}
+        <div className="telemetry-panel">
+          <div className="telemetry-panel-header">System Status</div>
+          <div className="telemetry-panel-content">
+            <div className="telemetry-kv">
+              <span className="telemetry-key">OS Version</span>
+              <span className="telemetry-value">Portfolio OS v3.0</span>
+            </div>
+            <div className="telemetry-kv">
+              <span className="telemetry-key">Build Status</span>
+              <span className="telemetry-value success">Stable</span>
+            </div>
+            <div className="telemetry-kv">
+              <span className="telemetry-key">Git Branch</span>
+              <span className="telemetry-value">main</span>
+            </div>
+            <div className="telemetry-kv">
+              <span className="telemetry-key">Environment</span>
+              <span className="telemetry-value">Production</span>
+            </div>
+          </div>
         </div>
 
-        {/* Additional Widgets */}
-        <div className="profile-widgets">
-          
-          <div className="widget-section">
-            <h3 className="widget-title">Current Status</h3>
-            <div className="widget-content">🟢 Open to Internship Opportunities</div>
-          </div>
-
-          <div className="widget-section">
-            <h3 className="widget-title">Education</h3>
-            <div className="widget-content">
-              🎓 B.Tech CSE (2027)<br/>
-              <span className="text-muted">Brainware University</span>
+        {/* Tech Stack */}
+        <div className="telemetry-panel">
+          <div className="telemetry-panel-header">Tech Stack</div>
+          <div className="telemetry-panel-content">
+            <div className="telemetry-badges">
+              <span className="telemetry-badge">React</span>
+              <span className="telemetry-badge">Node.js</span>
+              <span className="telemetry-badge">Express</span>
+              <span className="telemetry-badge">MongoDB</span>
+              <span className="telemetry-badge">Docker</span>
+              <span className="telemetry-badge">TypeScript</span>
+              <span className="telemetry-badge">Next.js</span>
             </div>
           </div>
+        </div>
 
-          <div className="widget-section">
-            <h3 className="widget-title">Current Focus</h3>
-            <div className="widget-content">
-              <div>⚡ Portfolio OS 2026</div>
-              <div>⚡ CampusHub</div>
-              <div>⚡ Interview Prep Platform</div>
-              <div>⚡ Placement Preparation</div>
+        {/* Current Task */}
+        <div className="telemetry-panel">
+          <div className="telemetry-panel-header">Current Task</div>
+          <div className="telemetry-panel-content">
+            <div className="telemetry-task">
+              <CheckmarkCircleRegular className="telemetry-task-icon" />
+              <span className="telemetry-task-text">Portfolio OS</span>
+            </div>
+            <div className="telemetry-task">
+              <ClockRegular className="telemetry-task-icon pending" />
+              <span className="telemetry-task-text">Interview Notebook</span>
+            </div>
+            <div className="telemetry-task">
+              <ClockRegular className="telemetry-task-icon pending" />
+              <span className="telemetry-task-text">Docker Learning</span>
             </div>
           </div>
+        </div>
 
-          <div className="widget-section">
-            <h3 className="widget-title">Tech Stack</h3>
-            <div className="tech-stack-badges">
-              <span className="tech-badge">React</span>
-              <span className="tech-badge">Node.js</span>
-              <span className="tech-badge">MongoDB</span>
-              <span className="tech-badge">Express</span>
-              <span className="tech-badge">JavaScript</span>
-              <span className="tech-badge">Tailwind</span>
-              <span className="tech-badge">C++</span>
-              <span className="tech-badge">AI/ML</span>
+        {/* Live Stats */}
+        <div className="telemetry-panel">
+          <div className="telemetry-panel-header">Live Stats</div>
+          <div className="telemetry-panel-content">
+            <div className="telemetry-kv">
+              <span className="telemetry-key">Projects</span>
+              <span className="telemetry-value">{parsedProfile.projects}</span>
+            </div>
+            <div className="telemetry-kv">
+              <span className="telemetry-key">Commits</span>
+              <span className="telemetry-value">{parsedProfile.commits}</span>
+            </div>
+            <div className="telemetry-kv">
+              <span className="telemetry-key">Repositories</span>
+              <span className="telemetry-value">{parsedProfile.repos}</span>
+            </div>
+            <div className="telemetry-kv">
+              <span className="telemetry-key">Deployments</span>
+              <span className="telemetry-value">42</span>
             </div>
           </div>
+        </div>
 
+        {/* System Health */}
+        <div className="telemetry-panel">
+          <div className="telemetry-panel-header">System Health</div>
+          <div className="telemetry-panel-content">
+            <div className="telemetry-kv">
+              <span className="telemetry-key">Memory</span>
+              <span className="telemetry-value">{parsedProfile.memory}</span>
+            </div>
+            <div className="telemetry-kv">
+              <span className="telemetry-key">CPU Load</span>
+              <span className="telemetry-value">{parsedProfile.cpu}</span>
+            </div>
+            <div className="telemetry-kv">
+              <span className="telemetry-key">API Health</span>
+              <span className="telemetry-value success">200 OK</span>
+            </div>
+            <div className="telemetry-kv">
+              <span className="telemetry-key">Uptime</span>
+              <span className="telemetry-value">143 Days</span>
+            </div>
+          </div>
         </div>
 
       </div>

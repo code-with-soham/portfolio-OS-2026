@@ -5,7 +5,7 @@ import Editor from '@monaco-editor/react';
 import TerminalCore from '../../components/system/TerminalCore';
 import { fileTree } from './data/fileTree';
 import { getFolderIcon, getFileIcon } from './config/iconMap';
-import { fileContents } from './constants/fileContents';
+import { useDataStore } from '../../store/useDataStore';
 import ReadmeRenderer from './components/ReadmeRenderer';
 import RecruiterDashboard from './components/RecruiterDashboard';
 import MockDBViewer from './components/MockDBViewer';
@@ -24,6 +24,7 @@ import vscodeIco from '../../assets/icons/apps/vscode.svg';
 
 export default function VSCodeApp({ project, initialFile }) {
   const wb = useWorkbench({ project, initialFile });
+  const getFileContent = useDataStore(s => s.getFile);
 
   // ─── Monaco Theme Setup ───
   const handleEditorWillMount = (monaco) => {
@@ -69,11 +70,10 @@ export default function VSCodeApp({ project, initialFile }) {
     });
   };
 
-  // ─── Render Content ───
   const renderContent = (fileToRender) => {
     if (fileToRender === 'Welcome') return null; // Welcome is handled by EditorArea
 
-    const content = fileContents[fileToRender] || '// Content not found';
+    const content = getFileContent(fileToRender);
     let finalContent = content;
 
     if (fileToRender === '.github/profile.json' && wb.githubData) finalContent = wb.githubData;

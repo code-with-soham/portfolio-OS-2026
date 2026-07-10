@@ -44,7 +44,7 @@ export default function BottomPanel({
   };
 
   return (
-    <div style={{ display: panelVisible ? 'block' : 'none', display: panelVisible ? 'flex' : 'none', flexDirection: 'column' }}>
+    <div style={{ display: panelVisible ? 'flex' : 'none', flexDirection: 'column' }}>
       <div 
         className="vscode-panel-resizer" 
         onMouseDown={() => setIsDragging(true)}

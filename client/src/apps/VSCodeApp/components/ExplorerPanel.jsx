@@ -102,13 +102,6 @@ export default function ExplorerPanel({
         </div>
       </div>
       
-      <div className="vscode-workspace-badges">
-        <div className="vscode-workspace-badge" style={{ fontWeight: 600, color: 'var(--vscode-sideBar-foreground)', fontSize: 11, marginBottom: 4 }}>SOHAM-KUNDU [Portfolio Workspace]</div>
-        <div className="vscode-workspace-badge"><span>🟢</span> GitHub Connected</div>
-        <div className="vscode-workspace-badge"><span>⚡</span> React + Node</div>
-        <div className="vscode-workspace-badge"><span>🤖</span> AI/ML Projects</div>
-      </div>
-
       <div style={{ overflowY: 'auto', overflowX: 'hidden', flex: 1 }}>
         <div className="vscode-sidebar-section">
           <div className="vscode-section-header" onClick={() => setOpenEditorsExpanded(!openEditorsExpanded)}>

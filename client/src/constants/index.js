@@ -324,6 +324,12 @@ export const DESKTOP_APPS = [
     icon: '🎮',
     description: 'Xbox Style Game Hub',
   },
+  {
+    id: 'chessarena',
+    label: 'Chess Arena Pro',
+    icon: '♟️',
+    description: 'Premium Chess App',
+  },
 ];
 
 /**

@@ -9,13 +9,16 @@ export const fileTree = [
         name: '.github',
         type: 'folder',
         isOpen: false,
-        children: [{ name: 'profile.yml', type: 'file', path: '.github/profile.yml' }],
+        children: [{ name: 'profile.json', type: 'file', path: '.github/profile.json' }],
       },
       {
         name: 'about',
         type: 'folder',
         isOpen: true,
-        children: [{ name: 'README.md', type: 'file', path: 'about/README.md' }],
+        children: [
+          { name: 'profile.yml', type: 'file', path: 'about/profile.yml' },
+          { name: 'README.md', type: 'file', path: 'about/README.md' }
+        ],
       },
       {
         name: 'achievements',
@@ -24,10 +27,55 @@ export const fileTree = [
         children: [{ name: 'timeline.log', type: 'file', path: 'achievements/timeline.log' }],
       },
       {
+        name: 'analytics',
+        type: 'folder',
+        isOpen: false,
+        children: [{ name: 'telemetry.json', type: 'file', path: 'analytics/telemetry.json' }],
+      },
+      {
+        name: 'assets',
+        type: 'folder',
+        isOpen: false,
+        children: [],
+      },
+      {
+        name: 'certifications',
+        type: 'folder',
+        isOpen: false,
+        children: [{ name: 'certificates.db', type: 'file', path: 'certifications/certificates.db' }],
+      },
+      {
         name: 'connect',
         type: 'folder',
         isOpen: false,
-        children: [{ name: 'links.yml', type: 'file', path: 'connect/links.yml' }],
+        children: [
+          { name: 'api.tsx', type: 'file', path: 'connect/api.tsx' },
+          { name: 'links.yml', type: 'file', path: 'connect/links.yml' }
+        ],
+      },
+      {
+        name: 'docs',
+        type: 'folder',
+        isOpen: false,
+        children: [{ name: 'architecture.md', type: 'file', path: 'docs/architecture.md' }],
+      },
+      {
+        name: 'education',
+        type: 'folder',
+        isOpen: false,
+        children: [{ name: 'transcript.pdf', type: 'file', path: 'education/transcript.pdf' }],
+      },
+      {
+        name: 'experience',
+        type: 'folder',
+        isOpen: false,
+        children: [{ name: 'history.log', type: 'file', path: 'experience/history.log' }],
+      },
+      {
+        name: 'playground',
+        type: 'folder',
+        isOpen: false,
+        children: [{ name: 'scratchpad.js', type: 'file', path: 'playground/scratchpad.js' }],
       },
       {
         name: 'projects',
@@ -45,7 +93,7 @@ export const fileTree = [
         name: 'skills',
         type: 'folder',
         isOpen: false,
-        children: [{ name: 'skills.yml', type: 'file', path: 'skills/skills.yml' }],
+        children: [{ name: 'skills.pkt', type: 'file', path: 'skills/skills.pkt' }],
       },
       {
         name: 'system',
@@ -57,20 +105,14 @@ export const fileTree = [
         ],
       },
       {
-        name: 'src',
+        name: 'terminal',
         type: 'folder',
         isOpen: false,
-        children: [
-          { name: 'Desktop.jsx', type: 'file', path: 'src/Desktop.jsx' },
-          { name: 'Taskbar.jsx', type: 'file', path: 'src/Taskbar.jsx' },
-          { name: 'VSCodeApp.jsx', type: 'file', path: 'src/VSCodeApp.jsx' },
-          { name: 'Architecture.md', type: 'file', path: 'src/Architecture.md' }
-        ],
+        children: [{ name: 'bash_history', type: 'file', path: 'terminal/bash_history' }],
       },
       { name: '.gitignore', type: 'file', path: '.gitignore' },
       { name: 'resume.pdf', type: 'file', path: 'resume.pdf' },
-      { name: 'LICENSE.txt', type: 'file', path: 'LICENSE.txt' },
-      { name: 'CHANGELOG.md', type: 'file', path: 'CHANGELOG.md' },
+      { name: 'LICENSE.txt', type: 'file', path: 'LICENSE.txt' }
     ],
   },
 ];

@@ -656,9 +656,9 @@
       "category": "app",
       "color": "#61dafb",
       "path": "apps/VSCodeApp/index.jsx",
-      "lines": 401,
+      "lines": 408,
       "functions": 9,
-      "hooks": 5
+      "hooks": 6
     },
     {
       "id": "node_66",
@@ -962,6 +962,16 @@
     },
     {
       "id": "node_96",
+      "label": "useDataStore",
+      "category": "store",
+      "color": "#f0db4f",
+      "path": "store/useDataStore.js",
+      "lines": 277,
+      "functions": 2,
+      "hooks": 1
+    },
+    {
+      "id": "node_97",
       "label": "useDesktopStore",
       "category": "store",
       "color": "#f0db4f",
@@ -971,7 +981,7 @@
       "hooks": 2
     },
     {
-      "id": "node_97",
+      "id": "node_98",
       "label": "useFileSystemStore",
       "category": "store",
       "color": "#f0db4f",
@@ -981,7 +991,7 @@
       "hooks": 1
     },
     {
-      "id": "node_98",
+      "id": "node_99",
       "label": "useGameStore",
       "category": "store",
       "color": "#f0db4f",
@@ -991,7 +1001,7 @@
       "hooks": 2
     },
     {
-      "id": "node_99",
+      "id": "node_100",
       "label": "useGitHubStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1001,7 +1011,7 @@
       "hooks": 1
     },
     {
-      "id": "node_100",
+      "id": "node_101",
       "label": "useLearningStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1011,7 +1021,7 @@
       "hooks": 1
     },
     {
-      "id": "node_101",
+      "id": "node_102",
       "label": "useMusicStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1021,7 +1031,7 @@
       "hooks": 1
     },
     {
-      "id": "node_102",
+      "id": "node_103",
       "label": "useNotificationStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1031,7 +1041,7 @@
       "hooks": 1
     },
     {
-      "id": "node_103",
+      "id": "node_104",
       "label": "usePlacementStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1041,7 +1051,7 @@
       "hooks": 1
     },
     {
-      "id": "node_104",
+      "id": "node_105",
       "label": "usePresentationStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1051,7 +1061,7 @@
       "hooks": 1
     },
     {
-      "id": "node_105",
+      "id": "node_106",
       "label": "useProfileStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1061,7 +1071,7 @@
       "hooks": 1
     },
     {
-      "id": "node_106",
+      "id": "node_107",
       "label": "useSoundStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1071,7 +1081,7 @@
       "hooks": 1
     },
     {
-      "id": "node_107",
+      "id": "node_108",
       "label": "useStickyNotesStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1081,7 +1091,7 @@
       "hooks": 1
     },
     {
-      "id": "node_108",
+      "id": "node_109",
       "label": "useSystemAudioStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1091,7 +1101,7 @@
       "hooks": 1
     },
     {
-      "id": "node_109",
+      "id": "node_110",
       "label": "useThemeStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1101,7 +1111,7 @@
       "hooks": 2
     },
     {
-      "id": "node_110",
+      "id": "node_111",
       "label": "useUIStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1111,7 +1121,7 @@
       "hooks": 2
     },
     {
-      "id": "node_111",
+      "id": "node_112",
       "label": "useVoiceStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1121,7 +1131,7 @@
       "hooks": 1
     },
     {
-      "id": "node_112",
+      "id": "node_113",
       "label": "useWeatherStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1131,7 +1141,7 @@
       "hooks": 1
     },
     {
-      "id": "node_113",
+      "id": "node_114",
       "label": "useWhatsAppAuthStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1141,7 +1151,7 @@
       "hooks": 1
     },
     {
-      "id": "node_114",
+      "id": "node_115",
       "label": "useWhatsAppChatStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1151,7 +1161,7 @@
       "hooks": 1
     },
     {
-      "id": "node_115",
+      "id": "node_116",
       "label": "useWhatsAppMessageStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1161,7 +1171,7 @@
       "hooks": 1
     },
     {
-      "id": "node_116",
+      "id": "node_117",
       "label": "useWhatsAppSocketStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1171,7 +1181,7 @@
       "hooks": 4
     },
     {
-      "id": "node_117",
+      "id": "node_118",
       "label": "useWhatsAppStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1181,7 +1191,7 @@
       "hooks": 1
     },
     {
-      "id": "node_118",
+      "id": "node_119",
       "label": "useWidgetStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1191,7 +1201,7 @@
       "hooks": 1
     },
     {
-      "id": "node_119",
+      "id": "node_120",
       "label": "useWindowStore",
       "category": "store",
       "color": "#f0db4f",
@@ -1204,11 +1214,11 @@
   "edges": [
     {
       "source": "node_0",
-      "target": "node_119"
+      "target": "node_120"
     },
     {
       "source": "node_0",
-      "target": "node_96"
+      "target": "node_97"
     },
     {
       "source": "node_1",
@@ -1332,7 +1342,7 @@
     },
     {
       "source": "node_15",
-      "target": "node_112"
+      "target": "node_113"
     },
     {
       "source": "node_16",
@@ -1352,19 +1362,23 @@
     },
     {
       "source": "node_21",
-      "target": "node_111"
+      "target": "node_112"
     },
     {
       "source": "node_22",
-      "target": "node_111"
+      "target": "node_112"
     },
     {
       "source": "node_23",
-      "target": "node_96"
+      "target": "node_97"
     },
     {
       "source": "node_23",
-      "target": "node_119"
+      "target": "node_120"
+    },
+    {
+      "source": "node_23",
+      "target": "node_110"
     },
     {
       "source": "node_23",
@@ -1372,11 +1386,7 @@
     },
     {
       "source": "node_23",
-      "target": "node_108"
-    },
-    {
-      "source": "node_23",
-      "target": "node_101"
+      "target": "node_102"
     },
     {
       "source": "node_23",
@@ -1396,7 +1406,7 @@
     },
     {
       "source": "node_24",
-      "target": "node_111"
+      "target": "node_112"
     },
     {
       "source": "node_26",
@@ -1404,7 +1414,7 @@
     },
     {
       "source": "node_26",
-      "target": "node_96"
+      "target": "node_97"
     },
     {
       "source": "node_28",
@@ -1420,7 +1430,7 @@
     },
     {
       "source": "node_32",
-      "target": "node_119"
+      "target": "node_120"
     },
     {
       "source": "node_32",
@@ -1432,7 +1442,7 @@
     },
     {
       "source": "node_35",
-      "target": "node_119"
+      "target": "node_120"
     },
     {
       "source": "node_35",
@@ -1440,7 +1450,7 @@
     },
     {
       "source": "node_36",
-      "target": "node_119"
+      "target": "node_120"
     },
     {
       "source": "node_36",
@@ -1448,15 +1458,15 @@
     },
     {
       "source": "node_40",
-      "target": "node_119"
+      "target": "node_120"
     },
     {
       "source": "node_40",
-      "target": "node_98"
+      "target": "node_99"
     },
     {
       "source": "node_40",
-      "target": "node_102"
+      "target": "node_103"
     },
     {
       "source": "node_42",
@@ -1468,19 +1478,19 @@
     },
     {
       "source": "node_47",
-      "target": "node_101"
+      "target": "node_102"
     },
     {
       "source": "node_47",
-      "target": "node_108"
+      "target": "node_109"
     },
     {
       "source": "node_48",
-      "target": "node_97"
+      "target": "node_98"
     },
     {
       "source": "node_49",
-      "target": "node_97"
+      "target": "node_98"
     },
     {
       "source": "node_51",
@@ -1492,7 +1502,7 @@
     },
     {
       "source": "node_54",
-      "target": "node_99"
+      "target": "node_100"
     },
     {
       "source": "node_55",
@@ -1504,11 +1514,11 @@
     },
     {
       "source": "node_55",
-      "target": "node_110"
+      "target": "node_111"
     },
     {
       "source": "node_55",
-      "target": "node_119"
+      "target": "node_120"
     },
     {
       "source": "node_55",
@@ -1516,23 +1526,23 @@
     },
     {
       "source": "node_55",
-      "target": "node_104"
+      "target": "node_105"
     },
     {
       "source": "node_56",
-      "target": "node_109"
+      "target": "node_110"
     },
     {
       "source": "node_56",
-      "target": "node_104"
+      "target": "node_105"
     },
     {
       "source": "node_57",
-      "target": "node_97"
+      "target": "node_98"
     },
     {
       "source": "node_57",
-      "target": "node_119"
+      "target": "node_120"
     },
     {
       "source": "node_58",
@@ -1540,19 +1550,19 @@
     },
     {
       "source": "node_59",
-      "target": "node_109"
+      "target": "node_110"
     },
     {
       "source": "node_59",
-      "target": "node_96"
+      "target": "node_97"
     },
     {
       "source": "node_59",
-      "target": "node_106"
+      "target": "node_107"
     },
     {
       "source": "node_59",
-      "target": "node_118"
+      "target": "node_119"
     },
     {
       "source": "node_60",
@@ -1560,18 +1570,18 @@
     },
     {
       "source": "node_64",
-      "target": "node_111"
-    },
-    {
-      "source": "node_65",
-      "target": "node_104"
-    },
-    {
-      "source": "node_66",
       "target": "node_112"
     },
     {
-      "source": "node_67",
+      "source": "node_65",
+      "target": "node_96"
+    },
+    {
+      "source": "node_65",
+      "target": "node_105"
+    },
+    {
+      "source": "node_66",
       "target": "node_113"
     },
     {
@@ -1580,23 +1590,27 @@
     },
     {
       "source": "node_67",
-      "target": "node_116"
+      "target": "node_115"
+    },
+    {
+      "source": "node_67",
+      "target": "node_117"
     },
     {
       "source": "node_74",
-      "target": "node_119"
+      "target": "node_120"
     },
     {
       "source": "node_74",
-      "target": "node_96"
+      "target": "node_97"
     },
     {
       "source": "node_74",
-      "target": "node_110"
+      "target": "node_111"
     },
     {
       "source": "node_74",
-      "target": "node_101"
+      "target": "node_102"
     },
     {
       "source": "node_74",
@@ -1604,11 +1618,11 @@
     },
     {
       "source": "node_75",
-      "target": "node_104"
+      "target": "node_105"
     },
     {
       "source": "node_75",
-      "target": "node_119"
+      "target": "node_120"
     },
     {
       "source": "node_75",
@@ -1616,7 +1630,7 @@
     },
     {
       "source": "node_76",
-      "target": "node_119"
+      "target": "node_120"
     },
     {
       "source": "node_77",
@@ -1636,7 +1650,7 @@
     },
     {
       "source": "node_85",
-      "target": "node_117"
+      "target": "node_118"
     },
     {
       "source": "node_86",
@@ -1648,27 +1662,23 @@
     },
     {
       "source": "node_89",
-      "target": "node_102"
+      "target": "node_103"
     },
     {
-      "source": "node_96",
-      "target": "node_118"
-    },
-    {
-      "source": "node_98",
-      "target": "node_102"
+      "source": "node_97",
+      "target": "node_119"
     },
     {
       "source": "node_99",
+      "target": "node_103"
+    },
+    {
+      "source": "node_100",
       "target": "node_81"
     },
     {
-      "source": "node_112",
-      "target": "node_88"
-    },
-    {
       "source": "node_113",
-      "target": "node_79"
+      "target": "node_88"
     },
     {
       "source": "node_114",
@@ -1680,18 +1690,22 @@
     },
     {
       "source": "node_116",
-      "target": "node_113"
+      "target": "node_79"
     },
     {
-      "source": "node_116",
-      "target": "node_115"
-    },
-    {
-      "source": "node_116",
+      "source": "node_117",
       "target": "node_114"
     },
     {
-      "source": "node_119",
+      "source": "node_117",
+      "target": "node_116"
+    },
+    {
+      "source": "node_117",
+      "target": "node_115"
+    },
+    {
+      "source": "node_120",
       "target": "node_91"
     }
   ],
@@ -1706,7 +1720,7 @@
       "id": "store",
       "label": "Stores",
       "color": "#f0db4f",
-      "count": 31
+      "count": 32
     },
     {
       "id": "component",

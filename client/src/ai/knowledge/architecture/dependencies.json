@@ -3920,14 +3920,23 @@
   "apps/VSCodeApp/components/ActivityBar.jsx": {
     "name": "ActivityBar",
     "category": "app",
-    "lines": 63,
-    "functions": 3,
+    "lines": 182,
+    "functions": 19,
     "hooks": [
       "useState",
-      "useEffect"
+      "useEffect",
+      "useRef",
+      "useDesktopStore",
+      "useWindowStore",
+      "useNotificationStore"
     ],
-    "hooksCount": 2,
-    "imports": [],
+    "hooksCount": 6,
+    "imports": [
+      "../../../assets/icons/logos/myPhoto.jpg",
+      "../../../store/useDesktopStore",
+      "../../../store/useWindowStore",
+      "../../../store/useNotificationStore"
+    ],
     "exports": [
       "ActivityBar"
     ],
@@ -3995,7 +4004,7 @@
   "apps/VSCodeApp/components/ExplorerPanel.jsx": {
     "name": "ExplorerPanel",
     "category": "app",
-    "lines": 160,
+    "lines": 153,
     "functions": 6,
     "hooks": [
       "useState"
@@ -4069,16 +4078,16 @@
   "apps/VSCodeApp/components/ProfileSidebar.jsx": {
     "name": "ProfileSidebar",
     "category": "app",
-    "lines": 113,
+    "lines": 154,
     "functions": 3,
     "hooks": [
-      "useState",
-      "useEffect"
+      "useDataStore"
     ],
-    "hooksCount": 2,
+    "hooksCount": 1,
     "imports": [
       "./ProfileSidebar.css",
-      "../../../assets/icons/logos/myPhoto.jpg"
+      "../../../assets/icons/logos/myPhoto.jpg",
+      "../../../store/useDataStore"
     ],
     "exports": [
       "ProfileSidebar"
@@ -4169,7 +4178,7 @@
   "apps/VSCodeApp/components/StatusBar.jsx": {
     "name": "StatusBar",
     "category": "app",
-    "lines": 77,
+    "lines": 74,
     "functions": 1,
     "hooks": [],
     "hooksCount": 0,
@@ -4206,7 +4215,7 @@
   "apps/VSCodeApp/config/iconMap.jsx": {
     "name": "iconMap",
     "category": "app",
-    "lines": 70,
+    "lines": 119,
     "functions": 2,
     "hooks": [],
     "hooksCount": 0,
@@ -4269,15 +4278,12 @@
       "VSCodeApp",
       "fileContents"
     ],
-    "usedBy": [
-      "useWorkbench",
-      "index"
-    ]
+    "usedBy": []
   },
   "apps/VSCodeApp/data/fileTree.js": {
     "name": "fileTree",
     "category": "app",
-    "lines": 77,
+    "lines": 119,
     "functions": 0,
     "hooks": [],
     "hooksCount": 0,
@@ -4293,7 +4299,7 @@
   "apps/VSCodeApp/hooks/useWorkbench.js": {
     "name": "useWorkbench",
     "category": "app",
-    "lines": 485,
+    "lines": 487,
     "functions": 47,
     "hooks": [
       "useState",
@@ -4301,12 +4307,13 @@
       "useRef",
       "useCallback",
       "useGitHubStore",
+      "useDataStore",
       "useWorkbench"
     ],
-    "hooksCount": 6,
+    "hooksCount": 7,
     "imports": [
       "../../../store/useGitHubStore",
-      "../constants/fileContents",
+      "../../../store/useDataStore",
       "../constants/commands"
     ],
     "exports": [
@@ -4319,21 +4326,22 @@
   "apps/VSCodeApp/index.jsx": {
     "name": "index",
     "category": "app",
-    "lines": 401,
+    "lines": 408,
     "functions": 9,
     "hooks": [
       "useState",
       "useEffect",
       "useRef",
+      "useDataStore",
       "useWorkbench",
       "usePresentationStore"
     ],
-    "hooksCount": 5,
+    "hooksCount": 6,
     "imports": [
       "../../components/system/TerminalCore",
       "./data/fileTree",
       "./config/iconMap",
-      "./constants/fileContents",
+      "../../store/useDataStore",
       "./components/ReadmeRenderer",
       "./components/RecruiterDashboard",
       "./components/MockDBViewer",
@@ -7509,6 +7517,26 @@
       "Desktop"
     ]
   },
+  "store/useDataStore.js": {
+    "name": "useDataStore",
+    "category": "store",
+    "lines": 277,
+    "functions": 2,
+    "hooks": [
+      "useDataStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useDataStore",
+      "ping"
+    ],
+    "usedBy": [
+      "ProfileSidebar",
+      "useWorkbench",
+      "index"
+    ]
+  },
   "store/useDesktopStore.js": {
     "name": "useDesktopStore",
     "category": "store",
@@ -7531,6 +7559,7 @@
       "voiceCommands",
       "App",
       "index",
+      "ActivityBar",
       "ReadmeRenderer",
       "AIAssistant",
       "ContextMenu",
@@ -7688,6 +7717,7 @@
     ],
     "usedBy": [
       "index",
+      "ActivityBar",
       "ToastContainer",
       "BackgroundServices",
       "NotificationCenter",
@@ -8092,6 +8122,7 @@
       "ExplorerShell",
       "GameDetails",
       "DocumentViewer",
+      "ActivityBar",
       "ReadmeRenderer",
       "AIAssistant",
       "DesktopIcon",

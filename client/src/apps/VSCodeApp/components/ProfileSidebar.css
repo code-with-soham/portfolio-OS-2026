@@ -1,212 +1,175 @@
 .profile-sidebar {
   width: 320px;
   min-width: 320px;
-  padding: 20px;
-  position: sticky;
-  top: 0;
-  height: max-content;
-  max-height: 100%;
+  height: 100%;
+  background-color: var(--vscode-sideBar-background, #1e1e1e);
+  border-left: 1px solid var(--vscode-sideBar-border, #333);
   overflow-y: auto;
-  animation: slideUpFadeIn 0.5s ease forwards;
+  display: flex;
+  flex-direction: column;
+  color: var(--vscode-foreground, #cccccc);
+  font-family: var(--vscode-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif);
 }
 
-/* Scrollbar for sidebar */
-.profile-sidebar::-webkit-scrollbar {
-  width: 6px;
-}
-.profile-sidebar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-}
-
-.profile-card {
-  background: rgba(30, 30, 30, 0.75);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 24px;
+.profile-sidebar-inner {
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.telemetry-panel {
+  background: var(--vscode-editor-background, #1e1e1e);
+  border: 1px solid var(--vscode-widget-border, #444);
+  border-radius: 4px;
   overflow: hidden;
 }
 
-.profile-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-}
-
-.profile-avatar-container {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  margin: 0 auto;
-}
-
-.profile-avatar {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-  transition: all 0.3s ease;
-}
-
-.profile-avatar:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
-}
-
-.profile-status-badge {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  background: #1e1e1e;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #2d2d2d;
-  font-size: 16px;
-}
-
-.profile-name {
-  font-size: 24px;
+.telemetry-panel-header {
+  padding: 6px 12px;
+  background: var(--vscode-editorGroupHeader-tabsBackground, #252526);
+  border-bottom: 1px solid var(--vscode-widget-border, #444);
+  font-size: 11px;
   font-weight: 600;
-  color: #ffffff;
-  margin: 0;
-  text-align: center;
-}
-
-.profile-username {
-  font-size: 14px;
-  color: #8b949e;
-  text-align: center;
-  margin-top: -12px;
-}
-
-.profile-bio {
-  font-size: 14px;
-  line-height: 1.5;
-  color: #c9d1d9;
-  text-align: center;
-  margin: 0;
-}
-
-.profile-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 13px;
-  color: #8b949e;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.meta-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.profile-links {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.profile-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #58a6ff;
-  text-decoration: none;
-  font-size: 14px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: background 0.2s ease, text-shadow 0.2s ease;
-}
-
-.profile-link:hover {
-  background: rgba(88, 166, 255, 0.1);
-  text-shadow: 0 0 8px rgba(88, 166, 255, 0.4);
-}
-
-.profile-widgets {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 8px;
-}
-
-.widget-section {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.widget-title {
-  font-size: 12px;
+  color: var(--vscode-sideBarTitle-foreground, #999);
   text-transform: uppercase;
-  color: #8b949e;
-  margin: 0;
-  font-weight: 600;
   letter-spacing: 0.5px;
 }
 
-.widget-content {
+.telemetry-panel-content {
+  padding: 12px;
   font-size: 13px;
-  color: #c9d1d9;
   line-height: 1.5;
 }
 
-.text-muted {
-  color: #8b949e;
+/* Profile Dashboard Panel */
+.telemetry-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.tech-stack-badges {
+.telemetry-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid var(--vscode-focusBorder, #007fd4);
+}
+
+.telemetry-identity h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vscode-editor-foreground, #d4d4d4);
+}
+
+.telemetry-identity p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--vscode-descriptionForeground, #717171);
+}
+
+.telemetry-availability {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 6px;
+  background: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.telemetry-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.telemetry-btn {
+  flex: 1;
+  background: var(--vscode-button-background, #0e639c);
+  color: var(--vscode-button-foreground, #ffffff);
+  border: none;
+  padding: 4px 0;
+  border-radius: 2px;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.1s;
+}
+
+.telemetry-btn:hover {
+  background: var(--vscode-button-hoverBackground, #1177bb);
+}
+
+/* Key Value Pairs */
+.telemetry-kv {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.telemetry-kv:last-child {
+  margin-bottom: 0;
+}
+
+.telemetry-key {
+  color: var(--vscode-descriptionForeground, #717171);
+}
+
+.telemetry-value {
+  color: var(--vscode-editor-foreground, #d4d4d4);
+  font-family: var(--vscode-editor-font-family, Consolas, monospace);
+  font-size: 12px;
+}
+
+.telemetry-value.success {
+  color: #4caf50;
+}
+
+/* Badges */
+.telemetry-badges {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-.tech-badge {
+.telemetry-badge {
+  padding: 2px 6px;
+  background: var(--vscode-badge-background, #4d4d4d);
+  color: var(--vscode-badge-foreground, #ffffff);
+  border-radius: 2px;
   font-size: 11px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 4px 8px;
-  border-radius: 12px;
-  color: #c9d1d9;
-  transition: transform 0.2s ease, background 0.2s ease;
-  cursor: default;
 }
 
-.tech-badge:hover {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.1);
+/* Tasks */
+.telemetry-task {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
 }
 
-@keyframes slideUpFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.telemetry-task:last-child {
+  margin-bottom: 0;
 }
 
-/* Responsive collapse */
-@media (max-width: 900px) {
-  .profile-sidebar {
-    width: 100%;
-    min-width: unset;
-    position: static;
-    padding-top: 0;
-  }
+.telemetry-task-icon {
+  color: #4caf50;
+  font-size: 14px;
+}
+
+.telemetry-task-icon.pending {
+  color: #ff9800;
+  font-size: 14px;
+}
+
+.telemetry-task-text {
+  color: var(--vscode-editor-foreground, #d4d4d4);
 }

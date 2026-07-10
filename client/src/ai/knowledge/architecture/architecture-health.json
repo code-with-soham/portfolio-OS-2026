@@ -7,7 +7,7 @@
       "id": "modular",
       "label": "Modular Architecture",
       "passed": true,
-      "detail": "31 independent Zustand stores"
+      "detail": "32 independent Zustand stores"
     },
     {
       "id": "lazy",

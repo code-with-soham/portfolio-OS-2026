@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useGitHubStore } from '../../../store/useGitHubStore';
-import { fileContents } from '../constants/fileContents';
+import { useDataStore } from '../../../store/useDataStore';
 import { COMMANDS } from '../constants/commands';
 
 /**
@@ -8,6 +8,8 @@ import { COMMANDS } from '../constants/commands';
  * Handles all editor state, persistence, and workbench behavior.
  */
 export default function useWorkbench({ project, initialFile }) {
+  const fileContents = useDataStore(s => s.files);
+
   // ─── Editor State ───
   const [activeFile, setActiveFile] = useState(() => {
     const saved = localStorage.getItem('vscode.activeFile');
