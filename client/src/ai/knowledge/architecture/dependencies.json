@@ -864,22 +864,19 @@
   "apps/AICopilot/components/CopilotConversation.jsx": {
     "name": "CopilotConversation",
     "category": "app",
-    "lines": 153,
+    "lines": 152,
     "functions": 7,
     "hooks": [
       "useState",
       "useRef",
       "useEffect",
       "useCopilotStore",
-      "useGeneratePlan",
-      "useDatabaseSchema",
-      "useDatabaseQueries"
+      "useGeneratePlan"
     ],
-    "hooksCount": 7,
+    "hooksCount": 5,
     "imports": [
       "../hooks/useCopilotStore",
-      "../api/databaseCopilotApi",
-      "../../MongoDBExplorer/hooks/useDatabaseQueries"
+      "../api/databaseCopilotApi"
     ],
     "exports": [
       "CopilotConversation"
@@ -2067,6 +2064,183 @@
     ],
     "usedBy": []
   },
+  "apps/GameCenter/pages/ChessArena/ai/AnalysisManager.js": {
+    "name": "AnalysisManager",
+    "category": "app",
+    "lines": 122,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./EngineService",
+      "./evaluationParser",
+      "./moveClassification"
+    ],
+    "exports": [
+      "analysisManager"
+    ],
+    "usedBy": [
+      "useChessStore"
+    ]
+  },
+  "apps/GameCenter/pages/ChessArena/ai/EngineService.js": {
+    "name": "EngineService",
+    "category": "app",
+    "lines": 63,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../../../../../services/engine/WorkerManager"
+    ],
+    "exports": [
+      "EngineService",
+      "engineService"
+    ],
+    "usedBy": [
+      "AnalysisManager",
+      "useChessStore"
+    ]
+  },
+  "apps/GameCenter/pages/ChessArena/ai/engineSettings.js": {
+    "name": "engineSettings",
+    "category": "app",
+    "lines": 56,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "ENGINE_PERSONALITIES"
+    ],
+    "usedBy": [
+      "useChessStore"
+    ]
+  },
+  "apps/GameCenter/pages/ChessArena/ai/evaluationParser.js": {
+    "name": "evaluationParser",
+    "category": "app",
+    "lines": 61,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "parseEvaluation"
+    ],
+    "usedBy": [
+      "AnalysisManager",
+      "useChessStore"
+    ]
+  },
+  "apps/GameCenter/pages/ChessArena/ai/moveClassification.js": {
+    "name": "moveClassification",
+    "category": "app",
+    "lines": 95,
+    "functions": 4,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "CLASSIFICATIONS",
+      "classifyMove",
+      "calculateAccuracy"
+    ],
+    "usedBy": [
+      "AnalysisManager",
+      "AnalysisBoard",
+      "useChessStore"
+    ]
+  },
+  "apps/GameCenter/pages/ChessArena/components/AnalysisBoard.jsx": {
+    "name": "AnalysisBoard",
+    "category": "app",
+    "lines": 351,
+    "functions": 15,
+    "hooks": [
+      "useMemo",
+      "useEffect",
+      "useState",
+      "useChessStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../store/useChessStore",
+      "../ai/moveClassification",
+      "../styles/analysis.css"
+    ],
+    "exports": [
+      "AnalysisBoard"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/GameCenter/pages/ChessArena/components/ChessTutorial.jsx": {
+    "name": "ChessTutorial",
+    "category": "app",
+    "lines": 63,
+    "functions": 1,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "../styles/chess.css"
+    ],
+    "exports": [
+      "ChessTutorial"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/GameCenter/pages/ChessArena/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 432,
+    "functions": 14,
+    "hooks": [
+      "useEffect",
+      "useMemo",
+      "useState",
+      "useChessStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "./store/useChessStore",
+      "./components/AnalysisBoard",
+      "./components/ChessTutorial",
+      "./styles/chess.css"
+    ],
+    "exports": [
+      "ChessArena"
+    ],
+    "usedBy": []
+  },
+  "apps/GameCenter/pages/ChessArena/store/useChessStore.js": {
+    "name": "useChessStore",
+    "category": "app",
+    "lines": 497,
+    "functions": 18,
+    "hooks": [
+      "useChessStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../../../../services/audio/SoundManager",
+      "../ai/EngineService",
+      "../ai/evaluationParser",
+      "../ai/engineSettings",
+      "../ai/AnalysisManager",
+      "../ai/moveClassification"
+    ],
+    "exports": [
+      "useChessStore"
+    ],
+    "usedBy": [
+      "AnalysisBoard",
+      "index"
+    ]
+  },
   "apps/GameCenter/pages/GameDetails.jsx": {
     "name": "GameDetails",
     "category": "app",
@@ -2598,7 +2772,6 @@
       "useCollectionIndexes"
     ],
     "usedBy": [
-      "CopilotConversation",
       "DatabaseDashboard",
       "DocumentViewer",
       "IndexExplorer",
@@ -4178,7 +4351,7 @@
   "apps/VSCodeApp/components/StatusBar.jsx": {
     "name": "StatusBar",
     "category": "app",
-    "lines": 74,
+    "lines": 73,
     "functions": 1,
     "hooks": [],
     "hooksCount": 0,
@@ -6344,7 +6517,7 @@
   "config/apps.jsx": {
     "name": "apps",
     "category": "config",
-    "lines": 523,
+    "lines": 535,
     "functions": 2,
     "hooks": [],
     "hooksCount": 0,
@@ -6429,7 +6602,7 @@
   "constants/index.js": {
     "name": "index",
     "category": "other",
-    "lines": 365,
+    "lines": 371,
     "functions": 0,
     "hooks": [],
     "hooksCount": 0,
@@ -7218,6 +7391,57 @@
       "useWhatsAppMessageStore"
     ]
   },
+  "services/audio/AudioEngine.js": {
+    "name": "AudioEngine",
+    "category": "service",
+    "lines": 83,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "engine"
+    ],
+    "usedBy": [
+      "SoundManager"
+    ]
+  },
+  "services/audio/SoundManager.js": {
+    "name": "SoundManager",
+    "category": "service",
+    "lines": 64,
+    "functions": 1,
+    "hooks": [
+      "useSystemAudioStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "./AudioEngine",
+      "../../store/useSystemAudioStore"
+    ],
+    "exports": [
+      "soundManager",
+      "playSound"
+    ],
+    "usedBy": [
+      "useChessStore"
+    ]
+  },
+  "services/engine/WorkerManager.js": {
+    "name": "WorkerManager",
+    "category": "service",
+    "lines": 40,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "workerManager"
+    ],
+    "usedBy": [
+      "EngineService"
+    ]
+  },
   "services/geminiPlacementService.js": {
     "name": "geminiPlacementService",
     "category": "service",
@@ -7853,7 +8077,8 @@
       "index",
       "Taskbar",
       "VolumeOSD",
-      "QuickSettings"
+      "QuickSettings",
+      "SoundManager"
     ]
   },
   "store/useThemeStore.js": {

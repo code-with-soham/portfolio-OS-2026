@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, Sparkles, Lightbulb } from 'lucide-react';
 import { useCopilotStore } from '../hooks/useCopilotStore';
 import { useGeneratePlan } from '../api/databaseCopilotApi';
-import { useDatabaseSchema } from '../../MongoDBExplorer/hooks/useDatabaseQueries';
 
 const SUGGESTIONS = [
   "Top 20 Comedy movies",

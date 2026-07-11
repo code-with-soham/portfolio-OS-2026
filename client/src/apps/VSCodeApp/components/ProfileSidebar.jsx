@@ -5,7 +5,8 @@ import { MailRegular, LinkRegular, CheckmarkCircleRegular, ClockRegular } from '
 import { useDataStore } from '../../../store/useDataStore';
 
 export default function ProfileSidebar() {
-  const parsedProfile = useDataStore(s => s.getParsedProfile());
+  const getParsedProfile = useDataStore(s => s.getParsedProfile);
+  const parsedProfile = getParsedProfile();
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText('sohamkundu84@gmail.com');

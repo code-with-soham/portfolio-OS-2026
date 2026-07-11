@@ -1,0 +1,290 @@
+/* Chess Arena Pro - Analysis Board Styling */
+
+.analysis-board {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-bg-desktop, #111111);
+  color: var(--color-text-primary, #ffffff);
+  font-family: var(--font-primary, system-ui, sans-serif);
+  overflow: hidden;
+}
+
+/* 1. Summary Header */
+.analysis-summary {
+  padding: 16px 24px;
+  background-color: rgba(25, 25, 25, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.analysis-header-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.analysis-progress-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.analysis-progress-fill {
+  height: 100%;
+  background: #2196f3;
+  transition: width 0.3s ease;
+}
+
+.analysis-progress-text {
+  font-size: 12px;
+  color: #aaa;
+  text-align: right;
+  margin-top: -8px;
+}
+
+.analysis-accuracy-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.accuracy-card {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accuracy-card.white {
+  border-bottom: 3px solid #eee;
+}
+
+.accuracy-card.black {
+  border-bottom: 3px solid #444;
+}
+
+.acc-score {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.acc-label {
+  font-size: 12px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.acc-tallies {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  background: rgba(255,255,255,0.05);
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.acc-tallies span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: help;
+}
+
+/* 2. Main 3 Columns */
+.analysis-main-cols {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  padding: 24px;
+  gap: 24px;
+  justify-content: center;
+}
+
+.analysis-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.analysis-col.explorer {
+  width: 280px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.analysis-col.board {
+  flex: 1;
+  max-width: 500px;
+  align-items: center;
+  justify-content: center;
+}
+
+.analysis-col.engine {
+  width: 280px;
+  background: rgba(0,0,0,0.3);
+  border: 1px dashed rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Move Explorer */
+.explorer-header {
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.explorer-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.explorer-row {
+  display: flex;
+  padding: 4px 16px;
+  font-size: 13px;
+  color: var(--color-text-secondary, #aaaaaa);
+  align-items: center;
+}
+
+.explorer-row:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.explorer-num {
+  width: 40px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.explorer-move {
+  flex: 1;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s, color 0.2s;
+}
+
+.explorer-move:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.explorer-move.active {
+  background: rgba(33, 150, 243, 0.3);
+  color: #fff;
+  font-weight: 600;
+}
+
+.move-icon {
+  font-size: 12px;
+}
+
+.explorer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  background: rgba(0,0,0,0.5);
+}
+
+.explorer-controls button {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.explorer-controls button:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Engine Coaching Details */
+.analysis-engine-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.ae-stat-large {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  background: rgba(255,255,255,0.05);
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.ae-suggestion {
+  padding: 12px;
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.ae-pv {
+  font-size: 12px;
+  color: #aaa;
+  background: rgba(0,0,0,0.5);
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.ae-pv div {
+  margin-top: 4px;
+  font-family: monospace;
+  color: #fff;
+}
+
+/* 3. Evaluation Graph */
+.analysis-graph {
+  height: 140px;
+  padding: 12px 24px;
+  background: rgba(25, 25, 25, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.graph-tooltip {
+  background: rgba(0,0,0,0.9);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

@@ -4,7 +4,6 @@ import {
   ErrorCircleRegular,
   AlertRegular,
   CheckmarkRegular,
-  WifiRegular,
   PersonAvailableRegular
 } from '@fluentui/react-icons';
 
@@ -37,7 +36,7 @@ export default function StatusBar({ activeFile, splitActiveFile, splitMode, upti
           <ErrorCircleRegular fontSize={12} style={{ marginRight: 4 }} /> 0 Errors
         </div>
         <div className="vscode-status-item" title="Network Connection">
-          <WifiRegular fontSize={12} style={{ color: '#89d185', marginRight: 4 }} /> Connected
+          <CheckmarkRegular fontSize={12} style={{ color: '#89d185', marginRight: 4 }} /> Connected
         </div>
         <div className="vscode-status-item" title="Placement Status">
           <PersonAvailableRegular fontSize={12} style={{ color: '#3794ff', marginRight: 4 }} /> 2027 Placement Ready
