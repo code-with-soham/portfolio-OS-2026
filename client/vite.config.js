@@ -33,7 +33,10 @@ export default defineConfig({
           vendor: ['react', 'react-dom'],
           animation: ['framer-motion'],
           state: ['zustand'],
-          monaco: ['@monaco-editor/react']
+          monaco: ['@monaco-editor/react'],
+          icons: ['@fluentui/react-icons', 'lucide-react', '@iconify/react'],
+          charts: ['recharts'],
+          chess: ['chess.js', 'react-chessboard', 'stockfish.js']
         }
       }
     }

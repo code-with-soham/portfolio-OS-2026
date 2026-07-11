@@ -224,7 +224,8 @@ export default function LockScreen() {
             onChange={(e) => { setPin(e.target.value); setError(false); }}
             style={{
               width: '100%',
-              padding: '12px 40px 12px 16px',
+              minHeight: '48px',
+              padding: '12px 48px 12px 16px',
               borderRadius: '4px',
               border: `2px solid ${error ? '#e81123' : 'transparent'}`,
               background: 'rgba(0,0,0,0.4)',
@@ -243,9 +244,10 @@ export default function LockScreen() {
           />
           <button 
             onClick={handleUnlock}
+            aria-label="Unlock"
             style={{
               position: 'absolute',
-              right: '8px',
+              right: '4px',
               top: '50%',
               transform: 'translateY(-50%)',
               background: 'transparent',
@@ -253,7 +255,12 @@ export default function LockScreen() {
               color: '#fff',
               cursor: 'pointer',
               fontSize: '20px',
-              opacity: 0.8
+              opacity: 0.8,
+              minWidth: '48px',
+              minHeight: '48px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
           >
             ➔
