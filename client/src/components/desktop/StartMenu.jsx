@@ -204,7 +204,9 @@ export default function StartMenu() {
       icon: app.icon,
       type: 'App',
       action: () => {
-        if (app.id === 'aiassistant') {
+        if (app.action) {
+          app.action();
+        } else if (app.id === 'aiassistant') {
           useDesktopStore.getState().toggleAIAssistant();
         } else {
           openWindow(app.id);
@@ -239,7 +241,9 @@ export default function StartMenu() {
       icon: app.icon,
       type: 'App',
       action: () => {
-        if (app.id === 'aiassistant') {
+        if (app.action) {
+          app.action();
+        } else if (app.id === 'aiassistant') {
           useDesktopStore.getState().toggleAIAssistant();
         } else {
           openWindow(app.id);

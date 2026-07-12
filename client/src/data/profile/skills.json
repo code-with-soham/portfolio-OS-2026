@@ -1,0 +1,46 @@
+{
+  "Programming Languages": [
+    { "name": "C++", "level": "Advanced", "icon": "cplusplus" },
+    { "name": "JavaScript", "level": "Advanced", "icon": "javascript" },
+    { "name": "Python", "level": "Intermediate", "icon": "python" }
+  ],
+  "Frontend": [
+    { "name": "HTML5", "level": "Advanced", "icon": "html5" },
+    { "name": "CSS3", "level": "Advanced", "icon": "css3" },
+    { "name": "Tailwind CSS", "level": "Advanced", "icon": "tailwindcss" },
+    { "name": "React.js", "level": "Advanced", "icon": "react" },
+    { "name": "Zustand", "level": "Intermediate", "icon": "state" }
+  ],
+  "Backend": [
+    { "name": "Node.js", "level": "Intermediate", "icon": "nodejs" },
+    { "name": "Express.js", "level": "Intermediate", "icon": "express" },
+    { "name": "REST APIs", "level": "Advanced", "icon": "api" },
+    { "name": "JWT Authentication", "level": "Intermediate", "icon": "security" },
+    { "name": "MVC Architecture", "level": "Advanced", "icon": "architecture" }
+  ],
+  "Database": [
+    { "name": "MongoDB", "level": "Intermediate", "icon": "mongodb" },
+    { "name": "MySQL", "level": "Intermediate", "icon": "mysql" }
+  ],
+  "Core CS": [
+    { "name": "DSA", "level": "Advanced", "icon": "algorithm" },
+    { "name": "OOP", "level": "Advanced", "icon": "object" },
+    { "name": "DBMS", "level": "Intermediate", "icon": "database" },
+    { "name": "Operating Systems", "level": "Intermediate", "icon": "os" },
+    { "name": "Computer Networks", "level": "Intermediate", "icon": "network" }
+  ],
+  "Tools": [
+    { "name": "Git", "level": "Advanced", "icon": "git" },
+    { "name": "GitHub", "level": "Advanced", "icon": "github" },
+    { "name": "Docker", "level": "Beginner", "icon": "docker" },
+    { "name": "Postman", "level": "Intermediate", "icon": "postman" },
+    { "name": "VS Code", "level": "Advanced", "icon": "vscode" }
+  ],
+  "AI / GenAI": [
+    { "name": "Prompt Engineering", "level": "Advanced", "icon": "prompt" },
+    { "name": "Gemini API", "level": "Intermediate", "icon": "gemini" },
+    { "name": "Groq API", "level": "Intermediate", "icon": "api" },
+    { "name": "LLM Fundamentals", "level": "Intermediate", "icon": "brain" },
+    { "name": "RAG Fundamentals", "level": "Beginner", "icon": "search" }
+  ]
+}

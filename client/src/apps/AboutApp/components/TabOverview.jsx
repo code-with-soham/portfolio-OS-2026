@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { SparkleRegular, DocumentRegular, AppFolderRegular, CodeRegular, AddRegular } from '@fluentui/react-icons';
+import { availability } from '../../../data/profile';
 
 export default function TabOverview({ profile }) {
   if (!profile) return null;
@@ -16,53 +17,37 @@ export default function TabOverview({ profile }) {
         {/* Quick Stats */}
         <div className="overview-section stats-grid">
           <div className="stat-card">
-            <span className="stat-value">12+</span>
+            <span className="stat-value">3+</span>
             <span className="stat-label">Projects</span>
           </div>
           <div className="stat-card">
-            <span className="stat-value">35+</span>
+            <span className="stat-value">25+</span>
             <span className="stat-label">Skills</span>
           </div>
           <div className="stat-card">
-            <span className="stat-value">500+</span>
-            <span className="stat-label">GitHub</span>
+            <span className="stat-value">2+</span>
+            <span className="stat-label">Years Exp</span>
           </div>
           <div className="stat-card">
-            <span className="stat-value">7 Layers</span>
-            <span className="stat-label">Architecture</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-value">40+</span>
-            <span className="stat-label">AI Features</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-value">92%</span>
-            <span className="stat-label">Portfolio Health</span>
+            <span className="stat-value">1</span>
+            <span className="stat-label">Internship</span>
           </div>
         </div>
 
         <div className="overview-two-col">
           {/* Profile Completion & Health */}
           <div className="overview-section">
-            <h3 className="section-title">Profile Strength</h3>
-            <div className="progress-bar-container">
-              <div className="progress-bar-fill" style={{ width: '92%' }}></div>
-            </div>
-            <p className="progress-text">92% Complete</p>
-            
-            <div className="health-metrics mt-4">
-              <div className="health-row"><span>Documentation</span> <span>95%</span></div>
-              <div className="health-row"><span>Projects</span> <span>100%</span></div>
-              <div className="health-row"><span>GitHub</span> <span>90%</span></div>
-              <div className="health-row"><span>Resume</span> <span>100%</span></div>
-            </div>
+            <h3 className="section-title">Career Objective</h3>
+            <p className="progress-text" style={{ lineHeight: '1.6', fontSize: '0.95rem' }}>
+              {profile.overview.careerObjective}
+            </p>
           </div>
 
           {/* AI Summary */}
           <div className="overview-section ai-summary-card">
-            <h3 className="section-title"><SparkleRegular color="#F1C40F" /> AI Summary</h3>
+            <h3 className="section-title"><SparkleRegular color="#F1C40F" /> Overview</h3>
             <p className="ai-summary-text">
-              {profile.bio}
+              {profile.overview.summary}
             </p>
           </div>
         </div>
@@ -73,20 +58,20 @@ export default function TabOverview({ profile }) {
             <h3 className="section-title">Availability</h3>
             <ul className="availability-list">
               <li>
-                <span className="check">{profile.availableForHire ? '✔' : '❌'}</span> Available for Hire
+                <span className="check">✔</span> Status: {availability.status}
               </li>
-              <li><span className="check">✔</span> Full-time</li>
-              <li><span className="check">✔</span> Remote</li>
+              {availability.workType.map((type, i) => (
+                <li key={i}><span className="check">✔</span> {type}</li>
+              ))}
             </ul>
           </div>
           
           <div className="overview-section">
-            <h3 className="section-title">Activity Feed</h3>
+            <h3 className="section-title">Areas of Interest</h3>
             <ul className="activity-list">
-              <li><AddRegular /> Added Weather Pro</li>
-              <li><AddRegular /> Architecture Explorer</li>
-              <li><AddRegular /> Recruiter Dashboard</li>
-              <li><AddRegular /> Voice Copilot</li>
+              {profile.overview.areasOfInterest.map((area, i) => (
+                <li key={i}><AddRegular /> {area}</li>
+              ))}
             </ul>
           </div>
         </div>

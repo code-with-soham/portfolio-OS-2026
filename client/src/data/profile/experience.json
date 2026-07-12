@@ -1,0 +1,19 @@
+[
+  {
+    "id": "exp-1",
+    "role": "Frontend Developer Intern",
+    "company": "Expantra Tech Pvt Ltd",
+    "type": "Internship",
+    "location": "Kolkata, West Bengal",
+    "workModel": "On-site",
+    "startDate": "Aug 2025",
+    "endDate": "Dec 2025",
+    "responsibilities": [
+      "Developed responsive React.js interfaces using Tailwind CSS.",
+      "Collaborated with the development team using Git & GitHub.",
+      "Participated in debugging and deployment activities."
+    ],
+    "technologies": ["React.js", "Tailwind CSS", "Git", "GitHub"],
+    "link": "#"
+  }
+]

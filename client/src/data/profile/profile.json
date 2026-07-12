@@ -1,0 +1,26 @@
+{
+  "name": "Soham Kundu",
+  "title": "Full Stack Developer & AI Enthusiast",
+  "overview": {
+    "careerObjective": "To leverage my skills in full-stack development and AI to build scalable, high-performance applications that solve real-world problems.",
+    "currentStatus": "Student / Developer",
+    "yearsOfLearning": "2+ Years",
+    "areasOfInterest": ["Frontend Development", "Full Stack Development", "Generative AI", "Web Architecture"],
+    "summary": "Passionate developer with a strong foundation in modern web technologies, specializing in React, Node.js, and GenAI integrations. I build deterministic and high-performance applications."
+  },
+  "contact": {
+    "phone": "+91 8016422891",
+    "email": "sohamkundu107@gmail.com",
+    "location": "Jhargram, West Bengal, India"
+  },
+  "social": {
+    "github": "https://github.com/code-with-soham",
+    "linkedin": "https://linkedin.com/in/code-with-soham",
+    "portfolio": "https://portfolio-os-2026.vercel.app/"
+  },
+  "seo": {
+    "title": "Portfolio OS 2026 | Soham Kundu",
+    "description": "Portfolio OS 2026 — A Windows 11-inspired interactive portfolio by Soham Kundu",
+    "keywords": "Soham Kundu, Portfolio, Web Developer, Full Stack, Windows 11 Clone, OS Portfolio, React Developer"
+  }
+}

@@ -1,0 +1,13 @@
+# Portfolio OS 2026 - LLMs Overview
+
+Welcome to Portfolio OS 2026 by Soham Kundu! This is a Windows 11-inspired interactive portfolio designed for both humans and AI agents.
+
+## Quick Links
+- [Main Website](https://portfolio-os-2026.vercel.app/)
+- [Sitemap](https://portfolio-os-2026.vercel.app/sitemap.xml)
+
+## Technical Architecture
+- React / Vite
+- Zustand State Management
+- Framer Motion
+- Web Workers for AI services

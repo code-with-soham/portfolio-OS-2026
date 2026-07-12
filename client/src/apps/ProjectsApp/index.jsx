@@ -5,8 +5,7 @@
 // Fetches from /api/projects.
 
 import { useState, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { projectService } from '../../services/projectService';
+import { projects } from '../../data/profile';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useUIStore } from '../../store/useUIStore';
 import { useWindowStore } from '../../store/useWindowStore';
@@ -25,17 +24,6 @@ export default function ProjectsApp() {
   const { setInputFocused } = useUIStore();
   const openWindow = useWindowStore((s) => s.openWindow);
 
-  const {
-    data: projects,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery({
-    queryKey: ['projects'],
-    queryFn: projectService.getProjects,
-    staleTime: 5 * 60 * 1000,
-  });
-
   // Filter projects
   const filtered = useMemo(() => {
     if (!projects) return [];
@@ -44,19 +32,19 @@ export default function ProjectsApp() {
         !debouncedSearch ||
         p.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
         p.description.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-        p.techStack.some((t) =>
+        (p.technologies && p.technologies.some((t) =>
           t.toLowerCase().includes(debouncedSearch.toLowerCase())
-        );
+        ));
 
-      const matchesCategory =
-        category === 'All' || p.category === category;
+      // Simple mock category check if we don't have category in JSON
+      const matchesCategory = category === 'All'; // Or implement logic to map categories
 
       return matchesSearch && matchesCategory;
     });
-  }, [projects, debouncedSearch, category]);
+  }, [debouncedSearch, category]);
 
   return (
-    <AppShell isLoading={isLoading} error={error} onRetry={refetch}>
+    <AppShell>
       <div className="projects-app">
         {/* Search & Filter */}
         <div className="projects-filter-bar">
@@ -136,7 +124,7 @@ export default function ProjectsApp() {
                 <p className="project-card-desc">{project.description}</p>
 
                 <div className="project-tech-tags">
-                  {project.techStack.map((tech) => (
+                  {project.technologies && project.technologies.map((tech) => (
                     <span key={tech} className="project-tech-tag">
                       {tech}
                     </span>
@@ -158,20 +146,20 @@ export default function ProjectsApp() {
                   >
                     👨‍💻 View Source
                   </button>
-                  {project.liveUrl && (
+                  {project.live && project.live !== '#' && (
                     <a
                       className="project-action-btn"
-                      href={project.liveUrl}
+                      href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       🔗 Live
                     </a>
                   )}
-                  {project.githubUrl && (
+                  {project.github && project.github !== '#' && (
                     <a
                       className="project-action-btn"
-                      href={project.githubUrl}
+                      href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

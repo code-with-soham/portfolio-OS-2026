@@ -1,0 +1,266 @@
+.minesweeper-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  padding: 24px;
+  background-color: var(--color-bg-desktop);
+  color: var(--color-text-primary);
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.minesweeper-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  background: var(--color-bg-surface);
+  padding: 16px 32px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.minesweeper-controls {
+  display: flex;
+  gap: 16px;
+}
+
+.minesweeper-select {
+  padding: 8px 16px;
+  background: var(--color-bg-surface-hover);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.minesweeper-select:hover {
+  border-color: var(--color-accent);
+}
+
+.minesweeper-select:focus {
+  border-color: var(--color-accent);
+}
+
+.minesweeper-hud {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  border: inset 2px rgba(255, 255, 255, 0.05);
+}
+
+.minesweeper-counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #000;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  border: inset 2px rgba(255, 255, 255, 0.1);
+  min-width: 80px;
+  justify-content: center;
+}
+
+.counter-icon {
+  font-size: 1.2rem;
+}
+
+.counter-text {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ef4444; /* digital red */
+  text-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+  letter-spacing: 2px;
+}
+
+.minesweeper-face {
+  font-size: 2rem;
+  background: var(--color-bg-surface-hover);
+  border: 2px outset rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  transition: all 0.1s;
+}
+
+.minesweeper-face:active {
+  border-style: inset;
+  transform: scale(0.95);
+}
+
+.minesweeper-board-wrapper {
+  padding: 16px;
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+}
+
+.minesweeper-board {
+  display: grid;
+  gap: 2px;
+  background: var(--color-border);
+  padding: 2px;
+  border: inset 3px rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  user-select: none;
+}
+
+.mine-cell {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+  font-family: sans-serif;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.mine-cell.hidden {
+  background: var(--color-bg-surface-hover);
+  border: 3px outset rgba(255, 255, 255, 0.1);
+}
+
+.mine-cell.hidden:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mine-cell.hidden:active {
+  border-style: inset;
+  background: var(--color-bg-surface);
+}
+
+.mine-cell.revealed {
+  background: var(--color-bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+}
+
+.mine-cell.revealed.mine {
+  background-color: rgba(239, 68, 68, 0.2); /* light red */
+}
+
+.mine-cell.flagged {
+  /* color handles emoji usually, but if needed */
+}
+
+/* Animations for Game Over / Win */
+.minesweeper-board.game-over .mine-cell.revealed.mine {
+  animation: explode 0.5s ease-out;
+}
+
+@keyframes explode {
+  0% { transform: scale(1); background-color: #ef4444; }
+  50% { transform: scale(1.2); background-color: #ffed4a; }
+  100% { transform: scale(1); background-color: rgba(239, 68, 68, 0.2); }
+}
+
+.minesweeper-board.game-won .mine-cell.hidden {
+  animation: win-pulse 1s infinite alternate;
+}
+
+@keyframes win-pulse {
+  from { box-shadow: 0 0 5px var(--color-accent); }
+  to { box-shadow: 0 0 15px var(--color-accent); }
+}
+
+/* Overlays */
+.minesweeper-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.minesweeper-dialog {
+  padding: 32px 48px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  border: 1px solid var(--color-border);
+}
+
+.minesweeper-dialog h2 {
+  font-size: 2rem;
+  margin: 0 0 16px 0;
+  color: var(--color-text-primary);
+}
+
+.minesweeper-dialog p {
+  font-size: 1.2rem;
+  margin: 0 0 24px 0;
+  color: var(--color-text-secondary);
+}
+
+.minesweeper-btn {
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.minesweeper-btn.primary {
+  background: var(--color-accent);
+  color: white;
+}
+
+.minesweeper-btn.primary:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--color-accent-rgb), 0.3);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .mine-cell {
+    width: 24px;
+    height: 24px;
+    font-size: 0.9rem;
+  }
+  
+  .minesweeper-header {
+    padding: 12px;
+  }
+  
+  .minesweeper-hud {
+    gap: 12px;
+    padding: 8px;
+  }
+}

@@ -181,7 +181,7 @@ export default function Taskbar() {
     }
   };
 
-  const pinnedAppIds = ['mypc', 'about', 'projects', 'skills', 'terminal', 'resume', 'fileexplorer', 'settings', 'placementprep'];
+  const pinnedAppIds = ['about', 'projects', 'resume', 'contact', 'vscode', 'terminal', 'github', 'linkedin'];
 
   const handleWindowClick = (win) => {
     if (win.isMinimized) {
@@ -331,7 +331,9 @@ export default function Taskbar() {
               key={`pinned-${id}`}
               id={`taskbar-pin-${id}`}
               onClick={() => {
-                if (openWin) {
+                if (app.action) {
+                  app.action();
+                } else if (openWin) {
                   handleWindowClick(openWin);
                 } else {
                   openWindow(id);

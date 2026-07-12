@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { profileService } from '../../../services/profileService';
-import { timelineService } from '../../../services/timelineService';
-import { skillService } from '../../../services/skillService';
+import { profile, experience, education, skills, achievements } from '../../../data/profile';
 import AboutSidebar from './AboutSidebar';
 import AboutContent from './AboutContent';
 import AboutStatusBar from './AboutStatusBar';
@@ -12,15 +9,14 @@ export default function AboutShell() {
   const [activeTab, setActiveTab] = useState('overview');
   console.log('AboutShell mounted');
 
-  const { data: profile } = useQuery({ queryKey: ['profile'], queryFn: profileService.getProfile });
-  const { data: timeline } = useQuery({ queryKey: ['timeline'], queryFn: timelineService.getTimeline });
-  const { data: skills } = useQuery({ queryKey: ['skills'], queryFn: skillService.getSkills });
+  // Combine experience and education for the timeline
+  const timeline = { experience, education, achievements };
 
   return (
     <div className="about-shell">
       <div className="about-shell-body">
         <AboutSidebar activeTab={activeTab} setActiveTab={setActiveTab} profile={profile} />
-        <AboutContent activeTab={activeTab} profile={profile} timeline={timeline} skills={skills} />
+        <AboutContent activeTab={activeTab} profile={profile} timeline={timeline} skills={skills} achievements={achievements} />
       </div>
       <AboutStatusBar />
     </div>

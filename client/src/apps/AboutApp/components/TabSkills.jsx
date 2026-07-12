@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 
 export default function TabSkills({ skills }) {
-  const data = skills || [];
+  if (!skills) return null;
 
   return (
     <motion.div 
@@ -11,11 +11,11 @@ export default function TabSkills({ skills }) {
       exit={{ opacity: 0, x: -20 }}
     >
       <div className="skills-grid">
-        {data.map(group => (
-          <div key={group.category} className="skill-category-card">
-            <h3 className="skill-category-title">{group.category}</h3>
+        {Object.entries(skills).map(([category, items]) => (
+          <div key={category} className="skill-category-card">
+            <h3 className="skill-category-title">{category}</h3>
             <div className="skill-items">
-              {group.items.map(skill => (
+              {items.map(skill => (
                 <span key={skill.name || skill} className="skill-badge">{skill.name || skill}</span>
               ))}
             </div>

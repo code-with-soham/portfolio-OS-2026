@@ -377,7 +377,9 @@ export default function Desktop() {
                 label={app.label}
                 icon={currentIcon}
                 onDoubleClick={(e) => {
-                  if (app.id === 'aiassistant') {
+                  if (app.action) {
+                    app.action();
+                  } else if (app.id === 'aiassistant') {
                     toggleAIAssistant();
                   } else {
                     openWindow(app.id);

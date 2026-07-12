@@ -1,0 +1,29 @@
+[
+  {
+    "id": "ach-1",
+    "title": "Top 10 Finalist",
+    "issuer": "NEXATHON 1.0",
+    "year": "2025",
+    "certificate": "#",
+    "icon": "trophy",
+    "description": "Recognized among the top 10 finalists out of numerous participating teams in a national-level hackathon."
+  },
+  {
+    "id": "ach-2",
+    "title": "Participant",
+    "issuer": "Smart India Hackathon (SIH)",
+    "year": "2025",
+    "certificate": "#",
+    "icon": "code",
+    "description": "Participated in the world's biggest open innovation model, solving complex problem statements."
+  },
+  {
+    "id": "ach-3",
+    "title": "Coding & Programming Certification",
+    "issuer": "Samsung Innovation Campus",
+    "year": "2024",
+    "certificate": "#",
+    "icon": "certificate",
+    "description": "Successfully completed comprehensive training in advanced coding and software development concepts."
+  }
+]

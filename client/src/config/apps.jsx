@@ -14,6 +14,7 @@ const AboutApp = lazy(() => import('../apps/AboutApp/index'));
 const ProjectsApp = lazy(() => import('../apps/ProjectsApp/index'));
 const SkillsApp = lazy(() => import('../apps/SkillsApp/index'));
 const ResumeApp = lazy(() => import('../apps/ResumeApp/index'));
+const ContactApp = lazy(() => import('../apps/ContactApp/index'));
 const TerminalApp = lazy(() => import('../apps/TerminalApp/index'));
 const FileExplorerApp = lazy(() => import('../apps/FileExplorerApp/index'));
 const SettingsApp = lazy(() => import('../apps/SettingsApp/index'));
@@ -38,6 +39,7 @@ const PortfolioHealthApp = lazy(() => import('../apps/PortfolioHealthApp/index')
 const WeatherApp = lazy(() => import('../apps/WeatherApp/index'));
 const WhatsAppApp = lazy(() => import('../apps/WhatsAppApp/index'));
 const SlidingPuzzleApp = lazy(() => import('../apps/SlidingPuzzleApp/index'));
+const MinesweeperApp = lazy(() => import('../apps/MinesweeperApp/index'));
 const PlacementPrepApp = lazy(() => import('../apps/PlacementPrepApp/index'));
 const MongoDBExplorerApp = lazy(() => import('../apps/MongoDBExplorer/index'));
 const MongoPlaygroundApp = lazy(() => import('../apps/MongoPlayground/index'));
@@ -154,6 +156,17 @@ export const APPS = {
     category: 'Portfolio',
     version: '1.0.0',
     description: 'View and download resume PDF',
+  },
+  contact: {
+    id: 'contact',
+    title: 'Contact',
+    icon: mailIco,
+    component: withErrorBoundary(ContactApp, 'Contact'),
+    defaultWidth: 700,
+    defaultHeight: 500,
+    category: 'Portfolio',
+    version: '1.0.0',
+    description: 'Get in touch',
   },
   fileexplorer: {
     id: 'fileexplorer',
@@ -429,6 +442,17 @@ export const APPS = {
     category: 'Entertainment',
     version: '1.0.0',
     description: 'A fun Sliding Puzzle Game',
+  },
+  minesweeper: {
+    id: 'minesweeper',
+    title: 'Minesweeper',
+    icon: '💣',
+    component: withErrorBoundary(MinesweeperApp, 'Minesweeper'),
+    defaultWidth: 600,
+    defaultHeight: 650,
+    category: 'Entertainment',
+    version: '1.0.0',
+    description: 'Classic Minesweeper Game',
   },
   placementprep: {
     id: 'placementprep',

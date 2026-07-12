@@ -1,0 +1,56 @@
+[
+  {
+    "title": "CampusHub",
+    "subtitle": "University Management System",
+    "description": "A comprehensive digital ecosystem for universities streamlining student-faculty interactions and resource management.",
+    "problemSolved": "Replaced fragmented communication and paper-based tracking with a unified digital platform.",
+    "features": [
+      "Real-time announcements and notifications",
+      "Digital assignment submission and grading",
+      "Resource sharing repository",
+      "Role-based access control (Admin, Faculty, Student)"
+    ],
+    "technologies": ["React.js", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+    "github": "https://github.com/code-with-soham/CampusHub",
+    "live": "#",
+    "thumbnail": "campushub.png",
+    "status": "Completed",
+    "year": "2024"
+  },
+  {
+    "title": "SupportGPT",
+    "subtitle": "AI Customer Support Agent",
+    "description": "An intelligent conversational agent designed to handle Level 1 customer support queries automatically.",
+    "problemSolved": "Reduced human support ticket volume by 40% through automated, context-aware responses.",
+    "features": [
+      "Natural language understanding",
+      "Context-aware conversation history",
+      "Knowledge base vector search (RAG)",
+      "Seamless human handoff protocol"
+    ],
+    "technologies": ["React.js", "Python", "FastAPI", "Gemini API", "Pinecone"],
+    "github": "https://github.com/code-with-soham/SupportGPT",
+    "live": "#",
+    "thumbnail": "supportgpt.png",
+    "status": "Completed",
+    "year": "2025"
+  },
+  {
+    "title": "Portfolio OS",
+    "subtitle": "Windows 11-inspired Interactive Portfolio",
+    "description": "A highly interactive web-based operating system showcasing my software engineering projects and skills.",
+    "problemSolved": "Transformed a static resume into an engaging, interactive engineering showcase.",
+    "features": [
+      "Window management (drag, resize, snap)",
+      "File system simulation",
+      "Integrated AI Assistant (VS-36)",
+      "Real-time state synchronization via Zustand"
+    ],
+    "technologies": ["React.js", "Zustand", "Framer Motion", "Vite"],
+    "github": "https://github.com/code-with-soham/portfolio-OS-2026",
+    "live": "https://portfolio-os-2026.vercel.app/",
+    "thumbnail": "portfolio-os.png",
+    "status": "Maintained",
+    "year": "2026"
+  }
+]

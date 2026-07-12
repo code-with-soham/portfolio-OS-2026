@@ -1,0 +1,38 @@
+[
+  {
+    "id": "edu-1",
+    "institution": "Brainware University",
+    "degree": "Bachelor of Technology",
+    "field": "Computer Science & Engineering",
+    "startDate": "2024",
+    "endDate": "Pursuing",
+    "grade": "SGPA: 9.14"
+  },
+  {
+    "id": "edu-2",
+    "institution": "Bishnupur Public Institute of Engineering",
+    "degree": "Diploma",
+    "field": "Computer Science & Technology",
+    "startDate": "2021",
+    "endDate": "2024",
+    "grade": "CGPA: 8.4"
+  },
+  {
+    "id": "edu-3",
+    "institution": "Belpahari S.C. High School",
+    "degree": "Higher Secondary",
+    "field": "Science",
+    "startDate": "2019",
+    "endDate": "2021",
+    "grade": "66.40%"
+  },
+  {
+    "id": "edu-4",
+    "institution": "Silda Radhacharan Institution",
+    "degree": "Secondary Education",
+    "field": "General",
+    "startDate": "2009",
+    "endDate": "2019",
+    "grade": "68.8%"
+  }
+]

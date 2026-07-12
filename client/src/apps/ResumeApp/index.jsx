@@ -12,21 +12,14 @@ import {
   MailRegular 
 } from '@fluentui/react-icons';
 import { useAnalyticsStore } from '../../store/useAnalyticsStore';
+import { RESUME_URL } from '../../config/constants';
 import './ResumeApp.css';
-
-const RESUME_URL = '/Soham_June_Resume_1_Page.pdf';
 
 export default function ResumeApp() {
   const [showToast, setShowToast] = useState(false);
 
   const handleDownload = () => {
     try { useAnalyticsStore.getState().trackResumeDownload(); } catch(e){}
-    const link = document.createElement('a');
-    link.href = RESUME_URL;
-    link.download = 'Soham_Kundu_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
   };
 
   const handleCopyLink = () => {
@@ -54,30 +47,38 @@ export default function ResumeApp() {
             <span className="resume-summary-icon">💼</span>
             <h3 className="resume-summary-title">Experience</h3>
             <p className="resume-summary-text">
-              2+ years in full-stack development. Freelance projects & personal builds.
+              2+ years in full-stack development. React, Node, AI integrations.
             </p>
           </div>
           <div className="resume-summary-card">
             <span className="resume-summary-icon">⚡</span>
             <h3 className="resume-summary-title">Key Skills</h3>
             <p className="resume-summary-text">
-              React, Node.js, Express, MongoDB, TypeScript, TailwindCSS
+              React, Node.js, Express, MongoDB, Prompt Engineering, Tailwind CSS
             </p>
           </div>
           <div className="resume-summary-card">
             <span className="resume-summary-icon">🎓</span>
             <h3 className="resume-summary-title">Education</h3>
             <p className="resume-summary-text">
-              B.Tech CSE — UEM Kolkata (2024–Present)
+              B.Tech CSE — Brainware University (2024–Present) SGPA: 9.14
             </p>
           </div>
         </div>
 
         {/* Action Bar */}
         <div className="resume-actions">
-          <button className="resume-action-btn primary" onClick={handleDownload}>
-            📥 Download PDF
-          </button>
+          <a 
+            href={RESUME_URL}
+            download="Soham_Kundu_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="resume-action-btn primary" 
+            onClick={handleDownload}
+            style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+          >
+            <ArrowDownloadRegular /> Download PDF
+          </a>
           <button className="resume-action-btn secondary" onClick={handleCopyLink}>
             📋 Copy Link
           </button>

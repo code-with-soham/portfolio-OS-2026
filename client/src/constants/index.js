@@ -123,56 +123,12 @@ import mongodbIco from '../assets/icons/apps/mongodb.svg';
 /**
  * Desktop Applications — the apps shown on desktop and start menu
  * Each app has an id, display label, emoji icon, and description.
- * In Phase 5 these will launch actual window components.
- */
-export const DESKTOP_APPS = [
+ * In Phase 5 these will launch actual window componexport const DESKTOP_APPS = [
   {
     id: 'mypc',
     label: 'My PC',
     icon: pcIco,
     description: 'Computer',
-  },
-  {
-    id: 'user',
-    label: 'User',
-    icon: userIco,
-    description: 'User Folder',
-  },
-  {
-    id: 'downloads',
-    label: 'Downloads',
-    icon: downloadsIco,
-    description: 'Downloads Folder',
-  },
-  {
-    id: 'placementprep',
-    label: 'Placement Prep',
-    icon: aiDashboardIco,
-    description: 'Placement OS',
-  },
-  {
-    id: 'music',
-    label: 'Music',
-    icon: musicIco,
-    description: 'Music Folder',
-  },
-  {
-    id: 'videos',
-    label: 'Videos',
-    icon: videosIco,
-    description: 'Videos Folder',
-  },
-  {
-    id: 'onedrive',
-    label: 'OneDrive',
-    icon: oneDriveIco,
-    description: 'Cloud Storage',
-  },
-  {
-    id: 'controlpanel',
-    label: 'Task Manager',
-    icon: controlPanelIco,
-    description: 'System Monitoring',
   },
   {
     id: 'about',
@@ -187,22 +143,10 @@ export const DESKTOP_APPS = [
     description: 'My work',
   },
   {
-    id: 'architecture',
-    label: 'Architecture Explorer',
-    icon: '🏗️',
-    description: 'Visualize OS layers',
-  },
-  {
     id: 'skills',
     label: 'Skills',
     icon: skillsIco,
     description: 'Tech stack',
-  },
-  {
-    id: 'terminal',
-    label: 'Terminal',
-    icon: terminalIco,
-    description: 'Command line',
   },
   {
     id: 'resume',
@@ -211,22 +155,16 @@ export const DESKTOP_APPS = [
     description: 'Download CV',
   },
   {
-    id: 'fileexplorer',
-    label: 'File Explorer',
-    icon: fileExplorerIco,
-    description: 'Browse files',
+    id: 'contact',
+    label: 'Contact',
+    icon: mailIco,
+    description: 'Get in touch',
   },
   {
-    id: 'settings',
-    label: 'Settings',
-    icon: settingsIco,
-    description: 'Preferences',
-  },
-  {
-    id: 'aboutos',
-    label: 'About OS',
-    icon: aboutOsIco,
-    description: 'System info',
+    id: 'terminal',
+    label: 'Terminal',
+    icon: terminalIco,
+    description: 'Command line',
   },
   {
     id: 'vscode',
@@ -235,88 +173,36 @@ export const DESKTOP_APPS = [
     description: 'Code Editor',
   },
   {
+    id: 'fileexplorer',
+    label: 'File Explorer',
+    icon: fileExplorerIco,
+    description: 'Browse files',
+  },
+  {
     id: 'browser',
     label: 'Browser',
     icon: browserIco,
     description: 'Web Browser',
   },
   {
-    id: 'weather',
-    label: 'Weather',
-    icon: '🌤️',
-    description: 'Weather Pro',
+    id: 'github',
+    label: 'GitHub',
+    icon: '🐙',
+    description: 'GitHub Profile',
+    action: () => window.open('https://github.com/code-with-soham', '_blank')
   },
   {
-    id: 'mail',
-    label: 'Mail',
-    icon: mailIco,
-    description: 'Email Client',
+    id: 'linkedin',
+    label: 'LinkedIn',
+    icon: '🔗',
+    description: 'LinkedIn Profile',
+    action: () => window.open('https://linkedin.com/in/code-with-soham', '_blank')
   },
   {
-    id: 'photos',
-    label: 'Photos',
-    icon: photosIco,
-    description: 'Gallery',
-  },
-  {
-    id: 'calculator',
-    label: 'Calculator',
-    icon: calculatorIco,
-    description: 'Scientific Calculator',
-  },
-  {
-    id: 'notepad',
-    label: 'Notepad',
-    icon: documentIco,
-    description: 'Text Editor',
-  },
-  {
-    id: 'calendar',
-    label: 'Calendar',
-    icon: calendarIco,
-    description: 'Manage Events',
-  },
-  {
-    id: 'paint',
-    label: 'Paint',
-    icon: paintIco,
-    description: 'Create drawings',
-  },
-  {
-    id: 'recyclebin',
-    label: 'Recycle Bin',
-    icon: recycleBinIco,
-    description: 'Contains deleted files',
-  },
-  {
-    id: 'aiassistant',
-    label: 'AI Assistant',
-    icon: aiAssistantIco,
-    description: 'Portfolio AI Assistant',
-  },
-  {
-    id: 'aidashboard',
-    label: 'AI Dashboard',
-    icon: aiDashboardIco,
-    description: 'AI Expert Analytics',
-  },
-  {
-    id: 'whatsapp',
-    label: 'WhatsApp',
-    icon: whatsappIco,
-    description: 'Real-time Chat',
-  },
-  {
-    id: 'slidingpuzzle',
-    label: 'Puzzle Game',
-    icon: '🧩',
-    description: 'Sliding Puzzle Game',
-  },
-  {
-    id: 'mongodbexplorer',
-    label: 'MongoDB Atlas Explorer AI',
-    icon: mongodbIco,
-    description: 'AI Database Client',
+    id: 'settings',
+    label: 'Settings',
+    icon: settingsIco,
+    description: 'Preferences',
   },
   {
     id: 'gamecenter',
@@ -329,7 +215,7 @@ export const DESKTOP_APPS = [
     label: 'Chess Arena Pro',
     icon: '♟️',
     description: 'Premium Chess App',
-  },
+  }
 ];
 
 /**

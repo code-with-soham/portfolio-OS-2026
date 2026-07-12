@@ -20,6 +20,7 @@ import Desktop from './pages/Desktop';
 import ShutdownScreen from './pages/ShutdownScreen';
 
 import MobileOS from './mobile/MobileOS';
+import SEOMetadata from './components/common/SEOMetadata';
 import { useState, useEffect } from 'react';
 
 /**
@@ -55,6 +56,7 @@ function App() {
         position: 'relative',
       }}
     >
+      <SEOMetadata />
       <AnimatePresence mode="wait">
         {isMobile ? (
           <MobileOS key="mobile" />
