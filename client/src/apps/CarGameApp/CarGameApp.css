@@ -1,0 +1,779 @@
+/* ============================================
+   Car Experience — CSS Styles
+   Premium Glassmorphism + Layered UI
+============================================ */
+
+.car-game-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #050505; /* Black behind canvas */
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: #fff;
+  user-select: none;
+}
+
+.car-canvas-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.car-scene-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ============================================
+   Developer & Asset Tools
+============================================ */
+.car-dev-custom-stats {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 11px;
+  color: #fff;
+  z-index: 9999;
+  backdrop-filter: blur(10px);
+}
+
+.car-dev-stat {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 4px;
+}
+.car-dev-stat span:first-child { color: #888; }
+.car-dev-stat span:last-child { color: #4ade80; }
+
+.car-asset-inspector {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  width: 280px;
+  background: rgba(10, 10, 15, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px;
+  border-radius: 12px;
+  z-index: 9999;
+}
+
+.car-asset-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.car-asset-header h4 {
+  margin: 0;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.car-badge {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  color: #aaa;
+}
+
+.car-asset-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+.car-asset-row span:first-child { color: #888; }
+.car-asset-row span:last-child { color: #ddd; font-family: monospace; }
+.car-asset-good { color: #4ade80 !important; }
+
+/* ============================================
+   Updated Car Cards
+============================================ */
+.car-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.car-class-badge-small {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #000;
+}
+.car-card-year {
+  font-size: 11px;
+  color: #888;
+}
+.car-card-brand {
+  font-size: 12px;
+  color: #aaa;
+  margin: 4px 0 12px 0;
+}
+.car-card-stats-mini {
+  display: flex;
+  gap: 8px;
+}
+.car-card-stat-pill {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  color: #ccc;
+}
+
+.car-ui-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none; /* Let clicks pass to 3D by default */
+}
+
+/* Enable pointer events only on interactive UI children */
+.car-ui-layer > div {
+  pointer-events: auto;
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================
+   Glassmorphism Base Classes
+============================================ */
+.glass-panel {
+  background: rgba(15, 15, 20, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add a subtle noise overlay to glass panels for premium feel */
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.car-glass-btn {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.car-glass-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.car-glass-btn:active {
+  transform: translateY(0);
+}
+
+.car-glass-btn.primary {
+  background: rgba(220, 20, 60, 0.8);
+  border-color: rgba(255, 100, 120, 0.4);
+}
+
+.car-glass-btn.primary:hover {
+  background: rgba(220, 20, 60, 1);
+  box-shadow: 0 0 20px rgba(220, 20, 60, 0.4);
+}
+
+/* ============================================
+   Splash Screen
+============================================ */
+.car-splash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  position: absolute;
+  inset: 0;
+}
+
+.car-splash-content {
+  text-align: center;
+}
+
+.car-splash-logo {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.car-splash-title {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: 12px;
+  margin: 0 0 10px 0;
+  background: linear-gradient(to right, #fff, #888);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.car-splash-subtitle {
+  font-size: 1rem;
+  color: #888;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.car-splash-footer {
+  position: absolute;
+  bottom: 40px;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: #555;
+}
+
+/* ============================================
+   Loading Screen
+============================================ */
+.car-loading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 60px;
+  background: transparent;
+}
+
+.car-loading-content {
+  width: 400px;
+}
+
+.car-loading-bar-track {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.car-loading-bar-fill {
+  height: 100%;
+  background: #fff;
+  box-shadow: 0 0 10px #fff;
+}
+
+.car-loading-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #aaa;
+  letter-spacing: 1px;
+}
+
+/* ============================================
+   Main Menu
+============================================ */
+.car-main-menu {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.car-menu-hero {
+  margin-top: 40px;
+}
+
+.car-menu-car-name {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  letter-spacing: -1px;
+}
+
+.car-menu-car-sub {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin: 5px 0 0 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.car-menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 300px;
+}
+
+.car-menu-btn {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 4px solid transparent;
+  color: #fff;
+  padding: 16px 24px;
+  text-align: left;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.car-menu-btn:hover:not(.disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-left-color: #fff;
+}
+
+.car-menu-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.car-menu-btn-icon {
+  font-size: 1.4rem;
+  opacity: 0.8;
+}
+
+.car-menu-btn-soon {
+  margin-left: auto;
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.car-menu-brand {
+  position: absolute;
+  bottom: 30px;
+  right: 40px;
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+}
+
+/* ============================================
+   Garage UI
+============================================ */
+.car-garage-ui {
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 24px;
+  pointer-events: none; /* Panels re-enable pointer events */
+}
+
+.car-garage-topbar {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: auto;
+}
+
+.car-garage-info {
+  align-self: end;
+  justify-self: start;
+  padding: 30px;
+  width: 400px;
+  pointer-events: auto;
+}
+
+.car-garage-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.car-garage-name {
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.car-class-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.car-garage-meta {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin: 0 0 20px 0;
+}
+
+.car-garage-desc {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #ddd;
+  margin-bottom: 20px;
+}
+
+.car-garage-stars {
+  color: #ffd700;
+  font-size: 1.2rem;
+  margin-bottom: 24px;
+}
+
+.car-garage-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.car-spec-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.car-spec-val {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.car-spec-key {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.car-garage-stats {
+  align-self: end;
+  justify-self: end;
+  padding: 30px;
+  width: 350px;
+  pointer-events: auto;
+}
+
+.car-stats-title {
+  margin: 0 0 24px 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.car-stat-row {
+  margin-bottom: 16px;
+}
+
+.car-stat-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+.car-stat-label {
+  color: #aaa;
+}
+
+.car-stat-value {
+  font-weight: 600;
+}
+
+.car-stat-bar-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.car-stat-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.4), #fff);
+  border-radius: 3px;
+}
+
+/* ============================================
+   Car Selector
+============================================ */
+.car-selector {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.car-selector-topbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.car-selector-title {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: 4px;
+}
+
+.car-selector-count {
+  font-size: 1.2rem;
+  color: #888;
+  font-family: monospace;
+}
+
+.car-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  width: 60px;
+  height: 100px;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.car-nav-arrow:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.car-nav-arrow.left { left: 40px; }
+.car-nav-arrow.right { right: 40px; }
+
+.car-selector-carousel {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.car-carousel-card {
+  width: 180px;
+  background: rgba(15, 15, 20, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.car-carousel-card.active {
+  background: rgba(30, 30, 40, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.car-card-color-swatch {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+
+.car-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.car-card-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.car-card-hp {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.car-card-class {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-weight: 800;
+  opacity: 0.2;
+  font-size: 1.5rem;
+}
+
+.car-selector-detail {
+  position: absolute;
+  bottom: 240px;
+  padding: 20px 40px;
+  text-align: center;
+}
+
+.car-selector-detail h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.8rem;
+}
+
+.car-selector-detail p {
+  color: #aaa;
+  margin: 0 0 20px 0;
+}
+
+/* ============================================
+   Settings Panel
+============================================ */
+.car-settings {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.car-settings-topbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.car-settings-title {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.car-settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  overflow-y: auto;
+  padding-bottom: 40px;
+}
+
+.car-settings-section {
+  padding: 24px;
+}
+
+.car-settings-section-title {
+  margin: 0 0 24px 0;
+  font-size: 1.1rem;
+  color: #ccc;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+}
+
+.car-quality-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.car-quality-btn {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.car-quality-btn.active {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+}
+
+.car-quality-details p {
+  margin: 4px 0;
+  font-size: 0.85rem;
+  color: #888;
+  display: flex;
+  justify-content: space-between;
+}
+
+.car-setting-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.car-setting-label {
+  width: 100px;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.car-setting-slider {
+  flex: 1;
+  accent-color: #fff;
+}
+
+.car-setting-val {
+  width: 40px;
+  text-align: right;
+  font-size: 0.85rem;
+  font-family: monospace;
+}
+
+.toggle-row {
+  justify-content: space-between;
+}
+
+.car-toggle {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #888;
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.car-toggle.on {
+  background: #fff;
+  color: #000;
+}

@@ -613,7 +613,7 @@
   "App.jsx": {
     "name": "App",
     "category": "other",
-    "lines": 87,
+    "lines": 89,
     "functions": 3,
     "hooks": [
       "useDesktopStore",
@@ -632,7 +632,8 @@
       "./pages/LockScreen",
       "./pages/Desktop",
       "./pages/ShutdownScreen",
-      "./mobile/MobileOS"
+      "./mobile/MobileOS",
+      "./components/common/SEOMetadata"
     ],
     "exports": [
       "App"
@@ -665,17 +666,14 @@
   "apps/AboutApp/components/AboutShell.jsx": {
     "name": "AboutShell",
     "category": "app",
-    "lines": 29,
+    "lines": 25,
     "functions": 1,
     "hooks": [
-      "useState",
-      "useQuery"
+      "useState"
     ],
-    "hooksCount": 2,
+    "hooksCount": 1,
     "imports": [
-      "../../../services/profileService",
-      "../../../services/timelineService",
-      "../../../services/skillService",
+      "../../../data/profile",
       "./AboutSidebar",
       "./AboutContent",
       "./AboutStatusBar",
@@ -721,11 +719,14 @@
   "apps/AboutApp/components/HeroCard.jsx": {
     "name": "HeroCard",
     "category": "app",
-    "lines": 58,
+    "lines": 97,
     "functions": 1,
     "hooks": [],
     "hooksCount": 0,
-    "imports": [],
+    "imports": [
+      "../../../../assets/images/profile.jpg",
+      "../../../../config/constants"
+    ],
     "exports": [
       "HeroCard"
     ],
@@ -751,12 +752,10 @@
   "apps/AboutApp/components/TabExperience.jsx": {
     "name": "TabExperience",
     "category": "app",
-    "lines": 58,
+    "lines": 91,
     "functions": 1,
-    "hooks": [
-      "useState"
-    ],
-    "hooksCount": 1,
+    "hooks": [],
+    "hooksCount": 0,
     "imports": [],
     "exports": [
       "TabExperience"
@@ -768,11 +767,13 @@
   "apps/AboutApp/components/TabOverview.jsx": {
     "name": "TabOverview",
     "category": "app",
-    "lines": 98,
+    "lines": 83,
     "functions": 1,
     "hooks": [],
     "hooksCount": 0,
-    "imports": [],
+    "imports": [
+      "../../../data/profile"
+    ],
     "exports": [
       "TabOverview"
     ],
@@ -1730,6 +1731,867 @@
     ],
     "usedBy": []
   },
+  "apps/CarGameApp/Audio/audioManager.js": {
+    "name": "audioManager",
+    "category": "app",
+    "lines": 172,
+    "functions": 1,
+    "hooks": [
+      "useSettingsStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../Store/useSettingsStore",
+      "../Store/useSettingsStore"
+    ],
+    "exports": [
+      "audioManager"
+    ],
+    "usedBy": [
+      "ExperienceDirector",
+      "WorldDirector",
+      "index",
+      "CarSelector"
+    ]
+  },
+  "apps/CarGameApp/Core/CameraDirector.jsx": {
+    "name": "CameraDirector",
+    "category": "app",
+    "lines": 85,
+    "functions": 3,
+    "hooks": [
+      "useRef",
+      "useEffect",
+      "useFrame",
+      "useThree",
+      "useCameraStore",
+      "useSceneStore"
+    ],
+    "hooksCount": 6,
+    "imports": [
+      "../Store/useCameraStore",
+      "../Store/useSceneStore",
+      "../Core/constants",
+      "../Store/useCameraStore",
+      "../Core/constants"
+    ],
+    "exports": [
+      "CameraDirector"
+    ],
+    "usedBy": [
+      "SceneManager"
+    ]
+  },
+  "apps/CarGameApp/Core/constants.js": {
+    "name": "constants",
+    "category": "app",
+    "lines": 173,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "SCENES",
+      "CAMERA_MODES",
+      "CAMERA_SHOTS",
+      "LIGHTING_PROFILES",
+      "INTRO_TIMELINE",
+      "QUALITY_PRESETS",
+      "TRANSITION_DURATION",
+      "SPLASH_DURATION",
+      "LOADING_MIN_DURATION",
+      "AUDIO_CHANNELS",
+      "CAR_CLASSES"
+    ],
+    "usedBy": [
+      "CameraDirector",
+      "ExperienceDirector",
+      "SceneManager",
+      "TransitionManager",
+      "WorldDirector",
+      "GarageEnvironment",
+      "LightingRig",
+      "useCameraStore",
+      "useSceneStore",
+      "useSettingsStore",
+      "CarSelector",
+      "GarageUI",
+      "LoadingScreen",
+      "MainMenu",
+      "SettingsPanel",
+      "SplashScreen",
+      "UIOverlay"
+    ]
+  },
+  "apps/CarGameApp/Core/ExperienceDirector.jsx": {
+    "name": "ExperienceDirector",
+    "category": "app",
+    "lines": 88,
+    "functions": 6,
+    "hooks": [
+      "useEffect",
+      "useRef",
+      "useSceneStore",
+      "useCameraStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../Store/useSceneStore",
+      "../Store/useCameraStore",
+      "../Core/constants",
+      "../Audio/audioManager"
+    ],
+    "exports": [
+      "ExperienceDirector"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/CarGameApp/Core/InputManager.jsx": {
+    "name": "InputManager",
+    "category": "app",
+    "lines": 34,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useSettingsStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../Store/useSettingsStore"
+    ],
+    "exports": [
+      "InputManager"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/CarGameApp/Core/SceneManager.jsx": {
+    "name": "SceneManager",
+    "category": "app",
+    "lines": 51,
+    "functions": 1,
+    "hooks": [
+      "useSceneStore",
+      "useVehicleStore",
+      "useSettingsStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../Engine/ProceduralCar",
+      "../Engine/GarageEnvironment",
+      "../Engine/LightingRig",
+      "../Engine/PostProcessing",
+      "./CameraDirector",
+      "../Store/useSceneStore",
+      "../Store/useVehicleStore",
+      "../Store/useSettingsStore",
+      "../Vehicles/carData",
+      "./constants"
+    ],
+    "exports": [
+      "SceneManager"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/CarGameApp/Core/TransitionManager.jsx": {
+    "name": "TransitionManager",
+    "category": "app",
+    "lines": 70,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useCallback",
+      "useSceneStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../Store/useSceneStore",
+      "./constants"
+    ],
+    "exports": [
+      "TransitionManager"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/CarGameApp/Core/WorldDirector.jsx": {
+    "name": "WorldDirector",
+    "category": "app",
+    "lines": 47,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useWorldStore",
+      "useSceneStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../Store/useWorldStore",
+      "../Store/useSceneStore",
+      "../Core/constants",
+      "../Audio/audioManager"
+    ],
+    "exports": [
+      "WorldDirector"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/CarGameApp/Engine/Canvas3D.jsx": {
+    "name": "Canvas3D",
+    "category": "app",
+    "lines": 30,
+    "functions": 1,
+    "hooks": [
+      "useSettingsStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../Store/useSettingsStore"
+    ],
+    "exports": [
+      "Canvas3D"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/CarGameApp/Engine/CoastalMap.jsx": {
+    "name": "CoastalMap",
+    "category": "app",
+    "lines": 52,
+    "functions": 2,
+    "hooks": [
+      "useRef",
+      "useFrame",
+      "useWorldStore",
+      "useSettingsStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../Store/useWorldStore",
+      "../Store/useSettingsStore",
+      "./RoadNetwork",
+      "./Ocean",
+      "./FoliageInstanced",
+      "./TerrainChunk"
+    ],
+    "exports": [
+      "CoastalMap"
+    ],
+    "usedBy": []
+  },
+  "apps/CarGameApp/Engine/FoliageInstanced.jsx": {
+    "name": "FoliageInstanced",
+    "category": "app",
+    "lines": 71,
+    "functions": 4,
+    "hooks": [
+      "useRef",
+      "useMemo",
+      "useEffect",
+      "useSettingsStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../Store/useSettingsStore"
+    ],
+    "exports": [
+      "FoliageInstanced"
+    ],
+    "usedBy": [
+      "CoastalMap"
+    ]
+  },
+  "apps/CarGameApp/Engine/GarageEnvironment.jsx": {
+    "name": "GarageEnvironment",
+    "category": "app",
+    "lines": 147,
+    "functions": 7,
+    "hooks": [
+      "useRef",
+      "useMemo",
+      "useFrame",
+      "useSettingsStore",
+      "useSceneStore"
+    ],
+    "hooksCount": 5,
+    "imports": [
+      "../Store/useSettingsStore",
+      "../Store/useSceneStore",
+      "../Core/constants"
+    ],
+    "exports": [
+      "GarageEnvironment"
+    ],
+    "usedBy": [
+      "SceneManager"
+    ]
+  },
+  "apps/CarGameApp/Engine/LightingRig.jsx": {
+    "name": "LightingRig",
+    "category": "app",
+    "lines": 98,
+    "functions": 2,
+    "hooks": [
+      "useRef",
+      "useFrame",
+      "useSettingsStore",
+      "useSceneStore"
+    ],
+    "hooksCount": 4,
+    "imports": [
+      "../Store/useSettingsStore",
+      "../Store/useSceneStore",
+      "../Core/constants"
+    ],
+    "exports": [
+      "LightingRig"
+    ],
+    "usedBy": [
+      "SceneManager"
+    ]
+  },
+  "apps/CarGameApp/Engine/Ocean.jsx": {
+    "name": "Ocean",
+    "category": "app",
+    "lines": 38,
+    "functions": 2,
+    "hooks": [
+      "useRef",
+      "useFrame"
+    ],
+    "hooksCount": 2,
+    "imports": [],
+    "exports": [
+      "Ocean"
+    ],
+    "usedBy": [
+      "CoastalMap"
+    ]
+  },
+  "apps/CarGameApp/Engine/PostProcessing.jsx": {
+    "name": "PostProcessing",
+    "category": "app",
+    "lines": 43,
+    "functions": 1,
+    "hooks": [
+      "useSettingsStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../Store/useSettingsStore"
+    ],
+    "exports": [
+      "PostProcessingPipeline"
+    ],
+    "usedBy": [
+      "SceneManager"
+    ]
+  },
+  "apps/CarGameApp/Engine/ProceduralCar.jsx": {
+    "name": "ProceduralCar",
+    "category": "app",
+    "lines": 223,
+    "functions": 5,
+    "hooks": [
+      "useRef",
+      "useMemo",
+      "useFrame"
+    ],
+    "hooksCount": 3,
+    "imports": [],
+    "exports": [
+      "ProceduralCar"
+    ],
+    "usedBy": [
+      "SceneManager"
+    ]
+  },
+  "apps/CarGameApp/Engine/RoadNetwork.jsx": {
+    "name": "RoadNetwork",
+    "category": "app",
+    "lines": 65,
+    "functions": 2,
+    "hooks": [
+      "useMemo",
+      "useSettingsStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../Store/useSettingsStore"
+    ],
+    "exports": [
+      "RoadNetwork"
+    ],
+    "usedBy": [
+      "CoastalMap"
+    ]
+  },
+  "apps/CarGameApp/Engine/TerrainChunk.jsx": {
+    "name": "TerrainChunk",
+    "category": "app",
+    "lines": 51,
+    "functions": 2,
+    "hooks": [
+      "useMemo",
+      "useSettingsStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../Store/useSettingsStore"
+    ],
+    "exports": [
+      "TerrainChunk"
+    ],
+    "usedBy": [
+      "CoastalMap"
+    ]
+  },
+  "apps/CarGameApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 58,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useState"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../../components/app/AppShell",
+      "../../components/app/AppShell",
+      "./Engine/Canvas3D",
+      "./Core/SceneManager",
+      "./Core/TransitionManager",
+      "./Core/ExperienceDirector",
+      "./Core/WorldDirector",
+      "./Core/InputManager",
+      "./UI/UIOverlay",
+      "./CarGameApp.css",
+      "./Audio/audioManager"
+    ],
+    "exports": [
+      "CarGameApp"
+    ],
+    "usedBy": []
+  },
+  "apps/CarGameApp/Store/useAudioStore.js": {
+    "name": "useAudioStore",
+    "category": "app",
+    "lines": 27,
+    "functions": 0,
+    "hooks": [
+      "useAudioStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useAudioStore"
+    ],
+    "usedBy": []
+  },
+  "apps/CarGameApp/Store/useCameraStore.js": {
+    "name": "useCameraStore",
+    "category": "app",
+    "lines": 24,
+    "functions": 0,
+    "hooks": [
+      "useCameraStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../Core/constants"
+    ],
+    "exports": [
+      "useCameraStore"
+    ],
+    "usedBy": [
+      "CameraDirector",
+      "ExperienceDirector",
+      "DeveloperOverlay"
+    ]
+  },
+  "apps/CarGameApp/Store/useSceneStore.js": {
+    "name": "useSceneStore",
+    "category": "app",
+    "lines": 42,
+    "functions": 3,
+    "hooks": [
+      "useSceneStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../Core/constants"
+    ],
+    "exports": [
+      "useSceneStore"
+    ],
+    "usedBy": [
+      "CameraDirector",
+      "ExperienceDirector",
+      "SceneManager",
+      "TransitionManager",
+      "WorldDirector",
+      "GarageEnvironment",
+      "LightingRig",
+      "CarSelector",
+      "DeveloperOverlay",
+      "GarageUI",
+      "LoadingScreen",
+      "MainMenu",
+      "SettingsPanel",
+      "SplashScreen",
+      "UIOverlay"
+    ]
+  },
+  "apps/CarGameApp/Store/useSettingsStore.js": {
+    "name": "useSettingsStore",
+    "category": "app",
+    "lines": 57,
+    "functions": 2,
+    "hooks": [
+      "useSettingsStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../Core/constants"
+    ],
+    "exports": [
+      "useSettingsStore"
+    ],
+    "usedBy": [
+      "audioManager",
+      "InputManager",
+      "SceneManager",
+      "Canvas3D",
+      "CoastalMap",
+      "FoliageInstanced",
+      "GarageEnvironment",
+      "LightingRig",
+      "PostProcessing",
+      "RoadNetwork",
+      "TerrainChunk",
+      "AssetInspector",
+      "DeveloperOverlay",
+      "SettingsPanel"
+    ]
+  },
+  "apps/CarGameApp/Store/useVehicleStore.js": {
+    "name": "useVehicleStore",
+    "category": "app",
+    "lines": 52,
+    "functions": 1,
+    "hooks": [
+      "useVehicleStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../Vehicles/carData"
+    ],
+    "exports": [
+      "useVehicleStore"
+    ],
+    "usedBy": [
+      "SceneManager",
+      "AssetInspector",
+      "CarSelector",
+      "GarageUI",
+      "MainMenu"
+    ]
+  },
+  "apps/CarGameApp/Store/useWorldStore.js": {
+    "name": "useWorldStore",
+    "category": "app",
+    "lines": 35,
+    "functions": 1,
+    "hooks": [
+      "useWorldStore"
+    ],
+    "hooksCount": 1,
+    "imports": [],
+    "exports": [
+      "useWorldStore"
+    ],
+    "usedBy": [
+      "WorldDirector",
+      "CoastalMap"
+    ]
+  },
+  "apps/CarGameApp/UI/AssetInspector.jsx": {
+    "name": "AssetInspector",
+    "category": "app",
+    "lines": 68,
+    "functions": 1,
+    "hooks": [
+      "useSettingsStore",
+      "useVehicleStore",
+      "useThree"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../Store/useSettingsStore",
+      "../Store/useVehicleStore",
+      "../Vehicles/carData"
+    ],
+    "exports": [
+      "AssetInspector"
+    ],
+    "usedBy": [
+      "UIOverlay"
+    ]
+  },
+  "apps/CarGameApp/UI/CarSelector.jsx": {
+    "name": "CarSelector",
+    "category": "app",
+    "lines": 85,
+    "functions": 4,
+    "hooks": [
+      "useVehicleStore",
+      "useSceneStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../Store/useVehicleStore",
+      "../Store/useSceneStore",
+      "../Vehicles/carData",
+      "../Core/constants",
+      "../Audio/audioManager"
+    ],
+    "exports": [
+      "CarSelector"
+    ],
+    "usedBy": [
+      "UIOverlay"
+    ]
+  },
+  "apps/CarGameApp/UI/DeveloperOverlay.jsx": {
+    "name": "DeveloperOverlay",
+    "category": "app",
+    "lines": 33,
+    "functions": 1,
+    "hooks": [
+      "useSettingsStore",
+      "useSceneStore",
+      "useCameraStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../Store/useSettingsStore",
+      "../Store/useSceneStore",
+      "../Store/useCameraStore"
+    ],
+    "exports": [
+      "DeveloperOverlay"
+    ],
+    "usedBy": [
+      "UIOverlay"
+    ]
+  },
+  "apps/CarGameApp/UI/GarageUI.jsx": {
+    "name": "GarageUI",
+    "category": "app",
+    "lines": 150,
+    "functions": 4,
+    "hooks": [
+      "useSpring",
+      "useTransform",
+      "useEffect",
+      "useState",
+      "useSceneStore",
+      "useVehicleStore"
+    ],
+    "hooksCount": 6,
+    "imports": [
+      "../Store/useSceneStore",
+      "../Store/useVehicleStore",
+      "../Vehicles/carData",
+      "../Core/constants"
+    ],
+    "exports": [
+      "GarageUI"
+    ],
+    "usedBy": [
+      "UIOverlay"
+    ]
+  },
+  "apps/CarGameApp/UI/LoadingScreen.jsx": {
+    "name": "LoadingScreen",
+    "category": "app",
+    "lines": 62,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useState",
+      "useSceneStore"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../Store/useSceneStore",
+      "../Core/constants"
+    ],
+    "exports": [
+      "LoadingScreen"
+    ],
+    "usedBy": [
+      "UIOverlay"
+    ]
+  },
+  "apps/CarGameApp/UI/MainMenu.jsx": {
+    "name": "MainMenu",
+    "category": "app",
+    "lines": 81,
+    "functions": 1,
+    "hooks": [
+      "useSceneStore",
+      "useVehicleStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../Store/useSceneStore",
+      "../Store/useVehicleStore",
+      "../Vehicles/carData",
+      "../Core/constants"
+    ],
+    "exports": [
+      "MainMenu"
+    ],
+    "usedBy": [
+      "UIOverlay"
+    ]
+  },
+  "apps/CarGameApp/UI/SettingsPanel.jsx": {
+    "name": "SettingsPanel",
+    "category": "app",
+    "lines": 130,
+    "functions": 2,
+    "hooks": [
+      "useSceneStore",
+      "useSettingsStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../Store/useSceneStore",
+      "../Store/useSettingsStore",
+      "../Core/constants"
+    ],
+    "exports": [
+      "SettingsPanel"
+    ],
+    "usedBy": [
+      "UIOverlay"
+    ]
+  },
+  "apps/CarGameApp/UI/SplashScreen.jsx": {
+    "name": "SplashScreen",
+    "category": "app",
+    "lines": 48,
+    "functions": 3,
+    "hooks": [
+      "useEffect",
+      "useSceneStore"
+    ],
+    "hooksCount": 2,
+    "imports": [
+      "../Store/useSceneStore",
+      "../Core/constants"
+    ],
+    "exports": [
+      "SplashScreen"
+    ],
+    "usedBy": [
+      "UIOverlay"
+    ]
+  },
+  "apps/CarGameApp/UI/UIOverlay.jsx": {
+    "name": "UIOverlay",
+    "category": "app",
+    "lines": 38,
+    "functions": 1,
+    "hooks": [
+      "useSceneStore"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../Store/useSceneStore",
+      "../Core/constants",
+      "./SplashScreen",
+      "./LoadingScreen",
+      "./MainMenu",
+      "./GarageUI",
+      "./CarSelector",
+      "./SettingsPanel",
+      "./DeveloperOverlay",
+      "./AssetInspector"
+    ],
+    "exports": [
+      "UIOverlay"
+    ],
+    "usedBy": [
+      "index"
+    ]
+  },
+  "apps/CarGameApp/Vehicles/carData.js": {
+    "name": "carData",
+    "category": "app",
+    "lines": 125,
+    "functions": 2,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "CARS",
+      "getCarById",
+      "getCarsByClass"
+    ],
+    "usedBy": [
+      "SceneManager",
+      "useVehicleStore",
+      "AssetInspector",
+      "CarSelector",
+      "GarageUI",
+      "MainMenu"
+    ]
+  },
+  "apps/ContactApp/ContactApp.jsx": {
+    "name": "ContactApp",
+    "category": "app",
+    "lines": 7,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "ContactApp"
+    ],
+    "usedBy": []
+  },
+  "apps/ContactApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 116,
+    "functions": 2,
+    "hooks": [
+      "useState"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../components/app/AppShell",
+      "../../data/profile",
+      "./ContactApp.css"
+    ],
+    "exports": [
+      "ContactApp"
+    ],
+    "usedBy": []
+  },
   "apps/ControlPanelApp/index.jsx": {
     "name": "index",
     "category": "app",
@@ -2196,7 +3058,7 @@
   "apps/GameCenter/pages/ChessArena/index.jsx": {
     "name": "index",
     "category": "app",
-    "lines": 432,
+    "lines": 466,
     "functions": 14,
     "hooks": [
       "useEffect",
@@ -2219,7 +3081,7 @@
   "apps/GameCenter/pages/ChessArena/store/useChessStore.js": {
     "name": "useChessStore",
     "category": "app",
-    "lines": 497,
+    "lines": 498,
     "functions": 18,
     "hooks": [
       "useChessStore"
@@ -2428,6 +3290,26 @@
     "usedBy": [
       "index"
     ]
+  },
+  "apps/MinesweeperApp/index.jsx": {
+    "name": "index",
+    "category": "app",
+    "lines": 280,
+    "functions": 14,
+    "hooks": [
+      "useState",
+      "useEffect",
+      "useCallback"
+    ],
+    "hooksCount": 3,
+    "imports": [
+      "../../components/app/AppShell",
+      "./MinesweeperApp.css"
+    ],
+    "exports": [
+      "MinesweeperApp"
+    ],
+    "usedBy": []
   },
   "apps/MongoDBExplorer/components/AIPanel.jsx": {
     "name": "AIPanel",
@@ -3829,21 +4711,20 @@
   "apps/ProjectsApp/index.jsx": {
     "name": "index",
     "category": "app",
-    "lines": 196,
+    "lines": 184,
     "functions": 5,
     "hooks": [
       "useState",
       "useMemo",
-      "useQuery",
       "useDebounce",
       "useUIStore",
       "useWindowStore",
       "useAnalyticsStore",
       "usePresentationStore"
     ],
-    "hooksCount": 8,
+    "hooksCount": 7,
     "imports": [
-      "../../services/projectService",
+      "../../data/profile",
       "../../hooks/useDebounce",
       "../../store/useUIStore",
       "../../store/useWindowStore",
@@ -3907,7 +4788,7 @@
   "apps/ResumeApp/index.jsx": {
     "name": "index",
     "category": "app",
-    "lines": 106,
+    "lines": 107,
     "functions": 5,
     "hooks": [
       "useState",
@@ -3917,6 +4798,7 @@
     "imports": [
       "../../components/app/AppShell",
       "../../store/useAnalyticsStore",
+      "../../config/constants",
       "./ResumeApp.css"
     ],
     "exports": [
@@ -4251,7 +5133,7 @@
   "apps/VSCodeApp/components/ProfileSidebar.jsx": {
     "name": "ProfileSidebar",
     "category": "app",
-    "lines": 154,
+    "lines": 155,
     "functions": 3,
     "hooks": [
       "useDataStore"
@@ -4796,6 +5678,26 @@
       "apps"
     ]
   },
+  "components/common/SEOMetadata.jsx": {
+    "name": "SEOMetadata",
+    "category": "component",
+    "lines": 70,
+    "functions": 3,
+    "hooks": [
+      "useEffect"
+    ],
+    "hooksCount": 1,
+    "imports": [
+      "../../data/profile",
+      "../../config/constants"
+    ],
+    "exports": [
+      "SEOMetadata"
+    ],
+    "usedBy": [
+      "App"
+    ]
+  },
   "components/desktop/AIAssistant.jsx": {
     "name": "AIAssistant",
     "category": "component",
@@ -4950,7 +5852,7 @@
   "components/desktop/StartMenu.jsx": {
     "name": "StartMenu",
     "category": "component",
-    "lines": 646,
+    "lines": 650,
     "functions": 15,
     "hooks": [
       "useDesktopStore",
@@ -5005,7 +5907,7 @@
   "components/desktop/Taskbar.jsx": {
     "name": "Taskbar",
     "category": "component",
-    "lines": 460,
+    "lines": 462,
     "functions": 18,
     "hooks": [
       "useState",
@@ -6517,7 +7419,7 @@
   "config/apps.jsx": {
     "name": "apps",
     "category": "config",
-    "lines": 535,
+    "lines": 571,
     "functions": 2,
     "hooks": [],
     "hooksCount": 0,
@@ -6563,6 +7465,23 @@
       "useWindowStore"
     ]
   },
+  "config/constants.js": {
+    "name": "constants",
+    "category": "config",
+    "lines": 14,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [],
+    "exports": [
+      "RESUME_URL",
+      "AVATAR_STATIC_PATH"
+    ],
+    "usedBy": [
+      "index",
+      "SEOMetadata"
+    ]
+  },
   "config/systemInfo.js": {
     "name": "systemInfo",
     "category": "config",
@@ -6602,7 +7521,7 @@
   "constants/index.js": {
     "name": "index",
     "category": "other",
-    "lines": 371,
+    "lines": 257,
     "functions": 0,
     "hooks": [],
     "hooksCount": 0,
@@ -6683,6 +7602,30 @@
     "usedBy": [
       "terminalCommands",
       "useFileSystemStore"
+    ]
+  },
+  "data/profile/index.js": {
+    "name": "index",
+    "category": "other",
+    "lines": 18,
+    "functions": 0,
+    "hooks": [],
+    "hooksCount": 0,
+    "imports": [
+      "./profile.json",
+      "./projects.json",
+      "./skills.json",
+      "./experience.json",
+      "./education.json",
+      "./achievements.json",
+      "./availability.json"
+    ],
+    "exports": [],
+    "usedBy": [
+      "AboutShell",
+      "TabOverview",
+      "index",
+      "SEOMetadata"
     ]
   },
   "hooks/useDebounce.js": {
@@ -7225,7 +8168,7 @@
   "pages/Desktop.jsx": {
     "name": "Desktop",
     "category": "other",
-    "lines": 449,
+    "lines": 451,
     "functions": 23,
     "hooks": [
       "useEffect",
@@ -7288,7 +8231,7 @@
   "pages/LockScreen.jsx": {
     "name": "LockScreen",
     "category": "other",
-    "lines": 337,
+    "lines": 344,
     "functions": 11,
     "hooks": [
       "useState",
@@ -7485,7 +8428,6 @@
       "profileService"
     ],
     "usedBy": [
-      "AboutShell",
       "index"
     ]
   },
@@ -7502,9 +8444,7 @@
     "exports": [
       "projectService"
     ],
-    "usedBy": [
-      "index"
-    ]
+    "usedBy": []
   },
   "services/skillService.js": {
     "name": "skillService",
@@ -7520,7 +8460,6 @@
       "skillService"
     ],
     "usedBy": [
-      "AboutShell",
       "index"
     ]
   },
@@ -7578,9 +8517,7 @@
     "exports": [
       "timelineService"
     ],
-    "usedBy": [
-      "AboutShell"
-    ]
+    "usedBy": []
   },
   "services/weatherService.js": {
     "name": "weatherService",

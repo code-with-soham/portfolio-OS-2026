@@ -48,6 +48,7 @@ const VectorSearchStudioApp = lazy(() => import('../apps/VectorSearchStudio/inde
 const GameCenterApp = lazy(() => import('../apps/GameCenter/index'));
 const GamePlayerApp = lazy(() => import('../apps/GamePlayerApp/index'));
 const ChessArenaApp = lazy(() => import('../apps/GameCenter/pages/ChessArena/index'));
+const CarGameApp = lazy(() => import('../apps/CarGameApp/index'));
 
 /**
  * Wrap a component in an ErrorBoundary so individual app crashes
@@ -555,4 +556,15 @@ export const APPS = {
     version: '1.0.0',
     description: 'Premium Chess Application',
   },
+  cargame: {
+    id: 'cargame',
+    title: 'Velocity Racing',
+    icon: '🏎️',
+    component: withErrorBoundary(CarGameApp, 'Velocity Racing'),
+    defaultWidth: 1200,
+    defaultHeight: 800,
+    category: 'Entertainment',
+    version: '1.0.0',
+    description: 'AAA Racing Experience',
+  }
 };
